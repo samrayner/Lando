@@ -1,0 +1,44 @@
+body {
+	width: 70%;
+	margin: 30px auto 0;
+	font: 14px/1.2 "Lucida Grande", sans-serif;
+}
+
+body > header h1 {
+	background-color: #eee;
+	border-radius: 10px;
+	padding: 15px 20px;
+	text-shadow: 1px 1px white;
+	text-align: center;
+	font: 24px georgia, "Times New Roman", times, serif;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.slideshow {
+	margin: 30px auto 60px;
+}
+
+article {
+	padding-left: 150px;
+	position: relative;
+}
+
+article footer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 110px;
+	text-align: right;
+}
+
+article footer time {
+	display: block;
+	font-weight: bold;
+}
+
+body > footer {
+	background-color: #eee;
+	padding: 15px 20px;
+	margin-top: 60px;
+}
