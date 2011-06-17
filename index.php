@@ -1,11 +1,18 @@
 <?php
 
+/*
+//if no config file
+if(!file_exists("app/config/config.php")) {
+	//redirect to install
+	return;
+}
+*/
+
 include "app/core/loader.php";
 
 $themeBase = trim_slashes(theme_dir())."/";
 $template = "home.php";
-
-$url = trim_slashes(current_url());
+$url = current_url();
 
 if(preg_match('~^([a-z0-9-_]+)$~', $url, $matches)) {
 	switch($matches[1]) {

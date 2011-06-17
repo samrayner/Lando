@@ -2,8 +2,8 @@
 <body id="home">
 
 <header>
-	<h1><a href="<?= $dp->getSiteRoot() ?>"><?= $dp->getSiteTitle() ?></a></h1>
-	<? $dp->printPageNav() ?>
+	<h1><a href="<?= site_root() ?>"><?= site_title() ?></a></h1>
+	<? //$dp->printPageNav() ?>
 </header>
 
 <section id="primary">

@@ -3,15 +3,14 @@
 
 <head>
 	<meta charset="utf-8" />
-	<meta name="author" content="<?= $dp->getDBName() ?>" />
-	<meta name="description" content="<?= $dp->getSiteDescription() ?>" />
+	<meta name="description" content="<?= site_description() ?>" />
 	
-	<? if(strpos($dp->getUrl(), "/drafts") === 0) echo '<meta name="robots" content="noindex, nofollow" />' ?>
+	<? if(url_segment(1) == "drafts") echo '<meta name="robots" content="noindex, nofollow" />' ?>
 	
-	<title><? if($dp->getTitle()) echo $dp->getTitle()." - " ?><?= $dp->getSiteTitle() ?></title>
+	<title><?= site_title() ?></title>
 	
 	<!-- Default styles -->
-	<link rel="stylesheet" href="<?= $dp->getThemeRoot() ?>/css/screen.css" media="screen" />
+	<link rel="stylesheet" href="<?= theme_dir() ?>/css/screen.css" media="screen" />
 	
 	<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>

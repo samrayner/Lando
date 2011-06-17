@@ -1,9 +1,8 @@
 <?php
 
-Class Lando {
+class Controller {
 	public $config;
-	
-	private $host;
+	private $model;
 	
  /**
 	* Constructor
@@ -12,11 +11,15 @@ Class Lando {
 	*
 	* @param Array $config Configuration variables set in admin/on installation
 	*/	
-	function __construct($config) {
+	function __construct() {
 		//make config available to methods and helper functions
+		global $config;
 		$this->config = $config;
 		
-		$host_class = ucfirst($config["host"])."_Host";
-		$this->host = new $host_class();
+		$this->model = new Model();
+	}
+	
+	public function get_host_account_info() {
+		return $this->model->get_host_account_info();
 	}
 }
