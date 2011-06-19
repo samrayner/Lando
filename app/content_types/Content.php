@@ -1,21 +1,29 @@
 <?php
 
 class Content {
-	protected $title;
+	protected $title = "Untitled";
 	protected $modified;
 	protected $path;
 	protected $revision;
 	
-	protected function info() {
-		//return instance vars as an array
+	public function __construct($data=null) {
+		if($data)
+			$this->import($data);
 	}
 	
-  function __toString()
-  {
-  	//return var_export of info
-  }
+	protected function import($data) {
+		if(!is_array($data))
+			return false;
+		
+		$vars = get_object_vars($this);
+		
+		foreach($data as $var => $value) {
+			if(array_key_exists($var, $vars))
+				$this->$var = $value;
+		}
+	}
 	
-	protected function cache() {
-		//save to cache file
+	public function export() {
+		return get_object_vars($this);
 	}
 }

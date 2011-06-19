@@ -1,21 +1,22 @@
 <?php
 
-//load config file
-include_once "app/config/config.php";
-//load host config
-include_once "app/config/{$config['host']}.php";
-
-//load controller
-include_once "app/core/Controller.php";
-
-//load models
-include_once "app/core/Model.php";
-include_once "app/cloud_hosts/Cloud_Host.php";
-include_once "app/cloud_hosts/{$config['host']}/{$config['host']}.php";
-
 //load all helper functions
 foreach(glob("app/helpers/*.php") as $file)
 	include_once $file;
+
+//load config file
+include_once "app/config/config.php";
+
+//load controller class
+include_once "app/core/Controller.php";
+
+//load cache class
+include_once "app/core/Cache.php";
+
+//load model classes
+include_once "app/core/Model.php";
+include_once "app/cloud_hosts/Cloud_Host.php";
+include_once "app/cloud_hosts/{$config['host']}/{$config['host']}.php";
 
 //load parser base class
 include_once "app/parsers/Parser.php";
@@ -37,8 +38,17 @@ function __autoload($class) {
 		include_once $file;
 }
 
-//provide hook for controller
-$lando = new Controller();
+//create list of parsers with supported formats
+$config["parsers"] = array();
+foreach(glob("app/parsers/*", GLOB_ONLYDIR) as $dir) {
+	$format = basename($dir);
+	$ext_list = @file_get_contents($dir."/extensions.txt");
+	if($ext_list)
+		$config["parsers"][$format] = explode("\n", $ext_list);
+}
 
-//remove config from global scope (now accessible via controller)
+//provide hook for controller
+$Lando = new Controller();
+
+//remove config from global scope
 unset($config);

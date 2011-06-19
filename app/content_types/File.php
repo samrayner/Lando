@@ -1,7 +1,9 @@
 <?php
 
 class File extends Content {
-	protected $format;
+	protected $extension;
+	protected $order;
+	
 	protected $bytes;
 	protected $size;
 	protected $url;

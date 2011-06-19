@@ -1,7 +1,7 @@
 <?php
 
 class Collection extends Content {
-	private $files = array(); //of type File
+	protected $files = array(); //of type File
 	
 	private list_html($limit="0") {
 		//return html

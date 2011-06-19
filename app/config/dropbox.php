@@ -1,8 +1,6 @@
 <?php
 
-$config["oauth_tokens"] = array(
-	"token_key" => "ovma6ptlfugng2m",
-	"token_secret" => "vkghcnzy8xnu4h7"
+$tokens = array(
+	"token_key" => "a6wophsdwfgkh8f",
+	"token_secret" => "ope88kdi1q0epmq"
 );
-
-$config["host_root"] = "/Public";
