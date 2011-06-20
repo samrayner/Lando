@@ -5,15 +5,55 @@ class Image extends File {
 	public $height;
 	public $thumbs;
 	
-	private $thumb_sizes = array(
-		"icon" 	=> array("max_width" => 16, 	"max_height" => 16, 	"id" => "16x16"), 
-		"64" 		=> array("max_width" => 64, 	"max_height" => 64, 	"id" => "64x64"), 
-		"75"		=> array("max_width" => 75, 	"max_height" => 75, 	"id" => "75x75_fit_one"),
-		"150" 	=> array("max_width" => 150, 	"max_height" => 150, 	"id" => "150x150_fit_one"),
-		"s" 		=> array("max_width" => 320, 	"max_height" => 240, 	"id" => "320x240_bestfit"),
-		"m" 		=> array("max_width" => 480, 	"max_height" => 320, 	"id" => "480x320_bestfit"), 
-		"l" 		=> array("max_width" => 640, 	"max_height" => 480, 	"id" => "640x480_bestfit"),
-		"xl" 		=> array("max_width" => 960, 	"max_height" => 640, 	"id" => "960x640_bestfit"),
-		"xxl" 	=> array("max_width" => 1024, "max_height" => 768, 	"id" => "1024x768_bestfit")
-	);
+	public function calc_thumbs() {
+		$thumb_sizes = array(
+			"icon" 	=> array("width" => 16, 	"height" => 16), 
+			"64" 		=> array("width" => 64, 	"height" => 64), 
+			"75"		=> array("width" => 75, 	"height" => 75),
+			"150" 	=> array("width" => 150, 	"height" => 150),
+			"s" 		=> array("width" => 320, 	"height" => 240),
+			"m" 		=> array("width" => 480, 	"height" => 320), 
+			"l" 		=> array("width" => 640, 	"height" => 480),
+			"xl" 		=> array("width" => 960, 	"height" => 640),
+			"xxl" 	=> array("width" => 1024, "height" => 768)
+		);
+		
+		foreach($thumb_sizes as $size => $max) {
+			$this->thumbs[$size] = array();
+			$this->thumbs[$size]["url"] = $this->url."&amp;size=$size";
+			
+			if($w = $this->width and $h = $this->height) {
+				$ratio = $w/$h;
+				
+				switch($size) {
+					//'cover' thumb scaling
+					case "75": case "150":
+						if($w >= $h) { //wide or square
+							$height = $max["height"];
+							$width = $height*$ratio;
+						}
+						if($w < $h) { //tall
+							$width = $max["width"];
+							$height = $width/$ratio;
+						}
+						break;
+					//'contain' thumb scaling
+					default: 
+						$wScale = $max["width"]/$w;
+						
+						if($h*$wScale >= $max["height"]) { //too tall or perfect
+							$height = $max["height"];
+							$width = $height*$ratio;
+						}
+						else { //too wide
+							$width = $max["width"];
+							$height = $width/$ratio;
+						}
+				}
+				
+				$this->thumbs[$size]["width"] = round($width);
+				$this->thumbs[$size]["height"] = round($height);
+			}	
+		}
+	}
 }

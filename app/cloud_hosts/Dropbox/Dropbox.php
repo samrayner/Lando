@@ -4,6 +4,7 @@ require_once "DropLib.php";
 
 class Dropbox extends Cloud_Host {
 	private $API;
+	private $account;
 	
 	public function __construct() {
 		parent::__construct();
@@ -25,6 +26,8 @@ class Dropbox extends Cloud_Host {
 		
 		$this->API = new DropLib($consumer_key, $consumer_secret, $token_key, $token_secret);
 		$this->API->setNoSSLCheck(true); //while developing locally
+		
+		$this->account = $this->API->accountInfo();
 	}
 	
 	private function encode_path($path) {
@@ -33,7 +36,7 @@ class Dropbox extends Cloud_Host {
 	
 	private function get_file_path($meta, $exts=null, $filename="") {
 		if(!$exts)
-			$exts = array_flatten($this->parsers);
+			$exts = array_flatten($this->config["parsers"]);
 		
 		if(!$filename) {
 			//look for '!' prefix
@@ -55,13 +58,13 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function dir_contents($path, $dirs_only=true) {
-		$path = $this->encode_path($path);
+		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
 		$meta = $this->API->metadata($path);
 		
 		$items = array();
 		
 		foreach($meta["contents"] as $item) {
-			if($dirs == $item["is_dir"])
+			if($dirs_only == $item["is_dir"])
 				$items[] = basename($item["path"]);
 		}
 		
@@ -69,12 +72,12 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function get_single($path) {
-		$type = array_shift(explode("/", trim_slashes($path)));
-	
-		$path = $this->encode_path($this->content_root."/$path");
+		$path = trim_slashes($path);
+		$type = array_shift(explode("/", $path));
+		$full_path = $this->encode_path($this->content_root."/$path");
 		
 		try {
-			$meta = $this->API->metadata($path);
+			$meta = $this->API->metadata($full_path);
 		}
 		catch(Exception $e) {
 			return false;
@@ -85,15 +88,8 @@ class Dropbox extends Cloud_Host {
 		
 		if($type != "collections") {
 			$meta["slug"] = basename($meta["path"]);
-			
-			if($type == "pages") {
-				if(preg_match('~^(?<num>\d+)+\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
-					$meta["order"] = $matches["num"];
-					$meta["slug"] = $matches["slug"];
-				}
-			}
 		
-			$main_file = ($type == "snippet") ? $path : $this->get_file_path($meta);
+			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
 			
 			if($main_file) {
 				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($this->encode_path($main_file));
@@ -105,7 +101,7 @@ class Dropbox extends Cloud_Host {
 				$meta["revision"] = $file_meta["revision"];
 				
 				$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
-				$format = parent_key($this->parsers, $meta["extension"]);
+				$format = parent_key($this->config["parsers"], $meta["extension"]);
 				
 				if($meta["raw_content"] && $format) {
 					$parser_class = $format."_Parser";
@@ -113,13 +109,72 @@ class Dropbox extends Cloud_Host {
 					$meta["content"] = $Parser->parse($meta["raw_content"]);
 				}	
 			}
+			
+			if($type == "pages") {
+				if(preg_match('~^(?<num>\d+)+\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
+					$meta["order"] = $matches["num"];
+					$meta["slug"] = $matches["slug"];
+				}
+				
+				//recurse to get subpages
+				foreach($meta["contents"] as $subpage) {
+				
+					if($subpage["is_dir"])
+						$meta["subpages"][] = $this->get_single($path."/".basename($subpage["path"]));
+				}
+			}
 		}
-		else
-			$meta["title"] = basename($meta["path"]); //collection
+		else { //collection
+			$meta["title"] = basename($meta["path"]);
+			
+			$files = array();
+			
+			foreach($meta["contents"] as $file) {
+				if(!$file["is_dir"]) {
+					$file["modified"] = strtotime($file["modified"]);
+					$file["title"] = $this->filename_from_path($file["path"]);
+					$file["extension"] = $this->ext_from_path($file["path"]);
+					$file["url"] = $this->get_file_url($file["path"]);
+					
+					if(preg_match('~^(?<num>\d+)+\.\s*(?<title>.+)$~', $file["title"], $matches)) {
+						$file["order"] = $matches["num"];
+						$file["title"] = $matches["title"];
+					}
+					
+					if(strpos($file["mime_type"], "image") !== false) {
+						if(preg_match('~[^0-9a-z](?<w>[1-9]\d{0,4})x(?<h>[1-9]\d{0,4})(?:\W|$)~i', $file["title"], $matches)) {
+							$file["width"] = $matches["w"];
+							$file["height"] = $matches["h"];
+							$file["title"] = trim(str_replace($matches[0], " ", $file["title"]));
+						}
+						
+						$Image = new Image($file);
+						
+						if($file["thumb_exists"])
+							$Image->calc_thumbs();
+						
+						$files[] = $Image;
+					}
+					else
+						$files[] = new File($file);
+				}
+			}
+			
+			$meta["files"] = $files;
+		}
 		
 		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
 		
 		$item = new $type_class($meta);
 		return $item;
+	}
+	
+	public function get_file_url($path, $try_public=true) {
+		$path = trim_slashes($path);
+	
+		if($try_public and strpos(strtolower($this->content_root), "public/") < 2)
+			return "http://dl.dropbox.com/u/".$this->encode_path($this->account["uid"]."/Lando/".$this->config["site_title"]."/$path");
+		else
+			return $this->config["site_root"]."/get_file.php?file=".urlencode($path);
 	}
 }

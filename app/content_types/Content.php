@@ -11,6 +11,10 @@ class Content {
 			$this->import($data);
 	}
 	
+	public function __toString() {
+		return var_export($this->export(), true);
+	}
+	
 	protected function import($data) {
 		if(!is_array($data))
 			return false;

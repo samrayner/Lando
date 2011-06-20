@@ -10,6 +10,8 @@ class Model {
 		$host_class = str_replace(" ", "_", ucwords($config["host"]));		
 		$this->Host = new $host_class();
 		$this->Cache = new Cache();
+		
+		$this->get_all("pages");
 	}
 	
 	public function get_all($path) {
@@ -24,7 +26,7 @@ class Model {
 		else
 			$dirs_only = true;
 	
-		$names = $this->Host->dir_contents($this->Host->content_root."/$path", $dirs_only);
+		$names = $this->Host->dir_contents($path, $dirs_only);
 		
 		$items = array();
 		
@@ -57,7 +59,7 @@ class Model {
 		
 		$cache_route = array_search_recursive($name, $this->Cache->$type, $name_key, false);
 		
-		if(!$cache_route) {
+		if(!$cache_route) {		
 			$item = $this->Host->get_single($path);
 			
 			if($item)

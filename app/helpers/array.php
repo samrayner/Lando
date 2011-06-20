@@ -2,12 +2,13 @@
 
 //Based on: http://www.php.net/manual/en/function.array-search.php#68424
 function array_search_recursive($needle_val, $haystack, $needle_key=null, $regex=false, $path=array()) {
-  if(!is_array($haystack))
+  if(!is_array($haystack)) {
 		return false;
+	}
 
   foreach($haystack as $key => $val) {
   	if($regex)
-			$val_match = preg_match($needle_val, (string)$val);
+			$val_match = preg_match((string)$needle_val, (string)$val);
 		else
 			$val_match = strtolower((string)$val) === strtolower((string)$needle_val);
 			

@@ -23,8 +23,8 @@ class Cache {
 	public function load() {
 		$types = get_object_vars($this);
 		
-		foreach($types as $file) {
-			$path = "app/cache/".$file.".php";
+		foreach($types as $type => $_) {
+			$path = "app/cache/".$type.".php";
 			if(file_exists($path))
 				include_once $path;
 			

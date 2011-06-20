@@ -6,8 +6,8 @@ abstract class Cloud_Host {
 	
 	public function __construct() {
 		global $config;
+		$this->config = $config;
 		$this->content_root = $config["host_root"]."/".$config["site_title"];
-		$this->parsers = $config["parsers"];
 	}
 
 	protected function filename_from_path($path) {
