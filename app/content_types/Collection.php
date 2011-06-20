@@ -1,17 +1,17 @@
 <?php
 
 class Collection extends Content {
-	protected $files = array(); //of type File
+	public $files = array(); //of type File
 	
-	private list_html($limit="0") {
+	private function list_html($limit="0") {
 		//return html
 	}
 	
-	private gallery_html($size="75", $limit="0") {
+	private function gallery_html($size="75", $limit="0") {
 		//return html
 	}
 
-	private slideshow_html($size="75", $limit="0", $linkImages=false) {
+	private function slideshow_html($size="75", $limit="0", $linkImages=false) {
 		//return html
 	}
 }

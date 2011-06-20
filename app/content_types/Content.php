@@ -1,10 +1,10 @@
 <?php
 
 class Content {
-	protected $title = "Untitled";
-	protected $modified;
-	protected $path;
-	protected $revision;
+	public $title = "Untitled";
+	public $modified;
+	public $path;
+	public $revision;
 	
 	public function __construct($data=null) {
 		if($data)

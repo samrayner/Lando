@@ -1,9 +1,9 @@
 <?php
 
 class Image extends File {
-	protected $width;
-	protected $height;
-	protected $thumbs;
+	public $width;
+	public $height;
+	public $thumbs;
 	
 	private $thumb_sizes = array(
 		"icon" 	=> array("max_width" => 16, 	"max_height" => 16, 	"id" => "16x16"), 

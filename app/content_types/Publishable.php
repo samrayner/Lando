@@ -1,6 +1,6 @@
 <?php
 
 class Publishable extends Text {
-	protected $slug;
-	protected $file_path;
+	public $slug;
+	public $file_path;
 }

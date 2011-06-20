@@ -1,9 +1,9 @@
 <?php
 
 class Text extends Content {
-	protected $raw_content;
-	protected $content;
-	protected $extension;
+	public $raw_content;
+	public $content;
+	public $extension;
 	
 	protected function parse() {
 		//parse text depending on format

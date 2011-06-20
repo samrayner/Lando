@@ -1,10 +1,10 @@
 <?php
 
 class File extends Content {
-	protected $extension;
-	protected $order;
+	public $extension;
+	public $order;
 	
-	protected $bytes;
-	protected $size;
-	protected $url;
+	public $bytes;
+	public $size;
+	public $url;
 }

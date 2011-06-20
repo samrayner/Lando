@@ -12,38 +12,65 @@ class Model {
 		$this->Cache = new Cache();
 	}
 	
-	public function get_host_account_info() {
-		return $this->Host->account;
-	}
+	public function get_all($path) {
+		$path = trim_slashes($path);
+		$path_segs = explode("/", trim_slashes($path));
+		$type = $path_segs[0];
+		
+		$collection_files = ($type == "collections" and count($path_segs) > 1);
+		
+		if($type == "snippets" || $collection_files)
+			$dirs_only = false;
+		else
+			$dirs_only = true;
 	
-	public function get_posts() {
-		$slugs = $this->Host->get_subdirs($this->Host->content_root."/posts");
+		$names = $this->Host->dir_contents($this->Host->content_root."/$path", $dirs_only);
 		
-		$posts = array();
+		$items = array();
 		
-		foreach($slugs as $slug)
-			$posts[] = $this->get_post($slug);
+		foreach($names as $name)
+			$items[] = $this->get_single("$path/$name");
 			
-		$this->Cache->update("posts", $posts);
+		$this->Cache->update($type, $items);
 		
-		return $posts;
+		return $items;
 	}
 	
-	public function get_post($slug) {
-		//search cache
-		$cache_route = array_search_recursive($slug, $this->Cache->posts, "slug", false);
+	public function get_single($path) {
+		$type = array_shift(explode("/", trim_slashes($path)));
+		$name = basename($path);
+		
+		switch($type) {
+			case "posts":
+			case "drafts":
+			case "pages":
+				$name_key = "slug";
+				break;
+			case "collections":
+			case "snippets":
+				$name_key = "title";
+				break;	
+			default:
+				//if type not set or invalid, fail
+				return false;
+		}
+		
+		$cache_route = array_search_recursive($name, $this->Cache->$type, $name_key, false);
 		
 		if(!$cache_route) {
-			$post = $this->Host->get_post($slug);
-			$this->Cache->add("posts", $post);
-			return $post;
+			$item = $this->Host->get_single($path);
+			
+			if($item)
+				$this->Cache->add($type, $item);
+
+			return $item;
 		}
 		
 		array_pop($cache_route);
 		
 		//construct array call from searched nodes
-		eval('$post = $this->Cache->posts["'.implode('"]["', $nodes).'"];');
+		eval('$item = $this->Cache->'.$type.'["'.implode('"]["', $cache_route).'"];');
 		
-		return $post;
+		return $item;
 	}
 }

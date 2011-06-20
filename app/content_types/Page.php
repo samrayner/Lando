@@ -1,7 +1,7 @@
 <?php
 
 class Page extends Publishable {
-	protected $order;
-	protected $published;
-	protected $subpages = array(); //of type Page
+	public $order;
+	public $published;
+	public $subpages = array(); //of type Page
 }

@@ -307,7 +307,7 @@ class DropLib{
 	* @param String $file Local path to file which will be uploaded (optional)
 	* @return Array Associative array
 	*/
-	protected function request($url, $args = null, $method = 'GET', $looseSigning = false, $file = null){
+	protected function request($url, $args = null, $method = 'GET', $looseSigning = false, $file = null){	
 		$args = (is_array($args)) ? $args : array();
 		if (!$this->useExceptions){
 			$args['status_in_response'] = 'true';
@@ -364,6 +364,11 @@ class DropLib{
 	*/
 	protected function formatResult($input){
 		$output = json_decode($input, true);
+		
+		//SAM EDIT: just return response if not JSON
+		if(!$output)
+			return $input;
+		
 		if (!$this->useExceptions and isset($output['body']) and !is_array($output['body'])){
 			$output['body'] = json_decode($output['body'], true);
 		}

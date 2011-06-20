@@ -22,8 +22,3 @@ function theme_dir() {
 	global $Lando;
 	return "/themes/".$Lando->config["theme"];
 }
-
-function cloud_account_info() {
-	global $Lando;
-	return $Lando->get_host_account_info();
-}

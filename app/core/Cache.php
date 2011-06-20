@@ -1,11 +1,11 @@
 <?php
 
 class Cache {
-	public $collections;
-	public $pages;
-	public $posts;
-	public $drafts;
-	public $snippets;
+	public $collections = array();
+	public $pages = array();
+	public $posts = array();
+	public $drafts = array();
+	public $snippets = array();
 
 	public function __construct() {
 		$this->load();

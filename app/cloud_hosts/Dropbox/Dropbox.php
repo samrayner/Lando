@@ -4,7 +4,6 @@ require_once "DropLib.php";
 
 class Dropbox extends Cloud_Host {
 	private $API;
-	public $account = array();
 	
 	public function __construct() {
 		parent::__construct();
@@ -26,10 +25,6 @@ class Dropbox extends Cloud_Host {
 		
 		$this->API = new DropLib($consumer_key, $consumer_secret, $token_key, $token_secret);
 		$this->API->setNoSSLCheck(true); //while developing locally
-		
-		$this->account = $this->API->accountInfo();
-		
-		echo "\n\n<pre>\n"; print_r($this->get_post("new-post-title")); echo "\n</pre>\n\n";
 	}
 	
 	private function encode_path($path) {
@@ -38,7 +33,7 @@ class Dropbox extends Cloud_Host {
 	
 	private function get_file_path($meta, $exts=null, $filename="") {
 		if(!$exts)
-			$exts = $this->parsable_exts;
+			$exts = array_flatten($this->parsers);
 		
 		if(!$filename) {
 			//look for '!' prefix
@@ -59,22 +54,24 @@ class Dropbox extends Cloud_Host {
 		return end($match);
 	}
 	
-	public function get_subdirs($path) {
+	public function dir_contents($path, $dirs_only=true) {
 		$path = $this->encode_path($path);
 		$meta = $this->API->metadata($path);
 		
-		$dirs = array();
+		$items = array();
 		
-		foreach($meta["contents"] as $file) {
-			if($file["is_dir"])
-				$dirs[] = basename($file["path"]);
+		foreach($meta["contents"] as $item) {
+			if($dirs == $item["is_dir"])
+				$items[] = basename($item["path"]);
 		}
 		
-		return $dirs;
+		return $items;
 	}
 	
-	public function get_post($slug) {
-		$path = $this->encode_path($this->content_root."/posts/$slug");
+	public function get_single($path) {
+		$type = array_shift(explode("/", trim_slashes($path)));
+	
+		$path = $this->encode_path($this->content_root."/$path");
 		
 		try {
 			$meta = $this->API->metadata($path);
@@ -83,24 +80,46 @@ class Dropbox extends Cloud_Host {
 			return false;
 		}
 		
-		$meta["slug"] = $slug;
-		$meta["published"] = $meta["modified"] = strtotime($meta["modified"]);
+		$meta["published"] = $meta["created"] = $meta["modified"] = strtotime($meta["modified"]);
+		$meta["revision"] = $meta["revision"];
 		
-		$main_file = $this->get_file_path($meta);
+		if($type != "collections") {
+			$meta["slug"] = basename($meta["path"]);
 			
-		if($main_file) {
-			$file_meta = $this->API->metadata($this->encode_path($main_file));
-			$meta["file_path"] = $main_file;
-			$meta["title"] = $this->filename_from_path($file_meta["path"]);
-			$meta["extension"] = $this->ext_from_path($file_meta["path"]);
-			$meta["modified"] = strtotime($file_meta["modified"]);
-			$meta["revision"] = $file_meta["revision"];
+			if($type == "pages") {
+				if(preg_match('~^(?<num>\d+)+\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
+					$meta["order"] = $matches["num"];
+					$meta["slug"] = $matches["slug"];
+				}
+			}
+		
+			$main_file = ($type == "snippet") ? $path : $this->get_file_path($meta);
 			
-			$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
-			//$meta["content"] = parse($meta["raw_content"], $meta["extension"]);
+			if($main_file) {
+				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($this->encode_path($main_file));
+	
+				$meta["file_path"] = $main_file;
+				$meta["title"] = $this->filename_from_path($main_file);
+				$meta["extension"] = $this->ext_from_path($main_file);
+				$meta["modified"] = strtotime($file_meta["modified"]);
+				$meta["revision"] = $file_meta["revision"];
+				
+				$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
+				$format = parent_key($this->parsers, $meta["extension"]);
+				
+				if($meta["raw_content"] && $format) {
+					$parser_class = $format."_Parser";
+					$Parser = new $parser_class();
+					$meta["content"] = $Parser->parse($meta["raw_content"]);
+				}	
+			}
 		}
+		else
+			$meta["title"] = basename($meta["path"]); //collection
 		
-		$post = new Post($meta);
-		return $post;
+		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
+		
+		$item = new $type_class($meta);
+		return $item;
 	}
 }

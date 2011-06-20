@@ -38,3 +38,12 @@ function array_flatten($array, $return=array()) {
 	}
 	return $return;
 }
+
+function parent_key($array, $value) {
+	$route = array_search_recursive($value, $array);
+	
+	if(isset($route[sizeof($route)-2]))
+		return $route[sizeof($route)-2];
+	
+	return null;
+}

@@ -1,5 +1,5 @@
 <?php
 
-class Parser {
-	
+abstract class Parser {
+	public function parse($str) {}
 }
