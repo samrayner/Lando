@@ -10,8 +10,6 @@ class Model {
 		$host_class = str_replace(" ", "_", ucwords($config["host"]));		
 		$this->Host = new $host_class();
 		$this->Cache = new Cache();
-		
-		$this->get_all("pages");
 	}
 	
 	public function get_all($path) {
@@ -28,10 +26,12 @@ class Model {
 	
 		$names = $this->Host->dir_contents($path, $dirs_only);
 		
-		$items = array();
+		$items = $cache = array();
 		
-		foreach($names as $name)
-			$items[] = $this->get_single("$path/$name");
+		foreach($names as $name) {
+			$item = $this->get_single("$path/$name");
+			$items[] = $item;
+		}
 			
 		$this->Cache->update($type, $items);
 		
@@ -39,27 +39,12 @@ class Model {
 	}
 	
 	public function get_single($path) {
-		$type = array_shift(explode("/", trim_slashes($path)));
-		$name = basename($path);
+		$path = trim_slashes($path);
+		$type = array_shift(explode("/", $path));
 		
-		switch($type) {
-			case "posts":
-			case "drafts":
-			case "pages":
-				$name_key = "slug";
-				break;
-			case "collections":
-			case "snippets":
-				$name_key = "title";
-				break;	
-			default:
-				//if type not set or invalid, fail
-				return false;
-		}
+		$cache_route = array_search_recursive('~'.$path.'$~i', $this->Cache->$type, "path", true);
 		
-		$cache_route = array_search_recursive($name, $this->Cache->$type, $name_key, false);
-		
-		if(!$cache_route) {		
+		if(!$cache_route) {	
 			$item = $this->Host->get_single($path);
 			
 			if($item)
@@ -70,8 +55,16 @@ class Model {
 		
 		array_pop($cache_route);
 		
-		//construct array call from searched nodes
-		eval('$item = $this->Cache->'.$type.'["'.implode('"]["', $cache_route).'"];');
+		$item = $this->Cache->$type;
+		
+		//step through cache to get search result node
+		foreach($cache_route as $next_key) {
+			//if a content object, convert to an array
+			if(is_object($item) && method_exists($item, "export"))
+				$item = $item->export();
+			
+			$item = $item[$next_key];
+		}
 		
 		return $item;
 	}

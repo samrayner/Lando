@@ -5,6 +5,7 @@ require_once "DropLib.php";
 class Dropbox extends Cloud_Host {
 	private $API;
 	private $account;
+	private $Cache;
 	
 	public function __construct() {
 		parent::__construct();
@@ -27,11 +28,26 @@ class Dropbox extends Cloud_Host {
 		$this->API = new DropLib($consumer_key, $consumer_secret, $token_key, $token_secret);
 		$this->API->setNoSSLCheck(true); //while developing locally
 		
-		$this->account = $this->API->accountInfo();
+		$this->Cache = new Cache("account");
+		if(empty($this->Cache->account))
+			$this->Cache->update("account", $this->API->accountInfo());
 	}
 	
 	private function encode_path($path) {
 		return str_replace("%2F", "/", rawurlencode($path));
+	}
+	
+	private function get_account_info() {
+		$cache_file = "app/cache/account.php";
+	
+		if(file_exists($cache_file)) {
+			include_once $cache_file;
+			return $cache;
+		}
+		
+		$info = $this->API->accountInfo();
+		@file_put_contents($cache_file, $info);
+		return $info;
 	}
 	
 	private function get_file_path($meta, $exts=null, $filename="") {
@@ -173,7 +189,7 @@ class Dropbox extends Cloud_Host {
 		$path = trim_slashes($path);
 	
 		if($try_public and strpos(strtolower($this->content_root), "public/") < 2)
-			return "http://dl.dropbox.com/u/".$this->encode_path($this->account["uid"]."/Lando/".$this->config["site_title"]."/$path");
+			return "http://dl.dropbox.com/u/".$this->encode_path($this->Cache->account["uid"]."/Lando/".$this->config["site_title"]."/$path");
 		else
 			return $this->config["site_root"]."/get_file.php?file=".urlencode($path);
 	}
