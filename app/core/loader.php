@@ -50,5 +50,9 @@ foreach(glob("app/parsers/*", GLOB_ONLYDIR) as $dir) {
 //provide hook for controller
 $Lando = new Controller();
 
+//define global theme variables
+foreach($Lando->theme_vars as $var => $val)
+	$$var = $val;
+
 //remove config from global scope
 unset($config);

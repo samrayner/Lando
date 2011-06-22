@@ -99,11 +99,18 @@ class Dropbox extends Cloud_Host {
 			return false;
 		}
 		
-		$meta["published"] = $meta["created"] = $meta["modified"] = strtotime($meta["modified"]);
+		$meta["published"] = $meta["created"] = 
+		$meta["uploaded"] = $meta["modified"] = strtotime($meta["modified"]);
+		
 		$meta["revision"] = $meta["revision"];
 		
 		if($type != "collections") {
 			$meta["slug"] = basename($meta["path"]);
+			
+			$meta["permalink"] = $this->config["site_root"];
+			if(!$this->config["pretty_urls"])
+				$meta["permalink"] .= "/?";
+			$meta["permalink"] .= "/$path/";
 		
 			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
 			
@@ -151,6 +158,7 @@ class Dropbox extends Cloud_Host {
 					$file["title"] = $this->filename_from_path($file["path"]);
 					$file["extension"] = $this->ext_from_path($file["path"]);
 					$file["url"] = $this->get_file_url($file["path"]);
+					$file["dynamic_url"] = $this->get_file_url($file["path"], false);
 					
 					if(preg_match('~^(?<num>\d+)+\.\s*(?<title>.+)$~', $file["title"], $matches)) {
 						$file["order"] = $matches["num"];

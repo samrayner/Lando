@@ -2,24 +2,24 @@
 <body id="home">
 
 <header>
-	<h1><a href="<?= site_root() ?>"><?= site_title() ?></a></h1>
+	<h1><a href="<?= $site_root ?>"><?= $site_title ?></a></h1>
 	<? //$dp->printPageNav() ?>
 </header>
 
 <section id="primary">
 
-	<h1><?= $dp->getTitle("home"); ?></h1>
-	<?= $dp->getContent("home"); ?>
+	<h1><?= $current->title ?></h1>
+	<?= $current->content ?>
 
-	<? foreach($dp->getPosts(5) as $permalink): ?>
+	<? foreach(posts(5) as $post): ?>
 
 		<article>
-			<h1><a href="<?= $permalink ?>"><?= $dp->getTitle($permalink) ?></a></h1>
-			<?= $dp->truncate($dp->getContent($permalink), 200); ?>
+			<h1><a href="<?= $post->permalink ?>"><?= $post->title ?></a></h1>
+			<?= truncate_html($post->content, 200) ?>
 			<footer>
 				<p>Posted 
-					<time pubdate datetime="<?= date('c', $dp->getPublished($permalink)) ?>">
-						<?= date('F jS \a\t g:ia', $dp->getPublished($permalink)) ?>
+					<time pubdate datetime="<?= date('c', $post->published) ?>">
+						<?= date('F jS \a\t g:ia', $post->published) ?>
 					</time>
 				</p>
 			</footer>
@@ -30,7 +30,7 @@
 </section>
 
 <footer>
-	<?= $dp->getSnippet("footer") ?>
+	<?= snippet("footer.md") ?>
 </footer>
 
 </body>

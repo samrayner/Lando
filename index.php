@@ -10,7 +10,7 @@ if(!file_exists("app/config/config.php")) {
 
 include "app/core/loader.php";
 
-$themeBase = trim_slashes(theme_dir())."/";
+$themeBase = trim_slashes($theme_dir)."/";
 $template = "home.php";
 $url = current_url();
 
@@ -59,6 +59,6 @@ if(preg_match('~^posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url, $matches
 if(!file_exists($themeBase.$template))
 	throw new Exception("Template file $template not found.");
 
-set_include_path(get_include_path().":".$_SERVER['DOCUMENT_ROOT'].theme_dir());
+set_include_path(get_include_path().":".$_SERVER['DOCUMENT_ROOT'].$theme_dir);
 
 include $themeBase.$template;

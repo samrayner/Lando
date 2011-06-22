@@ -2,6 +2,7 @@
 
 class Collection extends Content {
 	public $files = array(); //of type File
+	public $created;
 	
 	private function list_html($limit="0") {
 		//return html

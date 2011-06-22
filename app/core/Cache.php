@@ -6,7 +6,6 @@ class Cache {
 	public $posts = array();
 	public $drafts = array();
 	public $snippets = array();
-	public $account = array();
 
 	public function __construct($type=null) {
 		if($type)

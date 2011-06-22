@@ -5,8 +5,10 @@ function current_url() {
 }
 
 function url_segments() {
+	global $site_root;
+
 	$segs = explode("/", current_url());
-	$segs[0] = site_root();
+	$segs[0] = $site_root;
 	return $segs;
 }
 

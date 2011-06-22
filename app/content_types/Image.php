@@ -20,7 +20,7 @@ class Image extends File {
 		
 		foreach($thumb_sizes as $size => $max) {
 			$this->thumbs[$size] = array();
-			$this->thumbs[$size]["url"] = $this->url."&amp;size=$size";
+			$this->thumbs[$size]["url"] = $this->dynamic_url."&amp;size=$size";
 			
 			if($w = $this->width and $h = $this->height) {
 				$ratio = $w/$h;

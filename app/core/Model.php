@@ -42,6 +42,9 @@ class Model {
 		$path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		
+		if($type = "pages")
+			str_replace("/", "/(\d+\.\s*)?", $path); //match numbered pages in cache
+		
 		$cache_route = array_search_recursive('~'.$path.'$~i', $this->Cache->$type, "path", true);
 		
 		if(!$cache_route) {	
@@ -60,10 +63,10 @@ class Model {
 		//step through cache to get search result node
 		foreach($cache_route as $next_key) {
 			//if a content object, convert to an array
-			if(is_object($item) && method_exists($item, "export"))
-				$item = $item->export();
-			
-			$item = $item[$next_key];
+			if(is_object($item))
+				$item = $item->$next_key;
+			if(is_array($item))
+				$item = $item[$next_key];
 		}
 		
 		return $item;

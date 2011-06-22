@@ -5,7 +5,10 @@ class Text extends Content {
 	public $content;
 	public $extension;
 	
-	protected function parse() {
-		//parse text depending on format
+	public function __toString() {
+		if($this->content)
+			return $this->content;
+		
+		return parent::__toString();
 	}
 }
