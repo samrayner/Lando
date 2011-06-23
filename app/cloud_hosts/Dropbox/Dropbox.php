@@ -37,19 +37,6 @@ class Dropbox extends Cloud_Host {
 		return str_replace("%2F", "/", rawurlencode($path));
 	}
 	
-	private function get_account_info() {
-		$cache_file = "app/cache/account.php";
-	
-		if(file_exists($cache_file)) {
-			include_once $cache_file;
-			return $cache;
-		}
-		
-		$info = $this->API->accountInfo();
-		@file_put_contents($cache_file, $info);
-		return $info;
-	}
-	
 	private function get_file_path($meta, $exts=null, $filename="") {
 		if(!$exts)
 			$exts = array_flatten($this->config["parsers"]);
@@ -113,13 +100,13 @@ class Dropbox extends Cloud_Host {
 			if(!$this->config["pretty_urls"])
 				$meta["permalink"] .= "/?";
 				
-			$permalink = $path;
+			$permalink = "/".$path;
 			
 			if($type == "pages") {
 				//remove order numbers from permalink
 				$permalink = preg_replace('~/\d+\.\s*~', "/", $permalink);
 				//remove /pages/ and /home/ from permalink if exist
-				$permalink = preg_replace('~^pages(/home$)?~i', "", $permalink);
+				$permalink = preg_replace('~^/pages(/home$)?~i', "", $permalink);
 			}
 			
 			$meta["permalink"] .= $permalink;
@@ -135,13 +122,15 @@ class Dropbox extends Cloud_Host {
 				$meta["modified"] = strtotime($file_meta["modified"]);
 				$meta["revision"] = $file_meta["revision"];
 				
-				$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
+				$meta["raw_content"] = $meta["content"] = $this->API->download($this->encode_path($main_file));
 				$format = parent_key($this->config["parsers"], $meta["extension"]);
 				
 				if($meta["raw_content"] && $format) {
 					$parser_class = $format."_Parser";
-					$Parser = new $parser_class();
-					$meta["content"] = $Parser->parse($meta["raw_content"]);
+					if(class_exists($parser_class)) {
+						$Parser = new $parser_class();
+						$meta["content"] = $Parser->parse($meta["raw_content"]);
+					}
 				}	
 			}
 			

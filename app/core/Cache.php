@@ -23,14 +23,14 @@ class Cache {
 		array_push($this->$type, $content);
 	}
 	
-	public function load_all() {
+	private function load_all() {
 		$types = get_object_vars($this);
 		
 		foreach($types as $type => $_)
 			$this->load_single($type);
 	}
 	
-	public function load_single($type) {
+	private function load_single($type) {
 		$path = "app/cache/".$type.".php";
 		if(file_exists($path))
 			include_once $path;

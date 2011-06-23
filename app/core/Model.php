@@ -12,6 +12,39 @@ class Model {
 		$this->Cache = new Cache();
 	}
 	
+	private function content_sort($a, $b) {
+		if(!is_object($a))
+			return 0;
+		
+		$result = 0;
+	
+		//order > not ordered
+		if(isset($a->order) && !isset($b->order))
+			$result = -1;
+		if(!isset($a->order) && isset($b->order))
+			$result = 1;
+			
+		//low order > high order
+		if(isset($a->order) && isset($b->order))
+			$result = $a->order - $b->order;
+		
+		//if custom order
+		if($result != 0)
+			return $result;
+		
+		//if not custom order
+		switch(get_class($a)) {
+			case "Page":
+			case "Snippet":
+			case "Collection":
+				return strnatcmp($a->title, $b->title); //alphabetical
+			case "Post":
+				return $b->published - $a->published; //descending timestamp (newest first)
+			default:
+				return $b->modified - $a->modified; //descending timestamp (newest first)
+		}
+	}
+	
 	public function get_all($path) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
@@ -32,6 +65,8 @@ class Model {
 			$item = $this->get_single("$path/$name", false);
 			$items[] = $item;
 		}
+		
+		usort($items, array($this, "content_sort"));
 			
 		$this->Cache->update($type, $items);
 		
