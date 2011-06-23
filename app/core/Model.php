@@ -26,10 +26,10 @@ class Model {
 	
 		$names = $this->Host->dir_contents($path, $dirs_only);
 		
-		$items = $cache = array();
+		$items = array();
 		
 		foreach($names as $name) {
-			$item = $this->get_single("$path/$name");
+			$item = $this->get_single("$path/$name", false);
 			$items[] = $item;
 		}
 			
@@ -38,20 +38,28 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path) {
+	public function get_single($path, $cache=true) {
 		$path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		
-		if($type = "pages")
-			str_replace("/", "/(\d+\.\s*)?", $path); //match numbered pages in cache
+		if($type == "pages") {
+			$fixed_path = $path;
+			$numbered_path = str_replace("/", "/(\d+\.\s*)?", $path); //match numbered pages in cache
+			$path = $numbered_path;
+		}
 		
 		$cache_route = array_search_recursive('~'.$path.'$~i', $this->Cache->$type, "path", true);
 		
 		if(!$cache_route) {	
+			if($type == "pages")
+				$path = $fixed_path; //return to fixed path for host fetch
+		
 			$item = $this->Host->get_single($path);
 			
-			if($item)
+			if($item && $cache) {
 				$this->Cache->add($type, $item);
+				$this->Cache->save($type);
+			}
 
 			return $item;
 		}
@@ -65,7 +73,7 @@ class Model {
 			//if a content object, convert to an array
 			if(is_object($item))
 				$item = $item->$next_key;
-			if(is_array($item))
+			elseif(is_array($item))
 				$item = $item[$next_key];
 		}
 		

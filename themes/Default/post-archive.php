@@ -1,50 +1,55 @@
 <?php include "inc/head.php" ?>
-<body id="home">
+<body id="post-archive">
 
-<header>
-	<h1><a href="<?= $dp->getSiteRoot() ?>"><?= $dp->getSiteTitle() ?></a></h1>	
-	<? $dp->printPageNav() ?>
-</header>
+<?php include "inc/header.php" ?>
 
 <section id="primary">
 
 	<? 
-		$year 	= isset($_GET["year"]) 	? $_GET["year"] 	: NULL;
-		$month 	= isset($_GET["month"]) ? $_GET["month"] 	: NULL;
-		$day 		= isset($_GET["day"]) 	? $_GET["day"] 		: NULL;
+		$year 	= url_segment(3);
+		$month 	= url_segment(4);
+		$day 		= url_segment(5);
 		
-		$dateStr = "Archive";
+		$date_str = "Archive";
 		
 		if($year) {
-			$dateStr = "from ".date("Y", mktime(0,0,0,1,1,$year));
+			$date_str = "from ".date("Y", mktime(0,0,0,1,1,$year));
 			if($month) {
-				$dateStr = "from ".date("F, Y", mktime(0,0,0,$month,1,$year));
+				$date_str = "from ".date("F, Y", mktime(0,0,0,$month,1,$year));
 				if($day) {
-					$dateStr = "from ".date("F jS, Y", mktime(0,0,0,$month,$day,$year));
+					$date_str = "from ".date("F jS, Y", mktime(0,0,0,$month,$day,$year));
 				}
 			}
 		}
 	?>
 
-	<h1>Posts <?= $dateStr ?></h1>
+	<h1>Posts <?= $date_str ?></h1>
 	
-	<? $posts = $dp->getPosts(0, 0, $year, $month, $day);
-		 foreach($posts as $i => $permalink): ?>
+	<? $posts = posts(0, 0, $year, $month, $day);
+		 foreach($posts as $i => $post): ?>
 	
-		<? if(!$year and (!isset($posts[$i-1]) or date('Y', $dp->getPublished($posts[$i])) != date('Y', $dp->getPublished($posts[$i-1])))): ?>
-			<h2><?= date('Y', $dp->getPublished($posts[$i])) ?></h2>
+		<? if(!$year && (
+					!isset($posts[$i-1]) || //first post
+					date('Y', $post->published) != date('Y', $posts[$i-1]->published) //first post of new year
+		   )): ?>
+
+			<h2><?= date('Y', $post->published) ?></h2>
 		<? endif ?>
 	
-		<? if(!$month and (!isset($posts[$i-1]) or date('n', $dp->getPublished($posts[$i])) != date('n', $dp->getPublished($posts[$i-1])))): ?>
-			<h3><?= date('F', $dp->getPublished($posts[$i])) ?></h3>
+		<? if(!$month && (
+					!isset($posts[$i-1]) || //first post
+					date('n', $post->published) != date('n', $posts[$i-1]->published) //first post of new month
+		   )): ?>
+
+			<h2><?= date('F', $post->published) ?></h2>
 		<? endif ?>
 
 		<article>
-			<h1><a href="<?= $dp->getSiteRoot().$permalink ?>"><?= $dp->getTitle($permalink) ?></a></h1>
+			<h1><a href="<?= $post->permalink ?>"><?= $post->title ?></a></h1>
 			<footer>
 				<p>Posted 
-					<time pubdate datetime="<?= date('c', $dp->getPublished($permalink)) ?>">
-						<?= date('F jS \a\t g:ia', $dp->getPublished($permalink)) ?>
+					<time pubdate datetime="<?= date('c', $post->published) ?>">
+						<?= date('F jS \a\t g:ia', $post->published) ?>
 					</time>
 				</p>
 			</footer>
@@ -54,9 +59,7 @@
 	
 </section>
 
-<footer>
-	<?= $dp->getSnippet("footer") ?>
-</footer>
+<?php include "inc/footer.php" ?>
 
 </body>
 <?php include "inc/foot.php" ?>

@@ -1,27 +1,23 @@
 <?php include "inc/head.php" ?>
-<body id="post">
+<body id="<?= $current->slug ?>">
 
-<header>
-	<h1><a href="<?= $dp->getSiteRoot() ?>"><?= $dp->getSiteTitle() ?></a></h1>	
-</header>
+<?php include "inc/header.php" ?>
 
 <section id="primary">
 	<article>
-		<h1><?= $dp->getTitle() ?></h1>
-		<?= $dp->getContent() ?>
+		<h1><?= $current->title ?></h1>
+		<?= $current->content ?>
 		<footer>
 			<p>Posted 
-				<time pubdate datetime="<?= date('c', $dp->getPublished()) ?>">
-					<?= date('F jS \a\t g:ia', $dp->getPublished()) ?>
+				<time pubdate datetime="<?= date('c', $current->published) ?>">
+					<?= date('F jS \a\t g:ia', $current->published) ?>
 				</time>
 			</p>
 		</footer>
 	</article>
 </section>
 
-<footer>
-	<?= $dp->getSnippet("footer") ?>
-</footer>
+<?php include "inc/footer.php" ?>
 
 </body>
 <?php include "inc/foot.php" ?>

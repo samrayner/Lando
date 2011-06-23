@@ -7,5 +7,12 @@ class File extends Content {
 	public $size;
 	public $url;
 	public $dynamic_url;
-	public $uploaded;
+	
+	public function __toString() {
+		return $this->html();
+	}
+	
+	public function html() {
+		return '<a href="'.$this->url.'">'.$this->title.'</a>';
+	}
 }

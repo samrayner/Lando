@@ -4,15 +4,57 @@ class Collection extends Content {
 	public $files = array(); //of type File
 	public $created;
 	
-	private function list_html($limit="0") {
-		//return html
+	public function __toString() {
+		return $this->list_html();
 	}
 	
-	private function gallery_html($size="75", $limit="0") {
-		//return html
+	public function list_html($limit=0) {
+		if($limit < 1 || $limit > count($this->files))
+			$limit = count($this->files);
+	
+		$html = '<ol>';
+		
+		$i = 0;
+		
+		while($i < $limit) {
+			$html .= "<li>$file</li>";
+			$i++;
+		}
+			
+		$html .= '</ol>';
+		
+		return $html;
 	}
 
-	private function slideshow_html($size="75", $limit="0", $linkImages=false) {
-		//return html
+	private function image_list_html($type="gallery" $size=0, $limit=0, $link_images=false) {
+		if($type == "slideshow") {
+			if(!$size)
+				$size = "m"
+		}
+		else {
+			$type = "gallery"
+			if(!$size)
+				$size = "75"
+		}
+	
+		if($limit < 1 || $limit > count($this->files))
+			$limit = count($this->files);
+	
+		$html = '<ol class="'.$type.'">';
+		
+		$i = 0;
+		
+		while($i < $limit) {
+			if(method_exists($this->files[$i], "thumb_html")) {
+				$html .= "<li>";
+				$html .= $this->files[$i]->thumb_html($size, $link_images);
+				$html .= '</li>';
+				$i++;
+			}
+		}
+		
+		$html .= '</ol>';
+		
+		return $html;
 	}
 }

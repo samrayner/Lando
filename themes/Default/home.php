@@ -1,10 +1,7 @@
 <?php include "inc/head.php" ?>
 <body id="home">
 
-<header>
-	<h1><a href="<?= $site_root ?>"><?= $site_title ?></a></h1>
-	<? //$dp->printPageNav() ?>
-</header>
+<?php include "inc/header.php" ?>
 
 <section id="primary">
 
@@ -29,9 +26,7 @@
 	
 </section>
 
-<footer>
-	<?= snippet("footer.md") ?>
-</footer>
+<?php include "inc/footer.php" ?>
 
 </body>
 <?php include "inc/foot.php" ?>

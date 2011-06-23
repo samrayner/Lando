@@ -14,7 +14,7 @@ $themeBase = trim_slashes($theme_dir)."/";
 $template = "home.php";
 $url = current_url();
 
-if(preg_match('~^([a-z0-9-_]+)$~', $url, $matches)) {
+if(preg_match('~^/([a-z0-9-_]+)$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
 			$template = "post-archive.php";
@@ -30,7 +30,7 @@ if(preg_match('~^([a-z0-9-_]+)$~', $url, $matches)) {
 	}
 }
 
-if(preg_match('~^([a-z0-9-_]+)(?:/([a-z0-9-_]+))+$~', $url, $matches)) {
+if(preg_match('~^/([a-z0-9-_]+)(?:/([a-z0-9-_]+))+$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
 			$template = "post.php";
@@ -46,14 +46,8 @@ if(preg_match('~^([a-z0-9-_]+)(?:/([a-z0-9-_]+))+$~', $url, $matches)) {
 	}
 }
 
-if(preg_match('~^posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url, $matches)) {
+if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url)) {
 	$template = "post-archive.php";
-	if(isset($matches[1]))
-		$_GET["year"] = $matches[1];
-	if(isset($matches[2]))
-		$_GET["month"] = $matches[2];
-	if(isset($matches[3]))
-		$_GET["day"] = $matches[3];
 }
 
 if(!file_exists($themeBase.$template))

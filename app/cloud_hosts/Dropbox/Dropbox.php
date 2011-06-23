@@ -81,7 +81,9 @@ class Dropbox extends Cloud_Host {
 		
 		foreach($meta["contents"] as $item) {
 			if($dirs_only == $item["is_dir"])
-				$items[] = basename($item["path"]);
+				$name = basename($item["path"]);
+				if(strpos($name, "_") !== 0) //check dir is not hidden
+					$items[] = $name;
 		}
 		
 		return $items;
@@ -92,6 +94,9 @@ class Dropbox extends Cloud_Host {
 		$type = array_shift(explode("/", $path));
 		$full_path = $this->encode_path($this->content_root."/$path");
 		
+		if(strpos($path, "/_") !== false)
+			return false; //prevent access to a hidden folder
+		
 		try {
 			$meta = $this->API->metadata($full_path);
 		}
@@ -99,10 +104,7 @@ class Dropbox extends Cloud_Host {
 			return false;
 		}
 		
-		$meta["published"] = $meta["created"] = 
-		$meta["uploaded"] = $meta["modified"] = strtotime($meta["modified"]);
-		
-		$meta["revision"] = $meta["revision"];
+		$meta["published"] = $meta["created"] = $meta["modified"] = strtotime($meta["modified"]);
 		
 		if($type != "collections") {
 			$meta["slug"] = basename($meta["path"]);
@@ -110,7 +112,17 @@ class Dropbox extends Cloud_Host {
 			$meta["permalink"] = $this->config["site_root"];
 			if(!$this->config["pretty_urls"])
 				$meta["permalink"] .= "/?";
-			$meta["permalink"] .= "/$path/";
+				
+			$permalink = $path;
+			
+			if($type == "pages") {
+				//remove order numbers from permalink
+				$permalink = preg_replace('~/\d+\.\s*~', "/", $permalink);
+				//remove /pages/ and /home/ from permalink if exist
+				$permalink = preg_replace('~^pages(/home$)?~i', "", $permalink);
+			}
+			
+			$meta["permalink"] .= $permalink;
 		
 			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
 			
@@ -134,14 +146,13 @@ class Dropbox extends Cloud_Host {
 			}
 			
 			if($type == "pages") {
-				if(preg_match('~^(?<num>\d+)+\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
+				if(preg_match('~^(?<num>\d+)\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
 					$meta["order"] = $matches["num"];
 					$meta["slug"] = $matches["slug"];
 				}
 				
 				//recurse to get subpages
 				foreach($meta["contents"] as $subpage) {
-				
 					if($subpage["is_dir"])
 						$meta["subpages"][] = $this->get_single($path."/".basename($subpage["path"]));
 				}

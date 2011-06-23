@@ -2,6 +2,6 @@
 
 class Page extends Publishable {
 	public $order;
-	public $published;
+	public $hidden = false;
 	public $subpages = array(); //of type Page
 }

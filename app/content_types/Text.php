@@ -6,9 +6,6 @@ class Text extends Content {
 	public $extension;
 	
 	public function __toString() {
-		if($this->content)
-			return $this->content;
-		
-		return parent::__toString();
+		return $this->content;
 	}
 }

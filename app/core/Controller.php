@@ -46,16 +46,12 @@ class Controller {
 
 		array_unshift($url, $root);
 
-		return $url;
-	}
-	
-	private function get_content_path_str($url=null) {
-		return implode("/", $this->get_content_path($url));
+		return implode("/", $url);;
 	}
 	
 	public function get_content($type=null, $names=null) {
 		if(!$type && !$names) //get content for current page
-			return $this->Model->get_single($this->get_content_path_str());
+			return $this->Model->get_single($this->get_content_path());
 		
 		if(!$type) //must provide a content type
 			return false;
@@ -89,7 +85,7 @@ class Controller {
 		if($year) {
 			//sort into date array
 			$by_date = array(array(array(array())));
-			$date_types = array("published", "created", "uploaded");
+			$date_types = array("published", "created");
 			
 			foreach($content as $item) {
 				foreach($date_types as $type) {

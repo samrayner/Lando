@@ -1,7 +1,0 @@
-<?php $cache = 'a:3:{i:0;O:7:&quot;Snippet&quot;:7:{s:11:&quot;raw_content&quot;;s:110:&quot;Site built on [DropPub][dp], the [Dropbox][db] powered CMS.
-
-[dp]: http://droppub.com
-[db]: http://dropbox.com&quot;;s:7:&quot;content&quot;;s:121:&quot;&lt;p&gt;Site built on &lt;a href=&quot;http://droppub.com&quot;&gt;DropPub&lt;/a&gt;, the &lt;a href=&quot;http://dropbox.com&quot;&gt;Dropbox&lt;/a&gt; powered CMS.&lt;/p&gt;
-&quot;;s:9:&quot;extension&quot;;s:2:&quot;md&quot;;s:5:&quot;title&quot;;s:6:&quot;Footer&quot;;s:8:&quot;modified&quot;;i:1308329437;s:4:&quot;path&quot;;s:42:&quot;/Public/Lando/Test Site/Snippets/Footer.md&quot;;s:8:&quot;revision&quot;;i:1029840216;}i:1;O:7:&quot;Snippet&quot;:7:{s:11:&quot;raw_content&quot;;s:18:&quot;This is a snippet.&quot;;s:7:&quot;content&quot;;s:26:&quot;&lt;p&gt;This is a snippet.&lt;/p&gt;
-&quot;;s:9:&quot;extension&quot;;s:2:&quot;md&quot;;s:5:&quot;title&quot;;s:11:&quot;New Snippet&quot;;s:8:&quot;modified&quot;;i:1308329437;s:4:&quot;path&quot;;s:47:&quot;/Public/Lando/Test Site/Snippets/New Snippet.md&quot;;s:8:&quot;revision&quot;;i:1029840209;}i:2;O:7:&quot;Snippet&quot;:7:{s:11:&quot;raw_content&quot;;s:10:&quot;Move test.&quot;;s:7:&quot;content&quot;;s:18:&quot;&lt;p&gt;Move test.&lt;/p&gt;
-&quot;;s:9:&quot;extension&quot;;s:2:&quot;md&quot;;s:5:&quot;title&quot;;s:13:&quot;Old Snippet 2&quot;;s:8:&quot;modified&quot;;i:1308329437;s:4:&quot;path&quot;;s:49:&quot;/Public/Lando/Test Site/Snippets/Old Snippet 2.md&quot;;s:8:&quot;revision&quot;;i:1029840208;}}';
