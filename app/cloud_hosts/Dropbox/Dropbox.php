@@ -131,7 +131,9 @@ class Dropbox extends Cloud_Host {
 						$Parser = new $parser_class();
 						$meta["content"] = $Parser->parse($meta["raw_content"]);
 					}
-				}	
+				}
+				
+				$meta["content"] = $this->resolve_media_srcs($meta["content"], $path);
 			}
 			
 			if($type == "pages") {
@@ -193,7 +195,7 @@ class Dropbox extends Cloud_Host {
 		return $item;
 	}
 	
-	public function get_file_url($path, $try_public=true) {
+	protected function get_file_url($path, $try_public=true) {
 		$path = trim_slashes($path);
 	
 		if($try_public and strpos(strtolower($this->content_root), "public/") < 2)

@@ -25,6 +25,16 @@ function collection($title) {
 	return $Lando->get_content("collections", $title);
 }
 
+function gallery($size=0, $limit=0, $link_images=true) {
+	global $Lando;
+	return $Lando->image_list_html("gallery", $size, $limit, $link_images);
+}
+
+function slideshow($size=0, $limit=0, $link_images=false) {
+	global $Lando;
+	return $Lando->image_list_html("slideshow", $size, $limit, $link_images);
+}
+
 function page_nav($pages=null, $path=array()) {
 	if(!$pages) { //first run-through
 		$html = '<nav class="page-nav">'."\n";

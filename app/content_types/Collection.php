@@ -12,7 +12,7 @@ class Collection extends Content {
 		if($limit < 1 || $limit > count($this->files))
 			$limit = count($this->files);
 	
-		$html = '<ol>';
+		$html = '<ul>';
 		
 		$i = 0;
 		
@@ -21,26 +21,30 @@ class Collection extends Content {
 			$i++;
 		}
 			
-		$html .= '</ol>';
+		$html .= '</ul>';
 		
 		return $html;
 	}
 
-	private function image_list_html($type="gallery" $size=0, $limit=0, $link_images=false) {
+	private function image_list_html($type="gallery" $size=0, $limit=0, $link_images=null) {
 		if($type == "slideshow") {
 			if(!$size)
 				$size = "m"
+			if($link_images === null)
+				$link_images = false;
 		}
 		else {
 			$type = "gallery"
 			if(!$size)
 				$size = "75"
+			if($link_images === null)
+				$link_images = true;
 		}
 	
 		if($limit < 1 || $limit > count($this->files))
 			$limit = count($this->files);
 	
-		$html = '<ol class="'.$type.'">';
+		$html = '<ul class="'.$type.'">';
 		
 		$i = 0;
 		
@@ -53,7 +57,7 @@ class Collection extends Content {
 			}
 		}
 		
-		$html .= '</ol>';
+		$html .= '</ul>';
 		
 		return $html;
 	}

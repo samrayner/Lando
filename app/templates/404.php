@@ -8,7 +8,7 @@
 	
 	<title>Page Not Found - <?= $site_title ?></title>
 </head>
-<body id="404">	
+<body>	
 
 	<h1>Page Not Found</h1>
 	<p>Sorry, we could not find the page you're looking for. Try going <a href="<?= $site_root ?>">home</a>.</p>

@@ -11,48 +11,57 @@ if(!file_exists("app/config/config.php")) {
 include "app/core/loader.php";
 
 $themeBase = trim_slashes($theme_dir)."/";
-$template = "home.php";
+$template = "home";
 $url = current_url();
 
 if(preg_match('~^/([a-z0-9-_]+)$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
-			$template = "post-archive.php";
+			$template = "post-archive";
 			break;
 		case "drafts":
-			$template = "draft-list.php";
+			$template = "draft-list";
+			break;
+		case "rss":
+			$template = "rss";
 			break;
 		default: 
-			if(file_exists($themeBase.$matches[1].".php"))
-				$template = $matches[1].".php";
+			if(!$current)
+				$template = "404";
+			elseif(file_exists($themeBase.$matches[1].".php"))
+				$template = $matches[1];
 			else
-				$template = "page.php";
+				$template = "page";
 	}
 }
 
 if(preg_match('~^/([a-z0-9-_]+)(?:/([a-z0-9-_]+))+$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
-			$template = "post.php";
+			$template = "post";
 			break;
 		case "drafts":
-			$template = "draft.php";
+			$template = "draft";
 			break;
 		default: 
 			if(file_exists($themeBase.$matches[2].".php"))
-				$template = $matches[2].".php";
+				$template = $matches[2];
 			else
-				$template = "page.php";
+				$template = "page";
 	}
+	
+	if(!$current)
+		$template = "404";
 }
 
-if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url)) {
-	$template = "post-archive.php";
+if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url))
+	$template = "post-archive";
+
+if(!file_exists($themeBase.$template.".php")) {
+	if(file_exists("app/templates/$template.php"))
+		$themeBase = "app/templates/"; //fallback for missing optional custom templates
+	else
+		throw new Exception("Template file $template not found.");
 }
 
-if(!file_exists($themeBase.$template))
-	throw new Exception("Template file $template not found.");
-
-set_include_path(get_include_path().":".$_SERVER['DOCUMENT_ROOT'].$theme_dir);
-
-include $themeBase.$template;
+include $themeBase.$template.".php";
