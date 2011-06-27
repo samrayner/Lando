@@ -62,7 +62,8 @@ class Model {
 		$items = array();
 		
 		foreach($names as $name) {
-			$item = $this->get_single("$path/$name", false);
+			//set unachievable max age to avoid cache refreshes
+			$item = $this->get_single("$path/$name", -1, false);
 			$items[] = $item;
 		}
 		
@@ -73,7 +74,7 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $cache=true) {
+	public function get_single($path, $max_age=18000, $cache=true) {
 		$path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		
@@ -84,32 +85,35 @@ class Model {
 		}
 		
 		$cache_route = array_search_recursive('~'.$path.'$~i', $this->Cache->$type, "path", true);
+		$item = null;
 		
-		if(!$cache_route) {	
+		//if found cache, follow cache search route to get it
+		if($cache_route) {
+			array_pop($cache_route);
+			
+			$item = $this->Cache->$type;
+			
+			//step through cache to get search result node
+			foreach($cache_route as $next_key) {
+				//if a content object, convert to an array
+				if(is_object($item))
+					$item = $item->$next_key;
+				elseif(is_array($item))
+					$item = $item[$next_key];
+			}
+		}
+		
+		//if no cache or cache older than max age (default 5 mins), refresh
+		if(!$cache_route || ($max_age >= 0 && $this->Cache->age($type) > $max_age)) {	
 			if($type == "pages")
 				$path = $fixed_path; //return to fixed path for host fetch
 		
-			$item = $this->Host->get_single($path);
+			$item = $this->Host->get_single($path, $item);
 			
 			if($item && $cache) {
 				$this->Cache->add($type, $item);
 				$this->Cache->save($type);
 			}
-
-			return $item;
-		}
-		
-		array_pop($cache_route);
-		
-		$item = $this->Cache->$type;
-		
-		//step through cache to get search result node
-		foreach($cache_route as $next_key) {
-			//if a content object, convert to an array
-			if(is_object($item))
-				$item = $item->$next_key;
-			elseif(is_array($item))
-				$item = $item[$next_key];
 		}
 		
 		return $item;

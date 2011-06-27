@@ -76,7 +76,7 @@ class Dropbox extends Cloud_Host {
 		return $items;
 	}
 	
-	public function get_single($path) {
+	public function get_single($path, $Cache=null) {
 		$path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		$full_path = $this->encode_path($this->content_root."/$path");
@@ -122,18 +122,29 @@ class Dropbox extends Cloud_Host {
 				$meta["modified"] = strtotime($file_meta["modified"]);
 				$meta["revision"] = $file_meta["revision"];
 				
-				$meta["raw_content"] = $meta["content"] = $this->API->download($this->encode_path($main_file));
-				$format = parent_key($this->config["parsers"], $meta["extension"]);
-				
-				if($meta["raw_content"] && $format) {
-					$parser_class = $format."_Parser";
-					if(class_exists($parser_class)) {
-						$Parser = new $parser_class();
-						$meta["content"] = $Parser->parse($meta["raw_content"]);
+				//if no cache or cached content out of date
+				if(!$Cache || $meta["modified"] > $Cache->modified) {				
+					$meta["raw_content"] = $meta["content"] = $this->API->download($this->encode_path($main_file));
+					
+					$format = parent_key($this->config["parsers"], $meta["extension"]);
+					
+					//$meta["content"] = $this->swap_includes($meta["content"]);
+					
+					if($meta["content"] && $format) {
+						$parser_class = $format."_Parser";
+						if(class_exists($parser_class)) {
+							$Parser = new $parser_class();
+							$meta["content"] = $Parser->parse($meta["content"]);
+						}
 					}
+					
+					$meta["content"] = $this->resolve_media_srcs($meta["content"], $path);
 				}
-				
-				$meta["content"] = $this->resolve_media_srcs($meta["content"], $path);
+				else {
+					//cache is up-to-date
+					$meta["raw_content"] = $Cache->raw_content;
+					$meta["content"] = $Cache->content;
+				}
 			}
 			
 			if($type == "pages") {
@@ -152,38 +163,45 @@ class Dropbox extends Cloud_Host {
 		else { //collection
 			$meta["title"] = basename($meta["path"]);
 			
-			$files = array();
-			
-			foreach($meta["contents"] as $file) {
-				if(!$file["is_dir"]) {
-					$file["modified"] = strtotime($file["modified"]);
-					$file["title"] = $this->filename_from_path($file["path"]);
-					$file["extension"] = $this->ext_from_path($file["path"]);
-					$file["url"] = $this->get_file_url($file["path"]);
-					$file["dynamic_url"] = $this->get_file_url($file["path"], false);
-					
-					if(preg_match('~^(?<num>\d+)+\.\s*(?<title>.+)$~', $file["title"], $matches)) {
-						$file["order"] = $matches["num"];
-						$file["title"] = $matches["title"];
-					}
-					
-					if(strpos($file["mime_type"], "image") !== false) {
-						if(preg_match('~[^0-9a-z](?<w>[1-9]\d{0,4})x(?<h>[1-9]\d{0,4})(?:\W|$)~i', $file["title"], $matches)) {
-							$file["width"] = $matches["w"];
-							$file["height"] = $matches["h"];
-							$file["title"] = trim(str_replace($matches[0], " ", $file["title"]));
+			//if no cache or cached content out of date
+			if(!$Cache || $meta["modified"] > $Cache->modified) {		
+				$files = array();
+				
+				foreach($meta["contents"] as $file) {
+					if(!$file["is_dir"]) {
+						$file["modified"] = strtotime($file["modified"]);
+						$file["title"] = $this->filename_from_path($file["path"]);
+						$file["extension"] = $this->ext_from_path($file["path"]);
+						$file["url"] = $this->get_file_url($file["path"]);
+						$file["dynamic_url"] = $this->get_file_url($file["path"], false);
+						
+						if(preg_match('~^(?<num>\d+)+\.\s*(?<title>.+)$~', $file["title"], $matches)) {
+							$file["order"] = $matches["num"];
+							$file["title"] = $matches["title"];
 						}
 						
-						$Image = new Image($file);
-						
-						if($file["thumb_exists"])
-							$Image->calc_thumbs();
-						
-						$files[] = $Image;
+						if(strpos($file["mime_type"], "image") !== false) {
+							if(preg_match('~[^0-9a-z](?<w>[1-9]\d{0,4})x(?<h>[1-9]\d{0,4})(?:\W|$)~i', $file["title"], $matches)) {
+								$file["width"] = $matches["w"];
+								$file["height"] = $matches["h"];
+								$file["title"] = trim(str_replace($matches[0], " ", $file["title"]));
+							}
+							
+							$Image = new Image($file);
+							
+							if($file["thumb_exists"])
+								$Image->calc_thumbs();
+							
+							$files[] = $Image;
+						}
+						else
+							$files[] = new File($file);
 					}
-					else
-						$files[] = new File($file);
 				}
+			}
+			else {
+				//cache is up-to-date
+				$files = $Cache->files;
 			}
 			
 			$meta["files"] = $files;

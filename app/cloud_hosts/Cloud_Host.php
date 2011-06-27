@@ -53,4 +53,34 @@ abstract class Cloud_Host {
 		
 		return $html;
   }
+  
+   protected function swap_includes($content) {
+		$content = preg_replace('~\{\{\s*(\w+(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+)\s*}}~ie',
+														'$this->process_include("\1")',
+														$content);
+
+		return $content;
+	}
+	
+	protected function process_include($str) {
+		$func = strstr($str, " ", true);
+		$allowed_funcs = array("snippet", "gallery", "slideshow", "collection");
+		
+		if(!in_array($func, $allowed_funcs) || !function_exists($func))
+			return $str;
+		
+		preg_match_all('~\s+(?:(\w+):)?("[^"]*"|\w+|\d+|true|false)~', $str, $matches, PREG_SET_ORDER);
+		
+		$args = array();
+		
+		foreach($matches as $match) {
+			//if key undefined, default to title (allows simpler {{foo "Title"}} includes)
+			if(!$match[1])
+				$match[1] = "title";
+			
+			$args[$match[1]] = preg_replace('~^"|"$~', "", $match[2]);;
+		}
+	
+		return $func(var_export($args));
+	}
 }

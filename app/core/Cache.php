@@ -6,6 +6,7 @@ class Cache {
 	public $posts = array();
 	public $drafts = array();
 	public $snippets = array();
+	public $updated = array();
 
 	public function __construct($type=null) {
 		if($type)
@@ -41,5 +42,9 @@ class Cache {
 	
 	public function save($type)	{
 		return @file_put_contents("app/cache/$type.php", '<?php $cache = \''.htmlspecialchars(serialize($this->$type), ENT_QUOTES)."';");
+	}
+	
+	public function age($type) {
+		return time()-filemtime("app/cache/$type.php");
 	}
 }
