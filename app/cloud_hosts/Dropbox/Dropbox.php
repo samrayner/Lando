@@ -17,7 +17,7 @@ class Dropbox extends Cloud_Host {
 		
 		if(file_exists($config_file)) {
 			//use saved tokens
-			include_once $config_file;
+			include_once $config_file;			
 			$token_key 				= $tokens["token_key"];
 			$token_secret 		= $tokens["token_secret"];
 		}
@@ -128,8 +128,6 @@ class Dropbox extends Cloud_Host {
 					
 					$format = parent_key($this->config["parsers"], $meta["extension"]);
 					
-					//$meta["content"] = $this->swap_includes($meta["content"]);
-					
 					if($meta["content"] && $format) {
 						$parser_class = $format."_Parser";
 						if(class_exists($parser_class)) {
@@ -169,11 +167,13 @@ class Dropbox extends Cloud_Host {
 				
 				foreach($meta["contents"] as $file) {
 					if(!$file["is_dir"]) {
+						$rel_path = str_replace($this->config["host_root"]."/".$this->config["site_title"], "", $file["path"]);
+					
 						$file["modified"] = strtotime($file["modified"]);
 						$file["title"] = $this->filename_from_path($file["path"]);
 						$file["extension"] = $this->ext_from_path($file["path"]);
-						$file["url"] = $this->get_file_url($file["path"]);
-						$file["dynamic_url"] = $this->get_file_url($file["path"], false);
+						$file["url"] = $this->get_file_url($rel_path);
+						$file["dynamic_url"] = $this->get_file_url($rel_path, false);
 						
 						if(preg_match('~^(?<num>\d+)+\.\s*(?<title>.+)$~', $file["title"], $matches)) {
 							$file["order"] = $matches["num"];

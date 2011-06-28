@@ -6,7 +6,7 @@
 <section id="primary">
 	<article>
 		<h1><?= $current->title ?></h1>
-		<?= $current->content ?>
+		<?= $current ?>
 		<footer>
 			<p>Posted 
 				<time pubdate datetime="<?= date('c', $current->published) ?>">

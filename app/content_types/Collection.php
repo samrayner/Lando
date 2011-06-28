@@ -26,17 +26,17 @@ class Collection extends Content {
 		return $html;
 	}
 
-	private function image_list_html($type="gallery" $size=0, $limit=0, $link_images=null) {
+	public function image_list_html($type="gallery", $size=0, $limit=0, $link_images=null) {
 		if($type == "slideshow") {
 			if(!$size)
-				$size = "m"
+				$size = "m";
 			if($link_images === null)
 				$link_images = false;
 		}
 		else {
-			$type = "gallery"
+			$type = "gallery";
 			if(!$size)
-				$size = "75"
+				$size = "75";
 			if($link_images === null)
 				$link_images = true;
 		}

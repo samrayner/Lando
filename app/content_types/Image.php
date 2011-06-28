@@ -76,7 +76,7 @@ class Image extends File {
 	}
 	
 	public function thumb_html($size="150", $link=true) {
-		if(!array_key_exists((string)$size, $thumbs))
+		if(!array_key_exists((string)$size, $this->thumbs))
 			$size = "150";
 	
 		$html = "";

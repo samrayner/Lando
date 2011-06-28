@@ -5,6 +5,14 @@ class Controller {
 	private $Model;
 	public $theme_vars;
 	
+	public static $instance;
+	public static function get_instance() {
+		if(!self::$instance)
+			self::$instance = new Controller();
+		
+		return self::$instance;
+	}
+	
 	public function __construct() {
 		//make config available to methods and helper functions
 		global $config;
