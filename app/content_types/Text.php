@@ -10,7 +10,13 @@ class Text extends Content {
 	}
 	
 	private function swap_includes($content) {
-		$content = preg_replace('~(?:<p>)?\{\{\s*(\w+)(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+\s*}}(?:</p>)?~ie',
+		$regex = '\{\{\s*(\w+)(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+\s*}}';
+		
+		//if has been converted to html (may have wrapped include in unwanted P tags so remove them)
+		if(!in_array($this->extension, array("html", "htm")))
+			$regex = "(?:<p>)?$regex(?:</p>)?";
+	
+		$content = preg_replace("~$regex~ie",
 														'$this->process_include("\0", "\1", "\2")',
 														$content);
 
