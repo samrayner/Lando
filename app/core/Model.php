@@ -74,7 +74,7 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $max_age=18000, $cache=true) {
+	public function get_single($path, $max_age=300, $cache=true) {
 		$path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		
@@ -111,6 +111,12 @@ class Model {
 			$item = $this->Host->get_single($path, $item);
 			
 			if($item && $cache) {
+				//replace old cache
+				if(isset($cache_route[0])) {
+					$old = &$this->Cache->$type;
+					unset($old[$cache_route[0]]);
+				}
+
 				$this->Cache->add($type, $item);
 				$this->Cache->save($type);
 			}
