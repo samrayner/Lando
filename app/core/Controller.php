@@ -144,4 +144,8 @@ class Controller {
 		
 		return $content;
 	}
+	
+	public function get_file($path, $thumb=false) {
+		return $this->Model->get_file($path, $thumb);
+	}
 }

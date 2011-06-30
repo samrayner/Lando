@@ -77,7 +77,6 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function get_single($path, $Cache=null) {
-		$path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		$full_path = $this->encode_path($this->content_root."/$path");
 		
@@ -166,37 +165,8 @@ class Dropbox extends Cloud_Host {
 				$files = array();
 				
 				foreach($meta["contents"] as $file) {
-					if(!$file["is_dir"]) {
-						$rel_path = str_replace($this->config["host_root"]."/".$this->config["site_title"], "", $file["path"]);
-					
-						$file["modified"] = strtotime($file["modified"]);
-						$file["title"] = $this->filename_from_path($file["path"]);
-						$file["extension"] = $this->ext_from_path($file["path"]);
-						$file["url"] = $this->get_file_url($rel_path);
-						$file["dynamic_url"] = $this->get_file_url($rel_path, false);
-						
-						if(preg_match('~^(?<num>\d+)+\.\s*(?<title>.+)$~', $file["title"], $matches)) {
-							$file["order"] = $matches["num"];
-							$file["title"] = $matches["title"];
-						}
-						
-						if(strpos($file["mime_type"], "image") !== false) {
-							if(preg_match('~[^0-9a-z](?<w>[1-9]\d{0,4})x(?<h>[1-9]\d{0,4})(?:\W|$)~i', $file["title"], $matches)) {
-								$file["width"] = $matches["w"];
-								$file["height"] = $matches["h"];
-								$file["title"] = trim(str_replace($matches[0], " ", $file["title"]));
-							}
-							
-							$Image = new Image($file);
-							
-							if($file["thumb_exists"])
-								$Image->calc_thumbs();
-							
-							$files[] = $Image;
-						}
-						else
-							$files[] = new File($file);
-					}
+					if(!$file["is_dir"])
+						$files[] = $this->process_file($file);
 				}
 			}
 			else {
@@ -219,6 +189,71 @@ class Dropbox extends Cloud_Host {
 		if($try_public and strpos(strtolower($this->content_root), "public/") < 2)
 			return "http://dl.dropbox.com/u/".$this->encode_path($this->Cache->account["uid"]."/Lando/".$this->config["site_title"]."/$path");
 		else
-			return $this->config["site_root"]."/get_file.php?file=".urlencode($path);
+			return $this->config["site_root"]."/file.php?path=".urlencode($path);
+	}
+	
+	public function get_file($path, $thumb) {
+		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
+		
+		try {
+			$meta = $this->API->metadata($path);
+		}
+		catch(Exception $e) {
+			return false;
+		}
+		
+		$File = $this->process_file($meta);
+
+		if($thumb) {
+			$thumb_codes = array(
+				"icon" 	=> "16x16", 
+				"64" 		=> "64x64", 
+				"75"		=> "75x75_fit_one",
+				"150" 	=> "150x150_fit_one",
+				"s" 		=> "320x240_bestfit",
+				"m" 		=> "480x320_bestfit", 
+				"l" 		=> "640x480_bestfit",
+				"xl" 		=> "960x640_bestfit",
+				"xxl" 	=> "1024x768_bestfit"
+			);
+					
+			if($File->width && $File->height) {
+				$dims = $this->calc_thumb_dims($thumb, $File->width, $File->height);
+				$File->width = $dims["width"];
+				$File->height = $dims["height"];
+			}
+
+			$File->dynamic_url .= "&amp;size=$thumb";
+			$data_uri = $this->API->thumbnail($path, $thumb_codes[$thumb], "JPEG");
+			$File->mime_type = stristr(stristr($data_uri, "image/"), ";", true);
+			$File->raw_content = str_replace("data:".$File->mime_type.";base64,", "", $data_uri);
+		}
+		else
+			$File->raw_content = $this->API->download($path);
+		
+		return $File;
+	}
+	
+	private function process_file($file) {
+		$rel_path = str_replace($this->config["host_root"]."/".$this->config["site_title"], "", $file["path"]);
+					
+		$file["modified"] = strtotime($file["modified"]);
+		$file["title"] = $this->filename_from_path($file["path"]);
+		$file["extension"] = $this->ext_from_path($file["path"]);
+		$file["url"] = $this->get_file_url($rel_path);
+		$file["dynamic_url"] = $this->get_file_url($rel_path, false);
+		
+		$file["order"] = $this->extract_order($file["title"]);
+		
+		if(strpos($file["mime_type"], "image") !== false) {
+			$dims = $this->extract_dimensions($file["title"]);
+			array_merge($dims, $file);
+			
+			$file = new Image($file);
+		}
+		else
+			$file = new File($file);
+			
+		return $file;
 	}
 }

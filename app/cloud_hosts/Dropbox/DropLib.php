@@ -7,10 +7,10 @@
  * @copyright	(c) 2011 by JonasDoebertin (http://codecanyon.net/user/JonasDoebertin)
  * @author		Jonas Döbertin
  * @package		DropLib
- * @version		Version 1.0
+ * @version		Version 1.0.1
  */
 
-require_once("OAuth.php");
+require_once('OAuth.php');
 
 class DropLibException extends Exception{
 	
@@ -307,7 +307,7 @@ class DropLib{
 	* @param String $file Local path to file which will be uploaded (optional)
 	* @return Array Associative array
 	*/
-	protected function request($url, $args = null, $method = 'GET', $looseSigning = false, $file = null){	
+	protected function request($url, $args = null, $method = 'GET', $looseSigning = false, $file = null){
 		$args = (is_array($args)) ? $args : array();
 		if (!$this->useExceptions){
 			$args['status_in_response'] = 'true';
@@ -364,11 +364,9 @@ class DropLib{
 	*/
 	protected function formatResult($input){
 		$output = json_decode($input, true);
-		
-		//SAM EDIT: just return response if not JSON
-		if(!$output)
+		if(!$output){
 			return $input;
-		
+		}
 		if (!$this->useExceptions and isset($output['body']) and !is_array($output['body'])){
 			$output['body'] = json_decode($output['body'], true);
 		}

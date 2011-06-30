@@ -1,7 +1,6 @@
 <?php
 
 class Text extends Content {
-	public $raw_content;
 	public $content;
 	public $extension;
 	

@@ -6,6 +6,7 @@ class File extends Content {
 	public $bytes;
 	public $size;
 	public $url;
+	public $mime_type;
 	public $dynamic_url;
 	
 	public function __toString() {

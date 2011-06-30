@@ -6,6 +6,7 @@ class Cache {
 	public $posts = array();
 	public $drafts = array();
 	public $snippets = array();
+	public $thumbs = array();
 	public $updated = array();
 
 	public function __construct($type=null) {

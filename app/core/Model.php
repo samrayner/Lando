@@ -74,9 +74,13 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $max_age=300, $cache=true) {
+	public function get_single($path, $max_age=300, $cache=true, $thumb=false) {
 		$path = trim_slashes($path);
-		$type = array_shift(explode("/", $path));
+		
+		if($thumb)
+			$type = "thumbs";
+		else
+			$type = array_shift(explode("/", $path));
 		
 		if($type == "pages") {
 			$fixed_path = $path;
@@ -108,7 +112,10 @@ class Model {
 			if($type == "pages")
 				$path = $fixed_path; //return to fixed path for host fetch
 		
-			$item = $this->Host->get_single($path, $item);
+			if($type == "thumbs")
+				$item = $this->Host->get_file($path, $thumb);
+			else
+				$item = $this->Host->get_single($path, $item);
 			
 			if($item && $cache) {
 				//replace old cache
@@ -123,5 +130,14 @@ class Model {
 		}
 		
 		return $item;
+	}
+	
+	public function get_file($path, $thumb) {
+		//if not thumb, serve from host
+		if(!$thumb)
+			return $this->Host->get_file($path, false);
+		
+		//cache thumbs for 20 mins
+		return $this->get_single($path, 1200, true, $thumb);
 	}
 }
