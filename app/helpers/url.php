@@ -1,7 +1,8 @@
 <?php
 
 function current_url() {
-	return "/".trim_slashes($_SERVER['QUERY_STRING']);
+	$path_info = isset($_SERVER['PATH_INFO']) ? trim_slashes($_SERVER['PATH_INFO']) : "";
+	return "/$path_info";
 }
 
 function url_segments() {

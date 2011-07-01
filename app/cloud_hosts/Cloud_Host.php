@@ -19,7 +19,7 @@ abstract class Cloud_Host {
 	}
 	
 	protected function get_file_url($path) {
-		return $this->config["site_root"]."/get_file.php?file=".urlencode(trim_slashes($path));
+		return $this->config["site_root"]."/file.php/".trim_slashes($path);
 	}
 	
 	protected function resolve_media_srcs($html, $dir) {
@@ -55,6 +55,8 @@ abstract class Cloud_Host {
   }
   
  	protected function extract_dimensions(&$title) {
+ 		$dims = array();
+ 	
 		if(preg_match('~[^0-9a-z](?<w>[1-9]\d{0,4})x(?<h>[1-9]\d{0,4})(?:\W|$)~i', $title, $matches)) {
 			$dims["width"] = $matches["w"];
 			$dims["height"] = $matches["h"];
@@ -91,7 +93,7 @@ abstract class Cloud_Host {
 		$max = $sizes[$code];
 		$ratio = $w/$h;
 		
-		switch($size) {
+		switch($code) {
 			//'cover' thumb scaling
 			case "75": 
 			case "150":

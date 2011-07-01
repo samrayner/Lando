@@ -2,7 +2,7 @@
 
 include "app/core/loader.php";
 
-$path = urldecode($_GET["path"]);
+$path = current_url();
 $thumb = isset($_GET["size"]) ? $_GET["size"] : false;
 
 $File = $Lando->get_file($path, $thumb);
@@ -13,6 +13,8 @@ if(!$File) {
 		include $custom_404;
 	else
 		include "app/templates/404.php";
+		
+	exit();
 }
 
 header('Content-Type: '.$File->mime_type);

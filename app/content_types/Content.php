@@ -4,7 +4,6 @@ class Content {
 	public $title = "Untitled";
 	public $modified;
 	public $path;
-	public $revision;
 	public $raw_content;
 	
 	public function __construct($data=null) {

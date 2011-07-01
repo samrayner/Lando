@@ -47,7 +47,7 @@ class Dropbox extends Cloud_Host {
 		}
 		else {
 			//sanitize title for use in regex
-			$filename = preg_replace('/([{}\(\)\^$&.\*\?\/\+\|\[\\\\]|\]|\-)/', "\\1", $title);
+			$filename = preg_quote($filename, "~");
 		}
 		
 		//if not found, get first parsable file
@@ -97,7 +97,7 @@ class Dropbox extends Cloud_Host {
 			
 			$meta["permalink"] = $this->config["site_root"];
 			if(!$this->config["pretty_urls"])
-				$meta["permalink"] .= "/?";
+				$meta["permalink"] .= "/index.php";
 				
 			$permalink = "/".$path;
 			
@@ -119,7 +119,6 @@ class Dropbox extends Cloud_Host {
 				$meta["title"] = $this->filename_from_path($main_file);
 				$meta["extension"] = $this->ext_from_path($main_file);
 				$meta["modified"] = strtotime($file_meta["modified"]);
-				$meta["revision"] = $file_meta["revision"];
 				
 				//if no cache or cached content out of date
 				if(!$Cache || $meta["modified"] > $Cache->modified) {				
@@ -189,10 +188,25 @@ class Dropbox extends Cloud_Host {
 		if($try_public and strpos(strtolower($this->content_root), "public/") < 2)
 			return "http://dl.dropbox.com/u/".$this->encode_path($this->Cache->account["uid"]."/Lando/".$this->config["site_title"]."/$path");
 		else
-			return $this->config["site_root"]."/file.php?path=".urlencode($path);
+			return $this->config["site_root"]."/file.php/$path";
 	}
 	
 	public function get_file($path, $thumb) {
+		$thumb_codes = array(
+			"icon" 	=> "16x16", 
+			"64" 		=> "64x64", 
+			"75"		=> "75x75_fit_one",
+			"150" 	=> "150x150_fit_one",
+			"s" 		=> "320x240_bestfit",
+			"m" 		=> "480x320_bestfit", 
+			"l" 		=> "640x480_bestfit",
+			"xl" 		=> "960x640_bestfit",
+			"xxl" 	=> "1024x768_bestfit"
+		);
+		
+		if($thumb && !isset($thumb_codes[$thumb]))
+			return false;
+	
 		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
 		
 		try {
@@ -204,28 +218,17 @@ class Dropbox extends Cloud_Host {
 		
 		$File = $this->process_file($meta);
 
-		if($thumb) {
-			$thumb_codes = array(
-				"icon" 	=> "16x16", 
-				"64" 		=> "64x64", 
-				"75"		=> "75x75_fit_one",
-				"150" 	=> "150x150_fit_one",
-				"s" 		=> "320x240_bestfit",
-				"m" 		=> "480x320_bestfit", 
-				"l" 		=> "640x480_bestfit",
-				"xl" 		=> "960x640_bestfit",
-				"xxl" 	=> "1024x768_bestfit"
-			);
-					
+		if($thumb && $meta["thumb_exists"]) {					
 			if($File->width && $File->height) {
 				$dims = $this->calc_thumb_dims($thumb, $File->width, $File->height);
 				$File->width = $dims["width"];
 				$File->height = $dims["height"];
 			}
 
-			$File->dynamic_url .= "&amp;size=$thumb";
+			$File->dynamic_url .= "?size=$thumb";
 			$data_uri = $this->API->thumbnail($path, $thumb_codes[$thumb], "JPEG");
 			$File->mime_type = stristr(stristr($data_uri, "image/"), ";", true);
+			$File->extension = str_replace("image/", "", $File->mime_type);
 			$File->raw_content = str_replace("data:".$File->mime_type.";base64,", "", $data_uri);
 		}
 		else
@@ -247,7 +250,7 @@ class Dropbox extends Cloud_Host {
 		
 		if(strpos($file["mime_type"], "image") !== false) {
 			$dims = $this->extract_dimensions($file["title"]);
-			array_merge($dims, $file);
+			$file = array_merge($file, $dims);
 			
 			$file = new Image($file);
 		}

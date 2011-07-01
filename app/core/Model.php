@@ -76,6 +76,7 @@ class Model {
 	
 	public function get_single($path, $max_age=300, $cache=true, $thumb=false) {
 		$path = trim_slashes($path);
+		$key = "path";
 		
 		if($thumb)
 			$type = "thumbs";
@@ -83,12 +84,22 @@ class Model {
 			$type = array_shift(explode("/", $path));
 		
 		if($type == "pages") {
-			$fixed_path = $path;
+			$old_path = $path;
 			$numbered_path = str_replace("/", "/(\d+\.\s*)?", $path); //match numbered pages in cache
 			$path = $numbered_path;
 		}
 		
-		$cache_route = array_search_recursive('~'.$path.'$~i', $this->Cache->$type, "path", true);
+		if($type == "thumbs") {
+			$old_path = $path;
+			$new_path = $path."?size=".$thumb; //match numbered pages in cache
+			$path = $new_path;
+			$key = "dynamic_url";
+			
+			//sanitize path for use in regex
+			$path = preg_quote($path, "~");
+		}
+		
+		$cache_route = array_search_recursive('~'.$path.'$~i', $this->Cache->$type, $key, true);
 		$item = null;
 		
 		//if found cache, follow cache search route to get it
@@ -109,8 +120,8 @@ class Model {
 		
 		//if no cache or cache older than max age (default 5 mins), refresh
 		if(!$cache_route || ($max_age >= 0 && $this->Cache->age($type) > $max_age)) {	
-			if($type == "pages")
-				$path = $fixed_path; //return to fixed path for host fetch
+			if(isset($old_path))
+				$path = $old_path; //return to original path for host fetch
 		
 			if($type == "thumbs")
 				$item = $this->Host->get_file($path, $thumb);

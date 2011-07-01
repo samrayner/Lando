@@ -31,9 +31,10 @@ class Controller {
 		
 		$vars["site_root"] = $this->config["site_root"];
 		if(!$this->config["pretty_urls"])
-			$vars["site_root"] .= "/?";
-			
-		$vars["current"] = $this->get_content();
+			$vars["site_root"] .= "/index.php";
+		
+		if(strpos($_SERVER["REQUEST_URI"], "/file.php") !== 0)
+			$vars["current"] = $this->get_content();
 		
 		$this->theme_vars = $vars;
 	}
