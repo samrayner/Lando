@@ -23,7 +23,7 @@
 		}
 	?>
 
-	<h1>Posts <?= $date_str ?></h1>
+	<h1>Posts <?php echo $date_str ?></h1>
 	
 	<? $posts = posts(0, 0, $year, $month, $day);
 		 foreach($posts as $i => $post): ?>
@@ -33,7 +33,7 @@
 					date('Y', $post->published) != date('Y', $posts[$i-1]->published) //first post of new year
 		   )): ?>
 
-			<h2><?= date('Y', $post->published) ?></h2>
+			<h2><?php echo date('Y', $post->published) ?></h2>
 		<? endif ?>
 	
 		<? if(!$month && (
@@ -41,15 +41,15 @@
 					date('n', $post->published) != date('n', $posts[$i-1]->published) //first post of new month
 		   )): ?>
 
-			<h2><?= date('F', $post->published) ?></h2>
+			<h2><?php echo date('F', $post->published) ?></h2>
 		<? endif ?>
 
 		<article>
-			<h1><a href="<?= $post->permalink ?>"><?= $post->title ?></a></h1>
+			<h1><a href="<?php echo $post->permalink ?>"><?php echo $post->title ?></a></h1>
 			<footer>
 				<p>Posted 
-					<time pubdate datetime="<?= date('c', $post->published) ?>">
-						<?= date('F jS \a\t g:ia', $post->published) ?>
+					<time pubdate datetime="<?php echo date('c', $post->published) ?>">
+						<?php echo date('F jS \a\t g:ia', $post->published) ?>
 					</time>
 				</p>
 			</footer>

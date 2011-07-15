@@ -5,18 +5,18 @@
 
 <section id="primary">
 
-	<h1><?= $current->title ?></h1>
-	<?= $current->content ?>
+	<h1><?php echo $current->title ?></h1>
+	<?php echo $current->content ?>
 
 	<? foreach(posts(5) as $post): ?>
 
 		<article>
-			<h1><a href="<?= $post->permalink ?>"><?= $post->title ?></a></h1>
-			<?= truncate_html($post->content, 200) ?>
+			<h1><a href="<?php echo $post->permalink ?>"><?php echo $post->title ?></a></h1>
+			<?php echo truncate_html($post->content, 200) ?>
 			<footer>
 				<p>Posted 
-					<time pubdate datetime="<?= date('c', $post->published) ?>">
-						<?= date('F jS \a\t g:ia', $post->published) ?>
+					<time pubdate datetime="<?php echo date('c', $post->published) ?>">
+						<?php echo date('F jS \a\t g:ia', $post->published) ?>
 					</time>
 				</p>
 			</footer>

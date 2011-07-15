@@ -1,3 +1,3 @@
 <footer>
-	<?= snippet("footer.md") ?>
+	<?php echo snippet("footer.md") ?>
 </footer>

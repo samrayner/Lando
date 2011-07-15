@@ -184,11 +184,14 @@ class Dropbox extends Cloud_Host {
 	
 	protected function get_file_url($path, $try_public=true) {
 		$path = trim_slashes($path);
+		
+		if(strpos($path, "?"))
+			$try_public = false;
 	
 		if($try_public and strpos(strtolower($this->content_root), "public/") < 2)
 			return "http://dl.dropbox.com/u/".$this->encode_path($this->Cache->account["uid"]."/Lando/".$this->config["site_title"]."/$path");
-		else
-			return $this->config["site_root"]."/file.php/$path";
+		
+		return $this->config["site_root"]."/file.php/".$this->encode_path($path);
 	}
 	
 	public function get_file($path, $thumb) {
@@ -218,18 +221,13 @@ class Dropbox extends Cloud_Host {
 		
 		$File = $this->process_file($meta);
 
-		if($thumb && $meta["thumb_exists"]) {					
-			if($File->width && $File->height) {
-				$dims = $this->calc_thumb_dims($thumb, $File->width, $File->height);
-				$File->width = $dims["width"];
-				$File->height = $dims["height"];
-			}
-
+		if($thumb && $meta["thumb_exists"]) {
 			$File->dynamic_url .= "?size=$thumb";
 			$data_uri = $this->API->thumbnail($path, $thumb_codes[$thumb], "JPEG");
 			$File->mime_type = stristr(stristr($data_uri, "image/"), ";", true);
 			$File->extension = str_replace("image/", "", $File->mime_type);
 			$File->raw_content = str_replace("data:".$File->mime_type.";base64,", "", $data_uri);
+			$File->resize($thumb); //calculate thumb dimensions and replace
 		}
 		else
 			$File->raw_content = $this->API->download($path);

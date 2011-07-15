@@ -16,13 +16,14 @@ class Text extends Content {
 			$regex = "(?:<p>)?$regex(?:</p>)?";
 	
 		$content = preg_replace("~$regex~ie",
-														'$this->process_include("\0", "\1", "\2")',
+														'$this->process_include("\0", "\1")',
 														$content);
 
 		return $content;
 	}
 	
-	private function process_include($str, $func, $args) {
+	private function process_include($str, $func) {
+		$args = str_replace($func, "", $str);
 		$allowed_funcs = array("snippet", "gallery", "slideshow", "collection");
 		
 		if(!in_array($func, $allowed_funcs) || !function_exists($func))
@@ -32,8 +33,8 @@ class Text extends Content {
 		
 		$args = array(
 			"title" => "",
+			"size" => 0,
 			"limit" => 0,
-			"offset" => 0,
 			"link_images" => null
 		);
 		
@@ -52,7 +53,7 @@ class Text extends Content {
 				break;
 			case "gallery": 
 			case "slideshow": 
-				$include = $func($args["title"], $args["limit"], $args["offset"], $args["link_images"]);
+				$include = $func($args["title"], $args["size"], $args["limit"], $args["link_images"]);
 				break;
 			default: 
 				$include = false;
@@ -61,6 +62,6 @@ class Text extends Content {
 		if(!$include)
 			return $str;
 			
-		return compress_html($include);
+		return $include;
 	}
 }

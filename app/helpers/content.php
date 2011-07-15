@@ -16,11 +16,17 @@ function drafts($limit=0, $offset=0, $year=0, $month=0, $day=0) {
 }
 
 function snippet($title) {
+	if(!$title)
+		return false;
+		
 	global $Lando;
 	return $Lando->get_content("snippets", $title);
 }
 
 function collection($title) {
+	if(!$title)
+		return false;
+
 	global $Lando;
 	return $Lando->get_content("collections", $title);
 }
