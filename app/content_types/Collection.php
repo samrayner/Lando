@@ -44,20 +44,18 @@ class Collection extends Content {
 		if($limit < 1 || $limit > count($this->files))
 			$limit = count($this->files);
 	
-		$html = '<ul class="'.$type.'">';
+		$html = '<div class="'.$type.'">';
 		
 		$i = 0;
 		
 		while($i < $limit) {
 			if(method_exists($this->files[$i], "thumb_html")) {
-				$html .= "<li>";
 				$html .= $this->files[$i]->thumb_html($size, $link_images);
-				$html .= '</li>';
 				$i++;
 			}
 		}
 		
-		$html .= '</ul>';
+		$html .= '</div>';
 		
 		return $html;
 	}
