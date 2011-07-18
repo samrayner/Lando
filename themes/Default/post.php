@@ -13,6 +13,15 @@
 					<?php echo date('F jS \a\t g:ia', $current->published) ?>
 				</time>
 			</p>
+			
+			<?php if($current->tags): ?>
+				<h2>Tagged</h2>
+				<ul>
+				<?php foreach($current->tags as $tag): ?>
+					<li><?php echo $tag ?></li>
+				<?php endforeach ?>
+				</ul>
+			<?php endif ?>
 		</footer>
 	</article>
 </section>

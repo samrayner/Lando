@@ -5,7 +5,7 @@
 
 	<h1>Drafts</h1>
 	
-	<? foreach(drafts() as $draft): ?>
+	<?php foreach(drafts() as $draft): ?>
 
 		<article>
 			<h1><a href="<?php echo $draft->permalink ?>"><?php echo $draft->title ?></a></h1>
@@ -18,7 +18,7 @@
 			</footer>
 		</article>
 
-	<? endforeach ?>
+	<?php endforeach ?>
 	
 </section>
 

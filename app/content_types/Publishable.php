@@ -5,4 +5,5 @@ class Publishable extends Text {
 	public $file_path;
 	public $permalink;
 	public $published;
+	public $tags = array();
 }

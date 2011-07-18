@@ -5,7 +5,7 @@
 
 <section id="primary">
 
-	<? 
+	<?php 
 		$year 	= url_segment(3);
 		$month 	= url_segment(4);
 		$day 		= url_segment(5);
@@ -25,24 +25,24 @@
 
 	<h1>Posts <?php echo $date_str ?></h1>
 	
-	<? $posts = posts(0, 0, $year, $month, $day);
+	<?php $posts = posts(0, 0, $year, $month, $day);
 		 foreach($posts as $i => $post): ?>
 	
-		<? if(!$year && (
+		<?php if(!$year && (
 					!isset($posts[$i-1]) || //first post
 					date('Y', $post->published) != date('Y', $posts[$i-1]->published) //first post of new year
 		   )): ?>
 
 			<h2><?php echo date('Y', $post->published) ?></h2>
-		<? endif ?>
+		<?php endif ?>
 	
-		<? if(!$month && (
+		<?php if(!$month && (
 					!isset($posts[$i-1]) || //first post
 					date('n', $post->published) != date('n', $posts[$i-1]->published) //first post of new month
 		   )): ?>
 
 			<h2><?php echo date('F', $post->published) ?></h2>
-		<? endif ?>
+		<?php endif ?>
 
 		<article>
 			<h1><a href="<?php echo $post->permalink ?>"><?php echo $post->title ?></a></h1>
@@ -55,7 +55,7 @@
 			</footer>
 		</article>
 
-	<? endforeach ?>
+	<?php endforeach ?>
 	
 </section>
 

@@ -76,4 +76,56 @@ abstract class Cloud_Host {
 		
 		return $order;
 	}
+	
+	protected function manual_meta($content) {
+		$meta = array();
+	
+		if(!$content)
+			return $meta;
+	
+		$lines = preg_split('~\r?\n~', $content);
+		$i = 0;
+		
+		//read line by line, if empty or metadata store and move to next line
+		while(isset($lines[$i]) && (trim($lines[$i]) === "" || preg_match('~^\s*(?<key>\w+)\s*:\s*(?<val>.*)$~', $lines[$i], $prop))) {
+			if(isset($prop)) {
+			  $key = strtolower($prop["key"]);
+    		$val = trim($prop["val"]);
+    	
+    		switch($key) {
+    			case "slug":
+    				$val = str_to_slug($val);
+    				break;
+    				
+    			case "modified":
+    			case "published":
+    				$val = strtotime($val);
+    				break;
+    				
+    			case "tags":
+    				$tags = explode(",", $val);
+    				$val = array();
+    				
+    				foreach($tags as $tag) {
+    					$tag = trim($tag);
+    					if($tag !== "")
+    						$val[] = $tag;
+    				}
+    				break;
+    		}
+    		
+    		if($val)
+    			$meta[$key] = $val;
+    	}
+    	
+    	unset($prop);
+    	$i++;
+		}
+		
+		$lines = array_slice($lines, $i);
+		
+		$meta["raw_content"] = implode("\n", $lines);
+		
+		return $meta;
+	}
 }

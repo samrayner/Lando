@@ -15,7 +15,7 @@ $posts = posts(10);
 		<pubDate><?php echo date("r", $posts[0]->published) ?></pubDate>
 		<lastBuildDate><?php echo date("r", $posts[0]->modified) ?></lastBuildDate>
 		
-		<? foreach($posts as $post): ?>
+		<?php foreach($posts as $post): ?>
 		<item>
 		
 			<title><?php echo $post->title ?></title>
@@ -26,7 +26,7 @@ $posts = posts(10);
 			<description><![CDATA[ <?php echo $post->content ?> ]]></description>
 
 		</item>
-		<? endforeach ?>
+		<?php endforeach ?>
 		
 	</channel>
 </rss>

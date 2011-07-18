@@ -3,6 +3,7 @@
 class Text extends Content {
 	public $content;
 	public $extension;
+	public $author = "";
 	
 	public function __toString() {
 		return $this->swap_includes($this->content);

@@ -1,4 +1,4 @@
-<? include "inc/head.php" ?>
+<?php include "inc/head.php" ?>
 
 <body id="<?php echo $current->slug ?>">
 
@@ -18,4 +18,4 @@
 
 </body>
 
-<? include "inc/foot.php" ?>
+<?php include "inc/foot.php" ?>

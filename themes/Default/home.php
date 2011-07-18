@@ -8,7 +8,7 @@
 	<h1><?php echo $current->title ?></h1>
 	<?php echo $current->content ?>
 
-	<? foreach(posts(5) as $post): ?>
+	<?php foreach(posts(5) as $post): ?>
 
 		<article>
 			<h1><a href="<?php echo $post->permalink ?>"><?php echo $post->title ?></a></h1>
@@ -22,7 +22,7 @@
 			</footer>
 		</article>
 
-	<? endforeach ?>
+	<?php endforeach ?>
 	
 </section>
 

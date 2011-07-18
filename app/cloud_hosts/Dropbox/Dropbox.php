@@ -78,17 +78,30 @@ class Dropbox extends Cloud_Host {
 	
 	public function get_single($path, $Cache=null) {
 		$type = array_shift(explode("/", $path));
+		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
+		
+		if(!class_exists($type_class))
+			return false;
+		
 		$full_path = $this->encode_path($this->content_root."/$path");
 		
 		if(strpos($path, "/_") !== false)
 			return false; //prevent access to a hidden folder
 		
+		$meta = array();
+		
+		if($Cache)
+			$meta = $Cache->export();
+		
 		try {
-			$meta = $this->API->metadata($full_path);
+			$latest = $this->API->metadata($full_path);
 		}
 		catch(Exception $e) {
 			return false;
 		}
+		
+		//update cache with latest metadata if exists
+		$meta = array_merge($meta, $latest);
 		
 		$meta["published"] = $meta["created"] = $meta["modified"] = strtotime($meta["modified"]);
 		
@@ -102,7 +115,12 @@ class Dropbox extends Cloud_Host {
 			$permalink = "/".$path;
 			
 			if($type == "pages") {
-				//remove order numbers from permalink
+				//strip order number from slug and store
+				if(preg_match('~^(?<num>\d+)\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
+					$meta["order"] = $matches["num"];
+					$meta["slug"] = $matches["slug"];
+				}
+				//strip order number from permalink
 				$permalink = preg_replace('~/\d+\.\s*~', "/", $permalink);
 				//remove /pages/ and /home/ from permalink if exist
 				$permalink = preg_replace('~^/pages(/home$)?~i', "", $permalink);
@@ -122,33 +140,26 @@ class Dropbox extends Cloud_Host {
 				
 				//if no cache or cached content out of date
 				if(!$Cache || $meta["modified"] > $Cache->modified) {				
-					$meta["raw_content"] = $meta["content"] = $this->API->download($this->encode_path($main_file));
+					$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
+					
+					$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
 					
 					$format = parent_key($this->config["parsers"], $meta["extension"]);
+					$meta["content"] = $meta["raw_content"];
 					
-					if($meta["content"] && $format) {
+					if($meta["raw_content"] && $format) {
 						$parser_class = $format."_Parser";
 						if(class_exists($parser_class)) {
 							$Parser = new $parser_class();
-							$meta["content"] = $Parser->parse($meta["content"]);
+							$meta["content"] = $Parser->parse($meta["raw_content"]);
 						}
 					}
 					
 					$meta["content"] = $this->resolve_media_srcs($meta["content"], $path);
 				}
-				else {
-					//cache is up-to-date
-					$meta["raw_content"] = $Cache->raw_content;
-					$meta["content"] = $Cache->content;
-				}
 			}
-			
+
 			if($type == "pages") {
-				if(preg_match('~^(?<num>\d+)\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
-					$meta["order"] = $matches["num"];
-					$meta["slug"] = $matches["slug"];
-				}
-				
 				//recurse to get subpages
 				foreach($meta["contents"] as $subpage) {
 					if($subpage["is_dir"])
@@ -175,8 +186,6 @@ class Dropbox extends Cloud_Host {
 			
 			$meta["files"] = $files;
 		}
-		
-		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
 		
 		$item = new $type_class($meta);
 		return $item;
