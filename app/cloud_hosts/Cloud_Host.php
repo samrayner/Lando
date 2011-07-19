@@ -78,7 +78,9 @@ abstract class Cloud_Host {
 	}
 	
 	protected function manual_meta($content) {
-		$meta = array();
+		//reset when re-reading manual metadata
+		$meta["tags"] = array();
+		$meta["author"] = "";
 	
 		if(!$content)
 			return $meta;
