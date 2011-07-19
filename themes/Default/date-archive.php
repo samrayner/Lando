@@ -1,5 +1,5 @@
 <?php include "inc/head.php" ?>
-<body id="post-archive">
+<body id="date-archive">
 
 <?php include "inc/header.php" ?>
 
@@ -25,8 +25,8 @@
 
 	<h1>Posts <?php echo $date_str ?></h1>
 	
-	<?php $posts = posts(0, 0, $year, $month, $day);
-		 foreach($posts as $i => $post): ?>
+	<?php $posts = posts(0, 0, array(), $year, $month, $day);
+		 		foreach($posts as $i => $post): ?>
 	
 		<?php if(!$year && (
 					!isset($posts[$i-1]) || //first post
@@ -52,6 +52,15 @@
 						<?php echo date('F jS \a\t g:ia', $post->published) ?>
 					</time>
 				</p>
+				
+				<?php if($post->tags): ?>
+					<h3>Tagged</h3>
+					<ul>
+					<?php foreach($post->tags as $tag): ?>
+						<li><?php echo $tag ?></li>
+					<?php endforeach ?>
+					</ul>
+				<?php endif ?>
 			</footer>
 		</article>
 

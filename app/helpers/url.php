@@ -2,7 +2,7 @@
 
 function current_url() {
 	$path_info = isset($_SERVER['PATH_INFO']) ? trim_slashes($_SERVER['PATH_INFO']) : "";
-	return "/$path_info";
+	return strtolower("/$path_info");
 }
 
 function url_segments() {

@@ -1,18 +1,27 @@
 <?php include "inc/head.php" ?>
-<body id="home">
+<body id="tag-archive">
 
 <?php include "inc/header.php" ?>
 
 <section id="primary">
 
-	<h1><?php echo $current->title ?></h1>
-	<?php echo $current->content ?>
+	<?php 
+		$csv = explode(",", url_segment(3));
+		$tags = array();
+		foreach($csv as $i => $tag) {
+			$tag = trim($tag);
+			if($tag !== "")
+				$tags[$i] = urldecode($tag);
+		}
+	?>
 
-	<?php foreach(posts(5) as $post): ?>
+	<h1>Posts tagged <?php echo implode(", ", $tags) ?></h1>
+	
+	<?php $posts = posts(0, 0, $tags);
+		 		foreach($posts as $i => $post): ?>
 
 		<article>
 			<h1><a href="<?php echo $post->permalink ?>"><?php echo $post->title ?></a></h1>
-			<?php echo truncate_html($post->content, 200) ?>
 			<footer>
 				<p>Posted 
 					<time pubdate datetime="<?php echo date('c', $post->published) ?>">

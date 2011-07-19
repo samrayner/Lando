@@ -14,7 +14,7 @@ $themeBase = trim_slashes($theme_dir)."/";
 $template = "home";
 $url = current_url();
 
-if(preg_match('~^/([a-z0-9-_]+)$~', $url, $matches)) {
+if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
 			$template = "post-archive";
@@ -35,7 +35,7 @@ if(preg_match('~^/([a-z0-9-_]+)$~', $url, $matches)) {
 	}
 }
 
-if(preg_match('~^/([a-z0-9-_]+)(?:/([a-z0-9-_]+))+$~', $url, $matches)) {
+if(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
 			$template = "post";
@@ -55,7 +55,10 @@ if(preg_match('~^/([a-z0-9-_]+)(?:/([a-z0-9-_]+))+$~', $url, $matches)) {
 }
 
 if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url))
-	$template = "post-archive";
+	$template = "date-archive";
+
+if(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
+	$template = "tag-archive";
 
 if(!file_exists($themeBase.$template.".php")) {
 	if(file_exists("app/templates/$template.php"))

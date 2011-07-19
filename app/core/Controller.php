@@ -83,9 +83,22 @@ class Controller {
 		return false;
 	}
 	
-	public function filter_content($content, $limit, $offset, $year, $month, $day) {
+	public function filter_content($content, $limit, $offset, $tags, $year, $month, $day) {
 		if(!is_array($content) || empty($content))
 			return $content;
+		
+		if(!empty($tags)) {
+			$filtered = array();
+		
+			foreach($content as $item) {			
+				if(isset($item->tags)) {
+					if(array_intersect($tags, $item->tags) == $tags)
+						$filtered[] = $item;
+				}
+			}
+			
+			$content = $filtered;
+		}
 
 		$year 	= (int)$year;
 		$month 	= (int)$month;
