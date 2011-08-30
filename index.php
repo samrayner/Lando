@@ -17,7 +17,7 @@ $url = current_url();
 if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
-			$template = "post-archive";
+			$template = "date-archive";
 			break;
 		case "drafts":
 			$template = "draft-list";

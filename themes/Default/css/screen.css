@@ -32,16 +32,33 @@ article {
 }
 
 article footer {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 110px;
-	text-align: right;
+	font-size: 0.9em;
+	color: gray;
 }
 
-article footer time {
-	display: block;
-	font-weight: bold;
+article footer h3 {
+	font-size: 1em;
+	float: left;
+	margin: 0;
+	margin-right: 10px;
+}
+
+article footer ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+article footer li {
+	display: inline;
+}
+
+article footer li:after {
+	content: ", ";
+}
+
+article footer li:last-child:after {
+	content: "";
 }
 
 body > footer {

@@ -18,7 +18,7 @@
 				<h2>Tagged</h2>
 				<ul>
 				<?php foreach($current->tags as $tag): ?>
-					<li><?php echo $tag ?></li>
+					<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 				<?php endforeach ?>
 				</ul>
 			<?php endif ?>
