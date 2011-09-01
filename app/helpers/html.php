@@ -119,3 +119,75 @@ function truncate_html($text, $length = 100, $ending = '&hellip;', $exact = fals
 	}
 	return $truncate;
 }
+
+// HTML Compressor 1.0.0
+// This code is licensed under the MIT Open Source License.
+// Copyright (c) 2010 tylerhall@gmail.com
+// Latest Source and Bug Tracker: http://github.com/tylerhall/html-compressor
+function compress_html($data)
+{
+	$data 			= $data."\n";
+	$out        = '';
+	$inside_pre = false;
+	$bytecount  = 0;
+
+	while($line = get_line($data))
+	{
+		$bytecount += strlen($line);
+
+		if(!$inside_pre)
+		{
+			if(strpos($line, '<pre') === false)
+			{
+				// Since we're not inside a <pre> block, we can trim both ends of the line
+				$line = trim($line);
+				
+				// And condense multiple spaces down to one
+				$line = preg_replace('/\s\s+/', ' ', $line);
+			}
+			else
+			{
+				// Only trim the beginning since we just entered a <pre> block...
+				$line = ltrim($line);
+				$inside_pre = true;
+
+				// If the <pre> ends on the same line, don't turn on $inside_pre...
+				if((strpos($line, '</pre') !== false) && (strripos($line, '</pre') >= strripos($line, '<pre')))
+				{
+					$line = rtrim($line);
+					$inside_pre = false;
+				}
+			}
+		}
+		else
+		{
+			if((strpos($line, '</pre') !== false) && (strripos($line, '</pre') >= strripos($line, '<pre')))
+			{
+				// Trim the end of the line now that we found the end of the <pre> block...
+				$line = rtrim($line);
+				$inside_pre = false;
+			}
+		}
+
+		// Filter out any blank lines that aren't inside a <pre> block...
+		if($inside_pre || $line != '')
+			$out .= $line . "\n";
+	}
+
+	// Remove the trailing \n
+	return trim($out);
+}
+
+// Returns the next line from a string
+function get_line(&$data)
+{
+	if(strlen($data) > 0)
+	{
+		$pos = strpos($data, "\n");
+		$return = substr($data, 0, $pos) . "\n";
+		$data = substr($data, $pos + 1);
+		return $return;
+	}
+	else
+		return false;
+}

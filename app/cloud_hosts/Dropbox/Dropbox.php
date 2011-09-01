@@ -136,26 +136,17 @@ class Dropbox extends Cloud_Host {
 				$meta["file_path"] = $main_file;
 				$meta["title"] = $this->filename_from_path($main_file);
 				$meta["extension"] = $this->ext_from_path($main_file);
+				$meta["format"] = parent_key($this->config["parsers"], $meta["extension"]);
 				$meta["modified"] = strtotime($file_meta["modified"]);
 				
 				//if no cache or cached content out of date
-				if(!$Cache || $meta["modified"] > $Cache->modified) {				
+				if(!$Cache || $meta["modified"] > $Cache->modified) {
+					//download raw content and resolve relative media URLs where possible
 					$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
+					$meta["raw_content"] = $this->resolve_media_srcs($meta["raw_content"], $path);
 					
+					//scrape for manually set metadata and add
 					$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
-					
-					$format = parent_key($this->config["parsers"], $meta["extension"]);
-					$meta["content"] = $meta["raw_content"];
-					
-					if($meta["raw_content"] && $format) {
-						$parser_class = $format."_Parser";
-						if(class_exists($parser_class)) {
-							$Parser = new $parser_class();
-							$meta["content"] = $Parser->parse($meta["raw_content"]);
-						}
-					}
-					
-					$meta["content"] = $this->resolve_media_srcs($meta["content"], $path);
 				}
 			}
 

@@ -22,8 +22,8 @@ abstract class Cloud_Host {
 		return $this->config["site_root"]."/file.php/".trim_slashes($path);
 	}
 	
-	protected function resolve_media_srcs($html, $dir) {
-		if(preg_match_all('/<(?:img|audio|video|source)[^>]+src="([^"]*)"[^>]*>/i', $html, $tags)) {
+	protected function resolve_media_srcs($content, $dir) {
+		if(preg_match_all('/<(?:img|audio|video|source)[^>]+src="([^"]*)"[^>]*>/i', $content, $tags)) {
 			foreach($tags[1] as $src) {
 				//if relative url
 				if(strpos($src, ":") === false && strpos($src, "/get_file.php") === false) {
@@ -46,12 +46,12 @@ abstract class Cloud_Host {
 						$resolved = $this->get_file_url($dir."/$resolved"); //resolve to current dir
 					}
 
-					$html = str_replace('"'.$src.'"', '"'.$resolved.'"', $html);
+					$content = str_replace('"'.$src.'"', '"'.$resolved.'"', $content);
 				}
 			}
 		}
 		
-		return $html;
+		return $content;
   }
   
  	protected function extract_dimensions(&$title) {

@@ -6,7 +6,7 @@
 <section id="primary">
 	<article>
 		<h1><?php echo $current->title ?></h1>
-		<?php echo $current ?>
+		<?php echo $current->content ?>
 		<footer>
 			<p>Posted 
 				<time pubdate datetime="<?php echo date('c', $current->published) ?>">

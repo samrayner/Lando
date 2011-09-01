@@ -1,20 +1,47 @@
 <?php
 
 class Text extends Content {
-	public $content;
+	private $content;
+	
+	public $format;
 	public $extension;
 	public $author = "";
 	
+	//parse calls to content
+	public function __get($prop) {
+	  if($prop == "content")
+	  	return $this->parse_content();
+	  
+	  //otherwise give error for invald property
+  	$trace = debug_backtrace();
+    trigger_error(
+        'Undefined property via __get(): ' . $prop .
+        ' in ' . $trace[0]['file'] .
+        ' on line ' . $trace[0]['line'],
+        E_USER_NOTICE);
+    return null;
+	}
+	
 	public function __toString() {
-		return $this->swap_includes($this->content);
+		return $this->__get("content");
+	}
+	
+	public function parse_content() {
+		$content = $this->swap_includes($this->raw_content);
+	  
+		if($this->raw_content && $this->format) {
+			$parser_class = $this->format."_Parser";
+			if(class_exists($parser_class)) {
+				$Parser = new $parser_class();
+				$content = $Parser->parse($content);
+			}
+		}
+			
+		return $content;
 	}
 	
 	private function swap_includes($content) {
 		$regex = '\{\{\s*(\w+)(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+\s*}}';
-		
-		//if has been converted to html (may have wrapped include in unwanted P tags so remove them)
-		if(!in_array($this->extension, array("html", "htm")))
-			$regex = "(?:<p>)?$regex(?:</p>)?";
 	
 		$content = preg_replace("~$regex~ie",
 														'$this->process_include("\0", "\1")',
@@ -49,8 +76,10 @@ class Text extends Content {
 	
 		switch($func) {
 			case "snippet": 
+				$include = $func($args["title"])->parse_content();
+				break;
 			case "collection": 
-				$include = $func($args["title"]);
+				$include = $func($args["title"])->list_html();
 				break;
 			case "gallery": 
 			case "slideshow": 
@@ -63,6 +92,6 @@ class Text extends Content {
 		if(!$include)
 			return $str;
 			
-		return $include;
+		return compress_html($include);
 	}
 }

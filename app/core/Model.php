@@ -16,6 +16,10 @@ class Model {
 		if(!is_object($a))
 			return 0;
 		
+		//if subpages exist, drill down
+		if(!empty($a->subpages) && is_array($a->subpages))
+			usort($a->subpages, array($this, "content_sort"));
+		
 		$result = 0;
 	
 		//order > not ordered

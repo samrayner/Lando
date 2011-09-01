@@ -27,8 +27,9 @@ body > header h1 {
 }
 
 article {
-	padding-left: 150px;
 	position: relative;
+	margin-top: 20px;
+	border-top: 1px solid #ccc;
 }
 
 article footer {
