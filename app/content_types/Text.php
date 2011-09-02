@@ -23,7 +23,7 @@ class Text extends Content {
 	}
 	
 	public function __toString() {
-		return $this->__get("content");
+		return $this->parse_content();
 	}
 	
 	public function parse_content() {
@@ -63,6 +63,8 @@ class Text extends Content {
 			"title" => "",
 			"size" => 0,
 			"limit" => 0,
+			"offset" => 0,
+			"filters" => array(),
 			"link_images" => null
 		);
 		
@@ -79,11 +81,11 @@ class Text extends Content {
 				$include = $func($args["title"])->parse_content();
 				break;
 			case "collection": 
-				$include = $func($args["title"])->list_html();
+				$include = $func($args)->list_html();
 				break;
 			case "gallery": 
 			case "slideshow": 
-				$include = $func($args["title"], $args["size"], $args["limit"], $args["link_images"]);
+				$include = $func($args);
 				break;
 			default: 
 				$include = false;

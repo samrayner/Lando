@@ -4,7 +4,7 @@ class Image extends File {
 	public $width;
 	public $height;
 	
-	private $thumb_sizes = array(
+	private static $thumb_sizes = array(
 		"icon" 	=> array("width" => 16, 	"height" => 16), 
 		"64" 		=> array("width" => 64, 	"height" => 64), 
 		"75"		=> array("width" => 75, 	"height" => 75),
@@ -35,7 +35,7 @@ class Image extends File {
 	}
 	
 	public function thumb_html($size="150", $link=true) {
-		if(!array_key_exists((string)$size, $this->thumb_sizes))
+		if(!array_key_exists((string)$size, self::$thumb_sizes))
 			$size = "150";
 		
 		$this->resize($size);
@@ -68,7 +68,7 @@ class Image extends File {
 		if(!$w || !$h)
 			return false;
 		
-		$max = $this->thumb_sizes[$code];
+		$max = self::$thumb_sizes[$code];
 		$ratio = $w/$h;
 		
 		switch($code) {

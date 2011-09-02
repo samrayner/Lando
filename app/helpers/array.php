@@ -50,3 +50,26 @@ function parent_key($array, $value) {
 	
 	return null;
 }
+
+function array_offset_limit($array, $offset, $limit) {
+	if(!is_array($array) || empty($array))
+		return $array;
+
+	//correct offset to array bounds
+	if($offset < 0)
+		$offset = 0;
+	elseif($offset > sizeof($array))
+		$offset = sizeof($array);
+	
+	//chop off everything before offset
+	$array = array_slice($array, $offset);
+	
+	//correct limit to array bounds
+	if($limit < 1 || $limit > sizeof($array))
+		$limit = sizeof($array);
+	
+	//chop off everything after limit
+	array_splice($array, $limit);
+	
+	return $array;
+}

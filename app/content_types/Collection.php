@@ -8,25 +8,18 @@ class Collection extends Content {
 		return $this->list_html();
 	}
 	
-	public function list_html($limit=0) {
-		if($limit < 1 || $limit > count($this->files))
-			$limit = count($this->files);
-	
+	public function list_html() {
 		$html = '<ul>';
 		
-		$i = 0;
-		
-		while($i < $limit) {
-			$html .= "<li>$file</li>";
-			$i++;
-		}
+		foreach($this->files as $file)
+			$html .= "<li>".$file->title."</li>";
 			
 		$html .= '</ul>';
 		
 		return $html;
 	}
 
-	public function image_list_html($type="gallery", $size=0, $limit=0, $link_images=null) {
+	public function image_list_html($type="gallery", $size=0, $link_images=null) {
 		if($type == "slideshow") {
 			if(!$size)
 				$size = "m";
@@ -41,18 +34,11 @@ class Collection extends Content {
 				$link_images = true;
 		}
 	
-		if($limit < 1 || $limit > count($this->files))
-			$limit = count($this->files);
-	
 		$html = '<div class="'.$type.'">';
 		
-		$i = 0;
-		
-		while($i < $limit) {
-			if(method_exists($this->files[$i], "thumb_html")) {
-				$html .= $this->files[$i]->thumb_html($size, $link_images);
-				$i++;
-			}
+		foreach($this->files as $file) {
+			if(method_exists($file, "thumb_html"))
+				$html .= $file->thumb_html($size, $link_images);
 		}
 		
 		$html .= '</div>';

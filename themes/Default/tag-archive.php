@@ -17,7 +17,7 @@
 
 	<h1>Posts tagged <?php echo implode(", ", $tags) ?></h1>
 	
-	<?php $posts = posts(0, 0, $tags);
+	<?php $posts = posts(0, 0, array("tags"=>$tags));
 		 		foreach($posts as $i => $post): ?>
 
 		<article>

@@ -83,22 +83,52 @@ class Controller {
 		return false;
 	}
 	
-	public function filter_content($content, $limit, $offset, $tags, $year, $month, $day) {
-		if(!is_array($content) || empty($content))
-			return $content;
+	private function loose_match($a, $b) {
+		//if comparing value to array, look for value in array
+		if(!is_array($a) && is_array($b))
+			return in_array($a, $b);
 		
-		if(!empty($tags)) {
+		//if comparing array to value, fail
+		elseif(is_array($a) && !is_array($b))
+			return false;
+		
+		//if comparing arrays, must be same but any order
+		elseif(is_array($a) && is_array($b))
+			return (sizeof(array_diff($a, $b)) == 0);
+		
+		//otherwise convert to string and do case-insensitive comparison
+		else
+			return (strcasecmp($a, $b) == 0);
+	}
+	
+	private function filter_by_props($content, $filters=array()) {
+		if(is_array($filters) && !empty($filters)) {
 			$filtered = array();
 		
-			foreach($content as $item) {			
-				if(isset($item->tags)) {
-					if(array_intersect($tags, $item->tags) == $tags)
-						$filtered[] = $item;
+			foreach($content as $item) {
+				$match = true;
+			
+				foreach($filters as $key => $val) {
+					if(!isset($item->$key) || !$this->loose_match($val, $item->$key))
+						$match = false;
+						break;
 				}
+				
+				if($match)
+					$filtered[] = $item;
 			}
 			
 			$content = $filtered;
 		}
+		
+		return $content;
+	}
+	
+	public function filter_content($content, $limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0) {
+		if(!is_array($content) || empty($content))
+			return $content;
+		
+		$content = $this->filter_by_props($content, $filters);
 
 		$year 	= (int)$year;
 		$month 	= (int)$month;
@@ -140,23 +170,17 @@ class Controller {
 			$content = $by_date;
 		}
 		
-		//correct offset to array bounds
-		if($offset < 0)
-			$offset = 0;
-		elseif($offset > sizeof($content))
-			$offset = sizeof($content);
+		return array_offset_limit($content, $offset, $limit);
+	}
+	
+	public function filter_collection($collection, $limit=0, $offset=0, $filters=array()) {
+		if(empty($collection->files))
+			return $collection;
 		
-		//chop off everything before offset
-		$content = array_slice($content, $offset);
+		$collection->files = $this->filter_by_props($collection->files, $filters);
+		$collection->files = array_offset_limit($collection->files, $offset, $limit);
 		
-		//correct limit to array bounds
-		if($limit < 1 or $limit > sizeof($content))
-			$limit = sizeof($content);
-		
-		//chop off everything after limit
-		array_splice($content, $limit);
-		
-		return $content;
+		return $collection;
 	}
 	
 	public function get_file($path, $thumb=false) {
