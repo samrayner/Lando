@@ -9,7 +9,12 @@ class Model {
 		
 		$host_class = str_replace(" ", "_", ucwords($config["host"]));		
 		$this->Host = new $host_class();
-		$this->Cache = new Cache();
+		$this->Cache = Cache::get_instance();
+		
+		if(method_exists($this->Host, "account_info")) {
+			if(empty($this->Cache->account))
+				$this->Cache->update("account", $this->Host->account_info());
+		}
 	}
 	
 	private function content_sort($a, $b) {

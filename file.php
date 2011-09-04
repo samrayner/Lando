@@ -5,13 +5,15 @@ include "app/core/loader.php";
 $path = current_url();
 $thumb = isset($_GET["size"]) ? $_GET["size"] : false;
 
-if($Lando->config["host"] == "dropbox" && strpos(strtolower($Lando->config["host_root"]), "/public") === 0) {
-/*
+if(!$thumb && $Lando->config["host"] == "dropbox" && strpos(strtolower($Lando->config["host_root"]), "/public") === 0) {
+
+	$Cache = Cache::get_instance("account");
+	
 	if(isset($Cache->account["uid"])) {	
-		$url = "http://dl.dropbox.com/u/".encode_reslash($Cache->account["uid"]."/Lando/".$Lando->config["site_title"]."/$path");
+		$full_path = $Cache->account["uid"]."/Lando/".$Lando->config["site_title"]."$path";
+		$url = "http://dl.dropbox.com/u/".str_replace("%2F", "/", rawurlencode($full_path));
 		header("Location: $url");
 	}
-*/
 }
 
 $File = $Lando->get_file($path, $thumb);

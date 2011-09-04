@@ -17,7 +17,3 @@ function url_segment($n) {
 	$segs = url_segments();
 	return isset($segs[$n]) ? $segs[$n] : false;
 }
-
-function encode_reslash($url) {
-	return str_replace("%2F", "/", rawurlencode($url));
-}

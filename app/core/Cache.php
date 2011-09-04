@@ -7,7 +7,15 @@ class Cache {
 	public $drafts = array();
 	public $snippets = array();
 	public $thumbs = array();
-	public $updated = array();
+	public $account = array();
+	
+	public static $instance;
+	public static function get_instance($type=null) {
+		if(!self::$instance)
+			self::$instance = new Cache($type);
+		
+		return self::$instance;
+	}
 
 	public function __construct($type=null) {
 		if($type)

@@ -4,7 +4,6 @@ require_once "DropLib.php";
 
 class Dropbox extends Cloud_Host {
 	private $API;
-	private $Cache;
 	
 	public function __construct() {
 		parent::__construct();
@@ -26,10 +25,10 @@ class Dropbox extends Cloud_Host {
 		
 		$this->API = new DropLib($consumer_key, $consumer_secret, $token_key, $token_secret);
 		$this->API->setNoSSLCheck(true); //while developing locally
-		
-		$this->Cache = new Cache("account");
-		if(empty($this->Cache->account))
-			$this->Cache->update("account", $this->API->accountInfo());
+	}
+	
+	public function account_info() {
+		return $this->API->accountInfo();
 	}
 	
 	private function encode_path($path) {
@@ -60,7 +59,7 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function dir_contents($path, $dirs_only=true) {
-		$path = encode_reslash($this->content_root."/".trim_slashes($path));
+		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
 		$meta = $this->API->metadata($path);
 		
 		$items = array();
@@ -82,7 +81,7 @@ class Dropbox extends Cloud_Host {
 		if(!class_exists($type_class))
 			return false;
 		
-		$full_path = encode_reslash($this->content_root."/$path");
+		$full_path = $this->encode_path($this->content_root."/$path");
 		
 		if(strpos($path, "/_") !== false)
 			return false; //prevent access to a hidden folder
@@ -130,7 +129,7 @@ class Dropbox extends Cloud_Host {
 			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
 			
 			if($main_file) {
-				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata(encode_reslash($main_file));
+				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($this->encode_path($main_file));
 	
 				$meta["file_path"] = $main_file;
 				$meta["title"] = $this->filename_from_path($main_file);
@@ -142,7 +141,7 @@ class Dropbox extends Cloud_Host {
 				if(!$Cache || $meta["modified"] > $Cache->modified) {
 				
 					//download raw content and resolve relative media URLs where possible
-					$meta["raw_content"] = $this->API->download(encode_reslash($main_file));
+					$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
 					
 					//scrape for manually set metadata and add
 					$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
@@ -197,7 +196,7 @@ class Dropbox extends Cloud_Host {
 		if($thumb && !isset($thumb_codes[$thumb]))
 			return false;
 	
-		$path = encode_reslash($this->content_root."/".trim_slashes($path));
+		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
 		
 		try {
 			$meta = $this->API->metadata($path);
