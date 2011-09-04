@@ -34,6 +34,7 @@ class Cache {
 	
 	private function load_single($type) {
 		$path = "app/cache/".$type.".php";
+		
 		if(file_exists($path))
 			include_once $path;
 		

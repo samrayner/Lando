@@ -97,7 +97,7 @@ class Model {
 			$old_path = $path;
 			$new_path = $path."?size=".$thumb; //match numbered pages in cache
 			$path = $new_path;
-			$key = "dynamic_url";
+			$key = "url";
 			
 			//sanitize path for use in regex
 			$path = preg_quote($path, "~");

@@ -4,7 +4,6 @@ require_once "DropLib.php";
 
 class Dropbox extends Cloud_Host {
 	private $API;
-	private $account;
 	private $Cache;
 	
 	public function __construct() {
@@ -61,7 +60,7 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function dir_contents($path, $dirs_only=true) {
-		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
+		$path = encode_reslash($this->content_root."/".trim_slashes($path));
 		$meta = $this->API->metadata($path);
 		
 		$items = array();
@@ -83,7 +82,7 @@ class Dropbox extends Cloud_Host {
 		if(!class_exists($type_class))
 			return false;
 		
-		$full_path = $this->encode_path($this->content_root."/$path");
+		$full_path = encode_reslash($this->content_root."/$path");
 		
 		if(strpos($path, "/_") !== false)
 			return false; //prevent access to a hidden folder
@@ -131,7 +130,7 @@ class Dropbox extends Cloud_Host {
 			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
 			
 			if($main_file) {
-				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($this->encode_path($main_file));
+				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata(encode_reslash($main_file));
 	
 				$meta["file_path"] = $main_file;
 				$meta["title"] = $this->filename_from_path($main_file);
@@ -141,9 +140,9 @@ class Dropbox extends Cloud_Host {
 				
 				//if no cache or cached content out of date
 				if(!$Cache || $meta["modified"] > $Cache->modified) {
+				
 					//download raw content and resolve relative media URLs where possible
-					$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
-					$meta["raw_content"] = $this->resolve_media_srcs($meta["raw_content"], $path);
+					$meta["raw_content"] = $this->API->download(encode_reslash($main_file));
 					
 					//scrape for manually set metadata and add
 					$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
@@ -182,18 +181,6 @@ class Dropbox extends Cloud_Host {
 		return $item;
 	}
 	
-	protected function get_file_url($path, $try_public=true) {
-		$path = trim_slashes($path);
-		
-		if(strpos($path, "?"))
-			$try_public = false;
-	
-		if($try_public and strpos(strtolower($this->content_root), "public/") < 2)
-			return "http://dl.dropbox.com/u/".$this->encode_path($this->Cache->account["uid"]."/Lando/".$this->config["site_title"]."/$path");
-		
-		return $this->config["site_root"]."/file.php/".$this->encode_path($path);
-	}
-	
 	public function get_file($path, $thumb) {
 		$thumb_codes = array(
 			"icon" 	=> "16x16", 
@@ -210,7 +197,7 @@ class Dropbox extends Cloud_Host {
 		if($thumb && !isset($thumb_codes[$thumb]))
 			return false;
 	
-		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
+		$path = encode_reslash($this->content_root."/".trim_slashes($path));
 		
 		try {
 			$meta = $this->API->metadata($path);
@@ -222,7 +209,7 @@ class Dropbox extends Cloud_Host {
 		$File = $this->process_file($meta);
 
 		if($thumb && $meta["thumb_exists"]) {
-			$File->dynamic_url .= "?size=$thumb";
+			$File->url .= "?size=$thumb";
 			$data_uri = $this->API->thumbnail($path, $thumb_codes[$thumb], "JPEG");
 			$File->mime_type = stristr(stristr($data_uri, "image/"), ";", true);
 			$File->extension = str_replace("image/", "", $File->mime_type);
@@ -242,7 +229,6 @@ class Dropbox extends Cloud_Host {
 		$file["title"] = $this->filename_from_path($file["path"]);
 		$file["extension"] = $this->ext_from_path($file["path"]);
 		$file["url"] = $this->get_file_url($rel_path);
-		$file["dynamic_url"] = $this->get_file_url($rel_path, false);
 		
 		$file["order"] = $this->extract_order($file["title"]);
 		

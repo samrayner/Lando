@@ -7,7 +7,6 @@ class File extends Content {
 	public $size;
 	public $url;
 	public $mime_type;
-	public $dynamic_url;
 	
 	public function __toString() {
 		return $this->html();

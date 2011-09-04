@@ -45,7 +45,7 @@ class Image extends File {
 		if($link)
 			$html .= '<a href="'.$this->url.'">';
 		
-		$html .= '<img src="'.$this->dynamic_url.'?size='.$size.'" alt="'.$this->title.'"';
+		$html .= '<img src="'.$this->url.'?size='.$size.'" alt="'.$this->title.'"';
 		
 		if(isset($this->width))
 			$html .= ' width="'.$this->width.'"';
