@@ -9,12 +9,16 @@ class Model {
 		
 		$host_class = str_replace(" ", "_", ucwords($config["host"]));		
 		$this->Host = new $host_class();
-		$this->Cache = Cache::get_instance();
-		
+		$this->Cache = new Cache();
+	}
+	
+	public function get_host_info() {
 		if(method_exists($this->Host, "account_info")) {
-			if(empty($this->Cache->account))
+			if(empty($this->Cache->account) || $this->Cache->age("account") > 86400) //24hrs
 				$this->Cache->update("account", $this->Host->account_info());
 		}
+		
+		return $this->Cache->account;
 	}
 	
 	private function content_sort($a, $b) {

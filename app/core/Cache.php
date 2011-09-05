@@ -8,14 +8,6 @@ class Cache {
 	public $snippets = array();
 	public $thumbs = array();
 	public $account = array();
-	
-	public static $instance;
-	public static function get_instance($type=null) {
-		if(!self::$instance)
-			self::$instance = new Cache($type);
-		
-		return self::$instance;
-	}
 
 	public function __construct($type=null) {
 		if($type)
@@ -55,6 +47,7 @@ class Cache {
 	}
 	
 	public function age($type) {
-		return time()-filemtime("app/cache/$type.php");
+		//if file doesn't exist return 0 for modified time
+		return time()-(int)@filemtime("app/cache/$type.php");
 	}
 }

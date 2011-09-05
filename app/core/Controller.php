@@ -50,6 +50,10 @@ class Controller {
 		return implode("/", $url);;
 	}
 	
+	public function get_host_info() {
+		return $this->Model->get_host_info();
+	}
+	
 	public function get_content($type=null, $names=null) {
 		if(!$type && !$names) //get content for current page
 			return $this->Model->get_single($this->get_content_path());

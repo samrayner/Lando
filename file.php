@@ -7,12 +7,14 @@ $thumb = isset($_GET["size"]) ? $_GET["size"] : false;
 
 if(!$thumb && $Lando->config["host"] == "dropbox" && strpos(strtolower($Lando->config["host_root"]), "/public") === 0) {
 
-	$Cache = Cache::get_instance("account");
-	
-	if(isset($Cache->account["uid"])) {	
-		$full_path = $Cache->account["uid"]."/Lando/".$Lando->config["site_title"]."$path";
+	$account = $Lando->get_host_info();
+
+	if(isset($account["uid"])) {	
+		$full_path = $account["uid"]."/Lando/$site_title$path";
 		$url = "http://dl.dropbox.com/u/".str_replace("%2F", "/", rawurlencode($full_path));
+		
 		header("Location: $url");
+		exit();
 	}
 }
 

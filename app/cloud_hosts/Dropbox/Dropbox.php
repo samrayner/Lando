@@ -39,6 +39,8 @@ class Dropbox extends Cloud_Host {
 		if(!$exts)
 			$exts = array_flatten($this->config["parsers"]);
 		
+		array_push($exts, "html", "htm");
+		
 		if(!$filename) {
 			//look for '!' prefix
 			$match = array_search_recursive('~/!.*$~', $meta, "path", true);
