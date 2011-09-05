@@ -9,7 +9,7 @@
 		<h1><?php echo $current->title ?></h1>
 		<?php echo $current->content ?>
 		<footer>
-			<p>Posted <time pubdate datetime="<?php echo date('c', $current->published) ?>"><?php echo date('F jS \a\t g:ia', $current->published) ?></time></p>
+			<p>Updated <time pubdate datetime="<?php echo date('c', $current->modified) ?>"><?php echo date('F jS \a\t g:ia', $current->modified) ?></time></p>
 		</footer>
 	</article>
 </section>

@@ -100,6 +100,9 @@ class Dropbox extends Cloud_Host {
 			return false;
 		}
 		
+		if(isset($latest["is_deleted"]) && $latest["is_deleted"])
+			return false;
+		
 		//update cache with latest metadata if exists
 		$meta = array_merge($meta, $latest);
 		
@@ -179,6 +182,7 @@ class Dropbox extends Cloud_Host {
 		}
 		
 		$item = new $type_class($meta);
+		
 		return $item;
 	}
 	

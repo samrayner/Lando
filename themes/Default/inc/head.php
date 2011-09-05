@@ -7,7 +7,7 @@
 	
 	<?php if(url_segment(1) == "drafts") echo '<meta name="robots" content="noindex, nofollow" />' ?>
 	
-	<title><?php echo $site_title ?></title>
+	<title><?php if($current->title != "Untitled") echo $current->title." - " ?><?php echo $site_title ?></title>
 	
 	<!-- Default styles -->
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/screen.css" media="screen" />

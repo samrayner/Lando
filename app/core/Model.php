@@ -81,7 +81,8 @@ class Model {
 		}
 		
 		usort($items, array($this, "content_sort"));
-			
+		
+		//bulk overwrite of cache
 		$this->Cache->update($type, $items);
 		
 		return $items;
@@ -90,20 +91,19 @@ class Model {
 	public function get_single($path, $max_age=300, $cache=true, $thumb=false) {
 		$path = trim_slashes($path);
 		$key = "path";
+		$old_path = $path;
 		
 		if($thumb)
 			$type = "thumbs";
 		else
 			$type = array_shift(explode("/", $path));
 		
-		if($type == "pages") {
-			$old_path = $path;
+		if(in_array($type, array("pages", "drafts"))) {
 			$numbered_path = str_replace("/", "/(\d+\.\s*)?", $path); //match numbered pages in cache
 			$path = $numbered_path;
 		}
 		
 		if($type == "thumbs") {
-			$old_path = $path;
 			$new_path = $path."?size=".$thumb; //match numbered pages in cache
 			$path = $new_path;
 			$key = "url";
@@ -123,7 +123,7 @@ class Model {
 			
 			//step through cache to get search result node
 			foreach($cache_route as $next_key) {
-				//if a content object, convert to an array
+				//if content use object notation, otherwise array notation
 				if(is_object($item))
 					$item = $item->$next_key;
 				elseif(is_array($item))
@@ -133,8 +133,7 @@ class Model {
 		
 		//if no cache or cache older than max age (default 5 mins), refresh
 		if(!$cache_route || ($max_age >= 0 && $this->Cache->age($type) > $max_age)) {	
-			if(isset($old_path))
-				$path = $old_path; //return to original path for host fetch
+			$path = $old_path; //return to original path for host fetch
 		
 			if($type == "thumbs")
 				$item = $this->Host->get_file($path, $thumb);
