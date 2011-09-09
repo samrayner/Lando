@@ -5,12 +5,12 @@ include "app/core/loader.php";
 $path = current_url();
 $thumb = isset($_GET["size"]) ? $_GET["size"] : false;
 
-if(!$thumb && $Lando->config["host"] == "dropbox" && strpos(strtolower($Lando->config["host_root"]), "/public") === 0) {
+if(!$thumb && $Lando->config["host"] == "dropbox" && preg_match('~^/public~i', $Lando->config["host_root"])) {
 
 	$account = $Lando->get_host_info();
 
 	if(isset($account["uid"])) {	
-		$full_path = $account["uid"]."/Lando/$site_title$path";
+		$full_path = $account["uid"].preg_replace('~^/public~i', "", $Lando->config["host_root"]).$path;
 		$url = "http://dl.dropbox.com/u/".str_replace("%2F", "/", rawurlencode($full_path));
 		
 		header("Location: $url");

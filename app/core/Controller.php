@@ -11,7 +11,6 @@ class Controller {
 		$this->config = $config;
 		
 		$this->Model = new Model();
-		$this->content_root = $config["host_root"]."/".$config["site_title"];
 		
 		$this->define_theme_vars();
 	}

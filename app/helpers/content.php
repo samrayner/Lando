@@ -4,10 +4,8 @@ function pages($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0)
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
-		if(is_array($arg1)) {
-			foreach($arg1 as $arg => $val)
-				$$arg = $val;
-		}
+		if(is_array($arg1))
+			extract($arg1);
 	}
 	
 	global $Lando;
@@ -18,10 +16,8 @@ function posts($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0)
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
-		if(is_array($arg1)) {
-			foreach($arg1 as $arg => $val)
-				$$arg = $val;
-		}
+		if(is_array($arg1))
+			extract($arg1);
 	}
 	
 	global $Lando;
@@ -32,10 +28,8 @@ function drafts($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
-		if(is_array($arg1)) {
-			foreach($arg1 as $arg => $val)
-				$$arg = $val;
-		}
+		if(is_array($arg1))
+			extract($arg1);
 	}
 	
 	global $Lando;
@@ -46,10 +40,8 @@ function collection($title, $limit=0, $offset=0, $filters=array()) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
-		if(is_array($arg1)) {
-			foreach($arg1 as $arg => $val)
-				$$arg = $val;
-		}
+		if(is_array($arg1))
+			extract($arg1);
 	}
 
 	global $Lando;
@@ -60,10 +52,8 @@ function gallery($title, $size=0, $limit=0, $offset=0, $filters=array(), $link_i
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
-		if(is_array($arg1)) {
-			foreach($arg1 as $arg => $val)
-				$$arg = $val;
-		}
+		if(is_array($arg1))
+			extract($arg1);
 	}
 
 	$collection = collection($title, $limit, $offset, $filters);
@@ -78,10 +68,8 @@ function slideshow($title, $size=0, $limit=0, $offset=0, $filters=array(), $link
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
-		if(is_array($arg1)) {
-			foreach($arg1 as $arg => $val)
-				$$arg = $val;
-		}
+		if(is_array($arg1))
+			extract($arg1);
 	}
 
 	$collection = collection($title, $limit, $offset, $filters);

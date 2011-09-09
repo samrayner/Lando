@@ -61,7 +61,7 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function dir_contents($path, $dirs_only=true) {
-		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
+		$path = $this->encode_path($this->config["host_root"]."/".trim_slashes($path));
 		$meta = $this->API->metadata($path);
 		
 		$items = array();
@@ -83,7 +83,7 @@ class Dropbox extends Cloud_Host {
 		if(!class_exists($type_class))
 			return false;
 		
-		$full_path = $this->encode_path($this->content_root."/$path");
+		$full_path = $this->encode_path($this->config["host_root"]."/$path");
 		
 		if(strpos($path, "/_") !== false)
 			return false; //prevent access to a hidden folder
@@ -202,7 +202,7 @@ class Dropbox extends Cloud_Host {
 		if($thumb && !isset($thumb_codes[$thumb]))
 			return false;
 	
-		$path = $this->encode_path($this->content_root."/".trim_slashes($path));
+		$path = $this->encode_path($this->config["host_root"]."/".trim_slashes($path));
 		
 		try {
 			$meta = $this->API->metadata($path);
@@ -228,7 +228,7 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	private function process_file($file) {
-		$rel_path = str_replace($this->config["host_root"]."/".$this->config["site_title"], "", $file["path"]);
+		$rel_path = str_replace($this->config["host_root"], "", $file["path"]);
 					
 		$file["modified"] = strtotime($file["modified"]);
 		$file["title"] = $this->filename_from_path($file["path"]);

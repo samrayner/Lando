@@ -39,7 +39,7 @@ class Text extends Content {
 		
 		//make path relative to content root
 		global $Lando;
-		$rel_path = str_replace($Lando->config["host_root"]."/".$Lando->config["site_title"], "", $this->path);
+		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
 		
 		$content = $this->resolve_media_srcs($content, $rel_path);
 			
