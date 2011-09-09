@@ -9,5 +9,18 @@ $config = array(
 	"admin_pass" => "",
 	"theme" => "default",
 	"smartypants" => true,
-	"pretty_urls" => false
+	"pretty_urls" => false,
+	
+	"page_order" => array(
+		"home" => '',
+		"contact" => 	array(
+			"everyone" => '',
+			"just-me" => array(
+				"by-email" => ''
+			)
+	 	),
+	 	"about-me" => '',
+	 	"should-auto-strip-and-format" => '',
+	 	"this-used-to-have-punctuations" => ''
+	)
 );

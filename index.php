@@ -59,6 +59,10 @@ if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url))
 
 if(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
 	$template = "tag-archive";
+	
+//serve blank page if no current content
+if(!$current)
+	$current = new Page();
 
 if(!file_exists($themeBase.$template.".php")) {
 	if(file_exists("app/templates/$template.php"))

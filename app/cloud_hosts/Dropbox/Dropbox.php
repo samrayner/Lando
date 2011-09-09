@@ -118,13 +118,6 @@ class Dropbox extends Cloud_Host {
 			$permalink = "/".$path;
 			
 			if($type == "pages") {
-				//strip order number from slug and store
-				if(preg_match('~^(?<num>\d+)\.\s*(?<slug>.+)$~', $meta["slug"], $matches)) {
-					$meta["order"] = $matches["num"];
-					$meta["slug"] = $matches["slug"];
-				}
-				//strip order number from permalink
-				$permalink = preg_replace('~/\d+\.\s*~', "/", $permalink);
 				//remove /pages/ and /home/ from permalink if exist
 				$permalink = preg_replace('~^/pages(/home$)?~i', "", $permalink);
 			}
