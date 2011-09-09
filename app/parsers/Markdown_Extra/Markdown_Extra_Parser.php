@@ -2,7 +2,7 @@
 
 include_once "MarkdownExtra.php";
 
-class Markdown_Extra_Parser extends Parser {
+class Markdown_Extra_Parser {
 	private $Markdown;
 
 	public function __construct() {

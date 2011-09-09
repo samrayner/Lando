@@ -2,7 +2,7 @@
 
 include_once "Textile.php";
 
-class Textile_Parser extends Parser {
+class Textile_Parser {
 	private $Textile;
 
 	public function __construct() {

@@ -18,8 +18,8 @@ include_once "app/core/Model.php";
 include_once "app/cloud_hosts/Cloud_Host.php";
 include_once "app/cloud_hosts/{$config['host']}/{$config['host']}.php";
 
-//load parser base class
-include_once "app/parsers/Parser.php";
+//load SmartyPants formatter class
+include_once "app/parsers/SmartyPants.php";
 
 //autoload parser or content classes when called
 function __autoload($class) {

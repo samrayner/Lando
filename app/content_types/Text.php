@@ -27,6 +27,8 @@ class Text extends Content {
 	}
 	
 	public function parse_content() {
+		global $Lando;
+		
 		$content = $this->swap_includes($this->raw_content);
 	  
 		if($this->raw_content && $this->format) {
@@ -38,11 +40,13 @@ class Text extends Content {
 		}
 		
 		//make path relative to content root
-		global $Lando;
 		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
 		
 		$content = $this->resolve_media_srcs($content, $rel_path);
-			
+		
+		if($Lando->config["smartypants"] && function_exists("SmartyPants"))
+			$content = SmartyPants($content);
+		
 		return $content;
 	}
 	
