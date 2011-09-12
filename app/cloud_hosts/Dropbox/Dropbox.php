@@ -83,8 +83,6 @@ class Dropbox extends Cloud_Host {
 		if(!class_exists($type_class))
 			return false;
 		
-		$full_path = $this->encode_path($this->config["host_root"]."/$path");
-		
 		if(strpos($path, "/_") !== false)
 			return false; //prevent access to a hidden folder
 		
@@ -93,8 +91,44 @@ class Dropbox extends Cloud_Host {
 		if($Cache)
 			$meta = $Cache->export();
 		
+		$full_path = $this->config["host_root"]."/$path";
+		
+		if(in_array($type, array("pages","posts","drafts"))) {
+			$old_path = $full_path;
+			$full_path = $this->sanitize_path($full_path);
+			
+			//if slug has changed
+			if($full_path != $old_path) {
+				try {
+					//rename directory
+					$latest = $this->API->move($old_path, $full_path);
+				}
+				//if directory exists
+				catch(Exception $e) {
+					$attempt = 1;
+				
+					//until successful rename
+					while(!isset($latest)) {
+						try {
+							//rename with 1..4 appended
+							$latest = $this->API->move($old_path, $full_path."-$attempt");
+						}
+						catch(Exception $e) {
+							//if still name clash, increase number and retry
+							$attempt++;
+							//if trying for a 5th time, fail
+							if($attempt == 5)
+								return false;
+						}
+					}
+				}
+			}
+		}
+		
 		try {
-			$latest = $this->API->metadata($full_path);
+			//if not successfully renamed slug directory
+			if(!isset($latest))
+				$latest = $this->API->metadata($this->encode_path($full_path));
 		}
 		catch(Exception $e) {
 			return false;

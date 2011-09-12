@@ -77,7 +77,9 @@ class Model {
 		foreach($names as $name) {
 			//set unachievable max age to avoid cache refreshes
 			$item = $this->get_single("$path/$name", -1, false);
-			$items[] = $item;
+			
+			if($item)
+				$items[] = $item;
 		}
 		
 		usort($items, array($this, "content_sort"));

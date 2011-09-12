@@ -79,15 +79,30 @@ class Controller {
 	}
 	
 	private function loose_match($a, $b) {
-		//if comparing value to array, look for value in array
-		if(!is_array($a) && is_array($b))
-			return in_array($a, $b);
+		if(is_object($a))
+			$a = get_object_vars($a);
+	
+		if(is_object($b))
+			$b = get_object_vars($b);
+	
+		//if comparing value to array
+		if(!is_array($a) && is_array($b)) {
+			//if string, explode A as CSV and compare to B
+			if(is_string($a)) {
+				$arr = explode(",", $a);
+				foreach($arr as $i => $str)
+					$arr[$i] = trim($str);
+				return $this->loose_match($arr, $b);
+			}
+			else //otherwise look for A in B
+				return in_array($a, $b);
+		}
 		
 		//if comparing array to value, fail
 		elseif(is_array($a) && !is_array($b))
 			return false;
 		
-		//if comparing arrays, must be same but any order
+		//if comparing arrays, B must contain A but any order
 		elseif(is_array($a) && is_array($b))
 			return (sizeof(array_diff($a, $b)) == 0);
 		

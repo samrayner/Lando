@@ -16,10 +16,16 @@ abstract class Cloud_Host {
 		return pathinfo(trim_slashes($path), PATHINFO_EXTENSION);
 	}
 	
+	protected function sanitize_path($path) {
+		$new_path = explode("/", $path);
+		$new_path[sizeof($new_path)-1] = str_to_slug(end($new_path));
+		return implode("/", $new_path);
+	}
+	
 	protected function get_file_url($path) {
 		return $this->config["site_root"]."/file.php/".trim_slashes($path);
 	}
-  
+
  	protected function extract_dimensions(&$title) {
  		$dims = array();
  	
