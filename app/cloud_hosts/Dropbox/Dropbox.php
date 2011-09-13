@@ -82,11 +82,9 @@ class Dropbox extends Cloud_Host {
 		$type = array_shift(explode("/", $path));
 		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
 		
-		if(!class_exists($type_class))
+		//prevent access to misc and hidden folders
+		if(!class_exists($type_class) || strpos($path, "/_") !== false)
 			return false;
-		
-		if(strpos($path, "/_") !== false)
-			return false; //prevent access to a hidden folder
 		
 		$meta = array();
 		
@@ -186,8 +184,12 @@ class Dropbox extends Cloud_Host {
 			if($type == "pages") {
 				//recurse to get subpages
 				foreach($meta["contents"] as $subpage) {
-					if($subpage["is_dir"])
-						$meta["subpages"][] = $this->get_single("$path/".basename($subpage["path"]));
+					if($subpage["is_dir"]) {
+						$page = $this->get_single("$path/".basename($subpage["path"]));
+						
+						if($page)					
+							$meta["subpages"][] = $page;
+					}
 				}
 			}
 		}
