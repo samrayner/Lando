@@ -77,6 +77,8 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function get_single($path, $Cache=null) {
+		$path = trim_slashes($path);
+	
 		$type = array_shift(explode("/", $path));
 		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
 		
@@ -95,6 +97,7 @@ class Dropbox extends Cloud_Host {
 		
 		if(in_array($type, array("pages","posts","drafts"))) {
 			$old_path = $full_path;
+			$path = $this->sanitize_path($path);
 			$full_path = $this->sanitize_path($full_path);
 			
 			//if slug has changed
@@ -149,7 +152,7 @@ class Dropbox extends Cloud_Host {
 			if(!$this->config["pretty_urls"])
 				$meta["permalink"] .= "/index.php";
 				
-			$permalink = "/".$path;
+			$permalink = "/$path";
 			
 			if($type == "pages") {
 				//remove /pages/ and /home/ from permalink if exist
@@ -184,7 +187,7 @@ class Dropbox extends Cloud_Host {
 				//recurse to get subpages
 				foreach($meta["contents"] as $subpage) {
 					if($subpage["is_dir"])
-						$meta["subpages"][] = $this->get_single($path."/".basename($subpage["path"]));
+						$meta["subpages"][] = $this->get_single("$path/".basename($subpage["path"]));
 				}
 			}
 		}
