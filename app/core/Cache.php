@@ -43,6 +43,9 @@ class Cache {
 	}
 	
 	public function save($type)	{
+		if(!file_exists("app/cache"))
+			mkdir("app/cache");
+			
 		return @file_put_contents("app/cache/$type.php", '<?php $cache = \''.htmlspecialchars(serialize($this->$type), ENT_QUOTES)."';");
 	}
 	
