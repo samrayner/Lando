@@ -1,0 +1,6 @@
+@import url("reset.css");
+body{font:14px/1.6 "Helvetica Neue",helvetica,arial,sans-serif;padding:40px;}
+.sortable div,.sortable label{cursor:move;}
+#page-nav{position:relative;}#page-nav ol{position:relative;padding-left:1.8em;}#page-nav ol:before{content:"\2514";position:absolute;left:3px;line-height:1.8;color:#999;}
+#page-nav li{margin:8px 0;}#page-nav li div{display:inline-block;background-color:rgba(0, 0, 0, 0.05);box-shadow:inset 0 -20px 20px -20px rgba(0, 0, 0, 0.15),1px 1px 0 rgba(0, 0, 0, 0.25);padding:3px 5px;border-radius:2px;color:#1e82c8;text-shadow:1px 1px 0 rgba(255, 255, 255, 0.8);}
+#page-nav input:disabled+label,#page-nav input:not(:checked)+label{color:rgba(0, 0, 0, 0.4);}
