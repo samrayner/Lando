@@ -13,7 +13,7 @@ PageNav = {
 	},
 	
 	updateOrder: function() {
-		var topLevel = $("#page-nav").sortable("toArray");
+		var topLevel = $("#page-list").sortable("toArray");
 		var tree =  PageNav.sortableTree(topLevel);
 		$("#page_order").val(JSON.stringify(tree));
 	},
@@ -44,7 +44,7 @@ PageNav = {
 		$("input:checkbox").change(PageNav.updateVisibility);
 	
 		//disable text selection so we can drag
-		$(".page-nav").disableSelection();
+		$("#page-list").disableSelection();
 		
 		//make lists sortable
 		$(".sortable").sortable({
