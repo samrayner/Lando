@@ -4,7 +4,14 @@
 <head>
 	<meta charset="utf-8" />
 	
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	
 	<title>Lando Admin</title>
+
+	<link rel="icon" href="" />
+	<link rel="apple-touch-icon" href="" />
 
 	<link rel="stylesheet" href="css/master.css" />
 
@@ -16,14 +23,70 @@
 </head>
 <body>
 <div id="wrapper">
-	<section id="test">
-		<h1>Another Section</h1>
-		<p>This is the description.</p>
+
+<h1>Lando Admin</h1>
+
+<form action="" method="post">
+	<section>
+		<h1>Site Details</h1>
+		
+		<div>
+			<label for="site_title" class="field-label">Title</label>
+			<input id="site_title" name="site_title" placeholder="Bespin Daily" />
+		</div>
+		
+		<div>
+			<label for="site_description" class="field-label">Description</label>
+			<input id="site_description" name="site_description" placeholder="All the latest news from the cloud city." />
+		</div>
+		
+		<div>
+			<label for="site_root" class="field-label">Root URL</label>
+			<input id="site_root" name="site_root" placeholder="http://" />
+		</div>
+		
+		<div>
+			<label for="pretty_urls">Remove index.php from URLs</label>
+			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" />
+		</div>
+	</section>
+	
+	<section>
+		<h1>Content Source</h1>
+		
+		<div>
+			<label for="host">Host</label>
+			<select id="host" name="host">
+				<option>Dropbox</option>
+			</select>
+		</div>
+		
+		<div>
+			<label for="host_root" class="field-label">Path</label>
+			<input id="host_root" name="host_root" value="/Public/Lando/Test Site" />
+		</div>
+	</section>
+	
+	<section>
+		<h1>Theme Options</h1>
+		<!-- <p>Download more themes from <a href="#">GitHub</a>.</p> -->
+		
+		<div>
+			<label for="theme">Theme</label>
+			<select id="theme" name="theme">
+				<option>Default</option>
+			</select>
+		</div>
+		
+		<div>
+			<label for="smartypants">Use nice punctuation (e.g. &ldquo;curly quotes&rdquo;)</label>
+			<input id="smartypants" name="smartypants" type="checkbox" value="1" />
+		</div>
 	</section>
 
 	<section id="page-nav">
 		<h1>Page Navigation</h1>
-		<p>Uncheck to hide from navigation, drag to reorder.</p>
+		<p>Uncheck to hide from nav, drag to reorder</p>
 		
 		<input id="page_order" name="page_order" type="hidden" />
 	
@@ -82,6 +145,7 @@
 			</li>
 		</ol>
 	</section><!-- #page-nav -->
+</form>
 
 </div><!-- #wrapper -->
 </body>
