@@ -2,7 +2,7 @@
 
 /*
 //if no config file
-if(!file_exists("app/config/config.php")) {
+if(!include_exists("app/config/config.php")) {
 	//redirect to install
 	return;
 }
@@ -28,7 +28,7 @@ if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 		default: 
 			if(!$current)
 				$template = "404";
-			elseif(file_exists($themeBase.$matches[1].".php"))
+			elseif(include_exists($themeBase.$matches[1].".php"))
 				$template = $matches[1];
 			else
 				$template = "page";
@@ -44,7 +44,7 @@ if(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 			$template = "draft";
 			break;
 		default: 
-			if(file_exists($themeBase.$matches[2].".php"))
+			if(include_exists($themeBase.$matches[2].".php"))
 				$template = $matches[2];
 			else
 				$template = "page";
@@ -64,8 +64,8 @@ if(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
 if(!$current)
 	$current = new Page();
 
-if(!file_exists($themeBase.$template.".php")) {
-	if(file_exists("app/templates/$template.php"))
+if(!include_exists($themeBase.$template.".php")) {
+	if(include_exists("app/templates/$template.php"))
 		$themeBase = "app/templates/"; //fallback for missing optional custom templates
 	else
 		throw new Exception("Template file $template not found.");

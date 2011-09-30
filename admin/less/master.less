@@ -1,7 +1,7 @@
 @import url("reset.css");
 
 @linkColor: rgba(30,130,200,1);
-@bgGrey: #fcfcfc;
+@panelBg: #fcfcfc;
 @fontStack: "Helvetica Neue", helvetica, arial, sans-serif;
 
 body {
@@ -19,34 +19,18 @@ body {
 	max-width: 700px;
 	position: relative;
 	margin: 30px auto;
-	background-color: @bgGrey;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-	
-	border-radius: 3px;
 }
 
 #wrapper > h1 {
-	background-color: rgba(0,0,0,0.75);
+	background-color: rgba(0,0,0,0.5);
 	padding: 10px 20px;
-	color: @bgGrey;
+	color: @panelBg;
 	font-weight: bold;
 	text-shadow: 1px 1px 0 black;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
-	box-shadow: inset 0 -20px 20px rgba(0,0,0,0.1);
-}
-
-@media (max-width: 600px) {
-	#wrapper {
-		margin: 0;
-		width: 100%;
-		min-width: 330px;
-	}
-	
-	#wrapper,
-	#wrapper h1 {
-		border-radius: 0;
-	}
+	box-shadow: inset 0 -20px 20px rgba(0,0,0,0.2);
 }
 
 label, 
@@ -76,10 +60,16 @@ section {
 	padding: 20px;
 	border-top: 1px solid white;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
+	background-color: @panelBg;
 	box-shadow: inset 0 -20px 20px rgba(0,0,0,0.02);
 	
+	&:last-child {
+		border-bottom-left-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+	
 	h1 {
-		font-size: 1.3em;
+		font-size: 1.2em;
 		line-height: 1;
 		margin-bottom: 0.6em;
 	}
@@ -91,8 +81,6 @@ section {
 
 input,
 select {
-	position: relative;
-	top: -1px;
 	outline: none;
 	color: rgba(0,0,0,0.8);
 	font: 1em @fontStack;
@@ -116,6 +104,7 @@ input:not([type=checkbox]) {
 
 #page-list {
 	position: relative;
+	font-size: 0.9em;
 
 	ol {  
 	  position: relative;
@@ -157,5 +146,18 @@ input:not([type=checkbox]) {
 	input:disabled + label,
 	input:not(:checked) + label {
 		color: rgba(0,0,0,0.4);
+	}
+}
+
+@media (max-width: 600px) {
+	#wrapper {
+		margin: 0;
+		width: 100%;
+		min-width: 330px;
+	}
+	
+	#wrapper h1,
+	section:last-child {
+		border-radius: 0;
 	}
 }

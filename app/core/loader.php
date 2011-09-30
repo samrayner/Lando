@@ -1,7 +1,10 @@
 <?php
 
+$doc_root = $_SERVER['DOCUMENT_ROOT'];
+set_include_path(get_include_path().":".$doc_root);
+
 //load all helper functions
-foreach(glob("app/helpers/*.php") as $file)
+foreach(glob("$doc_root/app/helpers/*.php") as $file)
 	include_once $file;
 
 //load config file
@@ -27,20 +30,20 @@ function __autoload($class) {
 	$format = str_replace("_Parser", "", $class);
 	$file = "app/parsers/$format/$class.php";
 	
-	if($format != $class and file_exists($file)) {
+	if($format != $class && include_exists($file)) {
 		include_once $file;
 		return;
 	}
 	
 	//if content class
 	$file = "app/content_types/$class.php";
-	if(file_exists($file))
+	if(include_exists($file))
 		include_once $file;
 }
 
 //create list of parsers with supported formats
 $config["parsers"] = array();
-foreach(glob("app/parsers/*", GLOB_ONLYDIR) as $dir) {
+foreach(glob("$doc_root/app/parsers/*", GLOB_ONLYDIR) as $dir) {
 	$format = basename($dir);
 	$ext_list = @file_get_contents($dir."/extensions.txt");
 	if($ext_list)

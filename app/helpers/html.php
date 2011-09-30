@@ -29,6 +29,31 @@ function ascii_to_entities($str) {
 	return $out;
 }
 
+function dropdown($options, $selected=null, $attr=array()) {
+	if(!is_array($attr))
+		return false;
+
+	$html = '<select';
+	
+	foreach($attr as $key => $val)
+		$html .= ' '.$key.'="'.$val.'"';
+		
+	$html .= '>';
+	
+	foreach($options as $option) {
+		$html .= '<option';
+		
+		if(strnatcasecmp($option, $selected) == 0)
+			$html .= " selected";
+			
+		$html .= '>'.$option.'</option>';
+	}
+	
+	$html .= "</select>";
+	
+	return $html;
+}
+
 //from Cake.php framework
 function truncate_html($text, $length = 100, $ending = '&hellip;', $exact = false, $considerHtml = true) {
 	if ($considerHtml) {

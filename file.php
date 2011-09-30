@@ -22,7 +22,7 @@ $File = $Lando->get_file($path, $thumb);
 
 if(!$File) {
 	$custom_404 = trim_slashes($theme_dir)."/404.php";
-	if(file_exists($custom_404))
+	if(include_exists($custom_404))
 		include $custom_404;
 	else
 		include "app/templates/404.php";

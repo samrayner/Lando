@@ -13,7 +13,7 @@ class Dropbox extends Cloud_Host {
 		
 		$config_file = "app/config/dropbox.php";
 		
-		if(file_exists($config_file)) {
+		if(include_exists($config_file)) {
 			//use saved tokens
 			include_once $config_file;			
 			$token_key 				= $tokens["token_key"];

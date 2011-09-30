@@ -35,7 +35,7 @@ class Cache {
 	private function load_single($type) {
 		$path = "app/cache/".$type.".php";
 		
-		if(file_exists($path))
+		if(include_exists($path))
 			include_once $path;
 		
 		if(isset($cache))
@@ -43,10 +43,12 @@ class Cache {
 	}
 	
 	public function save($type)	{
-		if(!file_exists("app/cache"))
-			mkdir("app/cache");
+		$dir = $_SERVER["DOCUMENT_ROOT"]."/app/cache";
+	
+		if(!file_exists($dir))
+			mkdir($dir);
 			
-		return @file_put_contents("app/cache/$type.php", '<?php $cache = \''.htmlspecialchars(serialize($this->$type), ENT_QUOTES)."';");
+		return @file_put_contents("$dir/$type.php", '<?php $cache = \''.htmlspecialchars(serialize($this->$type), ENT_QUOTES)."';");
 	}
 	
 	public function age($type) {

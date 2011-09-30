@@ -1,3 +1,69 @@
+<?php
+$doc_root = $_SERVER['DOCUMENT_ROOT'];
+include "$doc_root/app/core/loader.php";
+
+$config = $Lando->config;
+
+foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
+	$hosts[] = basename($dir);
+
+foreach(glob("$doc_root/themes/*", GLOB_ONLYDIR) as $dir)
+	$themes[] = basename($dir);
+
+function set_field_state($key, $attr=null) {
+	global $Lando;
+	$val = $Lando->config[$key];
+	
+	if(isset($val) && $val) {
+		if($attr)
+			echo $attr;
+		else
+			echo 'value="'.$val.'"';
+	}
+}
+
+function nav_manager($pages=null, $path=array()) {
+	if(!$pages) { //first run-through
+		$html = '<nav class="page-nav">'."\n";
+		$html .= nav_manager(pages());
+		$html .= '</nav>';
+		return $html;
+	}
+	
+	$current_class = "current";
+	$url = current_url();
+	$tabs = str_repeat("\t", sizeof($path)*2);
+
+	$html = "$tabs<ul>\n";
+
+	foreach($pages as $page) {
+		$path[] = $page->slug;
+		$path_str = "/".implode("/", $path)."/";
+		
+		if($url == "/")
+			$url = "/home/";
+		$current = (strpos($url, $path_str) === 0);
+
+		$html .= "$tabs\t<li";
+		if($current) $html .= ' class="'.$current_class.'"';
+		
+		$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink.'">'.$page->title."</a>\n";
+
+		if(!empty($page->subpages))
+			$html .= page_nav($page->subpages, $path);
+
+		array_pop($path);
+
+		$html .= "$tabs\t</li>\n";
+	}
+
+	$html .= "$tabs</ul>\n";
+	
+	return $html;
+}
+
+?>
+
 <!doctype html>
 <html lang="en-gb">
 
@@ -24,7 +90,7 @@
 <body>
 <div id="wrapper">
 
-<h1>Lando Admin</h1>
+<h1>Lando Settings</h1>
 
 <form action="" method="post">
 	<section>
@@ -32,22 +98,22 @@
 		
 		<div>
 			<label for="site_title" class="field-label">Title</label>
-			<input id="site_title" name="site_title" placeholder="Bespin Daily" />
+			<input id="site_title" name="site_title" <?php set_field_state("site_title"); ?> />
 		</div>
 		
 		<div>
 			<label for="site_description" class="field-label">Description</label>
-			<input id="site_description" name="site_description" placeholder="All the latest news from the cloud city." />
+			<input id="site_description" name="site_description" <?php set_field_state("site_description"); ?> />
 		</div>
 		
 		<div>
 			<label for="site_root" class="field-label">Root URL</label>
-			<input id="site_root" name="site_root" placeholder="http://" />
+			<input id="site_root" name="site_root" placeholder="http://" <?php set_field_state("site_root"); ?> />
 		</div>
 		
 		<div>
 			<label for="pretty_urls">Remove index.php from URLs</label>
-			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" />
+			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" <?php set_field_state("pretty_urls", "checked"); ?> />
 		</div>
 	</section>
 	
@@ -56,14 +122,15 @@
 		
 		<div>
 			<label for="host">Host</label>
-			<select id="host" name="host">
-				<option>Dropbox</option>
-			</select>
+			<?php 
+				$selected = isset($config["host"]) ? $config["host"] : null;
+				echo dropdown($hosts, $selected, array("id"=>"host", "name"=>"host"));
+			?>
 		</div>
 		
 		<div>
-			<label for="host_root" class="field-label">Path</label>
-			<input id="host_root" name="host_root" value="/Public/Lando/Test Site" />
+			<label for="host_root" class="field-label">Path to Content</label>
+			<input id="host_root" name="host_root" <?php set_field_state("host_root"); ?> />
 		</div>
 	</section>
 	
@@ -73,14 +140,15 @@
 		
 		<div>
 			<label for="theme">Theme</label>
-			<select id="theme" name="theme">
-				<option>Default</option>
-			</select>
+			<?php 
+				$selected = isset($config["theme"]) ? $config["theme"] : null;
+				echo dropdown($themes, $selected, array("id"=>"theme", "name"=>"theme")); 
+			?>
 		</div>
 		
 		<div>
 			<label for="smartypants">Use nice punctuation (e.g. &ldquo;curly quotes&rdquo;)</label>
-			<input id="smartypants" name="smartypants" type="checkbox" value="1" />
+			<input id="smartypants" name="smartypants" type="checkbox" value="1" <?php set_field_state("smartypants", "checked"); ?> />
 		</div>
 	</section>
 
