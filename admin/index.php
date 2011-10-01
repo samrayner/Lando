@@ -99,25 +99,28 @@ function nav_widget($pages=null, $path=array()) {
 <body>
 <div id="wrapper">
 
-<h1>Lando Settings</h1>
-
 <form action="" method="post">
+	<header>
+		<h1>Lando Settings</h1>
+		<button id="save-top" class="button">Save</button>
+	</header>
+
 	<section>
 		<h1>Site Details</h1>
 		
 		<div>
 			<label for="site_title" class="field-label">Title</label>
-			<input id="site_title" name="site_title" <?php set_field_state("site_title"); ?> />
+			<input type="text" id="site_title" name="site_title" <?php set_field_state("site_title"); ?> />
 		</div>
 		
 		<div>
 			<label for="site_description" class="field-label">Description</label>
-			<input id="site_description" name="site_description" <?php set_field_state("site_description"); ?> />
+			<input type="text" id="site_description" name="site_description" <?php set_field_state("site_description"); ?> />
 		</div>
 		
 		<div>
 			<label for="site_root" class="field-label">Root URL</label>
-			<input id="site_root" name="site_root" placeholder="http://" <?php set_field_state("site_root"); ?> />
+			<input type="text" id="site_root" name="site_root" placeholder="http://" <?php set_field_state("site_root"); ?> />
 		</div>
 		
 		<div>
@@ -139,7 +142,7 @@ function nav_widget($pages=null, $path=array()) {
 		
 		<div>
 			<label for="host_root" class="field-label">Path to Content</label>
-			<input id="host_root" name="host_root" <?php set_field_state("host_root"); ?> />
+			<input type="text" id="host_root" name="host_root" <?php set_field_state("host_root"); ?> />
 		</div>
 	</section>
 	
@@ -169,6 +172,11 @@ function nav_widget($pages=null, $path=array()) {
 	
 		<?php echo nav_widget(); ?>
 	</section><!-- #page-nav -->
+	
+	<div id="submit">
+		<button id="save-bottom" class="button">Save Settings</button>
+		<a id="cancel" href="<?php echo $site_root ?>">Cancel</a>
+	</div>
 </form>
 
 </div><!-- #wrapper -->

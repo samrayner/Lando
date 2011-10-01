@@ -86,9 +86,13 @@ function snippet($title) {
 }
 
 function page_nav($pages=null, $path=array()) {
+	global $Lando;
+
 	if(!$pages) { //first run-through
+		$page_order = $Lando->config["page_order"];
+	
 		$html = '<nav class="page-nav">'."\n";
-		$html .= page_nav(pages());
+		$html .= page_nav($page_order);
 		$html .= '</nav>';
 		return $html;
 	}
@@ -99,9 +103,14 @@ function page_nav($pages=null, $path=array()) {
 
 	$html = "$tabs<ul>\n";
 
-	foreach($pages as $page) {
-		$path[] = $page->slug;
+	foreach($pages as $page => $subpages) {
+		if(isset($subpages["_hidden"]))
+			continue;
+	
+		$path[] = $page;
 		$path_str = "/".implode("/", $path)."/";
+		
+		$page = $Lando->get_content("pages", trim_slashes($path_str));
 		
 		if($url == "/")
 			$url = "/home/";
@@ -112,8 +121,8 @@ function page_nav($pages=null, $path=array()) {
 		
 		$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink.'">'.$page->title."</a>\n";
 
-		if(!empty($page->subpages))
-			$html .= page_nav($page->subpages, $path);
+		if(!empty($subpages))
+			$html .= page_nav($subpages, $path);
 
 		array_pop($path);
 

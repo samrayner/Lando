@@ -6,7 +6,6 @@ $config = array(
 	"site_description" => "Just another DropPub site.",
 	"host" => "dropbox",
 	"host_root" => "/Public/Lando/Test Site",
-	"admin_pass" => "",
 	"theme" => "default",
 	"smartypants" => true,
 	"pretty_urls" => false,
@@ -30,9 +29,7 @@ $config = array(
 		      '_hidden' => true,
 		    ),
 		    'by-pigeon' => 
-		    array (
-		      '_hidden' => true,
-		    ),
+'',
 		    '_hidden' => true,
 		  ),
 		)

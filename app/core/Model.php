@@ -79,11 +79,13 @@ class Model {
 					if(!empty($sorted[$i]->subpages) && is_array($sorted[$i]->subpages))
 						$sorted[$i]->subpages = $this->sort_pages($sorted[$i]->subpages, $suborder);
 					
+					//unset if inserted into order from config setting
 					unset($pages[$search_route[0]]);
 				}
 			}
 		}
 		
+		//append pages that don't appear in page_order config
 		return array_merge($sorted, $pages);
 	}
 	
