@@ -3,9 +3,11 @@
 class Model {
 	private $Host;
 	private $Cache;
+	private $config;
 
 	public function __construct() {
 		global $config;
+		$this->config = $config;
 		
 		$host_class = str_replace(" ", "_", ucwords($config["host"]));		
 		$this->Host = new $host_class();
@@ -21,13 +23,13 @@ class Model {
 		return $this->Cache->account;
 	}
 	
-	private function content_sort($a, $b) {
+	private function sort_content($a, $b) {
 		if(!is_object($a))
 			return 0;
 		
 		//if subpages exist, drill down
 		if(!empty($a->subpages) && is_array($a->subpages))
-			usort($a->subpages, array($this, "content_sort"));
+			usort($a->subpages, array($this, "sort_content"));
 		
 		$result = 0;
 	
@@ -58,6 +60,33 @@ class Model {
 		}
 	}
 	
+	private function sort_pages($pages, $order=null) {
+		if(!$order)
+			$order = $this->config["page_order"];
+			
+		$sorted = array();
+		
+		foreach($order as $slug => $suborder) {	
+			if($slug != "_hidden") {
+				$search_route = array_search_recursive($slug, $pages, "slug");
+				
+				if(isset($search_route[0])) {
+					$i = sizeof($sorted);
+				
+					$sorted[$i] = $pages[$search_route[0]];
+				
+					//sort subpages
+					if(!empty($sorted[$i]->subpages) && is_array($sorted[$i]->subpages))
+						$sorted[$i]->subpages = $this->sort_pages($sorted[$i]->subpages, $suborder);
+					
+					unset($pages[$search_route[0]]);
+				}
+			}
+		}
+		
+		return array_merge($sorted, $pages);
+	}
+	
 	public function get_all($path) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
@@ -82,7 +111,10 @@ class Model {
 				$items[] = $item;
 		}
 		
-		usort($items, array($this, "content_sort"));
+		usort($items, array($this, "sort_content"));
+		
+		if($type == "pages")
+			$items = $this->sort_pages($items);
 		
 		//bulk overwrite of cache
 		$this->Cache->update($type, $items);

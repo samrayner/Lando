@@ -11,16 +11,30 @@ $config = array(
 	"smartypants" => true,
 	"pretty_urls" => false,
 	
-	"page_order" => array(
-		"home" => '',
-		"contact" => 	array(
-			"everyone" => '',
-			"just-me" => array(
-				"by-email" => ''
-			)
-	 	),
-	 	"about-me" => '',
-	 	"should-auto-strip-and-format" => '',
-	 	"this-used-to-have-punctuations" => ''
+	"page_order" => array (
+		'home' => 
+		array (
+		  '_hidden' => true,
+		),
+		'about-me' => '',
+		'contact' => 
+		array (
+		  'everyone' => 
+'',
+		  'just-the-ceo' => 
+'',
+		  'just-me' => 
+		  array (
+		    'by-email' => 
+		    array (
+		      '_hidden' => true,
+		    ),
+		    'by-pigeon' => 
+		    array (
+		      '_hidden' => true,
+		    ),
+		    '_hidden' => true,
+		  ),
+		)
 	)
 );

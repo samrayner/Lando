@@ -11,7 +11,7 @@ section div{margin-top:0.5em;}
 input,select{outline:none;color:rgba(0, 0, 0, 0.8);font:1em "Helvetica Neue",helvetica,arial,sans-serif;}
 input:not([type=checkbox]){position:static;-webkit-appearance:none;border:1px solid rgba(0, 0, 0, 0.2);padding:0.3em;border-radius:2px;box-shadow:inset 0 8px 8px -8px rgba(0, 0, 0, 0.1);width:100%;box-sizing:border-box;}
 .sortable div,.sortable label{cursor:move;}
-#page-list{position:relative;font-size:0.9em;}#page-list ol{position:relative;padding-left:1.8em;}#page-list ol:before{content:"\2514";position:absolute;left:3px;line-height:1.8;color:rgba(0, 0, 0, 0.6);}
+#page-list{font-size:0.9em;}#page-list ol{position:relative;}#page-list ol ol{padding-left:1.8em;}#page-list ol ol::before{content:"\2514";position:absolute;left:3px;line-height:1.8;color:rgba(0, 0, 0, 0.6);}
 #page-list li{margin:8px 0;}#page-list li div{display:inline-block;background-color:rgba(0, 0, 0, 0.05);box-shadow:inset 0 -20px 20px -20px rgba(0, 0, 0, 0.1),1px 1px 0 rgba(0, 0, 0, 0.2);padding:3px 5px;border-radius:2px;margin:0;}
 #page-list li label{color:#1e82c8;text-transform:none;font-size:1em;font-weight:normal;}
 #page-list label{margin:0;}
