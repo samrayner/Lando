@@ -9,10 +9,70 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 
 foreach(glob("$doc_root/themes/*", GLOB_ONLYDIR) as $dir)
 	$themes[] = basename($dir);
+	
+//POST handling
+
+$fields = array(
+	"site_title",
+	"site_description",
+	"site_root",
+	"pretty_urls",
+	"host",
+	"host_root",
+	"theme",
+	"smartypants",
+	"page_order"
+);
+
+if(sizeof($_POST) > 0) {
+	foreach($fields as $field) {
+		//not set or blank
+		if(!isset($_POST[$field]) || !$_POST[$field]) {
+			switch($field) {
+				case "site_root":
+					$save[$field] = trim_slashes(str_replace(basename(request_url()), "", request_url()));
+					break;
+				case "pretty_urls":
+				case "smartypants":
+					$save[$field] = 0;
+					break;
+				case "host_root":
+					$save[$field] = "/";
+					break;
+				case "page_order":
+					$save[$field] = "{}";
+					break;
+				default: 
+					$save[$field] = "";
+			}
+		}
+		//if set, sanitize
+		else {
+			switch($field) {
+				case "site_root":
+					$save[$field] = trim_slashes($_POST[$field]);
+					break;
+				case "host_root":
+					$save[$field] = "/".trim_slashes($_POST[$field]);
+					break;
+				case "page_order":
+					$save[$field] = json_decode(str_replace('\"', '"', $_POST[$field]), true);
+					break;
+				default: 
+					$save[$field] = $_POST[$field];
+			}
+		}
+	}
+	
+	file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($save, true).";");
+	$config = $save;
+}
+
+//field functions
 
 function set_field_state($key, $attr=null) {
-	global $Lando;
-	$val = $Lando->config[$key];
+	global $config;
+	$val = $config[$key];
 	
 	if(isset($val) && $val) {
 		if($attr)
@@ -30,8 +90,8 @@ function nav_widget($pages=null, $path=array()) {
 		return $html;
 	}
 
-	global $Lando;
-	$page_order = $Lando->config["page_order"];
+	global $config;
+	$page_order = $config["page_order"];
 	
 	$tabs = str_repeat("\t", sizeof($path)*2);
 
@@ -51,7 +111,7 @@ function nav_widget($pages=null, $path=array()) {
 				$current = $current[$next_key];
 		}
 		
-		if(!isset($current["_hidden"]))
+		if(!isset($current["_hidden"]) || $current["_hidden"] == false)
 			$html .= "checked ";
 		
 		$html .= '/>'."\n$tabs\t\t\t";

@@ -104,7 +104,7 @@ function page_nav($pages=null, $path=array()) {
 	$html = "$tabs<ul>\n";
 
 	foreach($pages as $page => $subpages) {
-		if(isset($subpages["_hidden"]))
+		if(isset($subpages["_hidden"]) && $subpages["_hidden"] == true)
 			continue;
 	
 		$path[] = $page;
