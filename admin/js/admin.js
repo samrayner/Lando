@@ -24,20 +24,24 @@ PageNav = {
 	 
 	 	//for all child checkboxes
 		$(this).closest("li").find("* * input:checkbox").each(function() {
-			//find whether the parent is checked
-			$parentLi = $(this).closest("li").parent().parent();
-			var parentChecked = $parentLi.children("div").children("input:checked").length;
-			
 			//if we're unchecking, disable all children
 			if(!checking)
 				$(this).attr("disabled", true);
 			
-			//if we're checking, enable children who's parents are enabled
-			if(checking && parentChecked)
-				$(this).removeAttr("disabled");
+			//if checking	
+			else {
+				//get all grand-parent LIs
+				$parentLis = $(this).closest("li").parentsUntil($("#page-list"),"li");
+				
+				var parentsUnchecked = $parentLis.children("div").children("input:not([checked])").length;
+				
+				//if we're checking, enable children who's parents are enabled
+				if(!parentsUnchecked)
+					$(this).removeAttr("disabled");
+			}
 		});
 		
-		 PageNav.updateOrder();
+		PageNav.updateOrder();
 	},
 	
 	init: function() {

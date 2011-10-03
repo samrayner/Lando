@@ -9,66 +9,6 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 
 foreach(glob("$doc_root/themes/*", GLOB_ONLYDIR) as $dir)
 	$themes[] = basename($dir);
-	
-//POST handling
-
-$fields = array(
-	"site_title",
-	"site_description",
-	"site_root",
-	"pretty_urls",
-	"host",
-	"host_root",
-	"theme",
-	"smartypants",
-	"page_order"
-);
-
-if(sizeof($_POST) > 0) {
-	foreach($fields as $field) {
-		//not set or blank
-		if(!isset($_POST[$field]) || !$_POST[$field]) {
-			switch($field) {
-				case "site_root":
-					$save[$field] = trim_slashes(str_replace(basename(request_url()), "", request_url()));
-					break;
-				case "pretty_urls":
-				case "smartypants":
-					$save[$field] = 0;
-					break;
-				case "host_root":
-					$save[$field] = "/";
-					break;
-				case "page_order":
-					$save[$field] = "{}";
-					break;
-				default: 
-					$save[$field] = "";
-			}
-		}
-		//if set, sanitize
-		else {
-			switch($field) {
-				case "site_root":
-					$save[$field] = trim_slashes($_POST[$field]);
-					break;
-				case "host_root":
-					$save[$field] = "/".trim_slashes($_POST[$field]);
-					break;
-				case "page_order":
-					$save[$field] = json_decode(str_replace('\"', '"', $_POST[$field]), true);
-					break;
-				default: 
-					$save[$field] = $_POST[$field];
-			}
-		}
-	}
-	
-	file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($save, true).";");
-	$config = $save;
-}
-
-//field functions
 
 function set_field_state($key, $attr=null) {
 	global $config;
@@ -159,13 +99,25 @@ function nav_widget($pages=null, $path=array()) {
 <body>
 <div id="wrapper">
 
-<form action="" method="post">
+<form action="save.php" method="post">
 	<header>
 		<h1>Lando Settings</h1>
 		<button id="save-top" class="button">Save</button>
 	</header>
 
 	<section>
+	
+		<?php
+		
+		if(isset($_GET["saved"])) {
+			if($_GET["saved"])
+				echo '<p class="success message">Settings saved</p>';
+			else
+				echo '<p class="failure message">Error saving. Please check permissions on <em>app/config/config.php</em> are <strong>777</strong> and try again.</p>';
+		}
+		
+		?>
+	
 		<h1>Site Details</h1>
 		
 		<div>

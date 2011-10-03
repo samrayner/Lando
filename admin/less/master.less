@@ -79,6 +79,14 @@ p {
 	margin: -0.5em 0 1.4em 0;
 }
 
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
 a {
 	color: @linkColor;
 	
@@ -222,6 +230,29 @@ input[type=text] {
 	&:active,
 	&:focus {
 		opacity: 1;
+	}
+}
+
+.message {
+	padding: 0.5em;
+	text-align: center;
+	border-radius: 2px;
+	margin: 0.25em 0 2em;
+	text-shadow: rgba(255,255,255,0.01);
+	text-transform: none;
+	font-size: 1em;
+	font-weight: normal;
+	
+	&.failure {
+		background-color: rgba(200,0,0,0.2);
+		border: 1px solid maroon;
+		color: maroon;
+	}
+	
+	&.success {
+		background-color: rgba(0,200,0,0.2);
+		border: 1px solid green;
+		color: green;
 	}
 }
 

@@ -19,9 +19,6 @@ $config = array (
     ),
     'contact' => 
     array (
-      'everyone' => 
-      array (
-      ),
       'just-the-ceo' => 
       array (
       ),
@@ -32,10 +29,12 @@ $config = array (
         ),
         'by-pigeon' => 
         array (
-          '_hidden' => true,
         ),
+        '_hidden' => true,
       ),
-      '_hidden' => true,
+      'everyone' => 
+      array (
+      ),
     ),
   ),
 );
