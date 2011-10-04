@@ -171,7 +171,7 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 		
 		<div>
-			<label for="smartypants">Use nice punctuation (e.g. &ldquo;curly quotes&rdquo;)</label>
+			<label for="smartypants">Use nice punctuation (&ldquo;curly quotes&rdquo;)</label>
 			<input id="smartypants" name="smartypants" type="checkbox" value="1" <?php set_field_state("smartypants", "checked"); ?> />
 		</div>
 	</section>

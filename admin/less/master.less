@@ -19,7 +19,9 @@ body {
 	max-width: 700px;
 	position: relative;
 	margin: 30px auto 60px;
+	
 	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 .button {
@@ -33,7 +35,9 @@ header {
 	background-color: rgba(0,0,0,0.5);
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
+	
 	box-shadow: inset 0 -20px 20px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0 -20px 20px rgba(0,0,0,0.2);
 	
 	h1 {
 		font-weight: bold;
@@ -45,18 +49,22 @@ header {
 		padding: 0 0.6em;
 		line-height: 1.8;
 		position: absolute;
-		right: 6px;
+		right: 16px;
 		top: 6px;
 		border: 1px solid rgba(255,255,255,0.1);
 		background-color: #191919;
-		box-shadow: inset 0 -11px 3px rgba(0,0,0,0.7);
 		color: rgba(255,255,255,0.7);
+		
+		box-shadow: inset 0 -11px 3px rgba(0,0,0,0.7);
+		-webkit-box-shadow: inset 0 -11px 3px rgba(0,0,0,0.7);
 	
 		&:hover,
 		&:focus {
 			color: rgba(255,255,255,0.8);
 			background-color: #222;
+			
 			box-shadow: inset 0 -11px 3px rgba(0,0,0,0.4);
+			-webkit-box-shadow: inset 0 -11px 3px rgba(0,0,0,0.4);
 		}
 		
 		&:active {
@@ -103,7 +111,9 @@ section,
 	border-top: 1px solid white;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 	background-color: @panelBg;
+	
 	box-shadow: inset 0 -20px 20px rgba(0,0,0,0.02);
+	-webkit-box-shadow: inset 0 -20px 20px rgba(0,0,0,0.02);
 	
 	h1 {
 		font-size: 1.2em;
@@ -129,9 +139,13 @@ input[type=text] {
 	border: 1px solid rgba(0,0,0,0.2);
 	padding: 0.3em;
 	border-radius: 2px;
-	box-shadow: inset 0 8px 8px -8px rgba(0,0,0,0.1);
 	width: 100%;
+	
+	box-shadow: inset 0 8px 8px -8px rgba(0,0,0,0.1);
+	-webkit-box-shadow: inset 0 8px 8px -8px rgba(0,0,0,0.1);
+	
 	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 }
 
@@ -165,10 +179,12 @@ input[type=text] {
 		div {
 			display: inline-block;
 			background-color: rgba(0,0,0,0.05);
-			box-shadow: inset 0 -20px 20px -20px rgba(0,0,0,0.1), 1px 1px 0 rgba(0,0,0,0.2);
 			padding: 3px 5px;
 			border-radius: 2px;
 			margin: 0;
+			
+			box-shadow: inset 0 -20px 20px -20px rgba(0,0,0,0.1), 1px 1px 0 rgba(0,0,0,0.2);
+			-webkit-box-shadow: inset 0 -20px 20px -20px rgba(0,0,0,0.1), 1px 1px 0 rgba(0,0,0,0.2);
 		}
 		
 		label {
@@ -199,21 +215,27 @@ input[type=text] {
 	padding: 0 0.8em;
 	line-height: 1.8;
 	background-color: white;
-	box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 1px 1px 0 white;
 	text-shadow: 1px 1px 0 white;
 	color: rgba(0,0,0,0.8);
+	
+	box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 1px 1px 0 white;
+	-webkit-box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 1px 1px 0 white;
 
 	&:hover,
 	&:focus {
 		background: lighten(saturate(@linkColor, 60%), 52%);
+		
 		box-shadow:  inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
+		-webkit-box-shadow:  inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
 	}
 	
 	&:active {
 		border-color: rgba(0,0,0,0.3);
 		color: rgba(0,0,0,0.9);
 		background: lighten(saturate(@linkColor, 60%), 49%);
+		
 		box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
+		-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
 	}
 }
 
@@ -238,7 +260,7 @@ input[type=text] {
 	text-align: center;
 	border-radius: 2px;
 	margin: 0.25em 0 2em;
-	text-shadow: rgba(255,255,255,0.01);
+	text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
 	text-transform: none;
 	font-size: 1em;
 	font-weight: normal;
@@ -260,10 +282,10 @@ input[type=text] {
 	#wrapper {
 		margin: 0;
 		width: 100%;
-		min-width: 330px;
+		min-width: 300px;
 	}
 	
-	#wrapper h1,
+	header,
 	#submit {
 		border-radius: 0;
 	}
