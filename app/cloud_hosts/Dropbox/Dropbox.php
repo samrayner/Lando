@@ -245,7 +245,7 @@ class Dropbox extends Cloud_Host {
 
 		if($thumb && $meta["thumb_exists"]) {
 			$File->url .= "?size=$thumb";
-			$File->raw_content = $this->API->thumbnail($path, "medium", "JPEG");
+			$File->raw_content = $this->API->thumbnail($path, $thumb_codes[$thumb], "JPEG");
 			$File->mime_type = "image/jpeg";
 			$File->extension = "jpg";
 			$File->resize($thumb); //calculate thumb dimensions and replace

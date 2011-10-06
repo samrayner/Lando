@@ -356,9 +356,6 @@ class DropLib extends DropLib_Base{
 	 */
 	public function thumbnail($path, $size = 'small', $format = 'JPEG'){
 		
-		//SAM REMOVED:
-		//!in_array(strtolower($size), array('small', 'medium', 'large')) or
-		
 		if(!$this->strParamSet($path) or
 		   !in_array(strtolower($format), array('jpeg', 'png'))){
 			throw new DropLibException_InvalidArgument('Invalid or missing argument(s).');
@@ -371,7 +368,7 @@ class DropLib extends DropLib_Base{
 		
 		$response = $this->Http->fetch(self::API_CONTENT_BASE . 'thumbnails/' . $this->root . '/' . $this->encodePath($path), $params);
 		
-		return $this->decodeResponse($response);
+		return base64_encode($this->decodeResponse($response));
 		
 	}
 	
