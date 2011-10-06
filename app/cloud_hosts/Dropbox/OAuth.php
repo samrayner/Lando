@@ -23,13 +23,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/* Generic exception class */
-if (!class_exists('OAuthException')){
-	class OAuthException extends Exception {
-		// pass
-	}
-}
-
 class OAuthConsumer {
   public $key;
   public $secret;
@@ -450,7 +443,7 @@ class OAuthRequest {
     foreach ($this->parameters as $k => $v) {
       if (substr($k, 0, 5) != "oauth") continue;
       if (is_array($v)) {
-        throw new OAuthException('Arrays not supported in headers');
+        throw new DropLibException_OAuth('Arrays not supported in headers');
       }
       $out .= ($first) ? ' ' : ',';
       $out .= OAuthUtil::urlencode_rfc3986($k) .

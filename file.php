@@ -11,10 +11,10 @@ if(!$thumb && $Lando->config["host"] == "dropbox" && preg_match('~^/public~i', $
 
 	if(isset($account["uid"])) {	
 		$full_path = $account["uid"].preg_replace('~^/public~i', "", $Lando->config["host_root"]).$path;
-		$url = "http://dl.dropbox.com/u/".str_replace("%2F", "/", rawurlencode($full_path));
+		$url = "http://dl.dropbox.com/u/".str_replace(array('%2F','~'), array('/','%7E'), rawurlencode($full_path));
 		
 		header("Location: $url");
-		exit();
+		exit;
 	}
 }
 
@@ -27,7 +27,7 @@ if(!$File) {
 	else
 		include "app/templates/404.php";
 		
-	exit();
+	exit;
 }
 
 header('Content-Type: '.$File->mime_type);

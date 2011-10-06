@@ -8,31 +8,29 @@ class Dropbox extends Cloud_Host {
 	public function __construct() {
 		parent::__construct();
 				
-		$consumer_key 		= "whoen0lsbfo9c6y";
-		$consumer_secret 	= "jxto2adt35bmayy";
+		$params = array( 
+			'consumerKey' 		=> 'whoen0lsbfo9c6y', 
+			'consumerSecret' 	=> 'jxto2adt35bmayy', 
+			'sslCheck' 				=> false //while developing locally
+		);
 		
 		$config_file = "app/config/dropbox.php";
 		
 		if(include_exists($config_file)) {
 			//use saved tokens
 			include_once $config_file;			
-			$token_key 				= $tokens["token_key"];
-			$token_secret 		= $tokens["token_secret"];
+			$params["tokenKey"] 		= $tokens["token_key"];
+			$params["tokenSecret"] 	= $tokens["token_secret"];
 		}
 		else {
 			throw new Exception("NEED TO AUTH WITH DROPBOX!");
 		}
 		
-		$this->API = new DropLib($consumer_key, $consumer_secret, $token_key, $token_secret);
-		$this->API->setNoSSLCheck(true); //while developing locally
+		$this->API = new DropLib($params);
 	}
 	
 	public function account_info() {
 		return $this->API->accountInfo();
-	}
-	
-	private function encode_path($path) {
-		return str_replace("%2F", "/", rawurlencode($path));
 	}
 	
 	private function get_file_path($meta, $exts=null, $filename="") {
@@ -61,7 +59,7 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function dir_contents($path, $dirs_only=true) {
-		$path = $this->encode_path($this->config["host_root"]."/".trim_slashes($path));
+		$path = $this->config["host_root"]."/".trim_slashes($path);
 		$meta = $this->API->metadata($path);
 		
 		$items = array();
@@ -129,7 +127,7 @@ class Dropbox extends Cloud_Host {
 		try {
 			//if not successfully renamed slug directory
 			if(!isset($latest))
-				$latest = $this->API->metadata($this->encode_path($full_path));
+				$latest = $this->API->metadata($full_path);
 		}
 		catch(Exception $e) {
 			return false;
@@ -162,7 +160,7 @@ class Dropbox extends Cloud_Host {
 			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
 			
 			if($main_file) {
-				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($this->encode_path($main_file));
+				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($main_file);
 	
 				$meta["file_path"] = $main_file;
 				$meta["title"] = $this->filename_from_path($main_file);
@@ -174,7 +172,7 @@ class Dropbox extends Cloud_Host {
 				if(!$Cache || $meta["modified"] > $Cache->modified) {
 				
 					//download raw content and resolve relative media URLs where possible
-					$meta["raw_content"] = $this->API->download($this->encode_path($main_file));
+					$meta["raw_content"] = $this->API->download($main_file);
 					
 					//scrape for manually set metadata and add
 					$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
@@ -234,7 +232,7 @@ class Dropbox extends Cloud_Host {
 		if($thumb && !isset($thumb_codes[$thumb]))
 			return false;
 	
-		$path = $this->encode_path($this->config["host_root"]."/".trim_slashes($path));
+		$path = $this->config["host_root"]."/".trim_slashes($path);
 		
 		try {
 			$meta = $this->API->metadata($path);
@@ -247,10 +245,9 @@ class Dropbox extends Cloud_Host {
 
 		if($thumb && $meta["thumb_exists"]) {
 			$File->url .= "?size=$thumb";
-			$data_uri = $this->API->thumbnail($path, $thumb_codes[$thumb], "JPEG");
-			$File->mime_type = stristr(stristr($data_uri, "image/"), ";", true);
-			$File->extension = str_replace("image/", "", $File->mime_type);
-			$File->raw_content = str_replace("data:".$File->mime_type.";base64,", "", $data_uri);
+			$File->raw_content = $this->API->thumbnail($path, "medium", "JPEG");
+			$File->mime_type = "image/jpeg";
+			$File->extension = "jpg";
 			$File->resize($thumb); //calculate thumb dimensions and replace
 		}
 		else

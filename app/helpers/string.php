@@ -9,5 +9,5 @@ function str_to_slug($str, $sep="-") {
 }
 
 function trim_slashes($str) {
-	return preg_replace('~^/+|/+$~', "", $str);
+	return trim($str, "/");
 }
