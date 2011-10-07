@@ -109,10 +109,12 @@ function nav_widget($pages=null, $path=array()) {
 	
 		<?php
 		
-		if(isset($_GET["error"]) && $_GET["error"])
-			echo '<p class="failure message">'.urldecode($_GET["error"]).'</p>';
-		elseif(isset($_GET["saved"]) && $_GET["saved"])
-			echo '<p class="success message">Settings saved</p>';
+		if(isset($_GET["saved"])) {
+			if($_GET["saved"])
+				echo '<p class="success message">Settings saved</p>';
+			else
+				echo '<p class="failure message">Error saving. Please check permissions on <em>app/config/config.php</em> are <strong>777</strong> and try again.</p>';
+		}
 		
 		?>
 	
@@ -136,6 +138,7 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="pretty_urls">Remove index.php from URLs</label>
 			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" <?php set_field_state("pretty_urls", "checked"); ?> />
+			<p id="htaccess" class="collapsed">Have you <a href="#">updated your <em>.htaccess</em> file</a>?</p>
 		</div>
 	</section>
 	

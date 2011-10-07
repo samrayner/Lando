@@ -1,3 +1,9 @@
+/*
+Title:      	Admin Panel JavaScript
+Author:     	Sam Rayner - http://samrayner.com
+Created: 			2011-09-16
+*/
+
 PageNav = {
 	sortableTree: function(parents) {
 		var tree = {};
@@ -60,6 +66,18 @@ PageNav = {
 	}
 }
 
+Tooltip = {
+	toggle: function() {
+		var $message = $("#htaccess");
+		$message.toggleClass("collapsed");
+	},
+
+	init: function() {
+		$("#pretty_urls").change(Tooltip.toggle);
+	}
+}
+
 $(function() {
+	Tooltip.init();
 	PageNav.init();
 });
