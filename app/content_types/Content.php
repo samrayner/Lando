@@ -30,4 +30,22 @@ class Content {
 	public function export() {
 		return get_object_vars($this);
 	}
+	
+	//get functions
+	
+	public function title() {
+		return $this->title;
+	}
+	
+	public function modified($format="U") {
+		return date($format, $this->modified);
+	}
+	
+	public function path() {
+		return $this->path;
+	}
+	
+	public function raw_content() {
+		return $this->raw_content;
+	}
 }

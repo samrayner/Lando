@@ -6,10 +6,9 @@ $path = current_url();
 $thumb = isset($_GET["size"]) ? $_GET["size"] : false;
 
 if(!$thumb && $Lando->config["host"] == "dropbox" && preg_match('~^/public~i', $Lando->config["host_root"])) {
-
 	$account = $Lando->get_host_info();
 
-	if(isset($account["uid"])) {	
+	if(isset($account["uid"])) {
 		$full_path = $account["uid"].preg_replace('~^/public~i', "", $Lando->config["host_root"]).$path;
 		$url = "http://dl.dropbox.com/u/".str_replace(array('%2F','~'), array('/','%7E'), rawurlencode($full_path));
 		

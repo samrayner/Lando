@@ -12,18 +12,18 @@ $posts = posts(10);
 		<language>en</language>
 		<copyright>Copyright <?php echo date("Y") ?>, <?php echo $site_title ?></copyright>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
-		<pubDate><?php echo date("r", $posts[0]->published) ?></pubDate>
-		<lastBuildDate><?php echo date("r", $posts[0]->modified) ?></lastBuildDate>
+		<pubDate><?php echo $posts[0]->published('r') ?></pubDate>
+		<lastBuildDate><?php echo $posts[0]->modified('r') ?></lastBuildDate>
 		
 		<?php foreach($posts as $post): ?>
 		<item>
 		
-			<title><?php echo $post->title ?></title>
-			<link><?php echo $post->permalink ?></link>
-			<pubDate><?php echo date("r", $post->published) ?></pubDate>
-			<guid><?php echo $post->permalink ?></guid>
+			<title><?php echo $post->title() ?></title>
+			<link><?php echo $post->permalink() ?></link>
+			<pubDate><?php echo $post->published('r') ?></pubDate>
+			<guid><?php echo $post->permalink() ?></guid>
 			
-			<description><![CDATA[ <?php echo $post->content ?> ]]></description>
+			<description><![CDATA[ <?php echo $post->content() ?> ]]></description>
 
 		</item>
 		<?php endforeach ?>

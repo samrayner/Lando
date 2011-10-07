@@ -21,18 +21,18 @@
 		 		foreach($posts as $i => $post): ?>
 
 		<article>
-			<h1><a href="<?php echo $post->permalink ?>"><?php echo $post->title ?></a></h1>
+			<h1><a href="<?php echo $post->permalink() ?>"><?php echo $post->title() ?></a></h1>
 			<footer>
 				<p>Posted 
-					<time pubdate datetime="<?php echo date('c', $post->published) ?>">
-						<?php echo date('F jS \a\t g:ia', $post->published) ?>
+					<time pubdate datetime="<?php echo $post->published('c') ?>">
+						<?php echo $post->published('F jS \a\t g:ia') ?>
 					</time>
 				</p>
 				
-				<?php if($post->tags): ?>
+				<?php if($post->tags()): ?>
 					<h3>Tagged</h3>
 					<ul>
-					<?php foreach($post->tags as $tag): ?>
+					<?php foreach($post->tags() as $tag): ?>
 						<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 					<?php endforeach ?>
 					</ul>

@@ -103,4 +103,14 @@ class Image extends File {
 		
 		return true;
 	}
+	
+	//get functions
+	
+	public function width() {
+		return $this->width;
+	}
+
+	public function height() {
+		return $this->height;
+	}
 }

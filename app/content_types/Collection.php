@@ -11,8 +11,8 @@ class Collection extends Content {
 	public function list_html() {
 		$html = '<ul>';
 		
-		foreach($this->files as $file)
-			$html .= "<li>".$file->title."</li>";
+		foreach($this->files() as $file)
+			$html .= "<li>".$file->title()."</li>";
 			
 		$html .= '</ul>';
 		
@@ -36,7 +36,7 @@ class Collection extends Content {
 	
 		$html = '<div class="'.$type.'">';
 		
-		foreach($this->files as $file) {
+		foreach($this->files() as $file) {
 			if(method_exists($file, "thumb_html"))
 				$html .= $file->thumb_html($size, $link_images);
 		}
@@ -44,5 +44,15 @@ class Collection extends Content {
 		$html .= '</div>';
 		
 		return $html;
+	}
+	
+	//get functions
+		
+	public function files() {
+		return $this->files;
+	}
+	
+	public function created($format="U") {
+		return date($format, $this->created);
 	}
 }

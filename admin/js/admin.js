@@ -51,7 +51,7 @@ PageNav = {
 	},
 	
 	init: function() {
-		$("input:checkbox").change(PageNav.updateVisibility);
+		$("#page-list input:checkbox").change(PageNav.updateVisibility);
 	
 		//disable text selection so we can drag
 		$("#page-list > ol").disableSelection();

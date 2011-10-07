@@ -1,53 +1,12 @@
 <?php
 
 class Text extends Content {
-	private $content;
-	
 	public $format;
 	public $extension;
 	public $author = "";
 	
-	//parse calls to content
-	public function __get($prop) {
-	  if($prop == "content")
-	  	return $this->parse_content();
-	  
-	  //otherwise give error for invald property
-  	$trace = debug_backtrace();
-    trigger_error(
-        'Undefined property via __get(): ' . $prop .
-        ' in ' . $trace[0]['file'] .
-        ' on line ' . $trace[0]['line'],
-        E_USER_NOTICE);
-    return null;
-	}
-	
 	public function __toString() {
-		return $this->parse_content();
-	}
-	
-	public function parse_content() {
-		global $Lando;
-		
-		$content = $this->swap_includes($this->raw_content);
-	  
-		if($this->raw_content && $this->format) {
-			$parser_class = $this->format."_Parser";
-			if(class_exists($parser_class)) {
-				$Parser = new $parser_class();
-				$content = $Parser->parse($content);
-			}
-		}
-		
-		//make path relative to content root
-		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
-		
-		$content = $this->resolve_media_srcs($content, $rel_path);
-		
-		if($Lando->config["smartypants"] && function_exists("SmartyPants"))
-			$content = SmartyPants($content);
-		
-		return $content;
+		return $this->content();
 	}
 	
 	private function swap_includes($content) {
@@ -88,7 +47,7 @@ class Text extends Content {
 	
 		switch($func) {
 			case "snippet": 
-				$include = $func($args["title"])->parse_content();
+				$include = $func($args["title"])->content();
 				break;
 			case "collection": 
 				$include = $func($args)->list_html();
@@ -143,4 +102,42 @@ class Text extends Content {
 		
 		return $content;
   }
+  
+  //get functions
+  
+  public function content() {
+		global $Lando;
+		
+		$content = $this->swap_includes($this->raw_content);
+	  
+		if($this->raw_content && $this->format) {
+			$parser_class = $this->format."_Parser";
+			if(class_exists($parser_class)) {
+				$Parser = new $parser_class();
+				$content = $Parser->parse($content);
+			}
+		}
+		
+		//make path relative to content root
+		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
+		
+		$content = $this->resolve_media_srcs($content, $rel_path);
+		
+		if($Lando->config["smartypants"] && function_exists("SmartyPants"))
+			$content = SmartyPants($content);
+		
+		return $content;
+	}
+  
+	public function format() {
+		return $this->format;
+	}
+
+	public function extension() {
+		return $this->extension;
+	}
+
+	public function author() {
+		return $this->author;
+	}
 }

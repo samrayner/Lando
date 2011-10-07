@@ -44,6 +44,10 @@ if(sizeof($_POST) > 0) {
 		//if set, sanitize
 		else {
 			switch($field) {
+				case "host":
+				case "theme":
+					$config[$field] = strtolower($_POST[$field]);
+					break;
 				case "site_root":
 					$config[$field] = trim_slashes($_POST[$field]);
 					break;

@@ -1,15 +1,15 @@
 <?php include "inc/head.php" ?>
 
-<body id="<?php echo $current->slug ?>">
+<body id="<?php echo $current->slug() ?>">
 
 <?php include "inc/header.php" ?>
 
 <section id="primary">
 	<article>
-		<h1><?php echo $current->title ?></h1>
-		<?php echo $current->content ?>
+		<h1><?php echo $current->title() ?></h1>
+		<?php echo $current->content() ?>
 		<footer>
-			<p>Updated <time pubdate datetime="<?php echo date('c', $current->modified) ?>"><?php echo date('F jS \a\t g:ia', $current->modified) ?></time></p>
+			<p>Updated <time pubdate datetime="<?php echo $current->modified('c') ?>"><?php echo $current->modified('F jS \a\t g:ia') ?></time></p>
 		</footer>
 	</article>
 </section>

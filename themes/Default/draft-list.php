@@ -8,11 +8,11 @@
 	<?php foreach(drafts() as $draft): ?>
 
 		<article>
-			<h1><a href="<?php echo $draft->permalink ?>"><?php echo $draft->title ?></a></h1>
+			<h1><a href="<?php echo $draft->permalink() ?>"><?php echo $draft->title() ?></a></h1>
 			<footer>
 				<p>Edited 
-					<time pubdate datetime="<?php echo date('c', $draft->modified) ?>">
-						<?php echo date('F jS \a\t g:ia', $draft->modified) ?>
+					<time pubdate datetime="<?php echo $draft->modified('c')) ?>">
+						<?php echo $draft->modified('F jS \a\t g:ia') ?>
 					</time>
 				</p>
 			</footer>
