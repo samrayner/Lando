@@ -92,7 +92,6 @@ function nav_widget($pages=null, $path=array()) {
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-	<script src="js/jquery.ui.touch-punch.min.js"></script>
 	<script src="js/admin.js"></script>
 	
 </head>
@@ -179,7 +178,7 @@ function nav_widget($pages=null, $path=array()) {
 
 	<section id="page-nav">
 		<h1>Page Navigation</h1>
-		<p>Uncheck to hide from nav, drag to reorder</p>
+		<p>Uncheck to hide in nav, drag to reorder</p>
 		
 		<input id="page_order" name="page_order" type="hidden" />
 	

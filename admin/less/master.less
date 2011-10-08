@@ -106,7 +106,8 @@ a {
 }
 
 #htaccess {
-	height: inherit;
+	height: auto;
+	opacity: 1;
 	margin: 1em 0 0;
 	padding: 0.5em 0.8em;
 	background-color: #ffc;
@@ -318,5 +319,10 @@ input[type=text] {
 	header,
 	#submit {
 		border-radius: 0;
+	}
+	
+	#htaccess,
+	#htaccess.collapsed {
+		display: none;
 	}
 }

@@ -34,7 +34,7 @@ class Content {
 	//get functions
 	
 	public function title() {
-		return $this->title;
+		return htmlspecialchars($this->title);
 	}
 	
 	public function modified($format="U") {

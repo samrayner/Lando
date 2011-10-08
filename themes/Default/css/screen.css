@@ -67,3 +67,7 @@ body > footer {
 	padding: 15px 20px;
 	margin-top: 60px;
 }
+
+nav .current > a {
+	font-weight: bold;
+}

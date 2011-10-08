@@ -24,7 +24,7 @@ class Publishable extends Text {
 		
 		if(!$Lando->config["pretty_urls"])
 			$permalink .= "/index.php";
-	
+		
 		return $permalink.$this->permalink;
 	}
 

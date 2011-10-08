@@ -147,7 +147,7 @@ class Dropbox extends Cloud_Host {
 			
 			if($type == "pages") {
 				//remove /pages/ and /home/ from permalink if exist
-				$permalink = preg_replace('~^/pages(/home$)?~i', "", $permalink);
+				$permalink = preg_replace('~^/pages(/home/$)?~i', "", $permalink);
 			}
 			
 			$meta["permalink"] = $permalink;

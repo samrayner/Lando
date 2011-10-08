@@ -11,11 +11,18 @@ $config = array (
   'smartypants' => '1',
   'page_order' => 
   array (
+    'home' => 
+    array (
+    ),
     'about-me' => 
     array (
+      '_hidden' => true,
     ),
     'contact' => 
     array (
+      'everyone' => 
+      array (
+      ),
       'just-me' => 
       array (
         'by-email' => 
@@ -23,18 +30,13 @@ $config = array (
         ),
         'by-pigeon' => 
         array (
+          '_hidden' => true,
         ),
       ),
       'just-the-ceo' => 
       array (
         '_hidden' => true,
       ),
-      'everyone' => 
-      array (
-      ),
-    ),
-    'home' => 
-    array (
     ),
   ),
 );

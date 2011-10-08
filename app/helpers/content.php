@@ -112,7 +112,7 @@ function page_nav($pages=null, $path=array()) {
 	$html = "$tabs<ul>\n";
 
 	foreach($pages as $page) {
-		$path[] = $page->slug;
+		$path[] = $page->slug();
 		
 		$current = $page_order;
 		foreach($path as $next_key) {
@@ -125,15 +125,19 @@ function page_nav($pages=null, $path=array()) {
 			
 			if($url == "/")
 				$url = "/home/";
-			$current = (strpos($url, $path_str) === 0);
+			
+			$current = (strpos($url, rtrim($path_str, "/")) === 0);
 	
 			$html .= "$tabs\t<li";
-			if($current) $html .= ' class="'.$current_class.'"';
+			if($current) 
+				$html .= ' class="'.$current_class.'"';
 			
-			$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink.'">'.$page->title."</a>\n";
+			$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink().'">'.$page->title()."</a>\n";
 	
-			if(!empty($page->subpages))
-				$html .= page_nav($page->subpages, $path);
+			$subpages = $page->subpages();
+	
+			if(!empty($subpages))
+				$html .= page_nav($subpages, $path);
 	
 			$html .= "$tabs\t</li>\n";
 		}
