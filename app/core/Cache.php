@@ -55,4 +55,30 @@ class Cache {
 		//if file doesn't exist return 0 for modified time
 		return time()-(int)@filemtime("app/cache/$type.php");
 	}
+	
+	public function top_level($type) {
+		$names = array();
+		
+		switch($type) {
+			case "pages":
+			case "posts":
+			case "drafts":
+				$key = "slug";
+				break;
+			case "collections":
+			case "snippets":
+			case "thumbs":
+				$key = "title";
+				break;
+			default:
+				return array();
+		}
+		
+		foreach($this->$type as $item) {
+			if(isset($item->$key))
+				$names[] = $item->$key;
+		}
+		
+		return $names;
+	}
 }

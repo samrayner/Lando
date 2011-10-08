@@ -50,8 +50,19 @@ PageNav = {
 		PageNav.updateOrder();
 	},
 	
+	labelTap: function() {
+		var $checkbox = $("#".$(this).attr("for"));
+		var checked = $checkbox.checked;
+		
+		if(checked)
+			$checkbox.removeAttr("checked");
+		else
+			$checkbox.attr("checked", 1);
+	},
+	
 	init: function() {
 		$("#page-list input:checkbox").change(PageNav.updateVisibility);
+		$("#page-list label").click(PageNav.labelTap);
 	
 		//disable text selection so we can drag
 		$("#page-list > ol").disableSelection();

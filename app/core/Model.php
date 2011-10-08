@@ -89,7 +89,7 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path) {
+	public function get_all($path, $max_age=300) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
@@ -101,13 +101,17 @@ class Model {
 		else
 			$dirs_only = true;
 	
+		//if cache younger than max age (default 5 mins) then use it to list items
+		//if($this->Cache->age($type) < $max_age)
+		//	$names = $this->Cache->top_level($type);
+		//else
 		$names = $this->Host->dir_contents($path, $dirs_only);
 		
 		$items = array();
 		
 		foreach($names as $name) {
 			//set unachievable max age to avoid cache refreshes
-			$item = $this->get_single("$path/$name", -1, false);
+			$item = $this->get_single("$path/$name", false, -1);
 			
 			if($item)
 				$items[] = $item;
@@ -124,20 +128,12 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $max_age=300, $cache=true, $thumb=false) {
+	public function get_single($path, $recache=true, $max_age=300, $thumb=false) {
 		$path = trim_slashes($path);
 		$key = "path";
 		$old_path = $path;
 		
-		if($thumb)
-			$type = "thumbs";
-		else
-			$type = array_shift(explode("/", $path));
-		
-		if(in_array($type, array("pages", "drafts"))) {
-			$numbered_path = str_replace("/", "/(\d+\.\s*)?", $path); //match numbered pages in cache
-			$path = $numbered_path;
-		}
+		$type = ($thumb) ? "thumbs" : array_shift(explode("/", $path));
 		
 		if($type == "thumbs") {
 			$new_path = $path."?size=".$thumb; //match numbered pages in cache
@@ -176,7 +172,7 @@ class Model {
 			else
 				$item = $this->Host->get_single($path, $item);
 			
-			if($item && $cache) {
+			if($item && $recache) {
 				//replace old cache
 				if(isset($cache_route[0])) {
 					$old = &$this->Cache->$type;
@@ -197,6 +193,6 @@ class Model {
 			return $this->Host->get_file($path, false);
 		
 		//cache thumbs for 20 mins
-		return $this->get_single($path, 1200, true, $thumb);
+		return $this->get_single($path, true, 1200, $thumb);
 	}
 }

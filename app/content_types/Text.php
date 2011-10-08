@@ -45,23 +45,18 @@ class Text extends Content {
 			$args[$match[1]] = preg_replace('~^"|"$~', "", $match[2]);;
 		}
 	
-		switch($func) {
-			case "snippet": 
-				$include = $func($args["title"])->content();
-				break;
-			case "collection": 
-				$include = $func($args)->list_html();
-				break;
-			case "gallery": 
-			case "slideshow": 
-				$include = $func($args);
-				break;
-			default: 
-				$include = false;
-		}
+		$include = $func($args);
 		
 		if(!$include)
 			return $str;
+	
+		switch($func) {
+			case "snippet": 
+				$include = $include->content();
+				break;
+			case "collection": 
+				$include = $include->list_html();
+		}
 			
 		return compress_html($include);
 	}

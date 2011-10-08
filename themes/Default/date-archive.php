@@ -48,7 +48,7 @@
 			<h1><a href="<?php echo $post->permalink() ?>"><?php echo $post->title() ?></a></h1>
 			<footer>
 				<p>Posted 
-					<time pubdate datetime="<?php echo $post->published('c')) ?>">
+					<time pubdate datetime="<?php echo $post->published('c') ?>">
 						<?php echo $post->published('F jS \a\t g:ia') ?>
 					</time>
 				</p>

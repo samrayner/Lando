@@ -284,18 +284,6 @@ FileETag None
 </IfModule>
 
 
-
-# ----------------------------------------------------------------------
-# Remove index.php from URLs
-# ----------------------------------------------------------------------
-<IfModule mod_rewrite.c>
-	RewriteCond 	%{REQUEST_FILENAME} 	!-f 
-	RewriteCond 	%{REQUEST_FILENAME} 	!-d 
-	RewriteRule 	^(.*)$ 								index.php/$1 	[L]
-</IfModule>
-
-
-
 # ----------------------------------------------------------------------
 # Suppress or force the "www." at the beginning of URLs
 # ----------------------------------------------------------------------
@@ -370,6 +358,17 @@ FileETag None
 #<IfModule mod_rewrite.c>
 #  RewriteRule ^(.*)/$ /$1 [R=301,L]
 #</IfModule>
+
+
+
+# ----------------------------------------------------------------------
+# Remove index.php from URLs
+# ----------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+	RewriteCond 	%{REQUEST_FILENAME} 	!-f 
+	RewriteCond 	%{REQUEST_FILENAME} 	!-d 
+	RewriteRule 	^(.*)$ 								index.php/$1 	[L]
+</IfModule>
 
 
 

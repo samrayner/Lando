@@ -30,7 +30,6 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function account_info() {
-		echo "\n\n<pre>\n"; print_r("LOL"); echo "\n</pre>\n\n";
 		return $this->API->accountInfo();
 	}
 	
@@ -77,7 +76,6 @@ class Dropbox extends Cloud_Host {
 	
 	public function get_single($path, $Cache=null) {
 		$path = trim_slashes($path);
-	
 		$type = array_shift(explode("/", $path));
 		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
 		
@@ -145,7 +143,7 @@ class Dropbox extends Cloud_Host {
 		if($type != "collections") {
 			$meta["slug"] = basename($meta["path"]);
 			
-			$permalink = "/$path";
+			$permalink = "/$path/";
 			
 			if($type == "pages") {
 				//remove /pages/ and /home/ from permalink if exist
