@@ -88,7 +88,7 @@ function nav_widget($pages=null, $path=array()) {
 	<link rel="icon" href="" />
 	<link rel="apple-touch-icon" href="" />
 
-	<link rel="stylesheet" href="css/master.css" />
+	<link rel="stylesheet" href="css/admin.css" />
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
@@ -104,7 +104,7 @@ function nav_widget($pages=null, $path=array()) {
 		<button id="save-top" class="button">Save</button>
 	</header>
 
-	<section>
+	<section id="details">
 	
 		<?php
 		
@@ -141,8 +141,8 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 	</section>
 	
-	<section>
-		<h1>Content Source</h1>
+	<section id="content">
+		<h1>Content</h1>
 		
 		<div>
 			<label for="host">Host</label>
@@ -156,9 +156,13 @@ function nav_widget($pages=null, $path=array()) {
 			<label for="host_root" class="field-label">Path to Content</label>
 			<input type="text" id="host_root" name="host_root" <?php set_field_state("host_root"); ?> />
 		</div>
+		
+		<div id="recache">
+			<a id="recache-button" class="button" href="#">Re-download all cloud content</a>
+		</div>
 	</section>
 	
-	<section>
+	<section id="themes">
 		<h1>Theme Options</h1>
 		<!-- <p>Download more themes from <a href="#">GitHub</a>.</p> -->
 		

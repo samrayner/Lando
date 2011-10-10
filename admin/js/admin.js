@@ -88,7 +88,38 @@ Tooltip = {
 	}
 }
 
+Recache = {
+	defaultText: null,
+	interval: null,
+
+	done: function() {
+		window.clearInterval(Recache.interval);
+		$("#recache-progress").remove();
+		$("#recache-button").removeClass("active").html("Cache refresh complete");
+	},
+
+	get: function() {
+		$jqxhr = $.get("recache/progress.php", function(current) {		
+			$("#recache-button").html("Caching "+current+"&hellip;");
+		});
+	},
+
+	click: function(event) {
+		event.preventDefault();
+		$(this).parent().append('<iframe id="recache-progress" src="recache/create_caches.php" style="display: none"></iframe>');
+		$(this).addClass("active");
+		Recache.get();
+		Recache.interval = window.setInterval(Recache.get, 200);
+	},
+	
+	init: function() {
+		Recache.defaultText = $("#recache-button").html();
+		$("#recache-button").click(Recache.click);
+	}
+}
+
 $(function() {
 	Tooltip.init();
+	Recache.init();
 	PageNav.init();
 });

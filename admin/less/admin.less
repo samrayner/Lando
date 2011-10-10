@@ -28,6 +28,53 @@ body {
 	font: 0.9em @fontStack;
 	cursor: pointer;
 	border-radius: 3px;
+	border: 1px solid rgba(0,0,0,0.3);
+	text-decoration: none;
+	padding: 0 0.8em;
+	line-height: 1.8;
+	background-color: white;
+	text-shadow: 1px 1px 0 white;
+	color: rgba(0,0,0,0.8);
+	
+	box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 1px 1px 0 white;
+	-webkit-box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 1px 1px 0 white;
+
+	&:hover,
+	&:focus {
+		color: darken(@linkColor, 30%);
+		background: lighten(saturate(@linkColor, 60%), 52%);
+		
+		box-shadow:  inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
+		-webkit-box-shadow:  inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
+	}
+	
+	&:active,
+	&.active {
+		border-color: rgba(0,0,0,0.3);
+		color: rgba(0,0,0,0.9);
+		background: lighten(saturate(@linkColor, 60%), 49%);
+		
+		box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
+		-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
+	}
+}
+
+@-webkit-keyframes pulse {
+  from {
+    background: lighten(saturate(@linkColor, 60%), 49%);
+  }
+  50% { 
+    background: lighten(saturate(@linkColor, 60%), 44%);
+  }
+  to { 
+    background: lighten(saturate(@linkColor, 60%), 49%);
+  }
+}
+
+.button.active {
+	-webkit-animation-name: pulse; 
+  -webkit-animation-duration: 3s; 
+  -webkit-animation-iteration-count: infinite; 
 }
 
 header {
@@ -54,6 +101,7 @@ header {
 		border: 1px solid rgba(255,255,255,0.1);
 		background-color: #191919;
 		color: rgba(255,255,255,0.7);
+		text-shadow: none;
 		
 		box-shadow: inset 0 -11px 3px rgba(0,0,0,0.7);
 		-webkit-box-shadow: inset 0 -11px 3px rgba(0,0,0,0.7);
@@ -138,6 +186,7 @@ a {
 
 section,
 #submit {
+	overflow: hidden;
 	padding: 20px;
 	border-top: 1px solid white;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -183,6 +232,11 @@ input[type=text] {
 .sortable div,
 .sortable label {
 	cursor: move;
+}
+
+#recache-button {
+	float: left;
+	margin-top: 0.5em;
 }
 
 #page-list {
@@ -239,35 +293,6 @@ input[type=text] {
 #submit {
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
-}
-
-#save-bottom {
-	border: 1px solid rgba(0,0,0,0.3);
-	padding: 0 0.8em;
-	line-height: 1.8;
-	background-color: white;
-	text-shadow: 1px 1px 0 white;
-	color: rgba(0,0,0,0.8);
-	
-	box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 1px 1px 0 white;
-	-webkit-box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 1px 1px 0 white;
-
-	&:hover,
-	&:focus {
-		background: lighten(saturate(@linkColor, 60%), 52%);
-		
-		box-shadow:  inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
-		-webkit-box-shadow:  inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
-	}
-	
-	&:active {
-		border-color: rgba(0,0,0,0.3);
-		color: rgba(0,0,0,0.9);
-		background: lighten(saturate(@linkColor, 60%), 49%);
-		
-		box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
-		-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
-	}
 }
 
 #cancel {

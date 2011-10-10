@@ -35,7 +35,7 @@ $snippets 		= $Lando->get_content("snippets");
 	
 	<title>Creating Caches...</title>
 	
-	<script>window.onload = parent.finished();</script>
+	<script>window.onload = parent.Recache.done();</script>
 </head>
 <body>	
 </body>
