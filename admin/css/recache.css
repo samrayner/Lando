@@ -1,0 +1,6 @@
+@import url("reset.css");
+body{padding:50px;}
+iframe{display:none;}
+li{color:gray;}
+.done{color:black;}
+.current{color:red;}

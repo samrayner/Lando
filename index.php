@@ -11,8 +11,11 @@ if(!include_exists("app/config/config.php")) {
 include "app/core/loader.php";
 
 $themeBase = trim_slashes($theme_dir)."/";
-$template = "home";
+$template = "404";
 $url = current_url();
+
+if($url == "/")
+	$template = "home";
 
 if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 	switch($matches[1]) {

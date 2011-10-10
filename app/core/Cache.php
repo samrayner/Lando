@@ -1,11 +1,11 @@
 <?php
 
 class Cache {
-	public $collections = array();
 	public $pages = array();
 	public $posts = array();
 	public $drafts = array();
 	public $snippets = array();
+	public $collections = array();
 	public $thumbs = array();
 	public $account = array();
 
@@ -33,7 +33,7 @@ class Cache {
 	}
 	
 	private function load_single($type) {
-		$path = "app/cache/".$type.".php";
+		$path = $_SERVER['DOCUMENT_ROOT']."/app/cache/".$type.".php";
 		
 		if(include_exists($path))
 			include_once $path;
@@ -53,7 +53,7 @@ class Cache {
 	
 	public function age($type) {
 		//if file doesn't exist return 0 for modified time
-		return time()-(int)@filemtime("app/cache/$type.php");
+		return time()-(int)@filemtime($_SERVER['DOCUMENT_ROOT']."app/cache/$type.php");
 	}
 	
 	public function top_level($type) {

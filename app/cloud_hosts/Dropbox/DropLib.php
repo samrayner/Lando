@@ -3,7 +3,7 @@
  * DropLib - DropBox API Class
  *
  * @package DropLib
- * @version 2.0.0
+ * @version 2.0.1
  * @copyright Copyright 2011 by Jonas Doebertin. All rights reserved.
  * @author Jonas Doebertin
  * @license Sold exclusively on CodeCanyon
@@ -367,7 +367,6 @@ class DropLib extends DropLib_Base{
 		);
 		
 		$response = $this->Http->fetch(self::API_CONTENT_BASE . 'thumbnails/' . $this->root . '/' . $this->encodePath($path), $params);
-		
 		return base64_encode($this->decodeResponse($response));
 		
 	}
