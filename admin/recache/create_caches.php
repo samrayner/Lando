@@ -1,7 +1,6 @@
 <?php
 
 $doc_root = $_SERVER['DOCUMENT_ROOT'];
-include "$doc_root/app/core/loader.php";
 $cache_dir = "$doc_root/app/cache";
 
 function rrmdir($dir) { 
@@ -19,7 +18,9 @@ function rrmdir($dir) {
 
 if(file_exists($cache_dir))
 	rrmdir($cache_dir);
-	
+
+include "$doc_root/app/core/loader.php";
+
 $pages 				= $Lando->get_content("pages");
 $posts 				= $Lando->get_content("posts");
 $drafts 			= $Lando->get_content("drafts");
@@ -38,5 +39,12 @@ $snippets 		= $Lando->get_content("snippets");
 	<script>window.onload = parent.Recache.done();</script>
 </head>
 <body>	
+
+<?
+
+echo "\n\n<pre>\n"; print_r($posts); echo "\n</pre>\n\n";
+
+?>
+
 </body>
 </html>

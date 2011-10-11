@@ -89,7 +89,6 @@ Tooltip = {
 }
 
 Recache = {
-	defaultText: null,
 	interval: null,
 
 	done: function() {
@@ -106,14 +105,13 @@ Recache = {
 
 	click: function(event) {
 		event.preventDefault();
-		$(this).parent().append('<iframe id="recache-progress" src="recache/create_caches.php" style="display: none"></iframe>');
+		$(this).parent().append('<iframe id="recache-progress" src="recache/create_caches.php" class="hidden"></iframe>');
 		$(this).addClass("active");
 		Recache.get();
-		Recache.interval = window.setInterval(Recache.get, 200);
+		Recache.interval = window.setInterval(Recache.get, 1000);
 	},
 	
 	init: function() {
-		Recache.defaultText = $("#recache-button").html();
 		$("#recache-button").click(Recache.click);
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 
 $config = array (
-  'site_title' => 'Bespin Daily',
-  'site_description' => 'The latest news from The Cloud',
+  'site_title' => 'My Lando Website',
+  'site_description' => 'Just another Lando website.',
   'site_root' => 'http://lando.dev',
   'pretty_urls' => '1',
   'host' => 'dropbox',

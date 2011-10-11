@@ -1,21 +1,19 @@
 <?php
 
 $cache_dir = $_SERVER['DOCUMENT_ROOT']."/app/cache";
-$caches = array("pages","posts","drafts","collections","snippets");
+$cache_list = glob("$cache_dir/*.php");
+$last = sizeof($cache_list)-1;
 
-$current = $caches[0];
-
-//if cache folder is older than 5 seconds, don't output anything
-//prevents saying all are complete before directory is deleted
-if(file_exists($cache_dir) && (time() - filemtime($cache_dir) > 5)) {
-	echo $current;
-	exit;
+function modified_sort($a, $b) {
+	return filemtime($a) - filemtime($b);
 }
 
-for($i=1; $i < sizeof($caches); $i++) {
-	if(file_exists("$cache_dir/".$caches[$i-1].".php"))
-		$current = $caches[$i];
+usort($cache_list, "modified_sort");
+
+function basenames($path) {
+	return str_replace(".php", "", basename($path));
 }
 
-echo $current;
+$cache_list = array_map("basenames", $cache_list);
 
+echo empty($cache_list) ? "pages" : $cache_list[$last];

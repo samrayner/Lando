@@ -142,9 +142,9 @@ function nav_widget($pages=null, $path=array()) {
 	</section>
 	
 	<section id="content">
-		<h1>Content</h1>
+		<h1>Dropbox Settings</h1>
 		
-		<div>
+		<div class="hidden">
 			<label for="host">Host</label>
 			<?php 
 				$selected = isset($config["host"]) ? $config["host"] : null;
@@ -158,7 +158,7 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 		
 		<div id="recache">
-			<a id="recache-button" class="button" href="#">Re-download all cloud content</a>
+			<a id="recache-button" class="button" href="#">Recreate content caches</a>
 		</div>
 	</section>
 	

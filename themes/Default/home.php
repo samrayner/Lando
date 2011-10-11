@@ -16,7 +16,7 @@
 			<footer>
 				<p>Posted 
 					<time pubdate datetime="<?php echo $post->published('c') ?>">
-						<?php echo $post->published('F jS \a\t g:ia') ?>
+						<?php echo $post->published('F jS Y \a\t g:ia') ?>
 					</time>
 				</p>
 				
