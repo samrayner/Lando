@@ -165,16 +165,17 @@ class Dropbox extends Cloud_Host {
 				
 				//if no cache or cached content out of date
 				if(!$Cache || $meta["modified"] > $Cache->modified) {
-				
-					//download raw content and resolve relative media URLs where possible
+					//download raw content
 					$meta["raw_content"] = $this->API->download($main_file);
-					
-					//scrape for manually set metadata and add
-					$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
 				}
+				
+				//scrape for manually set metadata and add
+				$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
 			}
 
 			if($type == "pages") {
+				$meta["subpages"] = array();
+			
 				//recurse to get subpages
 				foreach($meta["contents"] as $subpage) {
 					if($subpage["is_dir"]) {

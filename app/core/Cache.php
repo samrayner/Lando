@@ -53,7 +53,7 @@ class Cache {
 	
 	public function age($type) {
 		//if file doesn't exist return 0 for modified time
-		return time()-(int)@filemtime($_SERVER['DOCUMENT_ROOT']."app/cache/$type.php");
+		return time()-(int)@filemtime($_SERVER['DOCUMENT_ROOT']."/app/cache/$type.php");
 	}
 	
 	public function top_level($type) {

@@ -16,7 +16,6 @@ $config = array (
     ),
     'about-me' => 
     array (
-      '_hidden' => true,
     ),
     'contact' => 
     array (

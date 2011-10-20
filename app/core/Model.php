@@ -54,7 +54,8 @@ class Model {
 			case "Collection":
 				return strnatcmp($a->title, $b->title); //alphabetical
 			case "Post":
-				return $b->published - $a->published; //descending timestamp (newest first)
+				$pub_cmp = $b->published - $a->published; //descending timestamp (newest first)
+				return $pub_cmp ? $pub_cmp : strnatcmp($a->title, $b->title); //if same publish time, sort by title
 			default:
 				return $b->modified - $a->modified; //descending timestamp (newest first)
 		}
@@ -89,7 +90,10 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=300) {
+	public function get_all($path, $max_age=null) {
+		if(!$max_age)
+			$max_age = rand(300, 600);
+	
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
@@ -101,12 +105,10 @@ class Model {
 		else
 			$dirs_only = true;
 	
-		//if cache younger than max age (default 5 mins) then use it to list items
-		/*
-		if($this->Cache->age($type) < $max_age)
-					$names = $this->Cache->top_level($type);
-				else
-		*/
+    //if cache younger than max age (default 5 mins) then use it to list items
+    if($this->Cache->age($type) < $max_age)
+     	$names = $this->Cache->top_level($type);
+    else
 			$names = $this->Host->dir_contents($path, $dirs_only);
 		
 		$items = array();
@@ -130,7 +132,10 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $recache=true, $max_age=300, $thumb=false) {
+	public function get_single($path, $recache=true, $max_age=null, $thumb=false) {
+		if(!$max_age)
+			$max_age = rand(300, 600);
+	
 		$path = trim_slashes($path);
 		$key = "path";
 		$old_path = $path;
