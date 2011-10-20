@@ -12,7 +12,7 @@ class Collection extends Content {
 		$html = '<ul>';
 		
 		foreach($this->files() as $file)
-			$html .= "<li>".$file->title()."</li>";
+			$html .= "<li>".$file->download_link()."</li>";
 			
 		$html .= '</ul>';
 		

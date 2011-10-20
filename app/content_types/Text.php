@@ -1,13 +1,7 @@
 <?php
 
-class Text extends Content {
-	public $format;
-	public $extension;
+class Text extends File {
 	public $author = "";
-	
-	public function __toString() {
-		return $this->content();
-	}
 	
 	private function swap_includes($content) {
 		$regex = '\{\{\s*(\w+)(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+\s*}}';
@@ -103,15 +97,11 @@ class Text extends Content {
   public function content() {
 		global $Lando;
 		
+		//swap in include content
 		$content = $this->swap_includes($this->raw_content);
-	  
-		if($this->raw_content && $this->format) {
-			$parser_class = $this->format."_Parser";
-			if(class_exists($parser_class)) {
-				$Parser = new $parser_class();
-				$content = $Parser->parse($content);
-			}
-		}
+		
+		//parse to HTML using appropriate parser
+		$content = $this->to_html($content);
 		
 		//make path relative to content root
 		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
@@ -122,14 +112,6 @@ class Text extends Content {
 			$content = SmartyPants($content);
 		
 		return $content;
-	}
-  
-	public function format() {
-		return $this->format;
-	}
-
-	public function extension() {
-		return $this->extension;
 	}
 
 	public function author() {
