@@ -116,8 +116,25 @@ Recache = {
 	}
 }
 
+PassChange = {
+	validate: function(event) {
+		if($("#admin_password").val() != $("#confirm_pass").val()) {
+			alert("The passwords you entered don't match, please type them again.");
+			$("#admin_password").val("");
+			$("#confirm_pass").val("");
+			$("#admin_password").focus();
+			return false;
+		}
+	},
+
+	init: function() {
+		$("#admin-form").submit(PassChange.validate);
+	}
+}
+
 $(function() {
 	Tooltip.init();
 	Recache.init();
 	PageNav.init();
+	PassChange.init();
 });

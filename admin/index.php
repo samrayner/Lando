@@ -74,7 +74,7 @@ function nav_widget($pages=null, $path=array()) {
 ?>
 
 <!doctype html>
-<html lang="en-gb">
+<html lang="en">
 
 <head>
 	<meta charset="utf-8" />
@@ -98,7 +98,7 @@ function nav_widget($pages=null, $path=array()) {
 <body>
 <div id="wrapper">
 
-<form action="save.php" method="post">
+<form action="save.php" method="post" id="admin-form">
 	<header>
 		<h1>Lando Settings</h1>
 		<button id="save-top" class="button">Save</button>
@@ -188,6 +188,20 @@ function nav_widget($pages=null, $path=array()) {
 	
 		<?php echo nav_widget(); ?>
 	</section><!-- #page-nav -->
+	
+	<section id="admin">
+		<h1>Change Admin/Drafts Password</h1>
+		
+		<div>
+			<label for="admin_password">New Password</label>
+			<input id="admin_password" name="admin_password" type="password" />
+		</div>
+		
+		<div>
+			<label for="confirm_pass">Confirm Password</label>
+			<input id="confirm_pass" name="confirm_pass" type="password" />
+		</div>
+	</section>
 	
 	<div id="submit">
 		<button id="save-bottom" class="button">Save Settings</button>

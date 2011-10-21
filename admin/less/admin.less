@@ -35,7 +35,7 @@ body {
 	border: 1px solid rgba(0,0,0,0.3);
 	text-decoration: none;
 	padding: 0 0.8em;
-	line-height: 1.8;
+	line-height: 1.9;
 	background-color: white;
 	text-shadow: 1px 1px 0 white;
 	color: rgba(0,0,0,0.8);
@@ -194,6 +194,7 @@ a {
 }
 
 section,
+#login,
 #submit {
 	overflow: hidden;
 	padding: 20px;
@@ -221,7 +222,8 @@ select {
 	color: rgba(0,0,0,0.8);
 }
 
-input[type=text] {
+input[type=text],
+input[type=password] {
 	font: 1em @fontStack;
 	position: static;
 	-webkit-appearance: none;
@@ -299,9 +301,38 @@ input[type=text] {
 	}
 }
 
+#admin > div {
+	float: left;
+	width: 48.5%;
+	
+	& + div {
+		float: right;
+	}
+}
+
+#login,
 #submit {
+	position: relative;
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
+}
+
+#login {
+	.message {
+		margin-bottom: 10px;
+	}
+
+	div {
+		margin-right: 68px;
+		margin-top: 0;
+		
+		& + div {
+			position: absolute;
+			right: -50px;
+			bottom: 20px;
+			text-align: center;
+		}
+	}
 }
 
 #cancel {
@@ -351,6 +382,7 @@ input[type=text] {
 	}
 	
 	header,
+	#login,
 	#submit {
 		border-radius: 0;
 	}
@@ -358,5 +390,10 @@ input[type=text] {
 	#htaccess,
 	#htaccess.collapsed {
 		display: none;
+	}
+	
+	#wrapper #admin > div {
+		float: none;
+		width: auto;
 	}
 }

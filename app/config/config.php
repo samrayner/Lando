@@ -1,6 +1,7 @@
 <?php
 
 $config = array (
+  'admin_password' => 'password',
   'site_title' => 'My Lando Website',
   'site_description' => 'Just another Lando website.',
   'site_root' => 'http://lando.dev',
@@ -22,19 +23,19 @@ $config = array (
       'everyone' => 
       array (
       ),
+      'just-the-ceo' => 
+      array (
+        '_hidden' => true,
+      ),
       'just-me' => 
       array (
-        'by-email' => 
-        array (
-        ),
         'by-pigeon' => 
         array (
           '_hidden' => true,
         ),
-      ),
-      'just-the-ceo' => 
-      array (
-        '_hidden' => true,
+        'by-email' => 
+        array (
+        ),
       ),
     ),
   ),

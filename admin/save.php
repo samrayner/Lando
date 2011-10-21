@@ -1,11 +1,17 @@
 <?php
 $doc_root = $_SERVER['DOCUMENT_ROOT'];
- 
+
 //load all helper functions
 foreach(glob("$doc_root/app/helpers/*.php") as $file)
 	include_once $file;
+	
+//load existing config
+$config_file = "$doc_root/app/config/config.php";
+if(include_exists($config_file))
+	include_once $config_file;
  
 $fields = array(
+	"admin_password",
 	"site_title",
 	"site_description",
 	"site_root",
@@ -24,21 +30,24 @@ if(sizeof($_POST) > 0) {
 		//not set or blank
 		if(!isset($_POST[$field]) || !$_POST[$field]) {
 			switch($field) {
+				case "admin_password":
+					$new_config[$field] = $config[$field];
+					break;
 				case "site_root":
-					$config[$field] = trim_slashes(str_replace(basename(request_url()), "", request_url()));
+					$new_config[$field] = trim_slashes(str_replace(basename(request_url()), "", request_url()));
 					break;
 				case "pretty_urls":
 				case "smartypants":
-					$config[$field] = 0;
+					$new_config[$field] = 0;
 					break;
 				case "host_root":
-					$config[$field] = "/";
+					$new_config[$field] = "/";
 					break;
 				case "page_order":
-					$config[$field] = "{}";
+					$new_config[$field] = "{}";
 					break;
 				default: 
-					$config[$field] = "";
+					$new_config[$field] = "";
 			}
 		}
 		//if set, sanitize
@@ -46,24 +55,24 @@ if(sizeof($_POST) > 0) {
 			switch($field) {
 				case "host":
 				case "theme":
-					$config[$field] = strtolower($_POST[$field]);
+					$new_config[$field] = strtolower($_POST[$field]);
 					break;
 				case "site_root":
-					$config[$field] = trim_slashes($_POST[$field]);
+					$new_config[$field] = trim_slashes($_POST[$field]);
 					break;
 				case "host_root":
-					$config[$field] = "/".trim_slashes($_POST[$field]);
+					$new_config[$field] = "/".trim_slashes($_POST[$field]);
 					break;
 				case "page_order":
-					$config[$field] = json_decode(str_replace('\"', '"', $_POST[$field]), true);
+					$new_config[$field] = json_decode(str_replace('\"', '"', $_POST[$field]), true);
 					break;
 				default: 
-					$config[$field] = $_POST[$field];
+					$new_config[$field] = $_POST[$field];
 			}
 		}
 	}
 	
-	$saved = @file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($config, true).";");
+	$saved = @file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($new_config, true).";");
 }
  
 //redirect up to parent directory
