@@ -96,12 +96,12 @@ header {
 		color: @panelBg;
 	}
 	
-	#save-top {
+	.button {
 		padding: 0 0.6em;
 		line-height: 1.8;
 		position: absolute;
-		right: 16px;
-		top: 6px;
+		right: 18px;
+		top: 8px;
 		border: 1px solid rgba(255,255,255,0.1);
 		background-color: #191919;
 		color: rgba(255,255,255,0.7);
@@ -321,17 +321,15 @@ input[type=password] {
 	.message {
 		margin-bottom: 10px;
 	}
-
-	div {
-		margin-right: 68px;
-		margin-top: 0;
-		
-		& + div {
-			position: absolute;
-			right: -50px;
-			bottom: 20px;
-			text-align: center;
-		}
+	
+	#pass-field {
+		margin: 0 70px 0 0;
+	}
+	
+	#login-button {
+		position: absolute;
+		right: 18px;
+		bottom: 3.5em;
 	}
 }
 

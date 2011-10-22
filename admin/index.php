@@ -4,6 +4,9 @@ include "$doc_root/app/core/loader.php";
 
 $config = $Lando->config;
 
+if(!isset($_COOKIE['admin_password']) || $_COOKIE['admin_password'] != $config['admin_password'])
+	header("Location: ".$config["site_root"]."/admin/login.php?redirect=admin");
+
 foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 	$hosts[] = basename($dir);
 
@@ -101,7 +104,7 @@ function nav_widget($pages=null, $path=array()) {
 <form action="save.php" method="post" id="admin-form">
 	<header>
 		<h1>Lando Settings</h1>
-		<button id="save-top" class="button">Save</button>
+		<a href="login.php?logout=1&redirect=admin" class="button">Log out</a>
 	</header>
 
 	<section id="details">

@@ -73,6 +73,9 @@ if(sizeof($_POST) > 0) {
 	}
 	
 	$saved = @file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($new_config, true).";");
+	
+	if($saved && $new_config["admin_password"] != $config["admin_password"])
+		setcookie("admin_password", $new_config["admin_password"], 0, "/", ".".$_SERVER['HTTP_HOST']);
 }
  
 //redirect up to parent directory

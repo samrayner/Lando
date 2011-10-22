@@ -63,6 +63,12 @@ if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url))
 if(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
 	$template = "tag-archive";
 	
+//kick out to login if trying to view drafts
+if(in_array($template, array("draft", "draft-list"))) {
+	if(!isset($_COOKIE['lando_password']) || $_COOKIE['lando_password'] != $Lando->config['admin_password'])
+		header("Location: $site_root/admin/login.php?redirect=drafts");
+}
+	
 //serve blank page if no current content
 if(!$current)
 	$current = new Page();
