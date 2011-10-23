@@ -1,6 +1,6 @@
 <?php
 
 $tokens = array(
-	"token_key" => "a6wophsdwfgkh8f",
-	"token_secret" => "ope88kdi1q0epmq"
+	"token_key" => "zmfncfxfnfp7azo",
+	"token_secret" => "6ltj29hl034mi76"
 );

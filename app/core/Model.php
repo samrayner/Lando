@@ -105,7 +105,7 @@ class Model {
 		else
 			$dirs_only = true;
 	
-    //if cache younger than max age (default 5 mins) then use it to list items
+    //if cache younger than max age (default 5-10 mins) then use it to list items
     if($this->Cache->age($type) < $max_age)
      	$names = $this->Cache->top_level($type);
     else

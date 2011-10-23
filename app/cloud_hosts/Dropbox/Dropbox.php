@@ -9,8 +9,8 @@ class Dropbox extends Cloud_Host {
 		parent::__construct();
 				
 		$params = array( 
-			'consumerKey' 		=> 'whoen0lsbfo9c6y', 
-			'consumerSecret' 	=> 'jxto2adt35bmayy', 
+			'consumerKey' 		=> 'trnjsiw5jeym92c', 
+			'consumerSecret' 	=> 'sszl42e3d135d1t', 
 			'sslCheck' 				=> false //while developing locally
 		);
 		
@@ -25,7 +25,7 @@ class Dropbox extends Cloud_Host {
 		else {
 			throw new Exception("NEED TO AUTH WITH DROPBOX!");
 		}
-		
+	
 		$this->API = new DropLib($params);
 	}
 	

@@ -3,7 +3,7 @@
  * DropLib - DropBox API Class
  *
  * @package DropLib
- * @version 2.0.1
+ * @version 2.0.2
  * @copyright Copyright 2011 by Jonas Doebertin. All rights reserved.
  * @author Jonas Doebertin
  * @license Sold exclusively on CodeCanyon
@@ -19,12 +19,12 @@ class DropLib extends DropLib_Base{
 	/**
 	 * API Base URL
 	 */
-	const API_BASE = 'https://api.dropbox.com/0/';
+	const API_BASE = 'https://api.dropbox.com/1/';
 	
 	/**
 	 * API Base URL for downloading files
 	 */
-	const API_CONTENT_BASE = 'https://api-content.dropbox.com/0/';
+	const API_CONTENT_BASE = 'https://api-content.dropbox.com/1/';
 	
 	/**
 	 * Root folder for full mode
@@ -71,6 +71,8 @@ class DropLib extends DropLib_Base{
 		if(!$this->strParamsSet($params['consumerKey'], $params['consumerSecret'])){
 			throw new DropLibException_InvalidArgument('No consumer token found.');;
 		}
+		
+		$this->setRoot($params['rootDirectory']);
 		
 		$this->Http = new DropLib_Http($params);
 		$this->sslCheck = $params['sslCheck'];
