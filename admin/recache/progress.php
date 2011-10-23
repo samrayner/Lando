@@ -5,10 +5,12 @@ $cache_list = glob("$cache_dir/*.php");
 $last = sizeof($cache_list)-1;
 
 function modified_sort($a, $b) {
-	return filemtime($a) - filemtime($b);
+	//supress warnings for when files don't exist
+	return (int)@filemtime($a) - (int)@filemtime($b);
 }
 
-usort($cache_list, "modified_sort");
+if(sizeof($cache_list) > 1)
+	usort($cache_list, "modified_sort");
 
 function basenames($path) {
 	return str_replace(".php", "", basename($path));

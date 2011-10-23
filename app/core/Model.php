@@ -9,7 +9,7 @@ class Model {
 		global $config;
 		$this->config = $config;
 		
-		$host_class = str_replace(" ", "_", ucwords($config["host"]));		
+		$host_class = str_replace(" ", "_", ucwords($config["host"]));	
 		$this->Host = new $host_class();
 		$this->Cache = new Cache();
 	}
@@ -90,7 +90,7 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=null) {
+	public function get_all($path, $max_age=null) {	
 		if(!$max_age)
 			$max_age = rand(300, 600);
 	
@@ -106,9 +106,10 @@ class Model {
 			$dirs_only = true;
 	
     //if cache younger than max age (default 5-10 mins) then use it to list items
-    if($this->Cache->age($type) < $max_age)
+    if($this->Cache->age($type) < $max_age && !empty($this->Cache->type))
      	$names = $this->Cache->top_level($type);
-    else
+     
+    if(!isset($names) || empty($names))
 			$names = $this->Host->dir_contents($path, $dirs_only);
 		
 		$items = array();
@@ -171,7 +172,7 @@ class Model {
 		}
 		
 		//if no cache or cache older than max age (default 5 mins), refresh
-		if(!$cache_route || ($max_age >= 0 && $this->Cache->age($type) > $max_age)) {	
+		if(!$cache_route || ($max_age >= 0 && $this->Cache->age($type) > $max_age)) {		
 			$path = $old_path; //return to original path for host fetch
 		
 			if($type == "thumbs")
@@ -196,8 +197,9 @@ class Model {
 	
 	public function get_file($path, $thumb) {
 		//if not thumb, serve from host
-		if(!$thumb)
+		if(!$thumb) {
 			return $this->Host->get_file($path, false);
+		}
 		
 		//cache thumbs for 20 mins
 		return $this->get_single($path, true, 1200, $thumb);

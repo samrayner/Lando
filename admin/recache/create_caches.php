@@ -38,13 +38,9 @@ $snippets 		= $Lando->get_content("snippets");
 	
 	<script>window.onload = parent.Recache.done();</script>
 </head>
-<body>	
+<body>
 
-<?
-
-echo "\n\n<pre>\n"; print_r($posts); echo "\n</pre>\n\n";
-
-?>
+<p>Done.</p>
 
 </body>
 </html>

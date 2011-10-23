@@ -1,8 +1,6 @@
 <?php 
 
 abstract class Cloud_Host {
-	protected $content_root;
-	
 	public function __construct() {
 		global $config;
 		$this->config = $config;
