@@ -89,26 +89,41 @@ Tooltip = {
 }
 
 Recache = {
-	interval: null,
+	types: ["pages", "posts", "drafts", "collections", "snippets"],
 
 	done: function() {
-		window.clearInterval(Recache.interval);
-		$("#recache-progress").remove();
 		$("#recache-button").removeClass("active").html("Cache refresh complete");
 	},
 
-	get: function() {
-		$jqxhr = $.get("recache/progress.php", function(current) {		
-			$("#recache-button").html("Caching "+current+"&hellip;");
+	updateProgress: function(current) {
+		$("#recache-button").html("Caching "+current+"&hellip;");
+	},
+	
+	create: function(type) {
+		Recache.updateProgress(type);
+	
+		$jqxhr = $.ajax({
+		  url: "recache/create_cache.php",
+		  data: {"type": type},
+		  complete: function() { 
+		  	var pos = Recache.types.indexOf(type);
+		  	if(pos+1 < Recache.types.length)
+		  		Recache.create(Recache.types[pos+1]);
+		  	else
+		  		Recache.done();
+		  }
 		});
 	},
 
 	click: function(event) {
 		event.preventDefault();
-		$(this).parent().append('<iframe id="recache-progress" src="recache/create_caches.php" class="hidden"></iframe>');
 		$(this).addClass("active");
-		Recache.get();
-		Recache.interval = window.setInterval(Recache.get, 1000);
+		$jqxhr = $.ajax({
+			url: "recache/clear_caches.php",
+			complete: function(){ 
+				Recache.create(Recache.types[0]); 
+			}
+		});
 	},
 	
 	init: function() {
