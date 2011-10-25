@@ -3,7 +3,7 @@
  * DropLib - DropBox API Class
  *
  * @package DropLib
- * @version 2.0.2
+ * @version 2.1.0
  * @copyright Copyright 2011 by Jonas Doebertin. All rights reserved.
  * @author Jonas Doebertin
  * @license Sold exclusively on CodeCanyon
@@ -41,6 +41,13 @@ class DropLibException_Curl extends DropLibException{
  * Will be thrown if the API responds with an error
  */
 class DropLibException_API extends DropLibException{
+	
+}
+
+/**
+ * Will be thrown if an api function is deprecated
+ */
+class DropLibException_Deprecated extends DropLibException{
 	
 }
 

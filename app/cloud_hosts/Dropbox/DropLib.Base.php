@@ -3,7 +3,7 @@
  * DropLib - DropBox API Class
  *
  * @package DropLib
- * @version 2.0.2
+ * @version 2.1.0
  * @copyright Copyright 2011 by Jonas Doebertin. All rights reserved.
  * @author Jonas Doebertin
  * @license Sold exclusively on CodeCanyon
@@ -14,7 +14,7 @@ class DropLib_Base{
 	/**
 	 * Checks if a variable is set (not empty) and of string type
 	 */
-	protected function StrParamSet($strParam){
+	protected function strParamSet($strParam){
 		
 		return isset($strParam) and !empty($strParam) and is_string($strParam);
 		

@@ -150,7 +150,7 @@ class Model {
 		$old_path = $path;
 		
 		$type = ($thumb) ? "thumbs" : array_shift(explode("/", $path));
-		
+
 		if($type == "thumbs") {
 			$new_path = $path."?size=".$thumb; //match numbered pages in cache
 			$path = $new_path;

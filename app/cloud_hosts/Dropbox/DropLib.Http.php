@@ -3,7 +3,7 @@
  * DropLib - DropBox API Class
  *
  * @package DropLib
- * @version 2.0.2
+ * @version 2.1.0
  * @copyright Copyright 2011 by Jonas Doebertin. All rights reserved.
  * @author Jonas Doebertin
  * @license Sold exclusively on CodeCanyon
@@ -15,6 +15,11 @@ class DropLib_Http extends DropLib_Base{
 	 * Perform SSL certificate validation
 	 */
 	protected $sslCheck;
+	
+	/**
+	 * API language code
+	 */
+	protected $locale;
 
 	/**
 	 * oAuthConsumer object
@@ -44,6 +49,7 @@ class DropLib_Http extends DropLib_Base{
 		}
 		$this->OAuthSignatureMethod = new OAuthSignatureMethod_HMAC_SHA1;
 		$this->sslCheck = $params['sslCheck'];
+		$this->locale = $params['locale'];
 	}
 	
 	/**
@@ -73,6 +79,28 @@ class DropLib_Http extends DropLib_Base{
 			'key' => $this->OAuthToken->key,
 			'secret' => $this->OAuthToken->secret
 		);
+		
+	}
+	
+	/**
+	 * Set new API locale
+	 */
+	public function setLocale($newLocale){
+		
+		if(!$this->strParamSet($newLocale)){
+			throw new DropLibException_InvalidArgument('Empty argument or invalid argument type.');
+		}
+		
+		$this->locale = $newLocale;
+		
+	}
+	
+	/**
+	 * Returns the current API locale
+	 */
+	public function getLocale(){
+		
+		return $this->locale;
 		
 	}
 	
