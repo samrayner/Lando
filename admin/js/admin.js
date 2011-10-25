@@ -107,10 +107,10 @@ Recache = {
 		  data: {"type": type},
 		  complete: function() { 
 		  	var pos = Recache.types.indexOf(type);
-		  	if(pos+1 < Recache.types.length)
-		  		Recache.create(Recache.types[pos+1]);
-		  	else
+		  	if(pos+1 == Recache.types.length)
 		  		Recache.done();
+		  	else
+		  		Recache.create(Recache.types[pos+1]);
 		  }
 		});
 	},

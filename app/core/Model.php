@@ -8,13 +8,19 @@ class Model {
 	public function __construct() {
 		global $config;
 		$this->config = $config;
-		
-		$host_class = str_replace(" ", "_", ucwords($config["host"]));	
-		$this->Host = new $host_class();
 		$this->Cache = new Cache();
 	}
 	
+	private function connect_host() {
+		if(!$this->Host) {
+			$host_class = str_replace(" ", "_", ucwords($this->config["host"]));
+			$this->Host = new $host_class($this->config);
+		}
+	}
+	
 	public function get_host_info() {
+		$this->connect_host();
+	
 		if(method_exists($this->Host, "account_info")) {
 			if(empty($this->Cache->account) || $this->Cache->age("account") > 86400) //24hrs
 				$this->Cache->update("account", $this->Host->account_info());
@@ -105,12 +111,14 @@ class Model {
 		else
 			$dirs_only = true;
 	
-    //if cache younger than max age (default 5-10 mins) then use it to list items
-    if($this->Cache->age($type) < $max_age && !empty($this->Cache->type))
-     	$names = $this->Cache->top_level($type);
-     
-    if(!isset($names) || empty($names))
+		$names = $this->Cache->top_level($type);
+	
+    //if cache older than max age (default 5-10 mins) refresh
+    //< 2 to force cache refresh when only current page has been cached on same page load
+    if(count($names) < 2 || $this->Cache->age($type) > $max_age) {
+    	$this->connect_host();
 			$names = $this->Host->dir_contents($path, $dirs_only);
+		}
 		
 		$items = array();
 		
@@ -175,6 +183,8 @@ class Model {
 		if(!$cache_route || ($max_age >= 0 && $this->Cache->age($type) > $max_age)) {		
 			$path = $old_path; //return to original path for host fetch
 		
+			$this->connect_host();
+		
 			if($type == "thumbs")
 				$item = $this->Host->get_file($path, $thumb);
 			else
@@ -198,6 +208,7 @@ class Model {
 	public function get_file($path, $thumb) {
 		//if not thumb, serve from host
 		if(!$thumb) {
+			$this->connect_host();
 			return $this->Host->get_file($path, false);
 		}
 		
