@@ -58,7 +58,12 @@ class Text extends File {
 
 	private function get_file_url($path) {
 		global $Lando;
-		return $Lando->config["site_root"]."/file.php/".trim_slashes($path);
+		$File = $Lando->get_file(trim_slashes($path));
+		
+		if(!$File)
+			return false;
+		
+		return $File->url();
 	}
 	
 	private function resolve_media_srcs($content, $dir) {

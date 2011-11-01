@@ -29,10 +29,6 @@ class Dropbox extends Cloud_Host {
 		$this->API = new DropLib($params);
 	}
 	
-	public function account_info() {
-		return $this->API->accountInfo();
-	}
-	
 	private function get_file_path($meta, $exts=null, $filename="") {
 		if(!$exts)
 			$exts = array_flatten($this->config["parsers"]);
@@ -200,6 +196,21 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	public function get_file($path, $thumb) {
+		$path = $this->config["host_root"]."/".trim_slashes($path);
+		
+		try {
+			$meta = $this->API->metadata($path);
+		}
+		catch(Exception $e) {
+			return false;
+		}
+		
+		$File = $this->process_file($meta);
+	
+		return $File;
+	}
+	
+	public function get_thumb($path, $size) {
 		$thumb_codes = array(
 			"16" 		=> "16x16",
 			"32" 		=> "small",
@@ -214,46 +225,32 @@ class Dropbox extends Cloud_Host {
 			"xxl" 	=> "xl"
 		);
 		
-		if($thumb && !isset($thumb_codes[$thumb]))
+		if(!isset($thumb_codes[$size]))
 			return false;
-	
+		
 		$path = $this->config["host_root"]."/".trim_slashes($path);
 		
 		try {
-			$meta = $this->API->metadata($path);
+			$thumb = $this->API->thumbnail($path, $thumb_codes[$size], "JPEG");
 		}
 		catch(Exception $e) {
 			return false;
 		}
 		
-		$File = $this->process_file($meta);
-
-		if($thumb && $meta["thumb_exists"]) {
-			$File->url .= "?size=$thumb";
-			$File->raw_content = $this->API->thumbnail($path, $thumb_codes[$thumb], "JPEG");
-			$File->mime_type = "image/jpeg";
-			$File->extension = "jpg";
-			$File->resize($thumb); //calculate thumb dimensions and replace
-		}
-		else {
-			$media = $this->API->media($path);
-		
-			if(isset($media["url"]))
-				$File->url = $media["url"];
-		}
-		
-		return $File;
+		return base64_decode($thumb);
 	}
 	
 	private function process_file($file) {
 		$file["modified"] = strtotime($file["modified"]);
 		$file["title"] = $this->filename_from_path($file["path"]);
 		$file["extension"] = $this->ext_from_path($file["path"]);
-		
-		//$rel_path = str_replace($this->config["host_root"], "", $file["path"]);
-		//$file["url"] = $this->get_file_url($rel_path);
-		
 		$file["order"] = $this->extract_order($file["title"]);
+		
+		try {
+			$media = $this->API->media($file["path"]);
+			$file["url"] = $media["url"];
+		}
+		catch(Exception $e) {}
 		
 		if(strpos($file["mime_type"], "image") !== false) {
 			$dims = $this->extract_dimensions($file["title"]);

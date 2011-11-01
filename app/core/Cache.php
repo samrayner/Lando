@@ -1,7 +1,7 @@
 <?php
 
 class Cache {
-	const CACHE_EXT = ".cache";
+	const CACHE_EXT = ".meta";
 	private static $cache_dir;
 		
 	public function __construct() {
@@ -23,8 +23,14 @@ class Cache {
 				mkdir($dir);
 		}
 	
-		$path = $dir.end($path_segs).self::CACHE_EXT;
-		return file_put_contents($path, htmlspecialchars(serialize($content), ENT_QUOTES));
+		$path = $dir.end($path_segs);
+		
+		if(is_object($content)) {
+			$path .= self::CACHE_EXT;
+			$content = htmlspecialchars(serialize($content), ENT_QUOTES);
+		}
+		
+		return file_put_contents($path, $content);
 	}
 	
 	public function delete($path) {
@@ -52,7 +58,7 @@ class Cache {
 	public function age($path) {
 		$path = self::$cache_dir.trim_slashes($path);
 		
-		if(!is_dir($path))
+		if(!file_exists($path))
 			$path .= self::CACHE_EXT;
 	
 		//if file doesn't exist return current time as age
@@ -75,6 +81,11 @@ class Cache {
 		}
 		
 		return $names;
+	}
+	
+	public function full_path($path) {
+		$path = self::$cache_dir.trim_slashes($path);
+		return $path;
 	}
 	
 	public function get_single($path) {

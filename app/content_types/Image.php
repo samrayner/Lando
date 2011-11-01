@@ -4,18 +4,6 @@ class Image extends File {
 	public $width;
 	public $height;
 	
-	private static $thumb_sizes = array(
-		"icon" 	=> array("width" => 16, 	"height" => 16), 
-		"64" 		=> array("width" => 64, 	"height" => 64), 
-		"75"		=> array("width" => 75, 	"height" => 75),
-		"150" 	=> array("width" => 150, 	"height" => 150),
-		"s" 		=> array("width" => 320, 	"height" => 240),
-		"m" 		=> array("width" => 480, 	"height" => 320), 
-		"l" 		=> array("width" => 640, 	"height" => 480),
-		"xl" 		=> array("width" => 960, 	"height" => 640),
-		"xxl" 	=> array("width" => 1024, "height" => 768)
-	);
-	
 	public function __toString() {
 		return $this->html();
 	}
@@ -35,23 +23,25 @@ class Image extends File {
 	}
 	
 	public function thumb_html($size="150", $link=true) {
-		if(!array_key_exists((string)$size, self::$thumb_sizes))
-			$size = "150";
+		global $Lando;
+		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
+		$Thumb = $Lando->get_file($rel_path, $size);
 		
-		$this->resize($size);
+		if(!$Thumb)
+			return false;
 	
 		$html = "";
 	
 		if($link)
 			$html .= '<a href="'.$this->url.'">';
 		
-		$html .= '<img src="'.$this->url.'?size='.$size.'" alt="'.$this->title.'"';
+		$html .= '<img src="'.$Thumb->url.'" alt="'.$this->title.'"';
 		
-		if(isset($this->width))
-			$html .= ' width="'.$this->width.'"';
+		if(isset($Thumb->width))
+			$html .= ' width="'.$Thumb->width.'"';
 		
-		if(isset($this->height))
-			$html .= ' height="'.$this->height.'"';
+		if(isset($Thumb->height))
+			$html .= ' height="'.$Thumb->height.'"';
 		
 		$html .= ' />';
 		
@@ -59,49 +49,6 @@ class Image extends File {
 			$html .= '</a>';
 		
 		return $html;
-	}
-
-	public function resize($code) {
-		$w = $this->width;
-		$h = $this->height;
-		
-		if(!$w || !$h)
-			return false;
-		
-		$max = self::$thumb_sizes[$code];
-		$ratio = $w/$h;
-		
-		switch($code) {
-			//'cover' thumb scaling
-			case "75": 
-			case "150":
-				if($w >= $h) { //wide or square
-					$height = $max["height"];
-					$width = $height*$ratio;
-				}
-				if($w < $h) { //tall
-					$width = $max["width"];
-					$height = $width/$ratio;
-				}
-				break;
-			//'contain' thumb scaling
-			default: 
-				$wScale = $max["width"]/$w;
-				
-				if($h*$wScale >= $max["height"]) { //too tall or perfect
-					$height = $max["height"];
-					$width = $height*$ratio;
-				}
-				else { //too wide
-					$width = $max["width"];
-					$height = $width/$ratio;
-				}
-		}
-		
-		$this->width 	= round($width);
-		$this->height = round($height);
-		
-		return true;
 	}
 	
 	//get functions

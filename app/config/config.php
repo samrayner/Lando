@@ -7,7 +7,7 @@ $config = array (
   'site_root' => 'http://lando.dev',
   'pretty_urls' => '1',
   'host' => 'dropbox',
-  'host_root' => '/Public/Lando/Test Site',
+  'host_root' => '/Lando',
   'theme' => 'default',
   'smartypants' => '1',
   'page_order' => 
@@ -29,12 +29,12 @@ $config = array (
       ),
       'just-me' => 
       array (
+        'by-email' => 
+        array (
+        ),
         'by-pigeon' => 
         array (
           '_hidden' => true,
-        ),
-        'by-email' => 
-        array (
         ),
       ),
     ),

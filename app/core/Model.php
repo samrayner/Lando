@@ -18,17 +18,6 @@ class Model {
 		}
 	}
 	
-	public function get_host_info() {
-		$this->connect_host();
-	
-		if(method_exists($this->Host, "account_info")) {
-			if(!$this->Cache->get_single("account") || $this->Cache->age("account") > 86400) //24hrs
-				$this->Cache->update("account", $this->Host->account_info());
-		}
-		
-		return $this->Cache->get_single("account");
-	}
-	
 	private function sort_content($a, $b) {
 		if(!is_object($a))
 			return 0;
@@ -86,7 +75,7 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=300) {
+	public function get_all($path, $max_age=600) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
@@ -101,7 +90,7 @@ class Model {
 		$pages = ($type == "pages");
 		$names = $this->Cache->dir_contents($path, $pages);
 
-    //if same page load or cache older than max age (default 5 mins), refresh
+    //if same page load or cache older than max age (default 10 mins), refresh
     $age = $this->Cache->age($path);
     $same_load = 5;
     
@@ -131,16 +120,16 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $max_age=300) {
+	public function get_single($path, $max_age=600) {
 		$cache_path = $path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		
 		if($type == "pages")
-			$cache_path .= "/data";
+			$cache_path .= "/page";
 		
 		$item = $this->Cache->get_single($cache_path);
 		
-		//if no cache or cache older than max age (default 5 mins), refresh
+		//if no cache or cache older than max age (default 10 mins), refresh
 		if(!$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age)) {		
 			$this->connect_host();
 			$item = $this->Host->get_single($path, $item);
@@ -155,25 +144,57 @@ class Model {
 		return $item;
 	}
 	
-	public function get_file($path, $thumb) {
-		$cache_path = $path = trim_slashes($path);
+	public function get_file($path, $thumb_size) {
+		$path = trim_slashes($path);
+		$cache_path = "files/".$path;
 		
-		if($thumb) {
-			$ext = pathinfo($path, PATHINFO_EXTENSION);
-			$cache_path = str_replace($ext, "$thumb.$ext", $path);
-		}
-		
-		$item = $this->Cache->get_file($cache_path);
+		$item = $this->Cache->get_single($cache_path);
 		
 		//if no cache or cache older than 4 hours (media link expiration) refresh
 		if(!$item || $this->Cache->age($cache_path) > 60*60*4) {		
 			$this->connect_host();
-			$item = $this->Host->get_file($path, $thumb);
+			$item = $this->Host->get_file($path, $thumb_size);
 			
 			if($item)
 				$this->Cache->update($cache_path, $item);
 		}
 		
+		if($thumb_size) {
+			$item->extension = "jpg";
+		
+			$thumb_path = preg_replace('~\.\w+$~', ".$thumb_size.".$item->extension, $cache_path);
+			$full_path = $this->Cache->full_path($thumb_path);
+		
+			//if no cache or cache older than 1 hour refresh
+			if(!file_exists($full_path) || $this->Cache->age($thumb_path) > 60*60*1) {		
+				$this->connect_host();				
+				$thumb = $this->Host->get_thumb($path, $thumb_size);
+				
+				if($thumb)
+					$this->Cache->update($thumb_path, $thumb);
+			}
+			
+			$dims = getimagesize($full_path);
+			$item->width = $dims[0];
+			$item->height = $dims[1];
+			$item->modified = filemtime($full_path);
+			$item->url = str_replace($_SERVER["DOCUMENT_ROOT"], $this->config["site_root"], $full_path);
+		}
+		
 		return $item;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

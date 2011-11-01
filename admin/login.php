@@ -14,6 +14,7 @@ if(isset($_GET["logout"]) && $_GET["logout"]) {
 	$expire_time = time()-3600;
 	setcookie("admin_password", "", $expire_time, "/", ".".$_SERVER['HTTP_HOST']);
 	unset($_COOKIE['admin_password']);
+	header("Location: ".$config["site_root"]);
 }
 
 if(isset($_POST["password"])) {
