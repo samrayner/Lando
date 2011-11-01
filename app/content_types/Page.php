@@ -1,10 +1,9 @@
 <?php
 
 class Page extends Publishable {
-	public $subpages = array(); //of type Page
+	public $subpages = array();
 	
 	//get functions
-	
 	public function subpages() {
 		return $this->subpages;
 	}

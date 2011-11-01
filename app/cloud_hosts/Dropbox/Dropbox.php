@@ -65,10 +65,11 @@ class Dropbox extends Cloud_Host {
 		$items = array();
 		
 		foreach($meta["contents"] as $item) {
-			if($dirs_only == $item["is_dir"])
+			if($dirs_only == $item["is_dir"]) {
 				$name = basename($item["path"]);
 				if(strpos($name, "_") !== 0) //check dir is not hidden
 					$items[] = $name;
+			}
 		}
 		
 		return $items;
@@ -172,20 +173,6 @@ class Dropbox extends Cloud_Host {
 				//scrape for manually set metadata and add
 				$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
 			}
-
-			if($type == "pages") {
-				$meta["subpages"] = array();
-			
-				//recurse to get subpages
-				foreach($meta["contents"] as $subpage) {
-					if($subpage["is_dir"]) {
-						$page = $this->get_single("$path/".basename($subpage["path"]));
-						
-						if($page)					
-							$meta["subpages"][] = $page;
-					}
-				}
-			}
 		}
 		else { //collection
 			$meta["title"] = basename($meta["path"]);
@@ -214,15 +201,17 @@ class Dropbox extends Cloud_Host {
 	
 	public function get_file($path, $thumb) {
 		$thumb_codes = array(
-			"icon" 	=> "16x16", 
-			"64" 		=> "64x64", 
+			"16" 		=> "16x16",
+			"32" 		=> "small",
+			"64" 		=> "s", 
 			"75"		=> "75x75_fit_one",
+			"128" 	=> "m",
 			"150" 	=> "150x150_fit_one",
 			"s" 		=> "320x240_bestfit",
 			"m" 		=> "480x320_bestfit", 
-			"l" 		=> "640x480_bestfit",
+			"l" 		=> "l",
 			"xl" 		=> "960x640_bestfit",
-			"xxl" 	=> "1024x768_bestfit"
+			"xxl" 	=> "xl"
 		);
 		
 		if($thumb && !isset($thumb_codes[$thumb]))
@@ -246,19 +235,23 @@ class Dropbox extends Cloud_Host {
 			$File->extension = "jpg";
 			$File->resize($thumb); //calculate thumb dimensions and replace
 		}
-		else
-			$File->raw_content = $this->API->download($path);
+		else {
+			$media = $this->API->media($path);
+		
+			if(isset($media["url"]))
+				$File->url = $media["url"];
+		}
 		
 		return $File;
 	}
 	
 	private function process_file($file) {
-		$rel_path = str_replace($this->config["host_root"], "", $file["path"]);
-					
 		$file["modified"] = strtotime($file["modified"]);
 		$file["title"] = $this->filename_from_path($file["path"]);
 		$file["extension"] = $this->ext_from_path($file["path"]);
-		$file["url"] = $this->get_file_url($rel_path);
+		
+		//$rel_path = str_replace($this->config["host_root"], "", $file["path"]);
+		//$file["url"] = $this->get_file_url($rel_path);
 		
 		$file["order"] = $this->extract_order($file["title"]);
 		

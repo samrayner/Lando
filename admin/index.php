@@ -61,8 +61,10 @@ function nav_widget($pages=null, $path=array()) {
 		$html .= '<label for="'.$page->slug.'_visibility">'.$page->title.'</label>'."\n$tabs\t\t";
 		$html .= "</div>\n";
 
-		if(!empty($page->subpages))
-			$html .= nav_widget($page->subpages, $path);
+		$subpages = $page->subpages();
+
+		if(!empty($subpages))
+			$html .= nav_widget($subpages, $path);
 
 		array_pop($path);
 

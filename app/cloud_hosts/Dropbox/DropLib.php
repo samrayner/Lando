@@ -84,7 +84,6 @@ class DropLib extends DropLib_Base{
 		
 		$this->Http = new DropLib_Http($params);
 		$this->sslCheck = $params['sslCheck'];
-		//$this->locale = $params['locale'];
 		
 	}
 	
@@ -265,9 +264,7 @@ class DropLib extends DropLib_Base{
 	 */
 	public function accountInfo(){
 		
-		$response = $this->Http->fetch(self::API_BASE . 'account/info', array(
-			'locale' => $this->locale	
-		));
+		$response = $this->Http->fetch(self::API_BASE . 'account/info');
 		return $this->decodeResponse($response);
 		
 	}
@@ -386,8 +383,7 @@ class DropLib extends DropLib_Base{
 		}
 		
 		$params = array(
-			'rev_limit' => $limit,
-			'locale' => $this->locale
+			'rev_limit' => $limit
 		);
 		
 		$response = $this->Http->fetch(self::API_BASE . 'revisions/' . $this->root . '/' . $this->encodePath($path), $params);
@@ -410,8 +406,7 @@ class DropLib extends DropLib_Base{
 		}
 		
 		$params = array(
-			'rev' => $revision,
-			'locale' => $this->locale
+			'rev' => $revision
 		);
 		
 		$response = $this->Http->fetch(self::API_BASE . 'restore/' . $this->root . '/' . $this->encodePath($path), $params);
@@ -441,8 +436,7 @@ class DropLib extends DropLib_Base{
 		$params = array(
 			'query' => $query,
 			'file_limit' => $fileLimit,
-			'include_deleted' => $includeDeleted,
-			'locale' => $this->locale
+			'include_deleted' => $includeDeleted
 		);
 		
 		$response = $this->Http->fetch(self::API_BASE . 'search/' . $this->root . '/' . $this->encodePath($path), $params);
@@ -465,11 +459,7 @@ class DropLib extends DropLib_Base{
 			throw new DropLibException_InvalidArgument('Invalid or missing argument.');
 		}
 		
-		$params = array(
-			'locale' => $this->locale	
-		);
-		
-		$response = $this->Http->fetch(self::API_BASE . 'shares/' . $this->root . '/' . $this->encodePath($path), $params);
+		$response = $this->Http->fetch(self::API_BASE . 'shares/' . $this->root . '/' . $this->encodePath($path));
 		return $this->decodeResponse($response);
 		
 	}
@@ -491,11 +481,7 @@ class DropLib extends DropLib_Base{
 			throw new DropLibException_InvalidArgument('Invalid or missing argument.');
 		}
 		
-		$params = array(
-			'locale' => $this->locale	
-		);
-		
-		$response = $this->Http->fetch(self::API_BASE . 'media/' . $this->root . '/' . $this->encodePath($path), $params);
+		$response = $this->Http->fetch(self::API_BASE . 'media/' . $this->root . '/' . $this->encodePath($path));
 		return $this->decodeResponse($response);
 		
 	}
@@ -518,8 +504,7 @@ class DropLib extends DropLib_Base{
 		
 		$params = array(
 			'size' => $size,
-			'format' => $format,
-			'locale' => $this->locale
+			'format' => $format
 		);
 		
 		$response = $this->Http->fetch(self::API_CONTENT_BASE . 'thumbnails/' . $this->root . '/' . $this->encodePath($path), $params);
@@ -544,8 +529,7 @@ class DropLib extends DropLib_Base{
 		$response = $this->Http->fetch(self::API_BASE . 'fileops/copy', array(
 			'from_path' => $from,
 			'to_path' => $to,
-			'root' => $this->root,
-			'locale' => $this->locale
+			'root' => $this->root
 		));
 		return $this->decodeResponse($response);
 		
@@ -566,8 +550,7 @@ class DropLib extends DropLib_Base{
 		
 		$response = $this->Http->fetch(self::API_BASE . 'fileops/create_folder', array(
 			'path' => $path,
-			'root' => $this->root,
-			'locale' => $this->locale	
+			'root' => $this->root
 		));
 		return $this->decodeResponse($response);
 		
@@ -588,8 +571,7 @@ class DropLib extends DropLib_Base{
 		
 		$response = $this->Http->fetch(self::API_BASE . 'fileops/delete', array(
 			'path' => $path,
-			'root' => $this->root,
-			'locale' => $this->locale	
+			'root' => $this->root	
 		));
 		return $this->decodeResponse($response);
 		
@@ -612,8 +594,7 @@ class DropLib extends DropLib_Base{
 		$response = $this->Http->fetch(self::API_BASE . 'fileops/move', array(
 			'from_path' => $from,
 			'to_path' => $to,
-			'root' => $this->root,
-			'locale' => $this->locale
+			'root' => $this->root
 		));
 		return $this->decodeResponse($response);
 		

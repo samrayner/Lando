@@ -107,9 +107,12 @@ class DropLib_Http extends DropLib_Base{
 	/**
 	 * 
 	 */
-	public function fetch($url, $params = null, $useToken = true, $file = null){
+	public function fetch($url, $params = array(), $useToken = true, $file = null){
 		
-		$params = (is_array($params)) ? $params : array();
+		$defaultParams = array(
+			'locale' => $this->locale	
+		);
+		$params = array_merge($defaultParams, (is_array($params)) ? $params : array());
 		
 		/**
 		 * Check for token and sign request

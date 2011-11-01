@@ -22,20 +22,16 @@ class Model {
 		$this->connect_host();
 	
 		if(method_exists($this->Host, "account_info")) {
-			if(empty($this->Cache->account) || $this->Cache->age("account") > 86400) //24hrs
+			if(!$this->Cache->get_single("account") || $this->Cache->age("account") > 86400) //24hrs
 				$this->Cache->update("account", $this->Host->account_info());
 		}
 		
-		return $this->Cache->account;
+		return $this->Cache->get_single("account");
 	}
 	
 	private function sort_content($a, $b) {
 		if(!is_object($a))
 			return 0;
-		
-		//if subpages exist, drill down
-		if(!empty($a->subpages) && is_array($a->subpages))
-			usort($a->subpages, array($this, "sort_content"));
 		
 		$result = 0;
 	
@@ -78,13 +74,7 @@ class Model {
 				$search_route = array_search_recursive($slug, $pages, "slug");
 				
 				if(isset($search_route[0])) {
-					$i = sizeof($sorted);
-				
-					$sorted[$i] = $pages[$search_route[0]];
-				
-					//sort subpages
-					if(!empty($sorted[$i]->subpages) && is_array($sorted[$i]->subpages))
-						$sorted[$i]->subpages = $this->sort_pages($sorted[$i]->subpages, $suborder);
+					$sorted[] = $pages[$search_route[0]];
 					
 					//unset if inserted into order from config setting
 					unset($pages[$search_route[0]]);
@@ -96,26 +86,27 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=null) {	
-		if(!$max_age)
-			$max_age = rand(300, 600);
-	
+	public function get_all($path, $max_age=300) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
 		
-		$collection_files = ($type == "collections" and count($path_segs) > 1);
+		$collection_files = ($type == "collections" && count($path_segs) > 1);
 		
 		if($type == "snippets" || $collection_files)
 			$dirs_only = false;
 		else
 			$dirs_only = true;
-	
-		$names = $this->Cache->top_level($type);
-	
-    //if cache older than max age (default 5-10 mins) refresh
-    //< 2 to force cache refresh when only current page has been cached on same page load
-    if(count($names) < 2 || $this->Cache->age($type) > $max_age) {
+		
+		$pages = ($type == "pages");
+		$names = $this->Cache->dir_contents($path, $pages);
+
+    //if same page load or cache older than max age (default 5 mins), refresh
+    $age = $this->Cache->age($path);
+    $same_load = 5;
+    
+    if($age < $same_load || $age > $max_age) {    
+    	$this->Cache->touch($path);
     	$this->connect_host();
 			$names = $this->Host->dir_contents($path, $dirs_only);
 		}
@@ -123,96 +114,66 @@ class Model {
 		$items = array();
 		
 		foreach($names as $name) {
-			//set unachievable max age to avoid cache refreshes
-			$item = $this->get_single("$path/$name", false, -1);
+			//unachievable max-age to stop recache of all
+			$item = $this->get_single("$path/$name", -1);
 			
 			if($item)
 				$items[] = $item;
 		}
 		
-		usort($items, array($this, "sort_content"));
+		if(!empty($items)) {
+			usort($items, array($this, "sort_content"));
 		
-		if($type == "pages")
-			$items = $this->sort_pages($items);
-		
-		//bulk overwrite of cache
-		$this->Cache->update($type, $items);
+			if($pages)
+				$items = $this->sort_pages($items);
+		}
 		
 		return $items;
 	}
 	
-	public function get_single($path, $recache=true, $max_age=null, $thumb=false) {
-		if(!$max_age)
-			$max_age = rand(300, 600);
-	
-		$path = trim_slashes($path);
-		$key = "path";
-		$old_path = $path;
+	public function get_single($path, $max_age=300) {
+		$cache_path = $path = trim_slashes($path);
+		$type = array_shift(explode("/", $path));
 		
-		$type = ($thumb) ? "thumbs" : array_shift(explode("/", $path));
-
-		if($type == "thumbs") {
-			$new_path = $path."?size=".$thumb; //match numbered pages in cache
-			$path = $new_path;
-			$key = "url";
-			
-			//sanitize path for use in regex
-			$path = preg_quote($path, "~");
-		}
+		if($type == "pages")
+			$cache_path .= "/data";
 		
-		$cache_route = array_search_recursive('~'.$path.'$~i', $this->Cache->$type, $key, true);
-		$item = null;
-		
-		//if found cache, follow cache search route to get it
-		if($cache_route) {
-			array_pop($cache_route);
-			
-			$item = $this->Cache->$type;
-			
-			//step through cache to get search result node
-			foreach($cache_route as $next_key) {
-				//if content use object notation, otherwise array notation
-				if(is_object($item))
-					$item = $item->$next_key;
-				elseif(is_array($item))
-					$item = $item[$next_key];
-			}
-		}
+		$item = $this->Cache->get_single($cache_path);
 		
 		//if no cache or cache older than max age (default 5 mins), refresh
-		if(!$cache_route || ($max_age >= 0 && $this->Cache->age($type) > $max_age)) {		
-			$path = $old_path; //return to original path for host fetch
-		
+		if(!$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age)) {		
 			$this->connect_host();
-		
-			if($type == "thumbs")
-				$item = $this->Host->get_file($path, $thumb);
-			else
-				$item = $this->Host->get_single($path, $item);
+			$item = $this->Host->get_single($path, $item);
 			
-			if($item && $recache) {
-				//replace old cache
-				if(isset($cache_route[0])) {
-					$old = &$this->Cache->$type;
-					unset($old[$cache_route[0]]);
-				}
-
-				$this->Cache->add($type, $item);
-				$this->Cache->save($type);
-			}
+			if($item)
+				$this->Cache->update($cache_path, $item);
 		}
+		
+		if($type == "pages")
+			$item->subpages = $this->get_all($path);
 		
 		return $item;
 	}
 	
 	public function get_file($path, $thumb) {
-		//if not thumb, serve from host
-		if(!$thumb) {
-			$this->connect_host();
-			return $this->Host->get_file($path, false);
+		$cache_path = $path = trim_slashes($path);
+		
+		if($thumb) {
+			$ext = pathinfo($path, PATHINFO_EXTENSION);
+			$cache_path = str_replace($ext, "$thumb.$ext", $path);
 		}
 		
-		//cache thumbs for 20 mins
-		return $this->get_single($path, true, 1200, $thumb);
+		$item = $this->Cache->get_file($cache_path);
+		
+		//if no cache or cache older than 4 hours (media link expiration) refresh
+		if(!$item || $this->Cache->age($cache_path) > 60*60*4) {		
+			$this->connect_host();
+			$item = $this->Host->get_file($path, $thumb);
+			
+			if($item)
+				$this->Cache->update($cache_path, $item);
+		}
+		
+		return $item;
 	}
 }

@@ -4,7 +4,6 @@ class Content {
 	public $title = "Untitled";
 	public $modified;
 	public $path;
-	public $raw_content;
 	
 	public function __construct($data=null) {
 		if($data)
@@ -43,9 +42,5 @@ class Content {
 	
 	public function path() {
 		return $this->path;
-	}
-	
-	public function raw_content() {
-		return $this->raw_content;
 	}
 }

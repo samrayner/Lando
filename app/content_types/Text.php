@@ -1,6 +1,7 @@
 <?php
 
 class Text extends File {
+	public $raw_content;
 	public $author = "";
 	
 	private function swap_includes($content) {
@@ -112,6 +113,10 @@ class Text extends File {
 			$content = SmartyPants($content);
 		
 		return $content;
+	}
+	
+	public function raw_content() {
+		return $this->raw_content;
 	}
 
 	public function author() {
