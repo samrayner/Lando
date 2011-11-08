@@ -1,10 +1,10 @@
 /*
-Title:      	Admin Panel JavaScript
-Author:     	Sam Rayner - http://samrayner.com
-Created: 			2011-09-16
+Title:				Admin Panel JavaScript
+Author:				Sam Rayner - http://samrayner.com
+Created:			2011-09-16
 */
 
-PageNav = {
+var PageNav = {
 	sortableTree: function(parents) {
 		var tree = {};
 	
@@ -27,8 +27,8 @@ PageNav = {
 	updateVisibility: function(event) {
 		//get whether we're checking or unchecking
 		var checking = event.target.checked;
-	 
-	 	//for all child checkboxes
+
+		//for all child checkboxes
 		$(this).closest("li").find("* * input:checkbox").each(function() {
 			//if we're unchecking, disable all children
 			if(!checking)
@@ -37,7 +37,7 @@ PageNav = {
 			//if checking	
 			else {
 				//get all grand-parent LIs
-				$parentLis = $(this).closest("li").parentsUntil($("#page-list"),"li");
+				var $parentLis = $(this).closest("li").parentsUntil($("#page-list"),"li");
 				
 				var parentsUnchecked = $parentLis.children("div").children("input:not([checked])").length;
 				
@@ -75,9 +75,9 @@ PageNav = {
 		//fire change on every checkbox
 		$(".sortable input:checkbox").change();
 	}
-}
+};
 
-Tooltip = {
+var Tooltip = {
 	toggle: function() {
 		var $message = $("#htaccess");
 		$message.toggleClass("collapsed");
@@ -86,9 +86,9 @@ Tooltip = {
 	init: function() {
 		$("#pretty_urls").change(Tooltip.toggle);
 	}
-}
+};
 
-Recache = {
+var Recache = {
 	types: ["pages", "posts", "drafts", "collections", "snippets"],
 
 	done: function() {
@@ -102,23 +102,23 @@ Recache = {
 	create: function(type) {
 		Recache.updateProgress(type);
 	
-		$jqxhr = $.ajax({
-		  url: "recache/create_cache.php",
-		  data: {"type": type},
-		  complete: function() { 
-		  	var pos = Recache.types.indexOf(type);
-		  	if(pos+1 == Recache.types.length)
-		  		Recache.done();
-		  	else
-		  		Recache.create(Recache.types[pos+1]);
-		  }
+		var $jqxhr = $.ajax({
+			url: "recache/create_cache.php",
+			data: {"type": type},
+			complete: function() { 
+				var pos = Recache.types.indexOf(type);
+					if(pos+1 == Recache.types.length)
+						Recache.done();
+				else
+					Recache.create(Recache.types[pos+1]);
+			}
 		});
 	},
 
 	click: function(event) {
 		event.preventDefault();
 		$(this).addClass("active");
-		$jqxhr = $.ajax({
+		var $jqxhr = $.ajax({
 			url: "recache/clear_caches.php",
 			complete: function(){ 
 				Recache.create(Recache.types[0]); 
@@ -129,12 +129,12 @@ Recache = {
 	init: function() {
 		$("#recache-button").click(Recache.click);
 	}
-}
+};
 
-PassChange = {
+var PassChange = {
 	validate: function(event) {
 		if($("#admin_password").val() != $("#confirm_pass").val()) {
-			alert("The passwords you entered don't match, please type them again.");
+			window.alert("The passwords you entered don't match, please type them again.");
 			$("#admin_password").val("");
 			$("#confirm_pass").val("");
 			$("#admin_password").focus();
@@ -145,7 +145,7 @@ PassChange = {
 	init: function() {
 		$("#admin-form").submit(PassChange.validate);
 	}
-}
+};
 
 $(function() {
 	Tooltip.init();
