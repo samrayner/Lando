@@ -13,9 +13,12 @@ include "app/core/loader.php";
 $themeBase = trim_slashes($theme_dir)."/";
 $template = "404";
 $url = current_url();
+$current = new Page();
 
-if($url == "/")
+if($url == "/") {
+	$current = $Lando->get_content();
 	$template = "home";
+}
 
 if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 	switch($matches[1]) {
@@ -29,6 +32,8 @@ if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 			$template = "rss";
 			break;
 		default: 
+			$current = $Lando->get_content();
+		
 			if(!$current)
 				$template = "404";
 			elseif(include_exists($themeBase.$matches[1].".php"))
@@ -38,40 +43,40 @@ if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 	}
 }
 
-if(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
-	switch($matches[1]) {
-		case "posts": 
-			$template = "post";
-			break;
-		case "drafts":
-			$template = "draft";
-			break;
-		default: 
-			if(include_exists($themeBase.$matches[2].".php"))
-				$template = $matches[2];
-			else
-				$template = "page";
-	}
-	
-	if(!$current)
-		$template = "404";
-}
-
 if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url))
 	$template = "date-archive";
 
-if(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
+elseif(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
 	$template = "tag-archive";
+
+elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
+	$current = $Lando->get_content();
+
+	if(!$current)
+		$template = "404";
+	else {
+		switch($matches[1]) {
+			case "posts": 
+				$template = "post";
+				break;
+			case "drafts":
+				$template = "draft";
+				break;
+			default: 
+				if(include_exists($themeBase.$matches[2].".php"))
+					$template = $matches[2];
+				else
+					$template = "page";
+		}
+	}
+}
 	
 //kick out to login if trying to view drafts
 if(in_array($template, array("draft", "draft-list"))) {
-	if(!isset($_COOKIE['admin_password']) || $_COOKIE['admin_password'] != $Lando->config['admin_password'])
+	$cookie_name = "admin_password";
+	if(!isset($_COOKIE[$cookie_name]) || $_COOKIE[$cookie_name] != $Lando->config[$cookie_name])
 		header("Location: $site_root/admin/login.php?redirect=drafts");
 }
-	
-//serve blank page if no current content
-if(!$current)
-	$current = new Page();
 
 if(!include_exists($themeBase.$template.".php")) {
 	if(include_exists("app/templates/$template.php"))

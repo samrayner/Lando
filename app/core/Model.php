@@ -130,7 +130,7 @@ class Model {
 		$item = $this->Cache->get_single($cache_path);
 		
 		//if no cache or cache older than max age (default 10 mins), refresh
-		if(!$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age)) {		
+		if(!$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age)) {
 			$this->connect_host();
 			$item = $this->Host->get_single($path, $item);
 			

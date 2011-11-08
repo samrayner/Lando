@@ -89,8 +89,9 @@ class Text extends File {
 						
 						$resolved = $this->get_file_url($dir."/$resolved"); //resolve to current dir
 					}
-
-					$content = str_replace('"'.$src.'"', '"'.$resolved.'"', $content);
+					
+					if($resolved)
+						$content = str_replace('"'.$src.'"', '"'.$resolved.'"', $content);
 				}
 			}
 		}

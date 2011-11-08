@@ -24,9 +24,6 @@ class Controller {
 		if(!$this->config["pretty_urls"])
 			$vars["site_root"] .= "/index.php";
 		
-		if(!preg_match('~^(/file.php|/admin)~', $_SERVER["REQUEST_URI"]))
-			$vars["current"] = $this->get_content();
-		
 		$this->theme_vars = $vars;
 	}
 	
