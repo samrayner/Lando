@@ -151,7 +151,7 @@ class Model {
 		$item = $this->Cache->get_single($cache_path);
 		
 		//if no cache or cache older than 4 hours (media link expiration) refresh
-		if(!$item || $this->Cache->age($cache_path) > 60*60*4) {		
+		if(!$item || $this->Cache->age($cache_path) > 60*60*3.9) {		
 			$this->connect_host();
 			$item = $this->Host->get_file($path, $thumb_size);
 			

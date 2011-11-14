@@ -173,18 +173,13 @@ class Dropbox extends Cloud_Host {
 		else { //collection
 			$meta["title"] = basename($meta["path"]);
 			
-			//if no cache or cached content out of date
-			if(!$Cache || $meta["modified"] > $Cache->modified) {		
-				$files = array();
-				
-				foreach($meta["contents"] as $file) {
-					if(!$file["is_dir"])
-						$files[] = $this->process_file($file);
-				}
-			}
-			else {
-				//cache is up-to-date
-				$files = $Cache->files;
+			$files = array();
+			
+			//we're not checking if modified since last cache as media links expire after 4 hours
+			//just under 4 hour cache limit is set in the Model
+			foreach($meta["contents"] as $file) {
+				if(!$file["is_dir"])
+					$files[] = $this->process_file($file);
 			}
 			
 			$meta["files"] = $files;
