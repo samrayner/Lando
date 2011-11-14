@@ -19,7 +19,7 @@
 	<!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.js"></script>
 	<script>window.jQuery || document.write('<script src="<?php echo $theme_dir ?>/js/jquery-1.6.2.min.js">\x3C/script>')</script>
 	
 	<!-- PrettyPhoto for galleries: http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ -->

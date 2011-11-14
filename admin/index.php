@@ -78,30 +78,7 @@ function nav_widget($pages=null, $path=array()) {
 
 ?>
 
-<!doctype html>
-<html lang="en">
-
-<head>
-	<meta charset="utf-8" />
-	
-	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	
-	<title>Lando Admin</title>
-
-	<link rel="icon" href="" />
-	<link rel="apple-touch-icon" href="" />
-
-	<link rel="stylesheet" href="css/admin.css" />
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-	<script src="js/admin.js"></script>
-	
-</head>
-<body>
-<div id="wrapper">
+<?php include "inc/head.php" ?>
 
 <form action="save.php" method="post" id="admin-form">
 	<header>
@@ -214,6 +191,4 @@ function nav_widget($pages=null, $path=array()) {
 	</div>
 </form>
 
-</div><!-- #wrapper -->
-</body>
-</html>
+<?php include "inc/foot.php" ?>

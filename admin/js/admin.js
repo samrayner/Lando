@@ -120,7 +120,7 @@ var Recache = {
 		$(this).addClass("active");
 		var $jqxhr = $.ajax({
 			url: "recache/clear_caches.php",
-			complete: function(){ 
+			always: function(){ 
 				Recache.create(Recache.types[0]); 
 			}
 		});
