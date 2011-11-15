@@ -48,18 +48,18 @@ abstract class Cloud_Host {
 		return $order;
 	}
 	
-	protected function manual_meta($content) {
+	protected function manual_meta(&$raw_content) {
 		//reset when re-reading manual metadata
 		$meta["tags"] = array();
 		$meta["author"] = "";
 	
-		if(!$content)
+		if(!$raw_content)
 			return $meta;
 	
-		$lines = preg_split('~\r?\n~', $content);
+		$lines = preg_split('~\r?\n~', $raw_content);
 		$i = 0;
 		
-		//read line by line, if empty or metadata store and move to next line
+		//read line by line. if empty or metadata, store and move to next line
 		while(isset($lines[$i]) && (trim($lines[$i]) === "" || preg_match('~^\s*(?<key>\w+)\s*:\s*(?<val>.*)$~', $lines[$i], $prop))) {
 			if(isset($prop)) {
 			  $key = strtolower($prop["key"]);
@@ -97,7 +97,7 @@ abstract class Cloud_Host {
 		
 		$lines = array_slice($lines, $i);
 		
-		$meta["raw_content"] = implode("\n", $lines);
+		$raw_content = implode("\n", $lines);
 		
 		return $meta;
 	}

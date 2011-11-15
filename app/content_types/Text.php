@@ -3,6 +3,7 @@
 class Text extends File {
 	public $raw_content;
 	public $author = "";
+	public $manual_metadata = array();
 	
 	private function swap_includes($content) {
 		$regex = '\{\{\s*(\w+)(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+\s*}}';

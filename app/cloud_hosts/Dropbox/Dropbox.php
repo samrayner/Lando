@@ -164,10 +164,13 @@ class Dropbox extends Cloud_Host {
 				if(!$Cache || $meta["modified"] > $Cache->modified) {
 					//download raw content
 					$meta["raw_content"] = $this->API->download($main_file);
+					
+					//scrape for manually set metadata and add
+					$meta["manual_metadata"] = $this->manual_meta($meta["raw_content"]);
 				}
 				
-				//scrape for manually set metadata and add
-				$meta = array_merge($meta, $this->manual_meta($meta["raw_content"]));
+				//apply manual metadata overrides
+				$meta = array_merge($meta, $meta["manual_metadata"]);
 			}
 		}
 		else { //collection

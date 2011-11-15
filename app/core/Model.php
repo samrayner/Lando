@@ -4,6 +4,7 @@ class Model {
 	private $Host;
 	private $Cache;
 	private $config;
+	private $cache_count;
 
 	public function __construct() {
 		global $config;
@@ -129,13 +130,20 @@ class Model {
 		
 		$item = $this->Cache->get_single($cache_path);
 		
+		//update cache if:
+		//a) item doesn't exist in cache yet
+		//b) cache is older than max age AND there hasn't been another cache on this page load
+		$should_cache = !$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && $this->cache_count < 1);
+		
 		//if no cache or cache older than max age (default 10 mins), refresh
-		if(!$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age)) {
+		if($should_cache) {
 			$this->connect_host();
 			$item = $this->Host->get_single($path, $item);
 			
 			if($item)
 				$this->Cache->update($cache_path, $item);
+			
+			$this->cache_count++;
 		}
 		
 		if($type == "pages")
@@ -151,7 +159,7 @@ class Model {
 		$item = $this->Cache->get_single($cache_path);
 		
 		//if no cache or cache older than 4 hours (media link expiration) refresh
-		if(!$item || $this->Cache->age($cache_path) > 60*60*3.9) {		
+		if(!$item || $this->Cache->age($cache_path) > 60*60*4) {		
 			$this->connect_host();
 			$item = $this->Host->get_file($path, $thumb_size);
 			
