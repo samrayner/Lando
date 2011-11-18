@@ -99,18 +99,22 @@ var Recache = {
 		$("#recache-button").html("Caching "+current+"&hellip;");
 	},
 	
-	create: function(type) {
-		Recache.updateProgress(type);
+	process: function(type) {
+		var pos = Recache.types.indexOf(type);
+	
+		if(pos >= 0)
+			Recache.updateProgress(type);
 	
 		var $jqxhr = $.ajax({
-			url: "recache/create_cache.php",
+			url: "recache/index.php",
 			data: {"type": type},
 			complete: function() { 
-				var pos = Recache.types.indexOf(type);
+				if(pos >= 0) {
 					if(pos+1 == Recache.types.length)
 						Recache.done();
-				else
-					Recache.create(Recache.types[pos+1]);
+					else
+						Recache.process(Recache.types[pos+1]);
+				}
 			}
 		});
 	},
@@ -118,12 +122,8 @@ var Recache = {
 	click: function(event) {
 		event.preventDefault();
 		$(this).addClass("active");
-		var $jqxhr = $.ajax({
-			url: "recache/clear_caches.php",
-			complete: function(){ 
-				Recache.create(Recache.types[0]); 
-			}
-		});
+		Recache.process("files");
+		Recache.process(Recache.types[0]);
 	},
 	
 	init: function() {

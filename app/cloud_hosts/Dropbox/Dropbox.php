@@ -179,7 +179,7 @@ class Dropbox extends Cloud_Host {
 			$files = array();
 			
 			//we're not checking if modified since last cache as media links expire after 4 hours
-			//just under 4 hour cache limit is set in the Model
+			//4 hour cache limit is set in the Model
 			foreach($meta["contents"] as $file) {
 				if(!$file["is_dir"])
 					$files[] = $this->process_file($file);
