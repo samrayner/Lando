@@ -118,7 +118,7 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="pretty_urls">Remove index.php from URLs</label>
 			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" <?php set_field_state("pretty_urls", "checked"); ?> />
-			<p id="htaccess" class="collapsed">Have you <a href="#">updated your <em>.htaccess</em> file</a>?</p>
+			<p id="htaccess" class="notify collapsed">Have you <a href="#">updated your <em>.htaccess</em> file</a>?</p>
 		</div>
 	</section>
 	
@@ -136,6 +136,12 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="host_root" class="field-label">Path to Content</label>
 			<input type="text" id="host_root" name="host_root" <?php set_field_state("host_root"); ?> />
+		</div>
+		
+		<div>
+			<label for="cache_on_load">Re-cache content on-the-fly</label>
+			<input id="cache_on_load" name="cache_on_load" type="checkbox" value="1" <?php set_field_state("cache_on_load", "checked"); ?> />
+			<p id="cron-job" class="notify<?php if(isset($config["cache_on_load"]) && !$config["cache_on_load"]) echo " collapsed" ?>">For faster page loads, consider <a href="#">setting up a cron job</a> instead.</p>
 		</div>
 		
 		<div id="recache">

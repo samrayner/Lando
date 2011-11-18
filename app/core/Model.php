@@ -132,10 +132,14 @@ class Model {
 		
 		$item = $this->Cache->get_single($cache_path);
 		
-		//update cache if:
-		//a) item doesn't exist in cache yet
-		//b) cache is older than max age AND there hasn't been another cache on this page load
-		$should_cache = !$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && $this->recache_count < self::MAX_RECACHE);
+		//Update cache if:
+		//a) 	Item doesn't exist in cache yet OR
+		//b) 	i)	Caching on-the-fly enabled AND
+		//		ii) Cache is older than max age AND
+		//		iii)There hasn't been another cache on this page load
+		$should_cache = !$item || ($this->config["cache_on_load"] && 
+															 $max_age >= 0 && $this->Cache->age($cache_path) > $max_age && 
+															 $this->recache_count < self::MAX_RECACHE);
 		
 		//if no cache or cache older than max age (default 10 mins), refresh
 		if($should_cache) {
@@ -175,8 +179,15 @@ class Model {
 			$thumb_path = preg_replace('~\.\w+$~', ".$thumb_size.".$item->extension, $cache_path);
 			$full_path = $this->Cache->full_path($thumb_path);
 		
+			//Update cache if:
+			//a) 	Thumb doesn't exist in cache yet OR
+			//b) 	i)	Caching on-the-fly enabled AND
+			//		ii) Cache is older than 1 hour
+			$should_cache = !file_exists($full_path) || ($this->config["cache_on_load"] && 
+																									 $this->Cache->age($thumb_path) > 60*60*1);
+		
 			//if no cache or cache older than 1 hour refresh
-			if(!file_exists($full_path) || $this->Cache->age($thumb_path) > 60*60*1) {		
+			if($should_cache) {		
 				$this->connect_host();				
 				$thumb = $this->Host->get_thumb($path, $thumb_size);
 				

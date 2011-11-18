@@ -6,6 +6,7 @@ $config = array (
   'site_description' => 'Just another Lando website.',
   'site_root' => 'http://lando.dev',
   'pretty_urls' => '1',
+  'cache_on_load' => 0,
   'host' => 'dropbox',
   'host_root' => '/Lando',
   'theme' => 'default',

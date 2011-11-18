@@ -18,6 +18,7 @@ $fields = array(
 	"site_description",
 	"site_root",
 	"pretty_urls",
+	"cache_on_load",
 	"host",
 	"host_root",
 	"theme",
@@ -39,6 +40,7 @@ if(sizeof($_POST) > 0) {
 					$new_config[$field] = trim_slashes(str_replace(basename(request_url()), "", request_url()));
 					break;
 				case "pretty_urls":
+				case "cache_on_load":
 				case "smartypants":
 					$new_config[$field] = 0;
 					break;

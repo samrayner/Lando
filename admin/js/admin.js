@@ -77,14 +77,19 @@ var PageNav = {
 	}
 };
 
-var Tooltip = {
-	toggle: function() {
-		var $message = $("#htaccess");
+var Tooltips = {
+	toggle: function(selector) {
+		var $message = $(selector);
 		$message.toggleClass("collapsed");
 	},
 
 	init: function() {
-		$("#pretty_urls").change(Tooltip.toggle);
+		$("#pretty_urls").change(function(){ 
+			Tooltips.toggle("#htaccess"); 
+		});
+		$("#cache_on_load").change(function(){ 
+			Tooltips.toggle("#cron-job");
+		});
 	}
 };
 
@@ -148,7 +153,7 @@ var PassChange = {
 };
 
 $(function() {
-	Tooltip.init();
+	Tooltips.init();
 	Recache.init();
 	PageNav.init();
 	PassChange.init();
