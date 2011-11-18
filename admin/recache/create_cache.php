@@ -8,6 +8,11 @@ $types = array("pages", "posts", "drafts", "collections", "snippets");
 if(!isset($_GET["type"]) || !in_array($_GET["type"], $types))
 	exit;
 	
-$Lando->get_content($_GET["type"]);
-?>
-Cache refresh complete
+$files = $Lando->get_content($_GET["type"]);
+
+//make sure content includes are cached (only parsed when called)
+foreach($files as $file) {
+	if(method_exists($file, "content"))
+		$file->content();
+}
+

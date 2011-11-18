@@ -9,6 +9,8 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 $config_file = "$doc_root/app/config/config.php";
 if(include_exists($config_file))
 	include_once $config_file;
+	
+include "inc/auth.php";
  
 $fields = array(
 	"admin_password",

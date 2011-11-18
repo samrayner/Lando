@@ -4,7 +4,9 @@ class Model {
 	private $Host;
 	private $Cache;
 	private $config;
-	private $cache_count;
+	
+	private $recache_count = 0;
+	const MAX_RECACHE = 1;
 
 	public function __construct() {
 		global $config;
@@ -133,7 +135,7 @@ class Model {
 		//update cache if:
 		//a) item doesn't exist in cache yet
 		//b) cache is older than max age AND there hasn't been another cache on this page load
-		$should_cache = !$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && $this->cache_count < 1);
+		$should_cache = !$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && $this->recache_count < self::MAX_RECACHE);
 		
 		//if no cache or cache older than max age (default 10 mins), refresh
 		if($should_cache) {
@@ -143,7 +145,7 @@ class Model {
 			if($item)
 				$this->Cache->update($cache_path, $item);
 			
-			$this->cache_count++;
+			$this->recache_count++;
 		}
 		
 		if($type == "pages")
