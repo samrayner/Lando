@@ -91,13 +91,14 @@ class Model {
 			$dirs_only = true;
 		
 		$pages = ($type == "pages");
-		$names = $this->Cache->dir_contents($path, $pages);
+		
+		$names = $this->Cache->dir_contents($path, $pages, $collection_files);
 
     //if same page load or cache older than max age (default 10 mins), refresh
     $age = $this->Cache->age($path);
     $same_load = 5;
     
-    if($age < $same_load || $age > $max_age) {    
+    if($age < $same_load || $age > $max_age) {
     	$this->Cache->touch($path);
     	$this->connect_host();
 			$names = $this->Host->dir_contents($path, $dirs_only);

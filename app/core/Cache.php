@@ -50,6 +50,9 @@ class Cache {
 		$path = self::$cache_dir.trim_slashes($path);
 		
 		if(!file_exists($path))
+			$path .= self::CACHE_EXT;
+			
+		if(!file_exists($path))
 			return false;
 		
 		return touch($path);
@@ -65,8 +68,13 @@ class Cache {
 		return time()-(int)@filemtime($path);
 	}
 	
-	public function dir_contents($dir, $dirs_only=false) {
-		$path = self::$cache_dir.trim_slashes($dir);
+	public function dir_contents($dir, $dirs_only=false, $in_files=false) {
+		$path = self::$cache_dir;
+		
+		if($in_files)
+			$path .= "files/";
+		
+		$path .= trim_slashes($dir);
 		
 		if(!is_dir($path))
 			return array();
