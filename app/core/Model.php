@@ -106,8 +106,10 @@ class Model {
 		$items = array();
 		
 		foreach($names as $name) {
-			//unachievable max-age to stop recache of all
-			$item = $this->get_single("$path/$name", -1);
+			if($collection_files)
+				$item = $this->get_file("$path/$name", false, false); //not thumb and don't recache individually before sort
+			else
+				$item = $this->get_single("$path/$name", -1); //unachievable max-age to stop individual recaches before sort
 			
 			if($item)
 				$items[] = $item;
@@ -154,11 +156,14 @@ class Model {
 		
 		if($type == "pages")
 			$item->subpages = $this->get_all($path);
+			
+		if($type == "collections")
+			$item->files = $this->get_all($path);
 		
 		return $item;
 	}
 	
-	public function get_file($path, $thumb_size) {
+	public function get_file($path, $thumb_size, $recache=true) {
 		$path = trim_slashes($path);
 		$cache_path = "files/".$path;
 		
@@ -184,9 +189,8 @@ class Model {
 			//b) 	i)	Caching on-the-fly enabled AND
 			//		ii) Cache is older than 1 hour
 			$should_cache = !file_exists($full_path) || ($this->config["cache_on_load"] && 
-																									 $this->Cache->age($thumb_path) > 60*60*1);
+																									 $this->Cache->age($thumb_path) > 60*60*4);
 		
-			//if no cache or cache older than 1 hour refresh
 			if($should_cache) {		
 				$this->connect_host();				
 				$thumb = $this->Host->get_thumb($path, $thumb_size);
@@ -199,7 +203,9 @@ class Model {
 			$item->width = $dims[0];
 			$item->height = $dims[1];
 			$item->modified = filemtime($full_path);
-			$item->url = str_replace($_SERVER["DOCUMENT_ROOT"], $this->config["site_root"], $full_path);
+			
+			$url = str_replace($_SERVER["DOCUMENT_ROOT"], "", $full_path);
+			$item->url = $this->config["site_root"].str_replace(array('%2F','~'), array('/','%7E'), rawurlencode($url));
 		}
 		
 		return $item;

@@ -111,7 +111,7 @@ var Recache = {
 			Recache.updateProgress(type);
 	
 		var $jqxhr = $.ajax({
-			url: "recache/index.php",
+			url: "update/index.php",
 			data: {"type": type},
 			complete: function() { 
 				if(pos >= 0) {

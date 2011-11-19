@@ -137,7 +137,10 @@ class Dropbox extends Cloud_Host {
 		
 		$meta["published"] = $meta["created"] = $meta["modified"] = strtotime($meta["modified"]);
 		
-		if($type != "collections") {
+		if($type == "collections")
+			$meta["title"] = basename($meta["path"]);
+
+		else {
 			$meta["slug"] = basename($meta["path"]);
 			
 			$permalink = "/$path/";
@@ -172,20 +175,6 @@ class Dropbox extends Cloud_Host {
 				//apply manual metadata overrides
 				$meta = array_merge($meta, $meta["manual_metadata"]);
 			}
-		}
-		else { //collection
-			$meta["title"] = basename($meta["path"]);
-			
-			$files = array();
-			
-			//we're not checking if modified since last cache as media links expire after 4 hours
-			//4 hour cache limit is set in the Model
-			foreach($meta["contents"] as $file) {
-				if(!$file["is_dir"])
-					$files[] = $this->process_file($file);
-			}
-			
-			$meta["files"] = $files;
 		}
 		
 		$item = new $type_class($meta);
