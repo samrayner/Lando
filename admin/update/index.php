@@ -13,20 +13,22 @@ $valid_types = array("pages", "posts", "drafts", "collections", "snippets", "fil
 //if no types set, recache all
 $types = isset($_GET["type"]) ? array_map("trim", explode(",", $_GET["type"])) : $valid_types;
 
-foreach($types as $type) {
-	if(in_array($type, $valid_types)) {
-		if(is_dir("$cache_root/$type"))
-			rrmdir("$cache_root/$type");
-	}
-}
-
 //remove "files" from list as can't cache in bulk
 $key = array_search("files", $types);
-if($key !== false)
+
+if($key !== false) {
+	if(is_dir("$cache_root/files"))
+		rrmdir("$cache_root/files");
+	
 	unset($types[$key]);
+}
 
 foreach($types as $type) {
 	if(in_array($type, $valid_types)) {
+		//remove existing caches
+		if(is_dir("$cache_root/$type"))
+			rrmdir("$cache_root/$type");
+	
 		//create new ones
 		$files = $Lando->get_content($type);
 
