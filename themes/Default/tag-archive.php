@@ -6,7 +6,7 @@
 <section id="primary">
 
 	<?php 
-		$csv = explode(",", url_segment(3));
+		$csv = explode(",", path_segment(3));
 		$tags = array();
 		foreach($csv as $i => $tag) {
 			$tag = trim($tag);

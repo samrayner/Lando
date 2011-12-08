@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description" content="<?php echo $site_description ?>" />
 	
-	<?php if(url_segment(1) == "drafts") echo '<meta name="robots" content="noindex, nofollow" />' ?>
+	<?php if(path_segment(1) == "drafts") echo '<meta name="robots" content="noindex, nofollow" />' ?>
 	
 	<title><?php if($current->title != "Untitled") echo $current->title." - " ?><?php echo $site_title ?></title>
 	

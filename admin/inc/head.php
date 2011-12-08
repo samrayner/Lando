@@ -1,3 +1,25 @@
+<?php
+
+$title = "Lando";
+$rel_root = "";
+
+$segs = explode("/", preg_replace('~/index.php$~', "", current_url()));
+
+switch(end($segs)) {
+	case "admin":
+		$title .= " Admin";
+		break;
+	case "login.php":
+		$title .= " Login";
+		break;
+	case "install":
+		$title = "Install $title";
+		$rel_root = "../";
+		break;
+}
+	
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -8,16 +30,16 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	
-	<title>Lando Admin</title>
+	<title><?php echo $title ?></title>
 
 	<link rel="icon" href="" />
 	<link rel="apple-touch-icon" href="" />
 
-	<link rel="stylesheet" href="css/admin.css" />
+	<link rel="stylesheet" href="<?php echo $rel_root ?>css/admin.css" />
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-	<script src="js/min/admin-min.js"></script>
+	<script src="<?php echo $rel_root ?>js/min/admin-min.js"></script>
 	
 </head>
 <body>

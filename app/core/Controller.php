@@ -29,7 +29,7 @@ class Controller {
 	
 	private function get_content_path($url=null) {
 		if(!$url)
-			$url = current_url();
+			$url = current_path();
 		
 		if($url == "/")
 			$url .= "home";

@@ -1,5 +1,5 @@
 <?php
-$doc_root = $_SERVER['DOCUMENT_ROOT'];
+$doc_root = dirname(dirname(__FILE__));
 include "$doc_root/app/core/loader.php";
 
 $config = $Lando->config;
@@ -191,7 +191,7 @@ function nav_widget($pages=null, $path=array()) {
 	</section>
 	
 	<div id="submit">
-		<button id="save-bottom" class="button">Save Settings</button>
+		<button class="button">Save Settings</button>
 		<a id="cancel" href="<?php echo $site_root ?>">Cancel</a>
 	</div>
 </form>

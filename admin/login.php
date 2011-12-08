@@ -1,5 +1,5 @@
 <?php
-$doc_root = $_SERVER['DOCUMENT_ROOT'];
+$doc_root = dirname(dirname(__FILE__));
 
 //load all helper functions
 foreach(glob("$doc_root/app/helpers/*.php") as $file)
@@ -12,8 +12,8 @@ if(include_exists($config_file))
 
 if(isset($_GET["logout"]) && $_GET["logout"]) {
 	$expire_time = time()-3600;
-	setcookie("admin_password", "", $expire_time, "/", ".".$_SERVER['HTTP_HOST']);
-	unset($_COOKIE['admin_password']);
+	setcookie("lando_password", "", $expire_time, "/", ".".$_SERVER['HTTP_HOST']);
+	unset($_COOKIE['lando_password']);
 	header("Location: ".$config["site_root"]);
 }
 
@@ -26,7 +26,7 @@ if(isset($_POST["password"])) {
 		else
 			$expire_time = 0;
 			
-		setcookie("admin_password", $_POST["password"], $expire_time, "/", ".".$_SERVER['HTTP_HOST']);
+		setcookie("lando_password", $_POST["password"], $expire_time, "/", ".".$_SERVER['HTTP_HOST']);
 		
 		$redirect = trim_slashes($config["site_root"]);
 		

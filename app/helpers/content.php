@@ -106,7 +106,7 @@ function page_nav($pages=null, $path=array()) {
 	}
 	
 	$current_class = "current";
-	$url = current_url();
+	$url = current_path();
 	$tabs = str_repeat("\t", sizeof($path)*2);
 
 	$html = "$tabs<ul>\n";

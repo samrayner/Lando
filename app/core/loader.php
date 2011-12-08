@@ -1,6 +1,6 @@
 <?php
 
-$doc_root = $_SERVER['DOCUMENT_ROOT'];
+$doc_root = dirname(dirname(dirname(__FILE__)));
 set_include_path(get_include_path().":".$doc_root);
 
 //load all helper functions

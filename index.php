@@ -1,18 +1,15 @@
 <?php
+include "app/core/loader.php";
 
 /*
-//if no config file
-if(!include_exists("app/config/config.php")) {
-	//redirect to install
-	return;
-}
+//if no config file exists, redirect to install
+if(!file_exists("app/config/config.php"))
+	//location: admin/install
 */
-
-include "app/core/loader.php";
 
 $themeBase = trim_slashes($theme_dir)."/";
 $template = "404";
-$url = current_url();
+$url = current_path();
 $current = new Page();
 
 if($url == "/") {
@@ -73,8 +70,7 @@ elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 	
 //kick out to login if trying to view drafts
 if(in_array($template, array("draft", "draft-list"))) {
-	$cookie_name = "admin_password";
-	if(!isset($_COOKIE[$cookie_name]) || $_COOKIE[$cookie_name] != $Lando->config[$cookie_name])
+	if(!isset($_COOKIE["lando_password"]) || $_COOKIE["lando_password"] != $Lando->config["admin_password"])
 		header("Location: $site_root/admin/login.php?redirect=drafts");
 }
 

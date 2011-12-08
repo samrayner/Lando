@@ -5,7 +5,7 @@ class Cache {
 	private static $cache_dir;
 		
 	public function __construct() {
-		self::$cache_dir = $_SERVER["DOCUMENT_ROOT"]."/app/cache/";
+		self::$cache_dir = dirname(dirname(__FILE__))."/cache/";
 	}
 
 	public function update($path, $content) {

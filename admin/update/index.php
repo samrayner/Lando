@@ -3,7 +3,7 @@
 //stop page load timing out on big recaches
 set_time_limit(0);
 
-$doc_root = $_SERVER['DOCUMENT_ROOT'];
+$doc_root = dirname(dirname(dirname(__FILE__)));
 $cache_root = "$doc_root/app/cache";
 
 include "$doc_root/app/core/loader.php";

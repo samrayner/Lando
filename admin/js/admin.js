@@ -136,7 +136,7 @@ var Recache = {
 	}
 };
 
-var PassChange = {
+var PassCheck = {
 	validate: function(event) {
 		if($("#admin_password").val() != $("#confirm_pass").val()) {
 			window.alert("The passwords you entered don't match, please type them again.");
@@ -145,10 +145,16 @@ var PassChange = {
 			$("#admin_password").focus();
 			return false;
 		}
+		
+		if($("#install-form").length > 0 && $("#admin_password").val().trim() === "") {
+			window.alert("Please enter a password.");
+			$("#admin_password").focus();
+			return false;
+		}
 	},
 
 	init: function() {
-		$("#admin-form").submit(PassChange.validate);
+		$("form").submit(PassCheck.validate);
 	}
 };
 
@@ -156,5 +162,5 @@ $(function() {
 	Tooltips.init();
 	Recache.init();
 	PageNav.init();
-	PassChange.init();
+	PassCheck.init();
 });

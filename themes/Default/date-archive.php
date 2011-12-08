@@ -6,9 +6,9 @@
 <section id="primary">
 
 	<?php 
-		$year 	= url_segment(3);
-		$month 	= url_segment(4);
-		$day 		= url_segment(5);
+		$year 	= path_segment(3);
+		$month 	= path_segment(4);
+		$day 		= path_segment(5);
 		
 		$date_str = "Archive";
 		

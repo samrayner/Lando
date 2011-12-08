@@ -205,7 +205,7 @@ class Model {
 			$item->height = $dims[1];
 			$item->modified = filemtime($full_path);
 			
-			$url = str_replace($_SERVER["DOCUMENT_ROOT"], "", $full_path);
+			$url = str_replace(dirname(dirname(dirname(__FILE__))), "", $full_path);
 			$item->url = $this->config["site_root"].str_replace(array('%2F','~'), array('/','%7E'), rawurlencode($url));
 		}
 		
