@@ -20,6 +20,7 @@ body {
   display: none;
 }
 .button {
+  display: inline-block;
   font: 0.9em "Helvetica Neue", helvetica, arial, sans-serif;
   cursor: pointer;
   border-radius: 3px;

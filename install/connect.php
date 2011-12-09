@@ -45,10 +45,7 @@ if(sizeof($_POST) > 0) {
 	if($saved)
 		setcookie("lando_password", $config["admin_password"], 0, "/", ".".$_SERVER['HTTP_HOST']);
 }
- 
-//redirect to auth page for Dropbox
-//redirect back
-//store keys in app/config/<host_name>.php
-//if install_content checked, copy across content with progress
-//do initial cache of everything with progress
-//notify install complete and suggest delete install folder
+
+//do oAuth stuff
+
+header("Location: http://lando.dev/install/content.php");
