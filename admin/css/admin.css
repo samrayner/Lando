@@ -183,6 +183,9 @@ input[type=text], input[type=password] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
+input[type=text].highlight, input[type=password].highlight {
+  background-color: #ffd;
+}
 .sortable div, .sortable label {
   cursor: move;
 }

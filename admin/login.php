@@ -49,7 +49,7 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 
 <form action="<?php echo $self ?>" method="post" id="login-form">
 	<header>
-		<h1>Private Area</h1>
+		<h1>Login Required</h1>
 		<a href="<?php echo $config["site_root"] ?>" class="button">Home</a>
 	</header>
 

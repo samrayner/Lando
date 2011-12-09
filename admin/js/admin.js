@@ -136,31 +136,46 @@ var Recache = {
 	}
 };
 
-var PassCheck = {
-	validate: function(event) {
-		if($("#admin_password").val() != $("#confirm_pass").val()) {
-			window.alert("The passwords you entered don't match, please type them again.");
-			$("#admin_password").val("");
-			$("#confirm_pass").val("");
-			$("#admin_password").focus();
+var FormCheck = {
+	required: function(event) {
+		var failed = $(this).find("input[required]").filter(function(){ 
+				return ($(this).val().trim() === "");
+		});
+		
+		$.each(failed, function(){ 
+			$(this).addClass("highlight");
+		});
+		
+		if(failed.length > 0) {
+			failed[0].focus();
+			event.preventDefault();
 			return false;
 		}
-		
-		if($("#install-form").length > 0 && $("#admin_password").val().trim() === "") {
-			window.alert("Please enter a password.");
-			$("#admin_password").focus();
+	},
+
+	verifyPass: function(event) {
+		if($("#admin_password").val() != $("#confirm_pass").val()) {
+			window.alert("The passwords you entered don't match, please type them again.");
+			$("#admin_password").val("").addClass("highlight").focus();
+			$("#confirm_pass").val("").addClass("highlight");
+			event.preventDefault();
 			return false;
 		}
 	},
 
 	init: function() {
-		$("form").submit(PassCheck.validate);
+		$("form").submit(FormCheck.required);
+		$("form").submit(FormCheck.verifyPass);
 	}
 };
 
 $(function() {
 	Tooltips.init();
-	Recache.init();
-	PageNav.init();
-	PassCheck.init();
+	FormCheck.init();
+	
+	if($("#page-list").length)
+		PageNav.init();
+	
+	if($("#recache-button").length)
+		Recache.init();
 });

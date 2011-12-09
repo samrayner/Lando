@@ -1,9 +1,7 @@
 <?php
 
-$title = "Lando";
-$rel_root = "";
-
 $segs = explode("/", preg_replace('~/index.php$~', "", current_url()));
+$title = "Lando";
 
 switch(end($segs)) {
 	case "admin":
@@ -11,10 +9,6 @@ switch(end($segs)) {
 		break;
 	case "login.php":
 		$title .= " Login";
-		break;
-	case "install":
-		$title = "Install $title";
-		$rel_root = "../";
 		break;
 }
 	

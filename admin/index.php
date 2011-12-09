@@ -112,7 +112,7 @@ function nav_widget($pages=null, $path=array()) {
 		
 		<div>
 			<label for="site_root" class="field-label">Root URL</label>
-			<input type="text" id="site_root" name="site_root" placeholder="http://" <?php set_field_state("site_root"); ?> />
+			<input type="text" id="site_root" name="site_root" placeholder="http://" <?php set_field_state("site_root"); ?> required />
 		</div>
 		
 		<div>
