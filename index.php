@@ -1,12 +1,6 @@
 <?php
 include "app/core/loader.php";
 
-/*
-//if no config file exists, redirect to install
-if(!file_exists("app/config/config.php"))
-	//location: admin/install
-*/
-
 $themeBase = trim_slashes($theme_dir)."/";
 $template = "404";
 $url = current_path();

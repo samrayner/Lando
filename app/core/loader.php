@@ -1,11 +1,20 @@
 <?php
-
 $doc_root = dirname(dirname(dirname(__FILE__)));
 set_include_path(get_include_path().":".$doc_root);
 
 //load all helper functions
 foreach(glob("$doc_root/app/helpers/*.php") as $file)
 	include_once $file;
+
+//if no config file exists, redirect to install
+if(!file_exists("$doc_root/app/config/config.php")) {
+	if(file_exists("$doc_root/install/index.php")) {
+		$url = preg_replace('~(/index\.php)?/?'.trim_slashes(preg_quote(current_path())).'$~', "", current_url());
+		header("Location: $url/install/");
+	}
+	else
+		throw new Exception("Config file not found. Try re-downloading and installing again.");
+}
 
 //load config file
 include_once "app/config/config.php";

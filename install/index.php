@@ -53,7 +53,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		
 		<div>
 			<label for="site_root" class="field-label">Root URL</label>
-			<input type="text" id="site_root" name="site_root" placeholder="http://" value="<?php echo preg_replace('~/install/?(index.php)?$~', "", current_url()) ?>" required />
+			<input type="text" id="site_root" name="site_root" placeholder="http://" value="<?php echo preg_replace('~/install/?(index\.php)?$~', "", current_url()) ?>" required />
 		</div>
 	</section>
 	

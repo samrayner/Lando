@@ -29,11 +29,11 @@ switch(end($segs)) {
 	<link rel="icon" href="" />
 	<link rel="apple-touch-icon" href="" />
 
-	<link rel="stylesheet" href="<?php echo $rel_root ?>css/admin.css" />
+	<link rel="stylesheet" href="css/admin.css" />
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-	<script src="<?php echo $rel_root ?>js/min/admin-min.js"></script>
+	<script src="js/min/admin-min.js"></script>
 	
 </head>
 <body>
