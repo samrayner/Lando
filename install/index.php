@@ -18,7 +18,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		
 		<nav>
 			<ol>
-				<li class="current">Step 1: Site Details</li>
+				<li class="current">Step 1</li>
 				<li>Step 2</li>
 				<li>Step 3</li>
 			</ol>
@@ -71,7 +71,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 	</section>
 	
 	<div id="submit">
-		<label for="next-connect">Next Step</label>
+		<label for="next-connect">Next</label>
 		<button id="next-connect" class="button">Connect to Dropbox</button>
 	</div>
 </form>

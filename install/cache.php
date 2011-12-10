@@ -16,7 +16,7 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 			<ol>
 				<li><a href="index.php">Step 1</a></li>
 				<li><a href="content.php">Step 2</a></li>
-				<li class="current">Step 3: Cache Content</li>
+				<li class="current">Step 3</li>
 			</ol>
 		</nav>
 	</header>

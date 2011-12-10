@@ -10,7 +10,7 @@ include "inc/head.php";
 		<nav>
 			<ol>
 				<li><a href="index.php">Step 1</a></li>
-				<li class="current">Step 2: Content</li>
+				<li class="current">Step 2</li>
 				<li>Step 3</li>
 			</ol>
 		</nav>
@@ -33,7 +33,7 @@ include "inc/head.php";
 	</section>
 	
 	<div id="submit">
-		<label for="cache-step">Next Step</label>
+		<label for="cache-step">Next</label>
 		<button id="cache-step" class="button">Cache content</button>
 	</div>
 </form>
