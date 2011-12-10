@@ -18,15 +18,15 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		
 		<nav>
 			<ol>
-				<li class="current">Step 1</li>
-				<li>Step 2</li>
-				<li>Step 3</li>
+				<li class="current">Info</li>
+				<li>Connect</li>
+				<li>Launch!</li>
 			</ol>
 		</nav>
 	</header>
 
 	<section id="details">
-		<h1>Site Details</h1>
+		<h1>Website Details</h1>
 		
 		<div>
 			<label for="site_title" class="field-label">Title</label>
@@ -44,6 +44,27 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		</div>
 	</section>
 	
+	<section id="content">
+		<h1>Cloud Content</h1>
+	
+		<div class="hidden">
+			<label for="host">Select a Cloud Host</label>
+			<?php 
+				$selected = isset($config["host"]) ? $config["host"] : null;
+				echo dropdown($hosts, $selected, array("id"=>"host", "name"=>"host"));
+			?>
+		</div>
+	
+		<div>
+			<label for="host_root" class="field-label">Dropbox Folder Path</label>
+			<input type="text" id="host_root" name="host_root" value="/Apps/Lando" />
+		</div>
+		
+		<div id="folders">
+			<a href="http://db.tt/nKrmc4eU" target="_blank" class="button">Download example content</a>
+		</div>
+	</section>
+	
 	<section id="admin">
 		<h1>Admin/Drafts Password</h1>
 		
@@ -58,19 +79,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		</div>
 	</section>
 	
-	<section id="host" class="hidden">
-		<h1>Content Host</h1>
-		
-		<div>
-			<label for="host">Select a Cloud Host</label>
-			<?php 
-				$selected = isset($config["host"]) ? $config["host"] : null;
-				echo dropdown($hosts, $selected, array("id"=>"host", "name"=>"host"));
-			?>
-		</div>
-	</section>
-	
-	<div id="submit">
+	<div id="last-panel">
 		<label for="next-connect">Next</label>
 		<button id="next-connect" class="button">Connect to Dropbox</button>
 	</div>

@@ -14,30 +14,35 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 		
 		<nav>
 			<ol>
-				<li><a href="index.php">Step 1</a></li>
-				<li><a href="content.php">Step 2</a></li>
-				<li class="current">Step 3</li>
+				<li class="done">Info</li>
+				<li class="done">Connect</li>
+				<li class="current">Launch!</li>
 			</ol>
 		</nav>
 	</header>
 
 	<section id="cache">
 		<h1>Cache Content</h1>
+		<p class="subtitle">Prepare webpages from your cloud files</p>
 	
 		<div id="cache">
-			<a id="cache-button" class="button" href="#">Create content caches</a>
+			<a class="button" href="#">Perform initial cache</a>
 		</div>
 	</section>
 	
-	<div id="submit">
-		<p>Then you're done!</p>
-		
-		<div id="self-destruct">
-			<p>It's highly recommended you <a class="button" href="#">delete these install files</a> for security reasons.</p>
+	<section id="delete">
+		<h1>Install Clean-up</h1>
+		<p class="subtitle">Highly recommended for security reasons</p>
+	
+		<div id="cache">
+			<a class="button" href="#">Delete install files</a> 
 		</div>
-		
-		<p>Now you can visit the <a href="<?php echo preg_replace('~/install/cache\.php$~', "/admin/", current_url()) ?>">admin area</a> 
-		or your new <a href="<?php echo preg_replace('~/install/?(index\.php)?$~', "", current_url()) ?>">home page</a>!</p>
+	</section>
+	
+	<div id="last-panel">
+		<p class="finished">Then you’re done!</p>
+		<p>To check settings, visit the <a href="<?php echo preg_replace('~/install/cache\.php$~', "/admin/", current_url()) ?>">admin area</a> 
+		or check out your new <a href="<?php echo preg_replace('~/install/?(index\.php)?$~', "", current_url()) ?>">home page</a>!</p>
 	</div>
 </form>
 

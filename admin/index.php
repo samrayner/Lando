@@ -151,7 +151,7 @@ function nav_widget($pages=null, $path=array()) {
 	
 	<section id="themes">
 		<h1>Theme Options</h1>
-		<!-- <p>Download more themes from <a href="#">GitHub</a>.</p> -->
+		<!-- <p class="subtitle">Download more themes from <a href="#">GitHub</a>.</p> -->
 		
 		<div>
 			<label for="theme">Theme</label>
@@ -169,7 +169,7 @@ function nav_widget($pages=null, $path=array()) {
 
 	<section id="page-nav">
 		<h1>Page Navigation</h1>
-		<p>Uncheck to hide in nav, drag to reorder</p>
+		<p class="subtitle">Uncheck to hide in nav, drag to reorder</p>
 		
 		<input id="page_order" name="page_order" type="hidden" />
 	
@@ -190,7 +190,7 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 	</section>
 	
-	<div id="submit">
+	<div id="last-panel">
 		<button class="button">Save Settings</button>
 		<a id="cancel" href="<?php echo $site_root ?>">Cancel</a>
 	</div>

@@ -1,7 +1,7 @@
 <?php
 
 $config = array (
-  'admin_password' => 'pass',
+  'admin_password' => 'password',
   'site_title' => 'Bespin Daily',
   'site_description' => 'All the latest from the cloud city.',
   'site_root' => 'http://lando.dev',

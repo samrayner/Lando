@@ -1,4 +1,10 @@
 @import url("reset.css");
+/* RESET
+================================================== */
+/* LESS
+================================================== */
+/* ADMIN
+================================================== */
 body {
   font: 14px/1.6 "Helvetica Neue", helvetica, arial, sans-serif;
   color: rgba(0, 0, 0, 0.7);
@@ -91,12 +97,13 @@ header nav li {
   text-shadow: -1px -1px 0 black;
   background: url(../images/breadcrumb.png) no-repeat 0 50%;
 }
-header nav li a {
-  display: block;
-  color: #b0b0b0;
+header nav li.done {
+  color: #96b48c;
 }
-header nav li a:hover, header nav li a:focus, header nav li a:active {
-  color: #7d7d7d;
+header nav li.done::after {
+  margin: 0 -0.7ex 0 1ex;
+  color: #78b46e;
+  content: "\2714";
 }
 header nav li.current {
   color: #e3e3e3;
@@ -124,7 +131,7 @@ header .button:active {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: black;
 }
-label, p {
+label, .subtitle {
   margin-right: 0.2em;
   text-transform: uppercase;
   font-size: 0.8em;
@@ -174,7 +181,7 @@ a:hover, a:active, a:focus {
 .notify.collapsed a {
   visibility: hidden;
 }
-section, #login, #submit {
+section, #login, #last-panel {
   overflow: hidden;
   padding: 20px;
   border-top: 1px solid white;
@@ -183,12 +190,12 @@ section, #login, #submit {
   box-shadow: inset 0 -20px 20px rgba(0, 0, 0, 0.02);
   -webkit-box-shadow: inset 0 -20px 20px rgba(0, 0, 0, 0.02);
 }
-section h1, #login h1, #submit h1 {
+section h1, #login h1, #last-panel h1 {
   font-size: 1.2em;
   line-height: 1;
   margin-bottom: 0.6em;
 }
-section div, #login div, #submit div {
+section div, #login div, #last-panel div {
   margin-top: 0.5em;
 }
 input, select {
@@ -266,20 +273,10 @@ input[type=text].highlight, input[type=password].highlight {
 #admin > div  + div {
   float: right;
 }
-#login, #submit {
+#login, #last-panel {
   position: relative;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
-}
-#submit label {
-  font-size: 14px;
-  text-transform: none;
-  font-weight: normal;
-  color: rgba(0, 0, 0, 0.5);
-}
-#submit label::after {
-  padding-left: 1px;
-  content: ":";
 }
 #login .message {
   margin-bottom: 10px;
@@ -324,13 +321,41 @@ input[type=text].highlight, input[type=password].highlight {
   border: 1px solid green;
   color: green;
 }
+/* INSTALL
+================================================== */
+#last-panel label {
+  font-size: 1em;
+  text-transform: none;
+  font-weight: normal;
+  color: rgba(0, 0, 0, 0.5);
+}
+#last-panel label::after {
+  content: ":";
+}
+#folders {
+  margin-top: 1em;
+}
+#last-panel p {
+  text-align: center;
+}
+#last-panel p:last-child {
+  margin-bottom: 0;
+}
+.finished {
+  font-family: georgia, "Times New Roman", times, serif;
+  font-style: italic;
+  font-size: 1.2em;
+  line-height: 2;
+}
+/* SMALL SCREENS
+================================================== */
 @media (max-width: 600px) {
   #wrapper {
     margin: 0;
     width: 100%;
     min-width: 300px;
   }
-  header, #login, #submit {
+  header, #login, #last-panel {
     border-radius: 0;
   }
   .notify {
