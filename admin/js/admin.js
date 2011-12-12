@@ -97,11 +97,22 @@ var Recache = {
 	types: ["pages", "posts", "drafts", "collections", "snippets"],
 
 	done: function() {
-		$("#recache-button").removeClass("active").html("Cache refresh complete");
+		$("#recache-button")
+			.removeClass("active")
+			.css("background-position-x", 0)
+			.addClass("done")
+			.html("Cache refresh complete");
 	},
 
-	updateProgress: function(current) {
-		$("#recache-button").html("Caching "+current+"&hellip;");
+	updateProgress: function(type) {
+		var index = Recache.types.indexOf(type);
+		var percent = (index+1)*100/Recache.types.length;
+	
+		$("#recache-button").html("Caching "+type+"&hellip;");
+		
+		var width = $("#recache-button").width();
+		
+		$("#recache-button").css("background-position-x", Math.round(width*percent/100)+"px");
 	},
 	
 	process: function(type) {
@@ -126,7 +137,7 @@ var Recache = {
 
 	click: function(event) {
 		event.preventDefault();
-		$(this).addClass("active");
+		$(this).removeClass("done").addClass("active");
 		Recache.process("files");
 		Recache.process(Recache.types[0]);
 	},

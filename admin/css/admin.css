@@ -39,33 +39,20 @@ body {
   -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 1px 1px 0 white;
 }
 .button:hover, .button:focus {
+  background-color: #f0f9ff;
   color: #0a2c43;
-  background: #f0f9ff;
   box-shadow: inset 0 -11px 3px rgba(0, 70, 150, 0.05), 1px 1px 0 white;
   -webkit-box-shadow: inset 0 -11px 3px rgba(0, 70, 150, 0.05), 1px 1px 0 white;
 }
 .button:active, .button.active {
   border-color: rgba(0, 0, 0, 0.3);
   color: rgba(0, 0, 0, 0.9);
-  background: #e1f3ff;
+  background-color: #d2ecff;
+  background-image: url(../images/progress-bg.png);
+  background-repeat: no-repeat;
+  background-position: -999px 50%;
   box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
   -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
-}
-@-webkit-keyframes pulse {
-  from {
-    background: #e1f3ff;
-  }
-  50% {
-    background: #c7e8ff;
-  }
-  to {
-    background: #e1f3ff;
-  }
-}
-.button.active {
-  -webkit-animation-name: pulse;
-  -webkit-animation-duration: 3s;
-  -webkit-animation-iteration-count: infinite;
 }
 header {
   padding: 0 20px;
@@ -287,7 +274,7 @@ input[type=text].highlight, input[type=password].highlight {
 #login #login-button {
   position: absolute;
   right: 18px;
-  bottom: 3.5em;
+  bottom: 3.7em;
 }
 #cancel {
   position: absolute;
@@ -337,15 +324,14 @@ input[type=text].highlight, input[type=password].highlight {
 }
 #last-panel p {
   text-align: center;
-}
-#last-panel p:last-child {
   margin-bottom: 0;
 }
-.finished {
+#last-panel p.finished {
   font-family: georgia, "Times New Roman", times, serif;
   font-style: italic;
   font-size: 1.2em;
-  line-height: 2;
+  line-height: 2.2;
+  margin-bottom: 0.5em;
 }
 /* SMALL SCREENS
 ================================================== */
