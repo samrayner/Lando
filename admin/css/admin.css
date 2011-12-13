@@ -48,11 +48,19 @@ body {
   border-color: rgba(0, 0, 0, 0.3);
   color: rgba(0, 0, 0, 0.9);
   background-color: #d2ecff;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
+}
+.button.active {
   background-image: url(../images/progress-bg.png);
   background-repeat: no-repeat;
   background-position: -999px 50%;
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
-  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
+  transition: background-position-x 10s linear;
+  -webkit-transition: background-position-x 10s linear;
+}
+.button.done {
+  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 160, 0, 0.5);
+  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 160, 0, 0.5);
 }
 header {
   padding: 0 20px;

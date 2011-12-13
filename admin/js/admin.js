@@ -99,7 +99,7 @@ var Recache = {
 	done: function() {
 		$("#recache-button")
 			.removeClass("active")
-			.css("background-position-x", 0)
+			.removeAttr("style")
 			.addClass("done")
 			.html("Cache refresh complete");
 	},
@@ -110,7 +110,7 @@ var Recache = {
 	
 		$("#recache-button").html("Caching "+type+"&hellip;");
 		
-		var width = $("#recache-button").width();
+		var width = $("#recache-button").outerWidth();
 		
 		$("#recache-button").css("background-position-x", Math.round(width*percent/100)+"px");
 	},
