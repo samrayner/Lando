@@ -101,7 +101,7 @@ var Recache = {
 			.removeClass("active")
 			.removeAttr("style")
 			.addClass("done")
-			.attr("data-icon", "3")
+			.attr("data-icon", "2")
 			.html("Cache refresh complete");
 	},
 
@@ -123,7 +123,7 @@ var Recache = {
 			Recache.updateProgress(type);
 	
 		var $jqxhr = $.ajax({
-			url: "update/index.php",
+			url: "../admin/update/index.php",
 			data: {"type": type},
 			complete: function() { 
 				if(pos >= 0) {

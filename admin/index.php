@@ -81,7 +81,7 @@ function nav_widget($pages=null, $path=array()) {
 
 <form action="save.php" method="post" id="admin-form">
 	<header>
-		<h1 data-icon="x">Lando Settings</h1>
+		<h1>Lando Admin</h1>
 		<a href="login.php?logout=1" class="button" data-icon="Q">Log out</a>
 	</header>
 
@@ -91,9 +91,9 @@ function nav_widget($pages=null, $path=array()) {
 		
 		if(isset($_GET["saved"])) {
 			if($_GET["saved"])
-				echo '<p class="success message">Settings saved. <a href="'.$site_root.'">All done?</a></p>';
+				echo '<p class="notify success" data-icon="2">Settings saved. <a href="'.$site_root.'">All done?</a></p>';
 			else
-				echo '<p class="failure message">Error saving. Please check permissions on <em>app/config</em> and its files are <strong>0777</strong> and try again.</p>';
+				echo '<p class="notify failure" data-icon="!">Error saving. Please check permissions on <em>app/config</em> and its files are <strong>0777</strong> and try again.</p>';
 		}
 		
 		?>
@@ -118,7 +118,7 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="pretty_urls">Remove index.php from URLs</label>
 			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" <?php set_field_state("pretty_urls", "checked"); ?> />
-			<p id="htaccess" class="notify collapsed">Have you <a href="#">updated your <em>.htaccess</em> file</a>?</p>
+			<p id="htaccess" class="notify warning collapsed" data-icon="!">Have you <a href="#">updated your <em>.htaccess</em> file</a>?</p>
 		</div>
 	</section>
 	
@@ -141,7 +141,7 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="cache_on_load">Update content on page loads</label>
 			<input id="cache_on_load" name="cache_on_load" type="checkbox" value="1" <?php set_field_state("cache_on_load", "checked"); ?> />
-			<p id="cron-job" class="notify<?php if(isset($config["cache_on_load"]) && !$config["cache_on_load"]) echo " collapsed" ?>">For better performance, consider <a href="#">setting up a cron job</a> instead.</p>
+			<p id="cron-job" data-icon="!" class="notify warning <?php if(isset($config["cache_on_load"]) && !$config["cache_on_load"]) echo " collapsed" ?>">For better performance, consider <a href="#">setting up a cron job</a> instead.</p>
 		</div>
 		
 		<div id="recache">

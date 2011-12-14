@@ -24,7 +24,7 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 		<p class="subtitle">Prepare webpages from your cloud files</p>
 	
 		<div id="cache">
-			<a class="button" href="#" data-icon="1">Perform initial cache</a>
+			<a id="recache-button" class="button" href="#" data-icon="1">Perform initial cache</a>
 		</div>
 	</section>
 	
