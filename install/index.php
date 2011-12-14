@@ -16,13 +16,11 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 	<header>
 		<h1>Install Lando</h1>
 		
-		<nav>
-			<ol>
-				<li class="current">Info</li>
-				<li>Connect</li>
-				<li>Launch!</li>
-			</ol>
-		</nav>
+		<ol id="breadcrumbs">
+			<li class="current">Site Info</li>
+			<li>Connect</li>
+			<li>Launch!</li>
+		</ol>
 	</header>
 
 	<section id="details">

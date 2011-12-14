@@ -12,13 +12,11 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 	<header>
 		<h1>Install Lando</h1>
 		
-		<nav>
-			<ol>
-				<li class="done">Info</li>
-				<li class="done">Connect</li>
-				<li class="current">Launch!</li>
-			</ol>
-		</nav>
+		<ol id="breadcrumbs">
+			<li class="done">Site Info</li>
+			<li class="done">Connect</li>
+			<li class="current">Launch!</li>
+		</ol>
 	</header>
 
 	<section id="cache">

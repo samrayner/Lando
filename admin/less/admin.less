@@ -7,8 +7,9 @@
 /* LESS
 ================================================== */
 
-@linkColor: rgba(30,130,200,1);
-@panelBg: #fcfcfc;
+@linkBlue: #1e82c8;
+@panelGrey: #fcfcfc;
+@doneGreen: #78b36e;
 @fontStack: "Helvetica Neue", helvetica, arial, sans-serif;
 
 .clearfix() {
@@ -66,8 +67,8 @@ body {
 	
 	&:hover,
 	&:focus {
-		background-color: lighten(saturate(@linkColor, 60%), 52%);
-		color: darken(@linkColor, 30%);
+		background-color: lighten(saturate(@linkBlue, 60%), 52%);
+		color: darken(@linkBlue, 30%);
 		
 		box-shadow: inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
 		-webkit-box-shadow: inset 0 -11px 3px rgba(0,70,150,0.05), 1px 1px 0 white;
@@ -77,7 +78,7 @@ body {
 	&.active {
 		border-color: rgba(0,0,0,0.3);
 		color: rgba(0,0,0,0.9);
-		background-color: lighten(saturate(@linkColor, 60%), 46%);
+		background-color: lighten(saturate(@linkBlue, 60%), 46%);
 		
 		box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
 		-webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2), 1px 1px 0 white;
@@ -88,16 +89,16 @@ body {
 		background-repeat: no-repeat;
 		background-position: -999px 50%; 
 	
-		transition: background-position-x 10s linear;
-		-webkit-transition: background-position-x 10s linear;
+		transition: background-position-x 10s ease-out;
+		-webkit-transition: background-position-x 10s ease-out;
 	}
 	
 	&.done {
 		box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 
-								0 0 0 1px rgba(0,160,0,0.5);
+								0 0 0 1px @doneGreen;
 								
 		-webkit-box-shadow: inset 0 -11px 3px rgba(0,0,0,0.05), 
-												0 0 0 1px rgba(0,160,0,0.5);
+												0 0 0 1px @doneGreen;
 	}
 }
 
@@ -105,7 +106,7 @@ header {
 	padding: 0 20px;
 	border-top-left-radius: 3px;
 	border-top-right-radius: 3px;
-	color: @panelBg;
+	color: @panelGrey;
 	line-height: 40px;
 	
 	background-color: #222;
@@ -118,29 +119,6 @@ header {
 		font-weight: bold;
 		float: left;
 		text-shadow: 1px 1px 0 black;
-	}
-	
-	nav li {
-		display: inline-block;
-		padding-left: 38px;
-		color: darken(@panelBg, 50);
-		text-shadow: -1px -1px 0 black;
-		background: url(../images/breadcrumb.png) no-repeat 0 50%;
-		
-		&.done {
-		
-			color: rgba(150,180,140,1);
-		
-			&::after {
-				margin: 0 -0.7ex 0 1ex;
-				color: rgba(120,180,110,1);
-				content: "\2714";
-			}
-		}
-		
-		&.current {
-			color: darken(@panelBg, 10);
-		}
 	}
 	
 	.button {
@@ -173,6 +151,28 @@ header {
 	}
 }
 
+#breadcrumbs li {
+	display: inline-block;
+	padding-left: 38px;
+	color: darken(@panelGrey, 50);
+	text-shadow: -1px -1px 0 black;
+	background: url(../images/breadcrumb.png) no-repeat 0 50%;
+	
+	&.done {
+		color: desaturate(@doneGreen, 10);
+	
+		&::after {
+			margin: 0 -0.7ex 0 1ex;
+			color: @doneGreen;
+			content: "\2714";
+		}
+	}
+	
+	&.current {
+		color: darken(@panelGrey, 10);
+	}
+}
+
 label, 
 .subtitle {
 	margin-right: 0.2em;
@@ -195,12 +195,12 @@ strong {
 }
 
 a {
-	color: @linkColor;
+	color: @linkBlue;
 	
 	&:hover,
 	&:active,
 	&:focus {
-		color: darken(@linkColor, 20%);
+		color: darken(@linkBlue, 20%);
 	}
 }
 
@@ -247,7 +247,7 @@ section,
 	padding: 20px;
 	border-top: 1px solid white;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
-	background-color: @panelBg;
+	background-color: @panelGrey;
 	
 	box-shadow: inset 0 -20px 20px rgba(0,0,0,0.02);
 	-webkit-box-shadow: inset 0 -20px 20px rgba(0,0,0,0.02);
@@ -335,7 +335,7 @@ input[type=password] {
 		}
 		
 		label {
-			color: @linkColor;
+			color: @linkBlue;
 			text-transform: none;
 			font-size: 1em;
 			font-weight: normal;
@@ -470,6 +470,26 @@ input[type=password] {
 	#login,
 	#last-panel {
 		border-radius: 0;
+	}
+	
+	#breadcrumbs li {
+		width: 1ex;
+		white-space: nowrap;
+		overflow: hidden;
+		counter-increment: item;
+		
+		&::before {
+			content: counter(item);
+			margin-right: 999px;
+		}
+		
+		&.done {
+			width: 3.2ex;
+		
+			&::before {
+				content: counter(item)+" \2714";
+			}
+		}
 	}
 	
 	.notify {

@@ -55,12 +55,12 @@ body {
   background-image: url(../images/progress-bg.png);
   background-repeat: no-repeat;
   background-position: -999px 50%;
-  transition: background-position-x 10s linear;
-  -webkit-transition: background-position-x 10s linear;
+  transition: background-position-x 10s ease-out;
+  -webkit-transition: background-position-x 10s ease-out;
 }
 .button.done {
-  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 160, 0, 0.5);
-  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 160, 0, 0.5);
+  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px #78b36e;
+  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px #78b36e;
 }
 header {
   padding: 0 20px;
@@ -85,24 +85,6 @@ header h1 {
   float: left;
   text-shadow: 1px 1px 0 black;
 }
-header nav li {
-  display: inline-block;
-  padding-left: 38px;
-  color: #7d7d7d;
-  text-shadow: -1px -1px 0 black;
-  background: url(../images/breadcrumb.png) no-repeat 0 50%;
-}
-header nav li.done {
-  color: #96b48c;
-}
-header nav li.done::after {
-  margin: 0 -0.7ex 0 1ex;
-  color: #78b46e;
-  content: "\2714";
-}
-header nav li.current {
-  color: #e3e3e3;
-}
 header .button {
   padding: 0 0.6em;
   line-height: 1.8;
@@ -125,6 +107,24 @@ header .button:hover, header .button:focus {
 header .button:active {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: black;
+}
+#breadcrumbs li {
+  display: inline-block;
+  padding-left: 38px;
+  color: #7d7d7d;
+  text-shadow: -1px -1px 0 black;
+  background: url(../images/breadcrumb.png) no-repeat 0 50%;
+}
+#breadcrumbs li.done {
+  color: #80a879;
+}
+#breadcrumbs li.done::after {
+  margin: 0 -0.7ex 0 1ex;
+  color: #78b36e;
+  content: "\2714";
+}
+#breadcrumbs li.current {
+  color: #e3e3e3;
 }
 label, .subtitle {
   margin-right: 0.2em;
@@ -351,6 +351,22 @@ input[type=text].highlight, input[type=password].highlight {
   }
   header, #login, #last-panel {
     border-radius: 0;
+  }
+  #breadcrumbs li {
+    width: 1ex;
+    white-space: nowrap;
+    overflow: hidden;
+    counter-increment: item;
+  }
+  #breadcrumbs li::before {
+    content: counter(item);
+    margin-right: 999px;
+  }
+  #breadcrumbs li.done {
+    width: 3.2ex;
+  }
+  #breadcrumbs li.done::before {
+    content: counter(item) " \2714";
   }
   .notify {
     display: none;

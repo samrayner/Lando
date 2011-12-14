@@ -81,7 +81,7 @@ function nav_widget($pages=null, $path=array()) {
 
 <form action="save.php" method="post" id="admin-form">
 	<header>
-		<h1>Lando Settings</h1>
+		<h1>Lando Admin</h1>
 		<a href="login.php?logout=1" class="button">Log out</a>
 	</header>
 
