@@ -101,6 +101,7 @@ var Recache = {
 			.removeClass("active")
 			.removeAttr("style")
 			.addClass("done")
+			.attr("data-icon", "3")
 			.html("Cache refresh complete");
 	},
 
@@ -137,7 +138,10 @@ var Recache = {
 
 	click: function(event) {
 		event.preventDefault();
-		$(this).removeClass("done").addClass("active");
+		$(this)
+			.removeClass("done")
+			.addClass("active")
+			.attr("data-icon", "0");
 		Recache.process("files");
 		Recache.process(Recache.types[0]);
 	},

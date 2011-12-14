@@ -81,8 +81,8 @@ function nav_widget($pages=null, $path=array()) {
 
 <form action="save.php" method="post" id="admin-form">
 	<header>
-		<h1>Lando Admin</h1>
-		<a href="login.php?logout=1" class="button">Log out</a>
+		<h1 data-icon="x">Lando Settings</h1>
+		<a href="login.php?logout=1" class="button" data-icon="Q">Log out</a>
 	</header>
 
 	<section id="details">
@@ -145,7 +145,7 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 		
 		<div id="recache">
-			<a id="recache-button" class="button" href="#">Recreate content caches</a>
+			<a id="recache-button" class="button" href="#" data-icon="1">Recreate content caches</a>
 		</div>
 	</section>
 	
@@ -191,7 +191,7 @@ function nav_widget($pages=null, $path=array()) {
 	</section>
 	
 	<div id="last-panel">
-		<button class="button">Save Settings</button>
+		<button class="button" data-icon="3">Save Settings</button>
 		<a id="cancel" href="<?php echo $site_root ?>">Cancel</a>
 	</div>
 </form>

@@ -49,8 +49,8 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 
 <form action="<?php echo $self ?>" method="post" id="login-form">
 	<header>
-		<h1>Login Required</h1>
-		<a href="<?php echo $config["site_root"] ?>" class="button">Home</a>
+		<h1 data-icon="(">Login Required</h1>
+		<a href="<?php echo $config["site_root"] ?>" class="button" data-icon="H">Home</a>
 	</header>
 
 	<div id="login">
@@ -71,7 +71,7 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 		</div>
 		
 		<div id="login-button">
-			<button class="button">View</button>
+			<button class="button" data-icon="K">Log In</button>
 		</div>
 		
 	</div>

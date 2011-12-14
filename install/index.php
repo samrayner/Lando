@@ -59,7 +59,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		</div>
 		
 		<div id="folders">
-			<a href="http://db.tt/nKrmc4eU" target="_blank" class="button">Download example content</a>
+			<a href="http://db.tt/nKrmc4eU" target="_blank" class="button" data-icon="N">Get example content</a>
 		</div>
 	</section>
 	
@@ -79,7 +79,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 	
 	<div id="last-panel">
 		<label for="next-connect">Next</label>
-		<button id="next-connect" class="button">Connect to Dropbox</button>
+		<button id="next-connect" class="button" data-icon="C">Connect to Dropbox</button>
 	</div>
 </form>
 

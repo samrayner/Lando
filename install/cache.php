@@ -24,7 +24,7 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 		<p class="subtitle">Prepare webpages from your cloud files</p>
 	
 		<div id="cache">
-			<a class="button" href="#">Perform initial cache</a>
+			<a class="button" href="#" data-icon="1">Perform initial cache</a>
 		</div>
 	</section>
 	
@@ -33,7 +33,7 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 		<p class="subtitle">Highly recommended for security reasons</p>
 	
 		<div id="cache">
-			<a class="button" href="#">Delete install files</a> 
+			<a class="button" href="#" data-icon="#">Delete install files</a> 
 		</div>
 	</section>
 	
