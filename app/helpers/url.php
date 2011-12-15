@@ -1,7 +1,7 @@
 <?php
 
 function current_path() {
-	$path_info = isset($_SERVER['PATH_INFO']) ? trim_slashes($_SERVER['PATH_INFO']) : "";
+	$path_info = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], "/") : "";
 	return strtolower("/$path_info");
 }
 
@@ -33,7 +33,7 @@ function url_segments() {
 	else 
     $segs[0] .= $_SERVER["SERVER_NAME"];
     
-  $path = trim_slashes(str_replace("?".$_SERVER["QUERY_STRING"], "", $_SERVER["REQUEST_URI"]));
+  $path = trim(str_replace("?".$_SERVER["QUERY_STRING"], "", $_SERVER["REQUEST_URI"]), "/");
    
   return array_merge($segs, explode("/", $path));
 }

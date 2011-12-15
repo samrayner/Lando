@@ -6,7 +6,7 @@ $config = array (
   'site_description' => 'All the latest from the cloud city.',
   'site_root' => 'http://lando.dev',
   'pretty_urls' => '1',
-  'cache_on_load' => 0,
+  'cache_on_load' => '1',
   'host' => 'dropbox',
   'host_root' => '/Lando',
   'theme' => 'default',
@@ -18,6 +18,7 @@ $config = array (
     ),
     'about-me' => 
     array (
+      '_hidden' => true,
     ),
     'contact' => 
     array (

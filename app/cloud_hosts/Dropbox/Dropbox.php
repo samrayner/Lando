@@ -17,13 +17,13 @@ class Dropbox extends Cloud_Host {
 		$config_file = "app/config/dropbox.php";
 		
 		if(include_exists($config_file)) {
-			//use saved tokens
-			include_once $config_file;			
-			$params["tokenKey"] 		= $tokens["token_key"];
-			$params["tokenSecret"] 	= $tokens["token_secret"];
-		}
-		else {
-			throw new Exception("NEED TO AUTH WITH DROPBOX!");
+			//use saved token
+			include $config_file;
+			
+			if(isset($oauth["token"]["key"], $oauth["token"]["secret"])) {
+				$params["tokenKey"] 		= $oauth["token"]["key"];
+				$params["tokenSecret"] 	= $oauth["token"]["secret"];
+			}
 		}
 	
 		$this->API = new DropLib($params);
@@ -249,5 +249,18 @@ class Dropbox extends Cloud_Host {
 			$file = new File($file);
 			
 		return $file;
+	}
+	
+	//oAuth functions
+	public function request_token() {
+		return $this->API->requestToken();
+	}
+	
+	public function authorize_url($callback) {
+		return $this->API->authorizeUrl($callback);
+	}
+	
+	public function access_token() {
+		return $this->API->accessToken();
 	}
 }

@@ -102,7 +102,7 @@ var Recache = {
 			.removeAttr("style")
 			.addClass("done")
 			.attr("data-icon", "2")
-			.html("Cache refresh complete");
+			.html("Caching complete");
 	},
 
 	updateProgress: function(type) {

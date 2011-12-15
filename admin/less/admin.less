@@ -410,29 +410,10 @@ input + .notify {
 	-webkit-transition: 0.1s linear;
 	-webkit-transition-property: opacity, height, margin;
 	
-	+ * {
-		margin-top: 1em;
-	}
-	
-	a {
-		text-shadow: none;
-		visibility: visible;
-	}
-	
-	&::before {
-		opacity: 1;
-	}
-	
-	&.collapsed {
-		height: 0;
-		padding: 0;
-		margin: 0;
-		opacity: 0;
-		
-		a {
-			visibility: hidden;
-		}
-	}
+	//default to warning yellow
+	background-color: lighten(@warningYellow, 45);
+	border: 1px solid @warningYellow;
+	color: darken(@warningYellow, 25);
 	
 	&.failure {
 		background-color: lighten(@errorRed, 40);
@@ -446,10 +427,29 @@ input + .notify {
 		color: darken(@doneGreen, 30);
 	}
 	
-	&.warning {
-		background-color: lighten(@warningYellow, 45);
-		border: 1px solid @warningYellow;
-		color: darken(@warningYellow, 25);
+	+ * {
+		margin-top: 1em;
+	}
+	
+	a {
+		text-shadow: none;
+		visibility: visible;
+	}
+	
+	//make icon dark
+	&::before {
+		opacity: 1;
+	}
+	
+	&.collapsed {
+		height: 0;
+		padding: 0;
+		margin: 0;
+		opacity: 0;
+		
+		a {
+			visibility: hidden;
+		}
 	}
 }
 

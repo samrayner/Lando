@@ -1,6 +1,10 @@
 <?php
 
-$tokens = array(
-	"token_key" => "zmfncfxfnfp7azo",
-	"token_secret" => "6ltj29hl034mi76"
+$oauth = array (
+  'uid' => '381438',
+  'token' => 
+  array (
+    'key' => 'nfh2lorxth7okcd',
+    'secret' => 'mjcyd9oz8mfdevr',
+  ),
 );

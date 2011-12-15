@@ -300,6 +300,19 @@ input + .notify {
   transform: scale3d(1, 1, 1);
   -webkit-transition: 0.1s linear;
   -webkit-transition-property: opacity, height, margin;
+  background-color: #ffffc3;
+  border: 1px solid #dddd00;
+  color: #5d5e00;
+}
+.notify.failure {
+  background-color: #eec4c4;
+  border: 1px solid #b33333;
+  color: #501717;
+}
+.notify.success {
+  background-color: #c3ebc8;
+  border: 1px solid #51c45f;
+  color: #1f5d27;
 }
 .notify + * {
   margin-top: 1em;
@@ -319,21 +332,6 @@ input + .notify {
 }
 .notify.collapsed a {
   visibility: hidden;
-}
-.notify.failure {
-  background-color: #eec4c4;
-  border: 1px solid #b33333;
-  color: #501717;
-}
-.notify.success {
-  background-color: #c3ebc8;
-  border: 1px solid #51c45f;
-  color: #1f5d27;
-}
-.notify.warning {
-  background-color: #ffffc3;
-  border: 1px solid #dddd00;
-  color: #5d5e00;
 }
 /* INSTALL
 ================================================== */
