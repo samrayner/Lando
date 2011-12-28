@@ -141,7 +141,7 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="cache_on_load">Update content on page loads</label>
 			<input id="cache_on_load" name="cache_on_load" type="checkbox" value="1" <?php set_field_state("cache_on_load", "checked"); ?> />
-			<p id="cron-job" data-icon="!" class="notify <?php if(isset($config["cache_on_load"]) && !$config["cache_on_load"]) echo " collapsed" ?>">For better performance, consider <a href="#">setting up a cron job</a> instead.</p>
+			<p id="cron-job" data-icon="!" class="notify <?php if(isset($config["cache_on_load"]) && !$config["cache_on_load"]) echo " collapsed" ?>">For much better performance, consider <a href="#">setting up a cron job</a> and disabling this.</p>
 		</div>
 		
 		<div id="recache">

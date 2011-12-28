@@ -1,9 +1,9 @@
 (function($) {
-	flux.transitions.blocks = function(fluxslider, opts) {
+	flux.transitions.blocks2 = function(fluxslider, opts) {
 		return new flux.transition_grid(fluxslider, $.extend({
 			cols: 12,
 			forceSquare: true,
-			delayBetweenBars: 100,
+			delayBetweenDiagnols: 150,
 			renderTile: function(elem, colIndex, rowIndex, colWidth, rowHeight, leftOffset, topOffset) {
 				var delay = Math.floor(Math.random()*10*this.options.delayBetweenBars);
 				
@@ -14,18 +14,9 @@
 					'transition-duration': '350ms',
 					'transition-timing-function': 'ease-in',
 					'transition-property': 'all',
-					'transition-delay': delay+'ms'
+					'transition-delay': (colIndex+rowIndex)*this.options.delayBetweenDiagnols+'ms',
+					'backface-visibility': 'hidden' // trigger hardware acceleration
 				});
-				
-				// Keep track of the last elem to fire
-				if(this.maxDelay === undefined)
-					this.maxDelay = 0;
-					
-				if(delay > this.maxDelay)
-				{
-					this.maxDelay = delay;
-					this.maxDelayTile = elem;
-				}
 			},
 			execute: function() {
 				var _this = this;
@@ -33,10 +24,10 @@
 				var blocks = this.slider.image1.find('div.tile');
 	
 				// Get notified when the last transition has completed
-				this.maxDelayTile.transitionEnd(function(){
+				blocks.last().transitionEnd(function(){
 					_this.finished();
 				});
-	
+				
 				setTimeout(function(){
 					blocks.each(function(index, block){				
 						$(block).css({
