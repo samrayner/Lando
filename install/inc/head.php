@@ -16,6 +16,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script src="../admin/js/min/admin-min.js"></script>
+	<script src="js/min/install-min.js"></script>
 	
 </head>
 <body>

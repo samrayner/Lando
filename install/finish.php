@@ -53,7 +53,7 @@ if(isset($_GET["uid"])) {
 	<p class="subtitle">Highly recommended for security reasons</p>
 
 	<div id="cache">
-		<a class="button" href="#" data-icon="#">Delete install files</a> 
+		<a class="button" id="cleanup-button" href="#" data-icon="#">Delete install files</a> 
 	</div>
 </section>
 
