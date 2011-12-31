@@ -2,7 +2,6 @@
 
 class Text extends File {
 	public $raw_content;
-	public $author = "";
 	public $manual_metadata = array();
 	
 	private function swap_includes($content) {
@@ -45,14 +44,10 @@ class Text extends File {
 		
 		if(!$include)
 			return $str;
-	
-		switch($func) {
-			case "snippet": 
-				$include = $include->content();
-				break;
-			case "collection": 
-				$include = $include->list_html();
-		}
+
+		//if helper returns an object, convert to string
+		if(method_exists($include, "__toString"))
+			$include = $include->__toString();
 			
 		return compress_html($include);
 	}
@@ -101,6 +96,12 @@ class Text extends File {
   }
   
   //get functions
+	public function metadata($key) {
+		if(!isset($this->manual_metadata[$key]))
+			return false;
+		
+		return $this->manual_metadata[$key];
+	}
   
   public function content() {
 		global $Lando;
@@ -124,9 +125,5 @@ class Text extends File {
 	
 	public function raw_content() {
 		return $this->raw_content;
-	}
-
-	public function author() {
-		return $this->author;
 	}
 }

@@ -14,10 +14,10 @@
 				</time>
 			</p>
 			
-			<?php if($current->tags()): ?>
+			<?php if($current->metadata("tags")): ?>
 				<h2>Tagged</h2>
 				<ul>
-				<?php foreach($current->tags() as $tag): ?>
+				<?php foreach($current->metadata("tags") as $tag): ?>
 					<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 				<?php endforeach ?>
 				</ul>

@@ -112,9 +112,11 @@ class Controller {
 				$match = true;
 			
 				foreach($filters as $key => $val) {
-					if(!isset($item->$key) || !$this->loose_match($val, $item->$key))
-						$match = false;
-						break;
+					if((!isset($item->$key) || !$this->loose_match($val, $item->$key())) &&
+						 (!isset($item->manual_metadata[$key]) || !$this->loose_match($val, $item->metadata($key)))) {
+							$match = false;
+							break;
+					}
 				}
 				
 				if($match)

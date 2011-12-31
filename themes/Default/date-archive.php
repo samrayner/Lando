@@ -53,10 +53,10 @@
 					</time>
 				</p>
 				
-				<?php if($post->tags()): ?>
+				<?php if($post->metadata("tags")): ?>
 					<h3>Tagged</h3>
 					<ul>
-					<?php foreach($post->tags() as $tag): ?>
+					<?php foreach($post->metadata("tags") as $tag): ?>
 						<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 					<?php endforeach ?>
 					</ul>

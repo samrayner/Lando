@@ -5,7 +5,6 @@ class Publishable extends Text {
 	public $file_path;
 	public $permalink;
 	public $published;
-	public $tags = array();
 	
 	//get functions
 	
@@ -30,9 +29,5 @@ class Publishable extends Text {
 
 	public function published($format="U") {
 		return date($format, $this->published);
-	}
-
-	public function tags() {
-		return $this->tags;
 	}
 }

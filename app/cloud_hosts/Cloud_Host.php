@@ -49,9 +49,7 @@ abstract class Cloud_Host {
 	}
 	
 	protected function manual_meta(&$raw_content) {
-		//reset when re-reading manual metadata
-		$meta["tags"] = array();
-		$meta["author"] = "";
+		$meta = array();
 	
 		if(!$raw_content)
 			return $meta;
