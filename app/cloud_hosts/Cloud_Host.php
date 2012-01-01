@@ -20,10 +20,6 @@ abstract class Cloud_Host {
 		$new_path[sizeof($new_path)-1] = str_to_slug(end($new_path));
 		return implode("/", $new_path);
 	}
-	
-	protected function get_file_url($path) {
-		return $this->config["site_root"]."/file.php/".trim_slashes($path);
-	}
 
  	protected function extract_dimensions(&$title) {
  		$dims = array();
@@ -67,22 +63,25 @@ abstract class Cloud_Host {
     			case "slug":
     				$val = str_to_slug($val);
     				break;
-    				
+    			
+    			case "created":
     			case "modified":
     			case "published":
     				$val = strtotime($val);
     				break;
     				
-    			case "tags":
-    				$tags = explode(",", $val);
-    				$val = array();
-    				
-    				foreach($tags as $tag) {
-    					$tag = trim($tag);
-    					if($tag !== "")
-    						$val[] = $tag;
-    				}
-    				break;
+    			default:
+    				//if key is plural (e.g. tags, authors)
+    				if(substr($key, -1) == "s") {
+	    				$items = explode(",", $val);
+	    				$val = array();
+	    				
+	    				foreach($items as $item) {
+	    					$item = trim($item);
+	    					if($item !== "")
+	    						$val[] = $item;
+	    				}
+	    			}
     		}
     		
     		if($val)

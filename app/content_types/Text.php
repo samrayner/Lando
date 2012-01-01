@@ -42,14 +42,10 @@ class Text extends File {
 	
 		$include = $func($args);
 		
-		if(!$include)
+		if(!$include || (is_object($include) && !method_exists($include, "__toString")))
 			return $str;
-
-		//if helper returns an object, convert to string
-		if(method_exists($include, "__toString"))
-			$include = $include->__toString();
 			
-		return compress_html($include);
+		return compress_html((string)$include);
 	}
 
 	private function get_file_url($path) {
@@ -97,6 +93,8 @@ class Text extends File {
   
   //get functions
 	public function metadata($key) {
+		$key = strtolower($key);
+	
 		if(!isset($this->manual_metadata[$key]))
 			return false;
 		
