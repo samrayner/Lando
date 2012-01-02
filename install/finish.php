@@ -59,7 +59,7 @@ if(isset($_GET["uid"])) {
 
 <div id="last-panel">
 	<p class="finished">Then you’re done!</p>
-	<p>To check settings, visit the <a href="<?php echo $config["site_root"]."/admin/" ?>">admin area</a> 
+	<p>To check settings, visit the <a href="<?php echo $config["site_root"]."/admin/" ?>">admin panel</a> 
 	or check out your new <a href="<?php echo $config["site_root"]."/" ?>">home page</a>!</p>
 </div>
 

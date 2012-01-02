@@ -6,6 +6,12 @@ set_include_path(get_include_path().":".$doc_root);
 foreach(glob("$doc_root/app/helpers/*.php") as $file)
 	include $file;
 
+//get themes list
+foreach(glob("$doc_root/themes/*", GLOB_ONLYDIR) as $dir)
+	$themes[] = strtolower(basename($dir));
+
+$default_theme = isset($themes[0]) ? $themes[0] : "default";
+
 $base_url = preg_replace('~/install/'.basename($_SERVER['PHP_SELF']).'$~', "", current_url());
 
 $config = array(
@@ -17,7 +23,7 @@ $config = array(
 	"host_root"					=> "/Lando",
 	"pretty_urls" 			=> 0,
 	"cache_on_load" 		=> 1,
-	"theme"							=> "default",
+	"theme"							=> $default_theme,
 	"smartypants"				=> 1,
 	"page_order" 				=> array()
 );

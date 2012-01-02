@@ -1,4 +1,7 @@
 <?php
+//supply custom content to offer on install
+define("EXAMPLE_CONTENT_URL", "http://db.tt/nKrmc4eU");
+
 $doc_root = dirname(dirname(__FILE__));
 
 //load all helper functions
@@ -59,7 +62,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		</div>
 		
 		<div id="folders">
-			<a href="http://db.tt/nKrmc4eU" target="_blank" class="button" data-icon="N">Get example content</a>
+			<a href="<?php echo EXAMPLE_CONTENT_URL ?>" target="_blank" class="button" data-icon="N">Get example content</a>
 		</div>
 	</section>
 	
