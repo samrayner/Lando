@@ -191,4 +191,9 @@ class Controller {
 	public function get_file($path, $thumb=false) {
 		return $this->Model->get_file($path, $thumb);
 	}
+	
+	public function install_content($local_path, $host_path="", $log_file=false) {
+		$this->Model->install_content($local_path, $host_path, $log_file);
+	}
 }
+

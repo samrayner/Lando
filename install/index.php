@@ -22,7 +22,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		<ol id="breadcrumbs">
 			<li class="current">Site Info</li>
 			<li>Connect</li>
-			<li>Launch!</li>
+			<li>Install</li>
 		</ol>
 	</header>
 

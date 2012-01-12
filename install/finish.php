@@ -35,7 +35,7 @@ if(isset($_GET["uid"])) {
 	<ol id="breadcrumbs">
 		<li class="done">Site Info</li>
 		<li class="done">Connect</li>
-		<li class="current">Launch!</li>
+		<li class="current">Install</li>
 	</ol>
 </header>
 

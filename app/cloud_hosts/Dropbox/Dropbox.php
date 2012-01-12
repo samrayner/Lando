@@ -29,6 +29,14 @@ class Dropbox extends Cloud_Host {
 		$this->API = new DropLib($params);
 	}
 	
+	public function create_dir($path) {
+		return $this->API->createFolder($path);
+	}
+	
+	public function upload($path, $file, $overwrite=true) {
+		return $this->API->upload($path, $file, $overwrite);
+	}
+	
 	private function get_file_path($meta, $exts=null, $filename="") {
 		if(!$exts)
 			$exts = array_flatten($this->config["parsers"]);

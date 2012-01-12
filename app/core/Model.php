@@ -211,6 +211,73 @@ class Model {
 		
 		return $item;
 	}
+	
+	public function install_content($local_path, $host_path="", $log_file=false) {
+		@file_put_contents($log_file, "Installation started ".date("F jS, Y \a\\t G:i:s")."\n\n");
+			
+		$this->connect_host();
+		
+		$host_segs = explode("/", trim_slashes($host_path));
+		$path = "";
+		
+		foreach($host_segs as $folder) {
+			$path .= $folder."/";
+			$nest = sizeof(explode("/", trim_slashes($path)))-1;
+			$log = str_repeat("\t", $nest);
+		
+			try {
+				$this->Host->create_dir($path);
+				$log .= 'Created folder "'.$folder.'"';
+			}
+			catch(DropLibException_API $e) {
+				$log .= 'Folder "'.$folder.'" already exists';
+			}
+			
+			if($log_file)
+				@file_put_contents($log_file, "$log\n", FILE_APPEND);
+		}
+		
+		$this->put_content($local_path, $host_path, $log_file);
+		
+		@file_put_contents($log_file, "\nDone", FILE_APPEND);
+	}
+	
+	private function put_content($local_path, $host_path, $log_file) {
+		$local_path = "/".trim_slashes($local_path);
+		$host_path = trim_slashes($host_path);
+	
+		foreach(glob("$local_path/*") as $file) {
+			$nest = sizeof(explode("/", $host_path));
+			$log = str_repeat("\t", $nest);
+		
+			if(is_dir($file)) {
+				$log = "\n".$log;
+				$folder = basename($file);
+		
+				try {
+					$this->Host->create_dir($host_path."/".$folder);
+					$log .= 'Created folder "'.$folder.'"';
+				}
+				catch(DropLibException_API $e) {
+					$log .= 'Folder "'.$folder.'" already exists';
+				}
+				
+				if($log_file)
+					@file_put_contents($log_file, "$log\n", FILE_APPEND);
+
+				$this->put_content($file, "$host_path/$folder", $log_file);
+			}
+			else {
+				$this->Host->upload("/$host_path", $file);
+				$log .= 'Added file "'.basename($file).'"';
+				
+				if($log_file)
+					@file_put_contents($log_file, "$log\n", FILE_APPEND);
+			}
+		}
+		
+		return true;
+	}
 }
 
 
