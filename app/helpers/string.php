@@ -11,3 +11,7 @@ function str_to_slug($str, $sep="-") {
 function trim_slashes($str) {
 	return trim($str, "/");
 }
+
+function int_pad($number, $digits) {
+	return str_pad((int)$number, $digits, "0", STR_PAD_LEFT);
+}

@@ -214,11 +214,13 @@ class Model {
 	
 	public function install_content($local_path, $host_path="", $log_file=false) {
 		@file_put_contents($log_file, "Installation started ".date("F jS, Y \a\\t G:i:s")."\n\n");
+		$exec_start = time();
 			
 		$this->connect_host();
 		
 		$host_segs = explode("/", trim_slashes($host_path));
 		$path = "";
+		$nest = 0;
 		
 		foreach($host_segs as $folder) {
 			$path .= $folder."/";
@@ -227,22 +229,37 @@ class Model {
 		
 			try {
 				$this->Host->create_dir($path);
-				$log .= 'Created folder "'.$folder.'"';
+				$log .= 'Created root folder "'.$folder.'"';
 			}
 			catch(DropLibException_API $e) {
-				$log .= 'Folder "'.$folder.'" already exists';
+				$log .= 'Root folder "'.$folder.'" already exists';
 			}
 			
 			if($log_file)
 				@file_put_contents($log_file, "$log\n", FILE_APPEND);
 		}
 		
-		$this->put_content($local_path, $host_path, $log_file);
+		//count all files and folders
+		$file_count = 0;
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($local_path), RecursiveIteratorIterator::SELF_FIRST);
+		foreach($files as $name => $_) {
+			if(substr(basename($name), 0, 1) != ".")
+				$file_count++;
+		}
 		
-		@file_put_contents($log_file, "\nDone", FILE_APPEND);
+		$log = str_repeat("\t", $nest+1)."Uploading $file_count files and folders...";
+		
+		if($log_file)
+			@file_put_contents($log_file, "\n$log\n\n", FILE_APPEND);
+		
+		$this->put_content($local_path, $host_path, $log_file, $file_count);
+		
+		$exec_end = time();
+		
+		@file_put_contents($log_file, "\nInstallation complete (in ".($exec_end-$exec_start)." seconds).", FILE_APPEND);
 	}
 	
-	private function put_content($local_path, $host_path, $log_file) {
+	private function put_content($local_path, $host_path="", $log_file=false) {
 		$local_path = "/".trim_slashes($local_path);
 		$host_path = trim_slashes($host_path);
 	
@@ -251,12 +268,11 @@ class Model {
 			$log = str_repeat("\t", $nest);
 		
 			if(is_dir($file)) {
-				$log = "\n".$log;
 				$folder = basename($file);
 		
 				try {
 					$this->Host->create_dir($host_path."/".$folder);
-					$log .= 'Created folder "'.$folder.'"';
+					$log .= 'Creating folder "'.$folder.'"';
 				}
 				catch(DropLibException_API $e) {
 					$log .= 'Folder "'.$folder.'" already exists';
@@ -268,11 +284,12 @@ class Model {
 				$this->put_content($file, "$host_path/$folder", $log_file);
 			}
 			else {
-				$this->Host->upload("/$host_path", $file);
-				$log .= 'Added file "'.basename($file).'"';
+				$log .= 'Uploading "'.basename($file).'"';
 				
 				if($log_file)
 					@file_put_contents($log_file, "$log\n", FILE_APPEND);
+				
+				$this->Host->upload("/$host_path", $file);
 			}
 		}
 		
