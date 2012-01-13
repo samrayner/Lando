@@ -30,11 +30,12 @@ if(isset($_POST["password"])) {
 		
 		$redirect = trim_slashes($config["site_root"]);
 		
-		if(!$config["pretty_urls"])
+		$_GET["redirect"] = isset($_GET["redirect"]) ? trim_slashes($_GET["redirect"]) : "";
+		
+		if(!$config["pretty_urls"] && $_GET["redirect"] != "admin")
 			$redirect .= "/index.php";
 
-		if(isset($_GET["redirect"]))
-			$redirect .= "/".trim_slashes($_GET["redirect"]);
+		$redirect .= "/".trim_slashes($_GET["redirect"]);
 
 		header("Location: $redirect");
 	}

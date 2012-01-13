@@ -155,6 +155,9 @@ class Model {
 			$this->recache_count++;
 		}
 		
+		if(!$item)
+			return false;
+		
 		if($type == "pages")
 			$item->subpages = $this->get_all($path);
 			

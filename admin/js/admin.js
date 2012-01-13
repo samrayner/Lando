@@ -103,6 +103,15 @@ var Recache = {
 			.addClass("done")
 			.attr("data-icon", "2")
 			.html("Caching complete");
+		
+		if($("#cleanup-button").length)
+			Recache.nextStep();
+	},
+	
+	nextStep: function() {
+		$("#cache, #cleanup").toggleClass("disabled");
+		CleanUp.init();
+		Recache.disable();
 	},
 
 	updateProgress: function(type) {
@@ -148,6 +157,11 @@ var Recache = {
 	
 	init: function() {
 		$("#recache-button").click(Recache.click);
+		$("#cache .skip").click(Recache.nextStep);
+	},
+	
+	disable: function() {
+		$("#recache-button, #cache .skip").off('click');
 	}
 };
 
@@ -191,6 +205,6 @@ $(function() {
 	if($("#page-list").length)
 		PageNav.init();
 	
-	if($("#recache-button").length)
+	if($("section:not(.disabled) #recache-button").length)
 		Recache.init();
 });

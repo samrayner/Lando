@@ -10,7 +10,10 @@ var CleanUp = {
 			.removeClass("active")
 			.addClass("done")
 			.attr("data-icon", "2")
-			.html("Clean-up complete");
+			.html("Files deleted");
+		
+		$("#cleanup, #last-panel").toggleClass("disabled");
+		CleanUp.disable();
 	},
 
 	click: function(event) {
@@ -27,6 +30,10 @@ var CleanUp = {
 	
 	init: function() {
 		$("#cleanup-button").click(CleanUp.click);
+	},
+	
+	disable: function() {
+		$("#cleanup-button").off('click');
 	}
 };
 
@@ -37,7 +44,13 @@ var Install = {
 			.removeAttr("style")
 			.addClass("done")
 			.attr("data-icon", "2")
-			.html("Installation complete");
+			.html("Content added to Dropbox");
+	},
+	
+	nextStep: function() {
+		$("#install, #cache").toggleClass("disabled");
+		Install.disable();
+		Recache.init();
 	},
 
 	updateProgress: function() {
@@ -56,7 +69,7 @@ var Install = {
 				var done = lines.length;
 				
 				if(done > total)
-					return Install.done();
+					return true;
 				
 				if(done > 0) {
 					$("#install-button").html(lines[done-1].replace(/^\t+/, ''));
@@ -73,7 +86,7 @@ var Install = {
 	
 	run: function(type) {
 		var $jqxhr = $.ajax({
-			url: "content.php",
+			url: "install_content.php",
 			data: {"host_root": $("host_root").val()},
 			complete: Install.done
 		});
@@ -94,13 +107,14 @@ var Install = {
 	
 	init: function() {
 		$("#install-button").click(Install.click);
+		$("#install .skip").click(Install.nextStep);
+	},
+	
+	disable: function() {
+		$("#install-button, #install .skip").off('click');
 	}
 };
 
 $(function() {
-	if($("#cleanup-button").length)
-		CleanUp.init();
-	
-	if($("#install-button").length)
-		Install.init();
+	Install.init();
 });

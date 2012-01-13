@@ -64,9 +64,14 @@ class Dropbox extends Cloud_Host {
 	
 	public function dir_contents($path, $dirs_only=true) {
 		$path = $this->config["host_root"]."/".trim_slashes($path);
-		$meta = $this->API->metadata($path);
-		
 		$items = array();
+		
+		try {
+			$meta = $this->API->metadata($path);
+		}
+		catch(Exception $e) {
+			return $items;
+		}
 		
 		foreach($meta["contents"] as $item) {
 			if($dirs_only == $item["is_dir"]) {

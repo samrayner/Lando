@@ -41,32 +41,38 @@ if(isset($_GET["uid"])) {
 
 <section id="install">
 	<h1>1. Install Content</h1>
-	<p class="subtitle">Upload content to your Dropbox</p>
+	<p class="subtitle">Add content to your Dropbox</p>
 
 	<div>
-		<a id="install-button" class="button" href="#" data-icon="o">Install content in <?php echo $config["host_root"] ?></a>
+		<?php if(!is_dir("$doc_root/install/content")): ?>
+		No content found in install folder.
+		<?php else: ?>
+		<a id="install-button" class="button" href="#" data-icon="c">Install content in <?php echo $config["host_root"] ?></a>
+		<p class="skip"><a href="#">I've installed my own content</a></p>
+		<?php endif ?>
 	</div>
 </section>
 
-<section id="cache">
+<section id="cache" class="disabled">
 	<h1>2. Cache Content</h1>
 	<p class="subtitle">Prepare webpages from your cloud files</p>
 
 	<div>
 		<a id="recache-button" class="button" href="#" data-icon="9">Perform initial cache</a>
+		<p class="skip"><a href="#">I'll cache later, thanks</a></p>
 	</div>
 </section>
 
-<section id="cache">
+<section id="cleanup" class="disabled">
 	<h1>3. Clean-up Installation</h1>
 	<p class="subtitle">Highly recommended for security reasons</p>
 
 	<div>
-		<a class="button" id="cleanup-button" href="#" data-icon="#">Delete install files</a> 
+		<a id="cleanup-button" class="button" href="#" data-icon="#">Delete install files</a> 
 	</div>
 </section>
 
-<div id="last-panel">
+<div id="last-panel" class="disabled">
 	<p class="finished">Then you’re done!</p>
 	<p>To check settings, visit the <a href="<?php echo $config["site_root"]."/admin/" ?>">admin panel</a> 
 	or check out your new <a href="<?php echo $config["site_root"]."/" ?>">home page</a>!</p>

@@ -59,8 +59,8 @@ body {
   -webkit-box-shadow: 1px 1px 0 white;
 }
 .button:hover, .button:focus {
-  background-color: #f0f9ff;
   color: #0a2c43;
+  background-color: #f0f9ff;
   background-image: -ms-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -o-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -moz-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
@@ -81,8 +81,8 @@ body {
   background-image: url(../images/progress-bg.png);
   background-repeat: no-repeat;
   background-position: 0 50%;
-  transition: background-position-x 2s linear;
-  -webkit-transition: background-position-x 2s linear;
+  transition: background-position-x 10s ease-out;
+  -webkit-transition: background-position-x 10s ease-out;
 }
 .button.done {
   box-shadow: 0 0 0 1px #51c45f;
@@ -96,8 +96,11 @@ header {
   color: #fcfcfc;
   line-height: 40px;
   background-color: #222;
-  box-shadow: inset 0 -20px 20px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: inset 0 -20px 20px rgba(0, 0, 0, 0.3);
+  background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   zoom: 1;
 }
 header:after {
@@ -122,18 +125,26 @@ header .button {
   background-color: #191919;
   color: rgba(255, 255, 255, 0.7);
   text-shadow: none;
-  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.7);
-  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.7);
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
 }
 header .button:hover, header .button:focus {
   color: rgba(255, 255, 255, 0.8);
   background-color: #222;
-  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.4);
 }
 header .button:active {
   border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: black;
+  background-image: -ms-linear-gradient(bottom, #000000 0, #000000 0);
+  background-image: -o-linear-gradient(bottom, #000000 0, #000000 0);
+  background-image: -moz-linear-gradient(bottom, #000000 0, #000000 0);
+  background-image: -webkit-linear-gradient(bottom, #000000 0, #000000 0);
+  background-image: linear-gradient(bottom, #000000 0, #000000 0);
 }
 #breadcrumbs li {
   display: inline-block;
@@ -180,8 +191,15 @@ section, #login, #last-panel {
   border-top: 1px solid white;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   background-color: #fcfcfc;
-  box-shadow: inset 0 -20px 20px rgba(0, 0, 0, 0.02);
-  -webkit-box-shadow: inset 0 -20px 20px rgba(0, 0, 0, 0.02);
+  background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
+  background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
+  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
+}
+section > *, #login > *, #last-panel > * {
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
 }
 section h1, #login h1, #last-panel h1 {
   font-size: 1.2em;
@@ -190,6 +208,12 @@ section h1, #login h1, #last-panel h1 {
 }
 section div, #login div, #last-panel div {
   margin-top: 0.5em;
+}
+section.disabled > *, #login.disabled > *, #last-panel.disabled > * {
+  opacity: 0.5;
+}
+section.disabled a, #login.disabled a, #last-panel.disabled a {
+  cursor: default;
 }
 input, select {
   outline: none;
@@ -365,6 +389,19 @@ input + .notify {
   font-size: 1.2em;
   line-height: 2.2;
   margin-bottom: 0.5em;
+}
+.skip {
+  font-size: 0.85em;
+  margin: 1em 0 0;
+}
+#install-button.active {
+  width: 90%;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: background-position-x 1s linear;
+  -webkit-transition: background-position-x 1s linear;
 }
 /* SMALL SCREENS
 ================================================== */
