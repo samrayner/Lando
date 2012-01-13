@@ -39,20 +39,29 @@ if(isset($_GET["uid"])) {
 	</ol>
 </header>
 
+<section id="install">
+	<h1>1. Install Content</h1>
+	<p class="subtitle">Upload content to your Dropbox</p>
+
+	<div>
+		<a id="install-button" class="button" href="#" data-icon="o">Install content in <?php echo $config["host_root"] ?></a>
+	</div>
+</section>
+
 <section id="cache">
-	<h1>Cache Content</h1>
+	<h1>2. Cache Content</h1>
 	<p class="subtitle">Prepare webpages from your cloud files</p>
 
-	<div id="cache">
+	<div>
 		<a id="recache-button" class="button" href="#" data-icon="9">Perform initial cache</a>
 	</div>
 </section>
 
-<section id="delete">
-	<h1>Installation Clean-up</h1>
+<section id="cache">
+	<h1>3. Clean-up Installation</h1>
 	<p class="subtitle">Highly recommended for security reasons</p>
 
-	<div id="cache">
+	<div>
 		<a class="button" id="cleanup-button" href="#" data-icon="#">Delete install files</a> 
 	</div>
 </section>

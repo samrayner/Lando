@@ -213,31 +213,12 @@ class Model {
 	}
 	
 	public function install_content($local_path, $host_path="", $log_file=false) {
-		@file_put_contents($log_file, "Installation started ".date("F jS, Y \a\\t G:i:s")."\n\n");
 		$exec_start = time();
-			
-		$this->connect_host();
 		
-		$host_segs = explode("/", trim_slashes($host_path));
-		$path = "";
-		$nest = 0;
+		if($log_file && file_exists($log_file))
+			unlink($log_file);
 		
-		foreach($host_segs as $folder) {
-			$path .= $folder."/";
-			$nest = sizeof(explode("/", trim_slashes($path)))-1;
-			$log = str_repeat("\t", $nest);
-		
-			try {
-				$this->Host->create_dir($path);
-				$log .= 'Created root folder "'.$folder.'"';
-			}
-			catch(DropLibException_API $e) {
-				$log .= 'Root folder "'.$folder.'" already exists';
-			}
-			
-			if($log_file)
-				@file_put_contents($log_file, "$log\n", FILE_APPEND);
-		}
+		$log = "Installation started ".date("F jS, Y \a\\t G:i:s")."";
 		
 		//count all files and folders
 		$file_count = 0;
@@ -247,16 +228,40 @@ class Model {
 				$file_count++;
 		}
 		
-		$log = str_repeat("\t", $nest+1)."Uploading $file_count files and folders...";
+		$host_segs = explode("/", trim_slashes($host_path));
+		$path = "";
+		$nest = 0;
+		
+		$file_count += count($host_segs);
+		$log .= "\n\nUploading $file_count files and folders...\n";
 		
 		if($log_file)
-			@file_put_contents($log_file, "\n$log\n\n", FILE_APPEND);
+			@file_put_contents($log_file, $log);
+		
+		$this->connect_host();
+		
+		foreach($host_segs as $folder) {
+			$path .= $folder."/";
+			$nest = sizeof(explode("/", trim_slashes($path)))-1;
+			$log = str_repeat("\t", $nest);
+		
+			try {
+				$this->Host->create_dir($path);
+				$log .= 'Creating folder "'.$folder.'"';
+			}
+			catch(DropLibException_API $e) {
+				$log .= 'Folder "'.$folder.'" already exists';
+			}
+			
+			if($log_file)
+				@file_put_contents($log_file, "\n$log", FILE_APPEND);
+		}
 		
 		$this->put_content($local_path, $host_path, $log_file, $file_count);
 		
 		$exec_end = time();
 		
-		@file_put_contents($log_file, "\nInstallation complete (in ".($exec_end-$exec_start)." seconds).", FILE_APPEND);
+		@file_put_contents($log_file, "\n\nInstallation complete (in ".($exec_end-$exec_start)." seconds).", FILE_APPEND);
 	}
 	
 	private function put_content($local_path, $host_path="", $log_file=false) {
@@ -279,7 +284,7 @@ class Model {
 				}
 				
 				if($log_file)
-					@file_put_contents($log_file, "$log\n", FILE_APPEND);
+					@file_put_contents($log_file, "\n$log", FILE_APPEND);
 
 				$this->put_content($file, "$host_path/$folder", $log_file);
 			}
@@ -287,7 +292,7 @@ class Model {
 				$log .= 'Uploading "'.basename($file).'"';
 				
 				if($log_file)
-					@file_put_contents($log_file, "$log\n", FILE_APPEND);
+					@file_put_contents($log_file, "\n$log", FILE_APPEND);
 				
 				$this->Host->upload("/$host_path", $file);
 			}

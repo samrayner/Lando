@@ -50,32 +50,43 @@ body {
   background-color: white;
   text-shadow: 1px 1px 0 white;
   color: rgba(0, 0, 0, 0.8);
-  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 1px 1px 0 white;
-  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 1px 1px 0 white;
+  background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  box-shadow: 1px 1px 0 white;
+  -webkit-box-shadow: 1px 1px 0 white;
 }
 .button:hover, .button:focus {
   background-color: #f0f9ff;
   color: #0a2c43;
-  box-shadow: inset 0 -11px 3px rgba(0, 70, 150, 0.05), 1px 1px 0 white;
-  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 70, 150, 0.05), 1px 1px 0 white;
+  background-image: -ms-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -o-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -moz-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
 }
 .button:active, .button.active {
   border-color: rgba(0, 0, 0, 0.3);
   color: rgba(0, 0, 0, 0.9);
   background-color: #d2ecff;
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
-  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 0 white;
+  background-image: -ms-linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
+  background-image: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
+  background-image: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
+  background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
+  background-image: linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
 }
 .button.active {
   background-image: url(../images/progress-bg.png);
   background-repeat: no-repeat;
-  background-position: -999px 50%;
-  transition: background-position-x 10s ease-out;
-  -webkit-transition: background-position-x 10s ease-out;
+  background-position: 0 50%;
+  transition: background-position-x 2s linear;
+  -webkit-transition: background-position-x 2s linear;
 }
 .button.done {
-  box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px #51c45f;
-  -webkit-box-shadow: inset 0 -11px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px #51c45f;
+  box-shadow: 0 0 0 1px #51c45f;
+  -webkit-box-shadow: 0 0 0 1px #51c45f;
   color: #175b1f;
 }
 header {
@@ -128,7 +139,7 @@ header .button:active {
   display: inline-block;
   padding-left: 38px;
   color: #7d7d7d;
-  text-shadow: -1px -1px 0 black;
+  text-shadow: -1px -1px 0 #000000;
   background: url(../images/breadcrumb.png) no-repeat 0 50%;
 }
 #breadcrumbs li.done {
@@ -343,9 +354,6 @@ input + .notify {
 }
 #last-panel label::after {
   content: ":";
-}
-#folders {
-  margin-top: 1em;
 }
 #last-panel p {
   text-align: center;

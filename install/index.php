@@ -1,7 +1,4 @@
 <?php
-//supply custom content to offer on install
-define("EXAMPLE_CONTENT_URL", "http://db.tt/nKrmc4eU");
-
 $doc_root = dirname(dirname(__FILE__));
 
 //load all helper functions
@@ -57,12 +54,8 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		</div>
 	
 		<div>
-			<label for="host_root" class="field-label">Dropbox Folder Path</label>
+			<label for="host_root" class="field-label">Dropbox Content Path</label>
 			<input type="text" id="host_root" name="host_root" value="/Apps/Lando" />
-		</div>
-		
-		<div id="folders">
-			<a href="<?php echo EXAMPLE_CONTENT_URL ?>" target="_blank" class="button" data-icon="N">Get example content</a>
 		</div>
 	</section>
 	
