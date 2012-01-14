@@ -108,7 +108,9 @@ var Recache = {
 			Recache.nextStep();
 	},
 	
-	nextStep: function() {
+	nextStep: function(event) {
+		event.preventDefault();
+		
 		$("#cache, #cleanup").toggleClass("disabled");
 		CleanUp.init();
 		Recache.disable();
@@ -147,10 +149,12 @@ var Recache = {
 
 	click: function(event) {
 		event.preventDefault();
+		
 		$(this)
 			.removeClass("done")
 			.addClass("active")
 			.attr("data-icon", "0");
+			
 		Recache.process("files");
 		Recache.process(Recache.types[0]);
 	},

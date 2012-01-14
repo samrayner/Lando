@@ -18,7 +18,7 @@ var CleanUp = {
 
 	click: function(event) {
 		event.preventDefault();
-		
+	
 		$(this)
 			.removeClass("done")
 			.addClass("active")
@@ -45,9 +45,14 @@ var Install = {
 			.addClass("done")
 			.attr("data-icon", "2")
 			.html("Content added to Dropbox");
+		
+		Install.nextStep();
 	},
 	
-	nextStep: function() {
+	nextStep: function(event) {
+		if(event)
+			event.preventDefault();
+	
 		$("#install, #cache").toggleClass("disabled");
 		Install.disable();
 		Recache.init();
@@ -96,6 +101,7 @@ var Install = {
 
 	click: function(event) {
 		event.preventDefault();
+		
 		$(this)
 			.removeClass("done")
 			.addClass("active")
