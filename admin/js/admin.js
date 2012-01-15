@@ -109,7 +109,8 @@ var Recache = {
 	},
 	
 	nextStep: function(event) {
-		event.preventDefault();
+		if(event)
+			event.preventDefault();
 		
 		$("#cache, #cleanup").toggleClass("disabled");
 		CleanUp.init();
