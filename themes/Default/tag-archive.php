@@ -15,27 +15,33 @@
 		}
 	?>
 
-	<h1>Posts tagged <?php echo implode(", ", $tags) ?></h1>
+	<h1>Posts tagged <?php echo '"'.implode(", ", $tags).'"' ?></h1>
 	
 	<?php $posts = posts(0, 0, array("tags"=>$tags));
-		 		foreach($posts as $i => $post): ?>
+		 		foreach($posts as $post): ?>
 
 		<article>
 			<h1><a href="<?php echo $post->permalink() ?>"><?php echo $post->title() ?></a></h1>
+			<?php echo truncate_html($post->content(), 200) ?>
 			<footer>
-				<p>Posted 
-					<time pubdate datetime="<?php echo $post->published('c') ?>">
-						<?php echo $post->published('F jS \a\t g:ia') ?>
-					</time>
+				<div class="pubdate">
+					<h3>Posted</h3>
+					<p>
+						<time datetime="<?php echo $post->published('c') ?>">
+							<?php echo $post->published('F jS Y') ?>
+						</time>
 				</p>
+				</div>
 				
 				<?php if($post->metadata("tags")): ?>
+				<div class="tags">
 					<h3>Tagged</h3>
 					<ul>
 					<?php foreach($post->metadata("tags") as $tag): ?>
 						<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 					<?php endforeach ?>
 					</ul>
+				</div>
 				<?php endif ?>
 			</footer>
 		</article>

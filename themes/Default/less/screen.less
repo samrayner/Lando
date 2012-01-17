@@ -56,8 +56,27 @@ a {
 	}
 }
 
-p {
+p, h3, h4 {
 	margin-bottom: 1em;
+}
+
+h1 {
+	font-size: 1.6em;
+	font-weight: bold;
+	margin-bottom: 0.6em;
+}
+
+h2 {
+	font-size: 1.6em;
+	margin-bottom: 0.8em;
+}
+
+h3 {
+	font-size: 1.4em;
+}
+
+h4 {
+	font-size: 1.2em;
 }
 
 
@@ -71,11 +90,12 @@ body > header {
 		float: left;
 	}
 	
+	h1 {
+		font: normal 2em/1.8 @serifFonts;
+		margin-bottom: 0;
+	}
+	
 	h1 a {
-		display: block;
-		font-family: @serifFonts;
-		font-size: 2em;
-		line-height: 1.8;
 		text-decoration: none;
 		
 		&:link,
@@ -200,7 +220,7 @@ article {
 	}
 	
 	h1 {
-		font-size: 1.2em;
+		font-size: 1.4em;
 		margin-bottom: 1em;
 	}
 	
@@ -215,8 +235,8 @@ article {
 			display: none;
 		}
 		
-		.posted {
-			line-height: 1.5;
+		.pubdate {
+			line-height: 2;
 		}
 		
 		.tags {					
@@ -259,8 +279,12 @@ article {
 /* HOME
 ================================================== */
 
+#home #primary > h1 {
+	display: none;
+}
+
 #intro {
-	font: italic 1.2em @serifFonts;
+	font: italic 1.2em/1.4 @serifFonts;
 	color: lighten(@textColor, 20);
 	margin-bottom: 2em;
 }

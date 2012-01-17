@@ -30,8 +30,23 @@ a:hover, a:focus {
 a:visited, a:active {
   color: #355b16;
 }
-p {
+p, h3, h4 {
   margin-bottom: 1em;
+}
+h1 {
+  font-size: 1.6em;
+  font-weight: bold;
+  margin-bottom: 0.6em;
+}
+h2 {
+  font-size: 1.6em;
+  margin-bottom: 0.8em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
 }
 /* Header
 -------------------------------------------------- */
@@ -41,11 +56,11 @@ body > header {
 body > header hgroup {
   float: left;
 }
+body > header h1 {
+  font: normal 2em/1.8 georgia, "Times New Roman", times, serif;
+  margin-bottom: 0;
+}
 body > header h1 a {
-  display: block;
-  font-family: georgia, "Times New Roman", times, serif;
-  font-size: 2em;
-  line-height: 1.8;
   text-decoration: none;
 }
 body > header h1 a:link,
@@ -142,7 +157,7 @@ article:last-child {
   border-bottom: none;
 }
 article h1 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   margin-bottom: 1em;
 }
 article footer {
@@ -155,8 +170,8 @@ article footer {
 article footer h3 {
   display: none;
 }
-article footer .posted {
-  line-height: 1.5;
+article footer .pubdate {
+  line-height: 2;
 }
 article footer .tags ul {
   margin: 0;
@@ -184,8 +199,11 @@ article footer .tags li::before {
 }
 /* HOME
 ================================================== */
+#home #primary > h1 {
+  display: none;
+}
 #intro {
-  font: italic 1.2em georgia, "Times New Roman", times, serif;
+  font: italic 1.2em/1.4 georgia, "Times New Roman", times, serif;
   color: #444444;
   margin-bottom: 2em;
 }

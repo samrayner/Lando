@@ -5,6 +5,8 @@
 
 <section id="primary">
 
+	<h1><?php echo $current->title() ?></h1>
+
 	<div id="intro">
 	<?php echo $current->content() ?>
 	</div>
@@ -15,10 +17,10 @@
 			<h1><a href="<?php echo $post->permalink() ?>"><?php echo $post->title() ?></a></h1>
 			<?php echo truncate_html($post->content(), 200) ?>
 			<footer>
-				<div class="posted">
+				<div class="pubdate">
 					<h3>Posted</h3>
 					<p>
-						<time pubdate datetime="<?php echo $post->published('c') ?>">
+						<time datetime="<?php echo $post->published('c') ?>">
 							<?php echo $post->published('F jS Y') ?>
 						</time>
 				</p>

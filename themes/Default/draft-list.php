@@ -10,11 +10,25 @@
 		<article>
 			<h1><a href="<?php echo $draft->permalink() ?>"><?php echo $draft->title() ?></a></h1>
 			<footer>
-				<p>Edited 
-					<time pubdate datetime="<?php echo $draft->modified('c') ?>">
+				<div class="pubdate">
+					<h3>Edited</h3>
+					<p>
+						<time datetime="<?php echo $draft->modified('c') ?>">
 						<?php echo $draft->modified('F jS \a\t g:ia') ?>
-					</time>
-				</p>
+						</time>
+					</p>
+				</div>
+				
+				<?php if($draft->metadata("tags")): ?>
+				<div class="tags">
+					<h3>Tagged</h3>
+					<ul>
+					<?php foreach($draft->metadata("tags") as $tag): ?>
+						<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
+					<?php endforeach ?>
+					</ul>
+				</div>
+				<?php endif ?>
 			</footer>
 		</article>
 
