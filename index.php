@@ -68,6 +68,10 @@ if(in_array($template, array("draft", "draft-list"))) {
 		header("Location: $site_root/admin/login.php?redirect=drafts");
 }
 
+$helper_file = $themeBase."theme_functions.php";
+if(include_exists($helper_file))
+	include $helper_file;
+
 if(!include_exists($themeBase.$template.".php")) {
 	if(include_exists("app/templates/$template.php"))
 		$themeBase = "app/templates/"; //fallback for missing optional custom templates
@@ -75,4 +79,4 @@ if(!include_exists($themeBase.$template.".php")) {
 		throw new Exception("Template file $template not found.");
 }
 
-include $themeBase.$template.".php";
+include_once $themeBase.$template.".php";
