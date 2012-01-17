@@ -33,7 +33,19 @@
 
 @fontStack: "Helvetica Neue", helvetica, arial, sans-serif;
 
-.clearfix() {
+.gradient(@startColor: #000, @stop1: 0%, @endColor: #fff, @stop2: 100%) {
+	background-image: -ms-linear-gradient(		bottom, @startColor @stop1, @endColor @stop2);
+	background-image: -o-linear-gradient(			bottom, @startColor @stop1, @endColor @stop2);
+	background-image: -moz-linear-gradient(		bottom, @startColor @stop1, @endColor @stop2);
+	background-image: -webkit-linear-gradient(bottom, @startColor @stop1, @endColor @stop2);
+	background-image: linear-gradient(				bottom, @startColor @stop1, @endColor @stop2);
+}
+
+
+/* CLEARFIX
+================================================== */
+
+header {
   zoom: 1;
 	&:after {
     display: block;
@@ -42,14 +54,6 @@
     clear: both;
     content: ".";
 	}
-}
-
-.gradient(@startColor: #000, @stop1: 0%, @endColor: #fff, @stop2: 100%) {
-	background-image: -ms-linear-gradient(		bottom, @startColor @stop1, @endColor @stop2);
-	background-image: -o-linear-gradient(			bottom, @startColor @stop1, @endColor @stop2);
-	background-image: -moz-linear-gradient(		bottom, @startColor @stop1, @endColor @stop2);
-	background-image: -webkit-linear-gradient(bottom, @startColor @stop1, @endColor @stop2);
-	background-image: linear-gradient(				bottom, @startColor @stop1, @endColor @stop2);
 }
 
 
@@ -137,8 +141,6 @@ header {
 	
 	background-color: #222;
 	.gradient(rgba(0,0,0,0.3), 0%, rgba(0,0,0,0), 100%);
-	
-	.clearfix;
 	
 	h1 {
 		font-weight: bold;

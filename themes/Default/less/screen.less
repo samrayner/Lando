@@ -1,0 +1,266 @@
+@import "reset.css";
+
+/* VARIABLES/MIXINS
+================================================== */
+
+@wrapperPercent: 80%;
+@wrapperWidth: @wrapperPercent/100;
+
+@textColor: #111;
+@linkColor: #4d8420;
+
+@sansFonts: calibri, candara, "Helvetica Neue", helvetica, arial, sans-serif;
+@serifFonts: georgia, "Times New Roman", times, serif;
+
+
+/* REUSABLE STYLES
+================================================== */
+
+body > header,
+body > header nav,
+body > header nav li {
+  zoom: 1;
+	&:after {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+    content: ".";
+	}
+}
+
+
+/* GLOBAL
+================================================== */
+
+body {
+	width: @wrapperPercent;
+	max-width: 1000px;
+	margin: 30px auto 0;
+	font: 16px/1.2 @sansFonts;
+}
+
+a {
+	&:link {
+		color: @linkColor;
+	}
+	
+	&:hover,
+	&:focus {
+		color: lighten(desaturate(@linkColor, 10), 10);
+	}
+	
+	&:visited,
+	&:active {
+		color: darken(@linkColor, 10);
+	}
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+
+/* Header
+-------------------------------------------------- */
+
+body > header {
+	margin-bottom: 2em;
+	
+	hgroup {
+		float: left;
+	}
+	
+	h1 a {
+		display: block;
+		font-family: @serifFonts;
+		font-size: 2em;
+		line-height: 1.8;
+		text-decoration: none;
+		
+		&:link,
+		&:hover,
+		&:focus,
+		&:visited,
+		&:active {
+			color: fadeout(@textColor, 10);
+		}
+	}
+	
+	h2 {
+		text-transform: uppercase;
+		font-size: 0.9em;
+		color: fadeout(@textColor, 20);
+	}
+
+	nav {
+		margin-top: 1em;
+		float: right;
+	
+		li {
+			position: relative;
+			margin-right: 1em;
+			float: left;
+			
+			> a {
+				line-height: 1.8;
+			}
+			
+			li {
+				display: none;
+				float: none;
+				background: #f9f9f9;
+				white-space: nowrap;
+				padding-right: 1em;
+				
+				&:hover {
+					background-color: #eee;
+				}
+				
+				a {
+					display: block;
+					width: 100%;
+					line-height: 1.7;
+					padding: 0 0.5em;
+				}
+				
+				a,
+				ul {
+					float: left;
+				}
+			}
+			
+			ul {
+				position: absolute;
+				z-index: 99;
+				box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+				text-shadow: 1px 1px 0 rgba(255,255,255,1);
+				
+				li {
+					margin-right: 0;
+					border-bottom: 1px solid rgba(0,0,0,0.1);
+					
+					&:last-child {
+						border-bottom: none;
+					}
+				}
+				
+				ul {
+					left: 100%;
+					color: rgba(0,0,0,0.3);
+					
+					&::before {
+						position: absolute;
+						right: 100%;
+						content: "\25B8";
+						line-height: 1.7;
+						margin-right: 0.5em;
+					}
+				}
+				
+				a {
+					text-decoration: none;
+				}
+			}
+			
+			&:hover > ul > li {
+				display: block;
+			}
+	
+			&.current > a {
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+
+/* Footer
+-------------------------------------------------- */
+
+body > footer {
+	font: italic 0.9em @serifFonts;
+	margin: 6em 0 3em;
+	opacity: 0.6;
+}
+
+
+/* BLOG POSTS
+================================================== */
+
+@sidebarWidth: @wrapperWidth*25%;
+
+article {
+	position: relative;
+	padding: 1em 0 1em @sidebarWidth+5%;
+	border-bottom: 1px solid rgba(0,0,0,0.15);
+	
+	&:last-child {
+		border-bottom: none;
+	}
+	
+	h1 {
+		font-size: 1.2em;
+		margin-bottom: 1em;
+	}
+	
+	footer {
+		width: @sidebarWidth;
+		position: absolute;
+		top: 1em;
+		left: 0;
+		color: lighten(@textColor, 20);
+		
+		h3 {
+			display: none;
+		}
+		
+		.posted {
+			line-height: 1.5;
+		}
+		
+		.tags {					
+			ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			li {
+				color: fadeout(@textColor, 70);
+			
+				&::before {
+					position: relative;
+					top: 0.1em;
+					content: "#";
+					margin-right: 0.2em;
+				}
+			}
+		}
+	}
+}
+
+
+/* INCLUDES
+================================================== */
+
+.gallery,
+.slideshow {
+	margin: 40px auto 50px;
+}
+
+.gallery img {
+	display: inline-block;
+	margin: 10px 10px 0 0;
+	border: 1px solid #666;
+}
+
+
+/* HOME
+================================================== */
+
+#intro {
+	font: italic 1.2em @serifFonts;
+	color: lighten(@textColor, 20);
+	margin-bottom: 2em;
+}

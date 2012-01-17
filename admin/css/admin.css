@@ -18,6 +18,18 @@
 }
 /* LESS
 ================================================== */
+/* CLEARFIX
+================================================== */
+header {
+  zoom: 1;
+}
+header:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
 /* ADMIN
 ================================================== */
 body {
@@ -101,14 +113,6 @@ header {
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  zoom: 1;
-}
-header:after {
-  display: block;
-  visibility: hidden;
-  height: 0;
-  clear: both;
-  content: ".";
 }
 header h1 {
   font-weight: bold;

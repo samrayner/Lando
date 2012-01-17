@@ -1,73 +1,191 @@
+@import "reset.css";
+/* VARIABLES/MIXINS
+================================================== */
+/* REUSABLE STYLES
+================================================== */
+body > header, body > header nav, body > header nav li {
+  zoom: 1;
+}
+body > header:after, body > header nav:after, body > header nav li:after {
+  display: block;
+  visibility: hidden;
+  height: 0;
+  clear: both;
+  content: ".";
+}
+/* GLOBAL
+================================================== */
 body {
-	width: 70%;
-	margin: 30px auto 0;
-	font: 14px/1.2 "Lucida Grande", sans-serif;
+  width: 80%;
+  max-width: 1000px;
+  margin: 30px auto 0;
+  font: 16px/1.2 calibri, candara, "Helvetica Neue", helvetica, arial, sans-serif;
 }
-
-body > header h1 {
-	background-color: #eee;
-	border-radius: 10px;
-	padding: 15px 20px;
-	text-shadow: 1px 1px white;
-	text-align: center;
-	font: 24px georgia, "Times New Roman", times, serif;
-	font-style: italic;
-	font-weight: normal;
+a:link {
+  color: #4d8420;
 }
-
-.gallery,
-.slideshow {
-	margin: 40px auto 50px;
+a:hover, a:focus {
+  color: #66a235;
 }
-
-.gallery img {
-	display: inline-block;
-	margin: 10px 10px 0 0;
-	border: 1px solid #666;
+a:visited, a:active {
+  color: #355b16;
 }
-
-article {
-	position: relative;
-	margin-top: 20px;
-	border-top: 1px solid #ccc;
+p {
+  margin-bottom: 1em;
 }
-
-article footer {
-	font-size: 0.9em;
-	color: gray;
+/* Header
+-------------------------------------------------- */
+body > header {
+  margin-bottom: 2em;
 }
-
-article footer h3 {
-	font-size: 1em;
-	float: left;
-	margin: 0;
-	margin-right: 10px;
+body > header hgroup {
+  float: left;
 }
-
-article footer ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+body > header h1 a {
+  display: block;
+  font-family: georgia, "Times New Roman", times, serif;
+  font-size: 2em;
+  line-height: 1.8;
+  text-decoration: none;
 }
-
-article footer li {
-	display: inline;
+body > header h1 a:link,
+body > header h1 a:hover,
+body > header h1 a:focus,
+body > header h1 a:visited,
+body > header h1 a:active {
+  color: rgba(17, 17, 17, 0.9);
 }
-
-article footer li:after {
-	content: ", ";
+body > header h2 {
+  text-transform: uppercase;
+  font-size: 0.9em;
+  color: rgba(17, 17, 17, 0.8);
 }
-
-article footer li:last-child:after {
-	content: "";
+body > header nav {
+  margin-top: 1em;
+  float: right;
 }
-
+body > header nav li {
+  position: relative;
+  margin-right: 1em;
+  float: left;
+}
+body > header nav li > a {
+  line-height: 1.8;
+}
+body > header nav li li {
+  display: none;
+  float: none;
+  background: #f9f9f9;
+  white-space: nowrap;
+  padding-right: 1em;
+}
+body > header nav li li:hover {
+  background-color: #eee;
+}
+body > header nav li li a {
+  display: block;
+  width: 100%;
+  line-height: 1.7;
+  padding: 0 0.5em;
+}
+body > header nav li li a, body > header nav li li ul {
+  float: left;
+}
+body > header nav li ul {
+  position: absolute;
+  z-index: 99;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 0 #ffffff;
+}
+body > header nav li ul li {
+  margin-right: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+body > header nav li ul li:last-child {
+  border-bottom: none;
+}
+body > header nav li ul ul {
+  left: 100%;
+  color: rgba(0, 0, 0, 0.3);
+}
+body > header nav li ul ul::before {
+  position: absolute;
+  right: 100%;
+  content: "\25B8";
+  line-height: 1.7;
+  margin-right: 0.5em;
+}
+body > header nav li ul a {
+  text-decoration: none;
+}
+body > header nav li:hover > ul > li {
+  display: block;
+}
+body > header nav li.current > a {
+  font-weight: bold;
+}
+/* Footer
+-------------------------------------------------- */
 body > footer {
-	background-color: #eee;
-	padding: 15px 20px;
-	margin-top: 60px;
+  font: italic 0.9em georgia, "Times New Roman", times, serif;
+  margin: 6em 0 3em;
+  opacity: 0.6;
 }
-
-nav .current > a {
-	font-weight: bold;
+/* BLOG POSTS
+================================================== */
+article {
+  position: relative;
+  padding: 1em 0 1em 25%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+article:last-child {
+  border-bottom: none;
+}
+article h1 {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+}
+article footer {
+  width: 20%;
+  position: absolute;
+  top: 1em;
+  left: 0;
+  color: #444444;
+}
+article footer h3 {
+  display: none;
+}
+article footer .posted {
+  line-height: 1.5;
+}
+article footer .tags ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+article footer .tags li {
+  color: rgba(17, 17, 17, 0.30000000000000004);
+}
+article footer .tags li::before {
+  position: relative;
+  top: 0.1em;
+  content: "#";
+  margin-right: 0.2em;
+}
+/* INCLUDES
+================================================== */
+.gallery, .slideshow {
+  margin: 40px auto 50px;
+}
+.gallery img {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+  border: 1px solid #666;
+}
+/* HOME
+================================================== */
+#intro {
+  font: italic 1.2em georgia, "Times New Roman", times, serif;
+  color: #444444;
+  margin-bottom: 2em;
 }
