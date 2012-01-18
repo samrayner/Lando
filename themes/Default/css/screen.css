@@ -79,59 +79,50 @@ body > header nav {
   margin-top: 1em;
   float: right;
 }
-body > header nav li {
-  position: relative;
-  margin-right: 1em;
-  float: left;
-}
-body > header nav li > a {
+body > header nav a, body > header nav li ul ul::before {
   line-height: 1.8;
+}
+body > header nav > ul > li {
+  margin-left: 2em;
+  float: left;
 }
 body > header nav li li {
   display: none;
-  float: none;
-  background: #f9f9f9;
+  position: relative;
   white-space: nowrap;
   padding-right: 1em;
+  background: #f9f9f9;
+  text-shadow: 1px 1px 0 #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+body > header nav li li:last-child {
+  border-bottom: none;
 }
 body > header nav li li:hover {
   background-color: #eee;
 }
 body > header nav li li a {
   display: block;
+  position: relative;
+  z-index: 1;
   width: 100%;
-  line-height: 1.7;
   padding: 0 0.5em;
-}
-body > header nav li li a, body > header nav li li ul {
-  float: left;
+  text-decoration: none;
 }
 body > header nav li ul {
   position: absolute;
-  z-index: 99;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  text-shadow: 1px 1px 0 #ffffff;
-}
-body > header nav li ul li {
-  margin-right: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-body > header nav li ul li:last-child {
-  border-bottom: none;
 }
 body > header nav li ul ul {
+  top: 0;
   left: 100%;
-  color: rgba(0, 0, 0, 0.3);
 }
 body > header nav li ul ul::before {
   position: absolute;
   right: 100%;
   content: "\25B8";
-  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.3);
   margin-right: 0.5em;
-}
-body > header nav li ul a {
-  text-decoration: none;
 }
 body > header nav li:hover > ul > li {
   display: block;
@@ -190,7 +181,7 @@ article footer .tags li::before {
 /* INCLUDES
 ================================================== */
 .gallery, .slideshow {
-  margin: 40px auto 50px;
+  margin: 3em 0 4em;
 }
 .gallery img {
   display: inline-block;
