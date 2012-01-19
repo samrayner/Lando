@@ -50,8 +50,28 @@ a {
 	}
 }
 
-p, h3, h4 {
-	margin-bottom: 1em;
+
+/* Typography
+-------------------------------------------------- */
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+code {
+	font: 0.8em/1 @monoFonts;
+}
+
+abbr[title] {
+	border-bottom: 1px dotted rgba(0,0,0,0.1);
+}
+
+h1, h2, h3, h4 {
+	margin-top: 2em;
 }
 
 h1 {
@@ -71,6 +91,20 @@ h3 {
 
 h4 {
 	font-size: 1.2em;
+}
+
+
+/* Layout
+-------------------------------------------------- */
+
+h1, h2, h3, h4,
+p, ul, ol, pre, 
+table, img {
+	margin-bottom: 1em;
+}
+
+img {
+	display: block;
 }
 
 
@@ -98,13 +132,20 @@ body > header {
 	}
 	
 	h2 {
+		margin: 0;
 		text-transform: uppercase;
 		font-size: 0.9em;
 		color: fadeout(@textColor, 20);
 	}
 	
-	nav .current > a {
-		font-weight: bold;
+	nav {
+		ul {
+			margin-bottom: 0;
+		}
+	
+		.current > a {
+			font-weight: bold;
+		}
 	}
 }
 
@@ -157,7 +198,7 @@ article {
 	
 	h1 {
 		font-size: 1.4em;
-		margin-bottom: 1em;
+		margin-top: 0;
 	}
 	
 	footer {

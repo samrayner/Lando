@@ -19,27 +19,31 @@ body {
 ================================================== */
 
 body > header {
-	hgroup {
-		float: left;
-	}
-
 	nav {
 		margin-top: 1em;
-		float: right;
-		
+	
 		a,
 		li ul ul::before {
 			line-height: 1.8;
 		}
 		
 		//non-dropdown
-		> ul > li {
-			margin-left: 1.5em;
-			float: left;
+		> ul {
+			margin-bottom: 0;
+		
+			> li {
+				position: relative;
+				display: inline;
+				margin-right: 1em;
+				
+				a {
+					display: inline-block;
+				}
+			}
 		}
 	
 		//dropdown
-		li {
+		li {		
 			li {
 				display: none; //hide until parent LI hover
 				position: relative; //context for nested UL positioning
@@ -64,6 +68,13 @@ body > header {
 					width: 100%;
 					padding: 0 0.5em;
 					text-decoration: none;
+					
+					&:hover,
+					&:focus,
+					&:active,
+					&:visited {
+						color: @linkColor;
+					} 
 				}
 			}
 			

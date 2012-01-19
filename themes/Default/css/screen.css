@@ -33,8 +33,25 @@ a:hover, a:focus {
 a:visited, a:active {
   color: #355b16;
 }
-p, h3, h4 {
-  margin-bottom: 1em;
+/* Typography
+-------------------------------------------------- */
+em {
+  font-style: italic;
+}
+strong {
+  font-weight: bold;
+}
+code {
+  font: 0.8em/1 menlo, monaco, consolas, "Lucida Console", courier, monospace;
+}
+abbr[title] {
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+}
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 2em;
 }
 h1 {
   font-size: 1.6em;
@@ -50,6 +67,23 @@ h3 {
 }
 h4 {
   font-size: 1.2em;
+}
+/* Layout
+-------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+pre,
+table,
+img {
+  margin-bottom: 1em;
+}
+img {
+  display: block;
 }
 /* Header
 -------------------------------------------------- */
@@ -68,12 +102,16 @@ body > header h1 a:hover,
 body > header h1 a:focus,
 body > header h1 a:visited,
 body > header h1 a:active {
-  color: rgba(17, 17, 17, 0.9);
+  color: rgba(34, 34, 34, 0.9);
 }
 body > header h2 {
+  margin: 0;
   text-transform: uppercase;
   font-size: 0.9em;
-  color: rgba(17, 17, 17, 0.8);
+  color: rgba(34, 34, 34, 0.8);
+}
+body > header nav ul {
+  margin-bottom: 0;
 }
 body > header nav .current > a {
   font-weight: bold;
@@ -102,7 +140,7 @@ body > footer {
 }
 #intro {
   font: italic 1.2em/1.4 georgia, "Times New Roman", times, serif;
-  color: #444444;
+  color: #555555;
   margin-bottom: 2em;
 }
 /* Blog Posts
@@ -113,10 +151,10 @@ article {
 }
 article h1 {
   font-size: 1.4em;
-  margin-bottom: 1em;
+  margin-top: 0;
 }
 article footer {
-  color: #444444;
+  color: #555555;
 }
 /* RESPONSIVE BREAK POINTS
 ================================================== */
@@ -198,19 +236,22 @@ article footer {
   }
   /* Header
   ================================================== */
-  body > header hgroup {
-    float: left;
-  }
   body > header nav {
     margin-top: 1em;
-    float: right;
   }
   body > header nav a, body > header nav li ul ul::before {
     line-height: 1.8;
   }
+  body > header nav > ul {
+    margin-bottom: 0;
+  }
   body > header nav > ul > li {
-    margin-left: 1.5em;
-    float: left;
+    position: relative;
+    display: inline;
+    margin-right: 1em;
+  }
+  body > header nav > ul > li a {
+    display: inline-block;
   }
   body > header nav li li {
     display: none;
@@ -234,6 +275,12 @@ article footer {
     width: 100%;
     padding: 0 0.5em;
     text-decoration: none;
+  }
+  body > header nav li li a:hover,
+  body > header nav li li a:focus,
+  body > header nav li li a:active,
+  body > header nav li li a:visited {
+    color: #4d8420;
   }
   body > header nav li ul {
     position: absolute;
@@ -280,7 +327,7 @@ article footer {
     list-style: none;
   }
   article footer .tags li {
-    color: rgba(17, 17, 17, 0.30000000000000004);
+    color: rgba(34, 34, 34, 0.30000000000000004);
   }
   article footer .tags li::before {
     position: relative;
