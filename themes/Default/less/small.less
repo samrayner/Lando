@@ -1,0 +1,71 @@
+/* VARIABLESS/MIXINS
+================================================== */
+
+@import "vars.less";
+@wrapperPercent: 85%;
+
+
+/* GLOBAL
+================================================== */
+
+body {
+	width: @wrapperPercent;
+	min-width: 250px;
+	margin: 1em auto 0;
+}
+
+
+/* Header
+-------------------------------------------------- */
+
+nav {
+	margin-top: 1em;
+
+	ul ul {
+		margin-left: 2em;
+		font-size: 0.95em;
+	}
+}
+
+
+/* BLOG POSTS
+================================================== */
+
+article footer {
+	margin-top: 2em;
+
+	h3, p {
+		margin: 0;
+	}
+
+	h3 {
+		font-size: 1em;
+		float: left;
+		width: 3.8em;
+		font-weight: bold;
+		
+		&::after {
+			content: ":";
+		}
+	}
+	
+	.tags li {
+		display: inline;
+		
+		&::after {
+			content: ",";
+		}
+		
+		&:last-child::after {
+			content: none;
+		}
+	}
+}
+
+
+/* HOME
+================================================== */
+
+#intro {
+	font-size: 1.1em;
+}

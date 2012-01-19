@@ -1,0 +1,24 @@
+/* VARIABLES
+================================================== */
+
+@textColor: #111;
+@linkColor: #4d8420;
+
+@sansFonts: calibri, candara, "Helvetica Neue", helvetica, arial, sans-serif;
+@serifFonts: georgia, "Times New Roman", times, serif;
+
+
+/* MIXINS
+================================================== */
+
+.columns(@count: 2, @gap: 1em) {
+			-ms-column-count: @count;
+		 -moz-column-count: @count;
+	-webkit-column-count: @count;
+					column-count: @count;
+					
+		 -moz-column-gap: 	@gap;
+			-ms-column-gap: 	@gap;
+	-webkit-column-gap: 	@gap;
+					column-gap: 	@gap;
+}

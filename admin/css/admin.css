@@ -66,7 +66,7 @@ body {
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
-  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   box-shadow: 1px 1px 0 white;
   -webkit-box-shadow: 1px 1px 0 white;
 }
@@ -77,7 +77,7 @@ body {
   background-image: -o-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -moz-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -webkit-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
-  background-image: linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: linear-gradient(to top, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
 }
 .button:active, .button.active {
   border-color: rgba(0, 0, 0, 0.3);
@@ -87,7 +87,7 @@ body {
   background-image: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
   background-image: -moz-linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
   background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
-  background-image: linear-gradient(bottom, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.15) 60%, rgba(0, 0, 0, 0) 40%);
 }
 .button.active {
   background-image: url(../images/progress-bg.png);
@@ -112,7 +112,7 @@ header {
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 }
 header h1 {
   font-weight: bold;
@@ -135,7 +135,7 @@ header .button {
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
-  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
 }
 header .button:hover, header .button:focus {
   color: rgba(255, 255, 255, 0.8);
@@ -148,7 +148,7 @@ header .button:active {
   background-image: -o-linear-gradient(bottom, #000000 0, #000000 0);
   background-image: -moz-linear-gradient(bottom, #000000 0, #000000 0);
   background-image: -webkit-linear-gradient(bottom, #000000 0, #000000 0);
-  background-image: linear-gradient(bottom, #000000 0, #000000 0);
+  background-image: linear-gradient(to top, #000000 0, #000000 0);
 }
 #breadcrumbs li {
   display: inline-block;
@@ -199,7 +199,7 @@ section, #login, #last-panel {
   background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
   background-image: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
-  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
 }
 section > *, #login > *, #last-panel > * {
   transition: opacity 0.5s linear;

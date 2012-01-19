@@ -1,0 +1,143 @@
+/* VARIABLESS/MIXINS
+================================================== */
+
+@wrapperPercent: 80%;
+@wrapperWidth: @wrapperPercent/100;
+@import "vars.less";
+
+
+/* GLOBAL
+================================================== */
+
+body {
+	width: @wrapperPercent;
+	margin: 3em auto 0;
+}
+
+
+/* Header
+================================================== */
+
+body > header {
+	hgroup {
+		float: left;
+	}
+
+	nav {
+		margin-top: 1em;
+		float: right;
+		
+		a,
+		li ul ul::before {
+			line-height: 1.8;
+		}
+		
+		//non-dropdown
+		> ul > li {
+			margin-left: 1.5em;
+			float: left;
+		}
+	
+		//dropdown
+		li {
+			li {
+				display: none; //hide until parent LI hover
+				position: relative; //context for nested UL positioning
+				white-space: nowrap;
+				padding-right: 1em; //leave space for nest indicator
+				background: #f9f9f9;
+				text-shadow: 1px 1px 0 rgba(255,255,255,1);
+				border-bottom: 1px solid rgba(0,0,0,0.08);
+				
+				&:last-child {
+					border-bottom: none;
+				}
+				
+				&:hover {
+					background-color: #eee;
+				}
+				
+				a {
+					display: block;
+					position: relative; //enable z-index
+					z-index: 1; //display above nest arrow
+					width: 100%;
+					padding: 0 0.5em;
+					text-decoration: none;
+				}
+			}
+			
+			ul {
+				position: absolute;
+				box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+				
+				ul {
+					top: 0;
+					left: 100%;
+					
+					//nest indicator
+					&::before {
+						position: absolute;
+						right: 100%;
+						content: "\25B8";
+						color: rgba(0,0,0,0.3);
+						margin-right: 0.5em;
+					}
+				}
+			}
+			
+			&:hover > ul > li {
+				display: block; //show nested on parent LI hover
+			}
+		}
+	}
+}
+
+
+/* BLOG POSTS
+================================================== */
+
+@sidebarWidth: @wrapperWidth*35%;
+
+article {
+	position: relative;
+	padding: 1em 0 1em @sidebarWidth+5%;
+	
+	&:first-child {
+		border-top: none;
+	}
+	
+	footer {
+		width: @sidebarWidth;
+		position: absolute;
+		top: 1em;
+		left: 0;
+		
+		h3 {
+			display: none;
+		}
+		
+		.pubdate {
+			line-height: 2;
+		}
+		
+		.tags {					
+			ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			li {
+				color: fadeout(@textColor, 70);
+			
+				&::before {
+					position: relative;
+					top: 0.1em;
+					content: "#";
+					margin-right: 0.2em;
+				}
+			}
+		}
+	}
+}
