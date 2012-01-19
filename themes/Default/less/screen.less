@@ -1,7 +1,7 @@
 /* RESETS
 ================================================== */
 
-@import "reset.css";
+@import "boilerplate.css";
 
 
 /* VARIABLES/MIXINS
@@ -50,62 +50,24 @@ a {
 	}
 }
 
-
-/* Typography
--------------------------------------------------- */
-
-em {
-	font-style: italic;
-}
-
-strong {
-	font-weight: bold;
-}
-
 code {
 	font: 0.8em/1 @monoFonts;
 }
 
-abbr[title] {
-	border-bottom: 1px dotted rgba(0,0,0,0.1);
+img {
+	display: block;
+	width: 100%;
+	height: auto;
 }
 
-h1, h2, h3, h4 {
-	margin-top: 2em;
-}
+
+/* Typography
+-------------------------------------------------- */
 
 h1 {
-	font-size: 1.6em;
-	font-weight: bold;
-	margin-bottom: 0.6em;
-}
-
-h2 {
-	font-size: 1.6em;
-	margin-bottom: 0.8em;
-}
-
-h3 {
 	font-size: 1.4em;
 }
 
-h4 {
-	font-size: 1.2em;
-}
-
-
-/* Layout
--------------------------------------------------- */
-
-h1, h2, h3, h4,
-p, ul, ol, pre, 
-table, img {
-	margin-bottom: 1em;
-}
-
-img {
-	display: block;
-}
 
 
 /* Header
@@ -155,8 +117,8 @@ body > header {
 
 body > footer {
 	font: italic 0.9em @serifFonts;
-	margin: 6em 0 3em;
-	opacity: 0.6;
+	margin-top: 6em;
+	color: lighten(@textColor, 30);
 }
 
 
@@ -185,7 +147,6 @@ body > footer {
 #intro {
 	font: italic 1.2em/1.4 @serifFonts;
 	color: lighten(@textColor, 20);
-	margin-bottom: 2em;
 }
 
 
@@ -193,11 +154,14 @@ body > footer {
 -------------------------------------------------- */
 
 article {
-	padding: 1em 0;
+	padding: 1em 0 1.5em;
 	border-top: 1px solid rgba(0,0,0,0.15);
 	
+	&:first-of-type {
+		border-top: none;
+	}
+	
 	h1 {
-		font-size: 1.4em;
 		margin-top: 0;
 	}
 	

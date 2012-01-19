@@ -1,4 +1,4 @@
-@import "reset.css";
+@import "boilerplate.css";
 /* RESETS
 ================================================== */
 /* VARIABLES/MIXINS
@@ -33,57 +33,18 @@ a:hover, a:focus {
 a:visited, a:active {
   color: #355b16;
 }
-/* Typography
--------------------------------------------------- */
-em {
-  font-style: italic;
-}
-strong {
-  font-weight: bold;
-}
 code {
   font: 0.8em/1 menlo, monaco, consolas, "Lucida Console", courier, monospace;
 }
-abbr[title] {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
-}
-h1,
-h2,
-h3,
-h4 {
-  margin-top: 2em;
-}
-h1 {
-  font-size: 1.6em;
-  font-weight: bold;
-  margin-bottom: 0.6em;
-}
-h2 {
-  font-size: 1.6em;
-  margin-bottom: 0.8em;
-}
-h3 {
-  font-size: 1.4em;
-}
-h4 {
-  font-size: 1.2em;
-}
-/* Layout
--------------------------------------------------- */
-h1,
-h2,
-h3,
-h4,
-p,
-ul,
-ol,
-pre,
-table,
-img {
-  margin-bottom: 1em;
-}
 img {
   display: block;
+  width: 100%;
+  height: auto;
+}
+/* Typography
+-------------------------------------------------- */
+h1 {
+  font-size: 1.4em;
 }
 /* Header
 -------------------------------------------------- */
@@ -120,8 +81,8 @@ body > header nav .current > a {
 -------------------------------------------------- */
 body > footer {
   font: italic 0.9em georgia, "Times New Roman", times, serif;
-  margin: 6em 0 3em;
-  opacity: 0.6;
+  margin-top: 6em;
+  color: #6f6f6f;
 }
 /* Includes
 -------------------------------------------------- */
@@ -141,16 +102,17 @@ body > footer {
 #intro {
   font: italic 1.2em/1.4 georgia, "Times New Roman", times, serif;
   color: #555555;
-  margin-bottom: 2em;
 }
 /* Blog Posts
 -------------------------------------------------- */
 article {
-  padding: 1em 0;
+  padding: 1em 0 1.5em;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
+article:first-of-type {
+  border-top: none;
+}
 article h1 {
-  font-size: 1.4em;
   margin-top: 0;
 }
 article footer {
@@ -170,7 +132,7 @@ article footer {
   body {
     width: 85%;
     min-width: 250px;
-    margin: 1em auto 0;
+    margin: 1em auto;
   }
   /* Header
   -------------------------------------------------- */
@@ -186,7 +148,7 @@ article footer {
   article footer {
     margin-top: 2em;
   }
-  article footer h3, article footer p {
+  article footer .pubdate p, article footer .tags ul, article footer h3 {
     margin: 0;
   }
   article footer h3 {
@@ -232,7 +194,7 @@ article footer {
   ================================================== */
   body {
     width: 80%;
-    margin: 3em auto 0;
+    margin: 2em auto 3em;
   }
   /* Header
   ================================================== */
@@ -241,9 +203,6 @@ article footer {
   }
   body > header nav a, body > header nav li ul ul::before {
     line-height: 1.8;
-  }
-  body > header nav > ul {
-    margin-bottom: 0;
   }
   body > header nav > ul > li {
     position: relative;
@@ -304,15 +263,12 @@ article footer {
   ================================================== */
   article {
     position: relative;
-    padding: 1em 0 1em 33%;
-  }
-  article:first-child {
-    border-top: none;
+    padding-left: 33%;
   }
   article footer {
     width: 28%;
     position: absolute;
-    top: 1em;
+    top: 0;
     left: 0;
   }
   article footer h3 {

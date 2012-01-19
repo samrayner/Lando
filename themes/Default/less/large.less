@@ -11,7 +11,7 @@
 
 body {
 	width: @wrapperPercent;
-	margin: 3em auto 0;
+	margin: 2em auto 3em;
 }
 
 
@@ -28,17 +28,13 @@ body > header {
 		}
 		
 		//non-dropdown
-		> ul {
-			margin-bottom: 0;
-		
-			> li {
-				position: relative;
-				display: inline;
-				margin-right: 1em;
-				
-				a {
-					display: inline-block;
-				}
+		> ul > li {
+			position: relative;
+			display: inline;
+			margin-right: 1em;
+			
+			a {
+				display: inline-block;
 			}
 		}
 	
@@ -112,16 +108,12 @@ body > header {
 
 article {
 	position: relative;
-	padding: 1em 0 1em @sidebarWidth+5%;
-	
-	&:first-child {
-		border-top: none;
-	}
+	padding-left: @sidebarWidth+5%;
 	
 	footer {
 		width: @sidebarWidth;
 		position: absolute;
-		top: 1em;
+		top: 0;
 		left: 0;
 		
 		h3 {
