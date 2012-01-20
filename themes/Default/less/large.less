@@ -9,93 +9,127 @@
 /* GLOBAL
 ================================================== */
 
-body {
+#masthead hgroup *,
+.page-nav,
+#wrapper {
 	width: @wrapperPercent;
-	margin: 2em auto 3em;
+	margin: 0 auto;
 }
 
 
 /* Header
 ================================================== */
 
-body > header {
-	nav {
-		margin-top: 1em;
+#masthead hgroup {
+	background-color: @mastheadBg;
+}
+
+#masthead hgroup, 
+.page-nav li a,
+.page-nav ul {
+	border: 0 solid rgba(0,0,0,0.15);
+}
+
+#masthead hgroup {
+	padding: 2em 0;
+	border-bottom-width: 1px;
+	box-shadow: 10px 0 15px rgba(0,0,0,0.1);
+}
+
+.page-nav {
+	a,
+	li ul ul::before {
+		line-height: 2;
+	}
 	
-		a,
-		li ul ul::before {
-			line-height: 1.8;
-		}
-		
-		//non-dropdown
-		> ul > li {
+	a {
+		text-decoration: none;
+		color: @linkColor;
+	}
+	
+	> ul > li:hover > a,
+	> ul > li:focus > a,
+	> ul > li.current > a,
+	li ul {
+		background-color: @mainBg;
+		.gradient(@mainBg, 0%, @mastheadBg, 100%);
+	}
+	
+	//parent pages
+	> ul {
+		> li {
 			position: relative;
-			display: inline;
-			margin-right: 1em;
+			float: left;
+			
+			&:first-child > a {
+				border-left-width: 1px;
+			}
+			
+			> a {
+				line-height: 2.5;
+				display: inline-block;
+				padding: 0 1em;
+				border-right-width: 1px;
+			}
+			
+			&:hover > a,
+			&:focus > a {
+				position: relative;
+				z-index: 3;
+			}
+			
+			&:hover > a,
+			&:focus > a,
+			&.current > a {
+				box-shadow: 10px -2px 10px -2px rgba(0,0,0,0.03), 
+									 -10px -2px 10px -2px rgba(0,0,0,0.03);
+			}
+		}
+	}
+
+	//child pages in dropdowns
+	li {		
+		li {
+			position: relative; //context for nested UL positioning
+			white-space: nowrap;
+			text-shadow: 1px 1px 0 rgba(255,255,255,1);
+			
+			&:hover {
+				background-color: rgba(0,0,0,0.05);
+			}
 			
 			a {
-				display: inline-block;
+				display: block;
+				position: relative; //enable z-index
+				z-index: 1; //display above nest arrow
+				padding: 0 2em 0 1em; //leave space for nest indicator
+			}
+			
+				//nest indicator
+			&.parent > a::after {
+				position: absolute;
+				right: 0.5em;
+				content: "\25B8";
+				color: rgba(0,0,0,0.3);
 			}
 		}
-	
-		//dropdown
-		li {		
-			li {
-				display: none; //hide until parent LI hover
-				position: relative; //context for nested UL positioning
-				white-space: nowrap;
-				padding-right: 1em; //leave space for nest indicator
-				background: #f9f9f9;
-				text-shadow: 1px 1px 0 rgba(255,255,255,1);
-				border-bottom: 1px solid rgba(0,0,0,0.08);
-				
-				&:last-child {
-					border-bottom: none;
-				}
-				
-				&:hover {
-					background-color: #eee;
-				}
-				
-				a {
-					display: block;
-					position: relative; //enable z-index
-					z-index: 1; //display above nest arrow
-					width: 100%;
-					padding: 0 0.5em;
-					text-decoration: none;
-					
-					&:hover,
-					&:focus,
-					&:active,
-					&:visited {
-						color: @linkColor;
-					} 
-				}
-			}
+		
+		ul {
+			display: none;
+			position: absolute;
+			z-index: 2;
+			margin: -1px 0 0 -1px;
+			border-width: 1px;
+			box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 			
 			ul {
-				position: absolute;
-				box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-				
-				ul {
-					top: 0;
-					left: 100%;
-					
-					//nest indicator
-					&::before {
-						position: absolute;
-						right: 100%;
-						content: "\25B8";
-						color: rgba(0,0,0,0.3);
-						margin-right: 0.5em;
-					}
-				}
+				top: 0;
+				left: 100%;
 			}
-			
-			&:hover > ul > li {
-				display: block; //show nested on parent LI hover
-			}
+		}
+		
+		&:hover > ul {
+			display: block;
 		}
 	}
 }

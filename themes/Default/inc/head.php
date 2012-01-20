@@ -58,3 +58,4 @@
 	</script>
 	
 </head>
+<body id="<?php echo $template ?>">

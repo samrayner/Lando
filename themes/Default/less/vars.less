@@ -1,10 +1,12 @@
 /* VARIABLES
 ================================================== */
 
-@textColor: #222;
-@linkColor: #4d8420;
+@mainBg: 			#fcfcfc;
+@mastheadBg: 	#fff;
+@textColor:		#222;
+@linkColor: 	#4d8420;
 
-@sansFonts: calibri, candara, "Helvetica Neue", helvetica, arial, sans-serif;
+@sansFonts: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "Helvetica Neue", helvetica, arial, sans-serif;
 @serifFonts: georgia, "Times New Roman", times, serif;
 @monoFonts: menlo, monaco, consolas, "Lucida Console", courier, monospace;
 
@@ -22,4 +24,12 @@
 			-ms-column-gap: 	@gap;
 	-webkit-column-gap: 	@gap;
 					column-gap: 	@gap;
+}
+
+.gradient(@startColor: #000, @stop1: 0%, @endColor: #fff, @stop2: 100%) {
+	background-image: -ms-linear-gradient(		bottom, @startColor @stop1, @endColor @stop2);
+	background-image: -o-linear-gradient(			bottom, @startColor @stop1, @endColor @stop2);
+	background-image: -moz-linear-gradient(		bottom, @startColor @stop1, @endColor @stop2);
+	background-image: -webkit-linear-gradient(bottom, @startColor @stop1, @endColor @stop2);
+	background-image: linear-gradient(				to top, @startColor @stop1, @endColor @stop2);
 }

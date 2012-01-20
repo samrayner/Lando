@@ -1,8 +1,6 @@
 <?php include "inc/head.php" ?>
-
-<body id="<?php echo $current->slug() ?>">
-
 <?php include "inc/header.php" ?>
+<div id="wrapper">
 
 <section id="primary">
 	<h1><?php echo $current->title() ?></h1>
@@ -11,6 +9,6 @@
 
 <?php include "inc/footer.php" ?>
 
-</body>
+</div><!-- #wrapper -->
 
 <?php include "inc/foot.php" ?>

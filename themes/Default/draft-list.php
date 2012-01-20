@@ -1,7 +1,6 @@
 <?php include "inc/head.php" ?>
-<body id="draft-list">
-
-<section id="primary">
+<?php include "inc/header.php" ?>
+<div id="wrapper">
 
 	<h1>Drafts</h1>
 	
@@ -36,5 +35,5 @@
 	
 </section>
 
-</body>
+</div><!-- #wrapper -->
 <?php include "inc/foot.php" ?>

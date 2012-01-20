@@ -13,9 +13,10 @@
 /* REUSABLE STYLES
 ================================================== */
 
-body > header,
-body > header nav,
-body > header nav li {
+#masthead,
+.page-nav,
+.page-nav ul,
+.page-nav li {
   zoom: 1;
 	&:after {
     display: block;
@@ -31,7 +32,8 @@ body > header nav li {
 ================================================== */
 
 body {
-	font: 16px/1.2 @sansFonts;
+	font: 0.9em/1.2 @sansFonts;
+	background-color:  @mainBg;
 }
 
 a {
@@ -54,10 +56,12 @@ code {
 	font: 0.8em/1 @monoFonts;
 }
 
-img {
+img, iframe, 
+embed, object {
 	display: block;
-	width: 100%;
+	max-width: 100%;
 	height: auto;
+	margin: 2em 0;
 }
 
 
@@ -68,17 +72,26 @@ h1 {
 	font-size: 1.4em;
 }
 
+h2 {
+	font-size: 1.2em;
+}
+
+h3 {
+	font-size: 1em;
+}
+
 
 
 /* Header
 -------------------------------------------------- */
 
-body > header {
+#masthead {
 	margin-bottom: 2em;
 	
 	h1 {
-		font: normal 2em/1.8 @serifFonts;
-		margin-bottom: 0;
+		font-size: 2em;
+		font-weight: normal;
+		margin-bottom: 0.2em;
 	}
 	
 	h1 a {
@@ -95,30 +108,23 @@ body > header {
 	
 	h2 {
 		margin: 0;
-		text-transform: uppercase;
-		font-size: 0.9em;
+		font-size: 1.2em;
+		font-weight: normal;
+		text-transform: lowercase;
+		font-variant: small-caps;
 		color: fadeout(@textColor, 20);
-	}
-	
-	nav {
-		ul {
-			margin-bottom: 0;
-		}
-	
-		.current > a {
-			font-weight: bold;
-		}
 	}
 }
 
+.page-nav {
+	ul {
+		list-style: none;
+		margin-bottom: 0;
+	}
 
-/* Footer
--------------------------------------------------- */
-
-body > footer {
-	font: italic 0.9em @serifFonts;
-	margin-top: 6em;
-	color: lighten(@textColor, 30);
+	.current > a {
+		color: @textColor;
+	}
 }
 
 
@@ -168,6 +174,16 @@ article {
 	footer {
 		color: lighten(@textColor, 20);
 	}
+}
+
+
+/* Footer
+-------------------------------------------------- */
+
+#footer {
+	font: italic 1em @serifFonts;
+	margin: 5em 0 3em;
+	color: lighten(@textColor, 30);
 }
 
 

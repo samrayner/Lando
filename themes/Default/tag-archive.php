@@ -1,7 +1,7 @@
 <?php include "inc/head.php" ?>
-<body id="tag-archive">
-
 <?php include "inc/header.php" ?>
+
+<div id="wrapper">
 
 <section id="primary">
 
@@ -52,5 +52,5 @@
 
 <?php include "inc/footer.php" ?>
 
-</body>
+</div><!-- #wrapper -->
 <?php include "inc/foot.php" ?>

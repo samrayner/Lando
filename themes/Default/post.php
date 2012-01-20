@@ -1,11 +1,10 @@
 <?php include "inc/head.php" ?>
-<body id="<?php echo $current->slug() ?>">
-
 <?php include "inc/header.php" ?>
+<div id="wrapper">
 
 <div id="primary">
 	<article>
-		<h1><a href="<?php echo $current->permalink() ?>"><?php echo $current->title() ?></a></h1>
+		<h1><?php echo $current->title() ?></h1>
 		<?php echo $current->content() ?>
 		<footer>
 			<div class="pubdate">
@@ -33,5 +32,5 @@
 
 <?php include "inc/footer.php" ?>
 
-</body>
+</div><!-- #wrapper -->
 <?php include "inc/foot.php" ?>

@@ -106,6 +106,8 @@ function page_nav($pages=null, $path=array()) {
 	}
 	
 	$current_class = "current";
+	$parent_class = "parent";
+	
 	$url = current_path();
 	$tabs = str_repeat("\t", sizeof($path)*2);
 
@@ -127,14 +129,22 @@ function page_nav($pages=null, $path=array()) {
 				$url = "/home/";
 			
 			$current = (strpos($url, rtrim($path_str, "/")) === 0);
+			$subpages = $page->subpages();
 	
 			$html .= "$tabs\t<li";
-			if($current) 
-				$html .= ' class="'.$current_class.'"';
+			
+			$classes = array();
+			
+			if($current)
+				$classes[] = $current_class;
+				
+			if(!empty($subpages))
+				$classes[] = $parent_class;
+			
+			if(!empty($classes)) 
+				$html .= ' class="'.implode(" ", $classes).'"';
 			
 			$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink().'">'.$page->title()."</a>\n";
-	
-			$subpages = $page->subpages();
 	
 			if(!empty($subpages))
 				$html .= page_nav($subpages, $path);

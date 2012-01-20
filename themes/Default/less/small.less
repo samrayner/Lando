@@ -8,22 +8,34 @@
 /* GLOBAL
 ================================================== */
 
-body {
+#masthead > *,
+#wrapper {
 	width: @wrapperPercent;
 	min-width: 250px;
-	margin: 1em auto;
+	margin: 0 auto;
 }
 
 
 /* Header
 -------------------------------------------------- */
 
-nav {
-	margin-top: 1em;
+#masthead {
+	padding: 1em 0;
+	margin-bottom: 2em;
+	background-color: @mastheadBg;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	box-shadow: 10px 0 15px rgba(0,0,0,0.1);
+}
+
+#masthead .page-nav {
+	margin: 1.5em auto 1em;
 
 	ul ul {
 		margin-left: 2em;
-		font-size: 0.95em;
+	}
+	
+	li {
+		line-height: 1.5;
 	}
 }
 
@@ -43,7 +55,7 @@ article footer {
 	h3 {
 		font-size: 1em;
 		float: left;
-		width: 3.8em;
+		width: 4.5em;
 		font-weight: bold;
 		
 		&::after {
@@ -62,12 +74,4 @@ article footer {
 			content: none;
 		}
 	}
-}
-
-
-/* HOME
-================================================== */
-
-#intro {
-	font-size: 1.1em;
 }
