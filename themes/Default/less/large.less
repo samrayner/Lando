@@ -52,7 +52,7 @@
 	> ul > li.current > a,
 	li ul {
 		background-color: @mainBg;
-		.gradient(@mainBg, 0%, @mastheadBg, 100%);
+		.gradient(@mainBg, 0%, rgba(255,255,255,0.5), 100%);
 	}
 	
 	//parent pages
@@ -138,11 +138,11 @@
 /* BLOG POSTS
 ================================================== */
 
-@sidebarWidth: @wrapperWidth*35%;
+@sidebarWidth: @wrapperWidth*32%;
 
 article {
 	position: relative;
-	padding-left: @sidebarWidth+5%;
+	padding-left: @sidebarWidth+3%;
 	
 	footer {
 		width: @sidebarWidth;

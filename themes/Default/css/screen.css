@@ -32,13 +32,13 @@ body {
   background-color: #fcfcfc;
 }
 a:link {
-  color: #4d8420;
+  color: #388444;
 }
 a:hover, a:focus {
-  color: #66a235;
+  color: #539c5f;
 }
 a:visited, a:active {
-  color: #355b16;
+  color: #296032;
 }
 code {
   font: 0.8em/1 menlo, monaco, consolas, "Lucida Console", courier, monospace;
@@ -239,18 +239,18 @@ article footer {
   }
   .page-nav a {
     text-decoration: none;
-    color: #4d8420;
+    color: #388444;
   }
   .page-nav > ul > li:hover > a,
   .page-nav > ul > li:focus > a,
   .page-nav > ul > li.current > a,
   .page-nav li ul {
     background-color: #fcfcfc;
-    background-image: -ms-linear-gradient(bottom, #fcfcfc 0%, #ffffff 100%);
-    background-image: -o-linear-gradient(bottom, #fcfcfc 0%, #ffffff 100%);
-    background-image: -moz-linear-gradient(bottom, #fcfcfc 0%, #ffffff 100%);
-    background-image: -webkit-linear-gradient(bottom, #fcfcfc 0%, #ffffff 100%);
-    background-image: linear-gradient(to top, #fcfcfc 0%, #ffffff 100%);
+    background-image: -ms-linear-gradient(bottom, #fcfcfc 0%, rgba(255, 255, 255, 0.5) 100%);
+    background-image: -o-linear-gradient(bottom, #fcfcfc 0%, rgba(255, 255, 255, 0.5) 100%);
+    background-image: -moz-linear-gradient(bottom, #fcfcfc 0%, rgba(255, 255, 255, 0.5) 100%);
+    background-image: -webkit-linear-gradient(bottom, #fcfcfc 0%, rgba(255, 255, 255, 0.5) 100%);
+    background-image: linear-gradient(to top, #fcfcfc 0%, rgba(255, 255, 255, 0.5) 100%);
   }
   .page-nav > ul > li {
     position: relative;
@@ -311,10 +311,10 @@ article footer {
   ================================================== */
   article {
     position: relative;
-    padding-left: 33%;
+    padding-left: 28.6%;
   }
   article footer {
-    width: 28%;
+    width: 25.6%;
     position: absolute;
     top: 0;
     left: 0;
@@ -349,7 +349,7 @@ article footer {
   ================================================== */
   /* GLOBAL
   ================================================== */
-  #wrapper {
+  #masthead hgroup *, .page-nav, #wrapper {
     max-width: 1000px;
   }
   /* HOME
