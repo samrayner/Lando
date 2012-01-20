@@ -38,7 +38,13 @@ a:hover, a:focus {
   color: #539c5f;
 }
 a:visited, a:active {
-  color: #296032;
+  color: #305936;
+}
+::-moz-selection {
+  background: rgba(0, 125, 255, 0.6);
+}
+::selection {
+  background: rgba(0, 125, 255, 0.6);
 }
 code {
   font: 0.8em/1 menlo, monaco, consolas, "Lucida Console", courier, monospace;
@@ -323,7 +329,7 @@ article footer {
     display: none;
   }
   article footer .pubdate {
-    line-height: 2;
+    line-height: 1.9;
   }
   article footer .tags ul {
     margin: 0;

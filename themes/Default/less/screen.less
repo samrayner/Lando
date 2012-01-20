@@ -48,9 +48,13 @@ a {
 	
 	&:visited,
 	&:active {
-		color: darken(@linkColor, 10);
+		color: darken(desaturate(@linkColor, 10), 10);
 	}
 }
+
+//must be separate
+::-moz-selection { background: rgba(0,125,255,0.6); }
+::selection { background: rgba(0,125,255,0.6); }
 
 code {
 	font: 0.8em/1 @monoFonts;
