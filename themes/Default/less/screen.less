@@ -16,7 +16,8 @@
 #masthead,
 .page-nav,
 .page-nav ul,
-.page-nav li {
+.page-nav li,
+#intro {
   zoom: 1;
 	&:after {
     display: block;
@@ -147,19 +148,6 @@ h3 {
 }
 
 
-/* Home
--------------------------------------------------- */
-
-#home #primary > h1 {
-	display: none;
-}
-
-#intro {
-	font: italic 1.2em/1.4 @serifFonts;
-	color: lighten(@textColor, 20);
-}
-
-
 /* Blog Posts
 -------------------------------------------------- */
 
@@ -181,13 +169,47 @@ article {
 }
 
 
-/* Footer
--------------------------------------------------- */
+/* POST ARCHIVES
+================================================== */
+
+.year-block h2 > a,
+.month-block h3 > a {
+	color: fadeout(@textColor, 50);
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+}
+
+
+/* FOOTER
+================================================== */
 
 #footer {
 	font: italic 1em @serifFonts;
 	margin: 5em 0 3em;
 	color: lighten(@textColor, 30);
+}
+
+
+/* HOME
+================================================== */
+
+#home #primary > h1 {
+	display: none;
+}
+
+#intro {
+	margin-bottom: 1em;
+	font: italic 1.2em/1.4 @serifFonts;
+	color: lighten(@textColor, 20);
+
+	img {
+		margin: 0 0 1em 0;
+		box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+	}
 }
 
 
@@ -198,14 +220,14 @@ article {
 	@import "small.less";
 }
 
-@media screen and (min-width: 481px) and (max-width: 700px) {
+/*@media screen and (min-width: 481px) and (max-width: 700px) {
 	@import "medium.less";
-}
+}*/
 
 @media screen and (min-width: 701px) {
 	@import "large.less";
 }
 
-@media screen and (min-width: 1000px) {
+/*@media screen and (min-width: 1000px) {
 	@import "xlarge.less";
-}
+}*/

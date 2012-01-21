@@ -12,13 +12,15 @@
 #masthead,
 .page-nav,
 .page-nav ul,
-.page-nav li {
+.page-nav li,
+#intro {
   zoom: 1;
 }
 #masthead:after,
 .page-nav:after,
 .page-nav ul:after,
-.page-nav li:after {
+.page-nav li:after,
+#intro:after {
   display: block;
   visibility: hidden;
   height: 0;
@@ -114,15 +116,6 @@ h3 {
   margin: 10px 10px 0 0;
   border: 1px solid #666;
 }
-/* Home
--------------------------------------------------- */
-#home #primary > h1 {
-  display: none;
-}
-#intro {
-  font: italic 1.2em/1.4 georgia, "Times New Roman", times, serif;
-  color: #555555;
-}
 /* Blog Posts
 -------------------------------------------------- */
 article {
@@ -138,12 +131,38 @@ article h1 {
 article footer {
   color: #555555;
 }
-/* Footer
--------------------------------------------------- */
+/* POST ARCHIVES
+================================================== */
+.year-block h2 > a, .month-block h3 > a {
+  color: rgba(34, 34, 34, 0.5);
+  text-decoration: none;
+}
+.year-block h2 > a:hover,
+.month-block h3 > a:hover,
+.year-block h2 > a:focus,
+.month-block h3 > a:focus {
+  text-decoration: underline;
+}
+/* FOOTER
+================================================== */
 #footer {
   font: italic 1em georgia, "Times New Roman", times, serif;
   margin: 5em 0 3em;
   color: #6f6f6f;
+}
+/* HOME
+================================================== */
+#home #primary > h1 {
+  display: none;
+}
+#intro {
+  margin-bottom: 1em;
+  font: italic 1.2em/1.4 georgia, "Times New Roman", times, serif;
+  color: #555555;
+}
+#intro img {
+  margin: 0 0 1em 0;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 /* RESPONSIVE BREAK POINTS
 ================================================== */
@@ -206,14 +225,9 @@ article footer {
     content: none;
   }
 }
-@media screen and (min-width: 481px) and (max-width: 700px) {
-  /* VARIABLESS/MIXINS
-  ================================================== */
-  /* VARIABLES
-  ================================================== */
-  /* MIXINS
-  ================================================== */
-}
+/*@media screen and (min-width: 481px) and (max-width: 700px) {
+	@import "medium.less";
+}*/
 @media screen and (min-width: 701px) {
   /* VARIABLESS/MIXINS
   ================================================== */
@@ -226,6 +240,7 @@ article footer {
   #masthead hgroup *, .page-nav, #wrapper {
     width: 80%;
     margin: 0 auto;
+    max-width: 1000px;
   }
   /* Header
   ================================================== */
@@ -345,29 +360,85 @@ article footer {
     content: "#";
     margin-right: 0.2em;
   }
-}
-@media screen and (min-width: 1000px) {
-  /* VARIABLESS/MIXINS
+  /* POST ARCHIVES
   ================================================== */
-  /* VARIABLES
-  ================================================== */
-  /* MIXINS
-  ================================================== */
-  /* GLOBAL
-  ================================================== */
-  #masthead hgroup *, .page-nav, #wrapper {
-    max-width: 1000px;
+  .year-block, .month-block, .month-block article {
+    border: 0 solid rgba(0, 0, 0, 0.2);
+  }
+  .year-block, .month-block {
+    border-top-width: 1px;
+  }
+  .year-block .month-block {
+    border-left-width: 1px;
+  }
+  .year-block .month-block:first-of-type {
+    border-top: none;
+  }
+  .year-block > h2, .month-block > h3 {
+    position: absolute;
+    font-size: 1.1em;
+    margin: 1em 0 0;
+  }
+  .day-block article {
+    padding-left: 0;
+  }
+  .year-block > h2 {
+    width: 10%;
+  }
+  .month-block > h3 {
+    width: 15%;
+  }
+  .month-block article {
+    margin-left: 19%;
+    padding-left: 2%;
+  }
+  .year-block .month-block {
+    margin-left: 11%;
+    padding-left: 2%;
+  }
+  .year-block .month-block article {
+    margin-left: 22%;
+  }
+  #posts-all article h1, #posts-by-date article h1 {
+    margin: 0;
+    font-size: 1.1em;
+  }
+  #posts-all article footer, #posts-by-date article footer {
+    width: auto;
+    position: static;
+    font-size: 0.9em;
+  }
+  #posts-all article footer p, #posts-by-date article footer p {
+    margin: 0;
+  }
+  #posts-all article footer .pubdate, #posts-by-date article footer .pubdate {
+    line-height: 1.4;
+  }
+  #posts-all article footer .tags::before, #posts-by-date article footer .tags::before {
+    float: left;
+    content: "in\00A0";
+  }
+  #posts-all article footer .tags li, #posts-by-date article footer .tags li {
+    display: inline;
+    color: #222222;
+  }
+  #posts-all article footer .tags li::before, #posts-by-date article footer .tags li::before {
+    content: "";
+  }
+  #posts-all article footer .tags li::after, #posts-by-date article footer .tags li::after {
+    content: ",";
+  }
+  #posts-all article footer .tags li:last-child::after, #posts-by-date article footer .tags li:last-child::after {
+    content: none;
   }
   /* HOME
   ================================================== */
-  #intro {
-    -ms-column-count: 2;
-    -moz-column-count: 2;
-    -webkit-column-count: 2;
-    column-count: 2;
-    -moz-column-gap: 2em;
-    -ms-column-gap: 2em;
-    -webkit-column-gap: 2em;
-    column-gap: 2em;
+  #intro img {
+    float: right;
+    width: 40%;
+    margin-left: 5%;
   }
 }
+/*@media screen and (min-width: 1000px) {
+	@import "xlarge.less";
+}*/

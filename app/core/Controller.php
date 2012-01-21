@@ -140,8 +140,6 @@ class Controller {
 		$day 		= (int)$day;
 
 		if($year) {
-			//sort into date array
-			$by_date = array(array(array(array())));
 			$date_types = array("published", "created");
 			
 			foreach($content as $item) {

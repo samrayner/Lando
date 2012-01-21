@@ -14,6 +14,7 @@
 #wrapper {
 	width: @wrapperPercent;
 	margin: 0 auto;
+	max-width: 1000px;
 }
 
 
@@ -178,3 +179,123 @@ article {
 		}
 	}
 }
+
+
+/* POST ARCHIVES
+================================================== */
+
+.year-block,
+.month-block,
+.month-block article {
+	border: 0 solid rgba(0,0,0,0.2);
+}
+
+.year-block,
+.month-block {
+	border-top-width: 1px;
+}
+
+.year-block .month-block {
+	border-left-width: 1px;
+
+	&:first-of-type {
+		border-top: none;
+	}
+}
+
+.year-block > h2,
+.month-block > h3 {
+	position: absolute;
+	font-size: 1.1em;
+	margin: 1em 0 0;
+}
+
+.day-block article {
+	padding-left: 0;
+}
+
+.year-block > h2 {
+	width: 10%;
+}
+
+.month-block {
+	> h3 {
+		width: 15%;
+	}
+
+	article {
+		margin-left: 19%;
+		padding-left: 2%;
+	}
+}
+
+.year-block .month-block {
+		margin-left: 11%;
+		padding-left: 2%;
+
+	article {
+		margin-left: 22%;
+	}
+}
+
+#posts-all,
+#posts-by-date {
+	article {
+
+
+		h1 {
+			margin: 0;
+			font-size: 1.1em;
+		}
+
+		footer {
+			width: auto;
+			position: static;
+			font-size: 0.9em;
+
+			p {
+				margin: 0;
+			}
+
+			.pubdate {
+				line-height: 1.4;				
+			}
+
+			.tags {
+				&::before {
+					float: left;
+					content: "in\00A0";
+				}
+
+				li {
+					display: inline;
+					color: @textColor;
+					
+					&::before {
+						content: "";
+					}
+
+					&::after {
+						content: ",";
+					}
+					
+					&:last-child::after {
+						content: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* HOME
+================================================== */
+
+#intro img {	
+	float: right;
+	width: 40%;
+	margin-left: 5%;
+}
+
+
