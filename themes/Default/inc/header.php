@@ -4,5 +4,5 @@
 		<h2><?php echo $site_description ?></h2>
 	</hgroup>
 	
-	<?php echo page_nav() ?>
+	<?php echo page_nav("Blog Archive") ?>
 </header>

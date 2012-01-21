@@ -92,7 +92,7 @@ function snippet($title) {
 	return $Lando->get_content("snippets", $title);
 }
 
-function page_nav($pages=null, $path=array()) {
+function page_nav($blog_text=null, $blog_index=null, $pages=null, $path=array()) {
 	global $Lando;
 	$page_order = $Lando->config["page_order"];
 
@@ -100,7 +100,22 @@ function page_nav($pages=null, $path=array()) {
 		global $Lando;
 		//get content top level pages from page_order
 		$html = '<nav class="page-nav">'."\n";
-		$html .= page_nav(pages());
+
+		$pages = pages();
+
+		if($blog_text) {
+			$blog_index = $blog_index > 0 ? $blog_index-1 : count($pages);
+
+			$blog_page = new Page(array(
+				"slug" => "posts",
+				"title" => $blog_text,
+				"permalink" => "/posts/"
+			));
+
+			$pages = array_insert($pages, $blog_page, $blog_index);
+		}
+
+		$html .= page_nav($blog_text, $blog_index, $pages);
 		$html .= '</nav>';
 		return $html;
 	}
@@ -147,7 +162,7 @@ function page_nav($pages=null, $path=array()) {
 			$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink().'">'.$page->title()."</a>\n";
 	
 			if(!empty($subpages))
-				$html .= page_nav($subpages, $path);
+				$html .= page_nav($blog_text, $blog_index, $subpages, $path);
 	
 			$html .= "$tabs\t</li>\n";
 		}

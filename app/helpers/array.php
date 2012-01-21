@@ -73,3 +73,9 @@ function array_offset_limit($array, $offset, $limit) {
 	
 	return $array;
 }
+
+function array_insert($array, $new_element, $index=0) {
+	$result = array_splice($array, 0, $index);
+	$result[] = $new_element;
+	return array_merge($result, $array);
+}
