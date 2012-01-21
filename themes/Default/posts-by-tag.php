@@ -47,6 +47,10 @@
 		</article>
 
 	<?php endforeach ?>
+
+	<?php if(empty($posts)): ?>
+		<p>No posts found tagged <?php echo '"'.implode(", ", $tags).'"' ?>.</p>
+	<?php endif ?>
 	
 </section>
 

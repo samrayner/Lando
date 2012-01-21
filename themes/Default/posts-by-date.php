@@ -14,7 +14,7 @@
 		if($year) {
 			$date_str = "from ".date("Y", mktime(0,0,0,1,1,$year));
 			if($month) {
-				$date_str = "from ".date("F, Y", mktime(0,0,0,$month,1,$year));
+				$date_str = "from ".date("F Y", mktime(0,0,0,$month,1,$year));
 				if($day) {
 					$date_str = "from ".date("F jS, Y", mktime(0,0,0,$month,$day,$year));
 				}
@@ -52,9 +52,7 @@
 
 			<?php foreach($posts_by_day as $post_day => $posts): ?>
 
-				<?php if(!$day): ?>
-					<div class="day-block">
-				<?php endif ?>
+				<div class="day-block">
 
 				<?php foreach($posts as $post): ?>
 
@@ -85,7 +83,7 @@
 
 				<?php endforeach; //posts ?>
 
-				<?php if(!$day): ?></div><!-- .day-block --><?php endif ?>
+				</div><!-- .day-block -->
 
 			<?php endforeach; //days ?>
 
@@ -96,6 +94,10 @@
 		<?php if(!$year): ?></div><!-- .year-block --><?php endif ?>
 
 	<?php endforeach; //years ?>
+
+	<?php if(empty($posts_by_date)): ?>
+		<p>No posts found <?php echo $date_str ?>.</p>
+	<?php endif ?>
 	
 </section>
 

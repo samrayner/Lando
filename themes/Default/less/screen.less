@@ -172,14 +172,46 @@ article {
 /* POST ARCHIVES
 ================================================== */
 
-.year-block h2 > a,
-.month-block h3 > a {
+.year-block > h2 a,
+.month-block > h3 a {
 	color: fadeout(@textColor, 50);
 	text-decoration: none;
 
 	&:hover,
 	&:focus {
 		text-decoration: underline;
+	}
+}
+
+#posts-all,
+#posts-by-date {
+	article {
+		h1, p, footer {
+			margin: 0;
+		}
+
+		h1 {
+			font-size: 1.1em;
+		}
+
+		footer {
+			font-size: 0.9em;
+
+			h3 {
+				display: none;
+			}
+
+			.tags {
+				&::before {
+					float: left;
+					content: "in\00A0";
+				}
+
+				ul {
+					padding: 0;
+				}
+			}
+		}
 	}
 }
 

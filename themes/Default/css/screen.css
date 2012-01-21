@@ -133,15 +133,39 @@ article footer {
 }
 /* POST ARCHIVES
 ================================================== */
-.year-block h2 > a, .month-block h3 > a {
+.year-block > h2 a, .month-block > h3 a {
   color: rgba(34, 34, 34, 0.5);
   text-decoration: none;
 }
-.year-block h2 > a:hover,
-.month-block h3 > a:hover,
-.year-block h2 > a:focus,
-.month-block h3 > a:focus {
+.year-block > h2 a:hover,
+.month-block > h3 a:hover,
+.year-block > h2 a:focus,
+.month-block > h3 a:focus {
   text-decoration: underline;
+}
+#posts-all article h1,
+#posts-by-date article h1,
+#posts-all article p,
+#posts-by-date article p,
+#posts-all article footer,
+#posts-by-date article footer {
+  margin: 0;
+}
+#posts-all article h1, #posts-by-date article h1 {
+  font-size: 1.1em;
+}
+#posts-all article footer, #posts-by-date article footer {
+  font-size: 0.9em;
+}
+#posts-all article footer h3, #posts-by-date article footer h3 {
+  display: none;
+}
+#posts-all article footer .tags::before, #posts-by-date article footer .tags::before {
+  float: left;
+  content: "in\00A0";
+}
+#posts-all article footer .tags ul, #posts-by-date article footer .tags ul {
+  padding: 0;
 }
 /* FOOTER
 ================================================== */
@@ -177,7 +201,7 @@ article footer {
   ================================================== */
   #masthead > *, #wrapper {
     width: 85%;
-    min-width: 250px;
+    min-width: 240px;
     margin: 0 auto;
   }
   /* Header
@@ -223,6 +247,22 @@ article footer {
   }
   article footer .tags li:last-child::after {
     content: none;
+  }
+  /* POST ARCHIVES
+  ================================================== */
+  .year-block, .month-block {
+    padding-left: 1em;
+    border-left: 2px solid rgba(0, 0, 0, 0.4);
+  }
+  .year-block > h2 a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .month-block {
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+  #posts-all article, #posts-by-date article {
+    padding: 0;
+    margin: 1.5em 0;
   }
 }
 /*@media screen and (min-width: 481px) and (max-width: 700px) {
@@ -399,24 +439,12 @@ article footer {
   .year-block .month-block article {
     margin-left: 22%;
   }
-  #posts-all article h1, #posts-by-date article h1 {
-    margin: 0;
-    font-size: 1.1em;
-  }
   #posts-all article footer, #posts-by-date article footer {
     width: auto;
     position: static;
-    font-size: 0.9em;
-  }
-  #posts-all article footer p, #posts-by-date article footer p {
-    margin: 0;
   }
   #posts-all article footer .pubdate, #posts-by-date article footer .pubdate {
     line-height: 1.4;
-  }
-  #posts-all article footer .tags::before, #posts-by-date article footer .tags::before {
-    float: left;
-    content: "in\00A0";
   }
   #posts-all article footer .tags li, #posts-by-date article footer .tags li {
     display: inline;

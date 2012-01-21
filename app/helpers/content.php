@@ -92,7 +92,7 @@ function snippet($title) {
 	return $Lando->get_content("snippets", $title);
 }
 
-function page_nav($blog_text=null, $blog_index=null, $pages=null, $path=array()) {
+function page_nav($blog_text=null, $blog_index=0, $pages=null, $path=array()) {
 	global $Lando;
 	$page_order = $Lando->config["page_order"];
 
