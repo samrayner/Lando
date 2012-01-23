@@ -30,7 +30,7 @@
 /* UNIVERSAL STYLES
 ================================================== */
 body {
-  font: 0.9em/1.2 "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "Helvetica Neue", helvetica, arial, sans-serif;
+  font: 0.9em/1.4 "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "Helvetica Neue", helvetica, arial, sans-serif;
   background-color: #fcfcfc;
 }
 a:link {
@@ -386,7 +386,7 @@ article footer {
     display: none;
   }
   article footer .pubdate {
-    line-height: 1.9;
+    line-height: 2.2;
   }
   article footer .tags ul {
     margin: 0;
