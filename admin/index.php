@@ -27,7 +27,16 @@ function set_field_state($key, $attr=null) {
 function nav_widget($pages=null, $path=array()) {
 	if(!$pages) { //first run-through
 		$html = '<div id="page-list">'."\n";
-		$html .= nav_widget(pages());
+
+		$pages = pages();
+
+		$pages[] = new Page(array(
+			"slug" => "posts",
+			"title" => "Blog",
+			"permalink" => "/posts/"
+		));
+
+		$html .= nav_widget($pages);
 		$html .= '</div>';
 		return $html;
 	}
