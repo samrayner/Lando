@@ -101,11 +101,11 @@ class Model {
     
 		//Update cached list if:
 		//a) 	Folder has only just been created by get_single so is not complete OR
-		//b) 	i)	Not getting list of pages AND
+		//b) 	i)	Not updating list of pages (when some exist in cache) AND
 		//		ii) Cache is older than max age AND
 		//		iii)There hasn't been another cache on this page load
 		$should_cache = $age < $same_load || 
-										(!$pages && 
+										((!$pages || !$names) && 
 										$age > $max_age && 
 										$this->recache_count < self::MAX_RECACHE);
 
