@@ -9,14 +9,12 @@
 ================================================== */
 /* REUSABLE STYLES
 ================================================== */
-#masthead,
 .page-nav,
 .page-nav ul,
 .page-nav li,
 #intro {
   zoom: 1;
 }
-#masthead:after,
 .page-nav:after,
 .page-nav ul:after,
 .page-nav li:after,
@@ -30,7 +28,7 @@
 /* UNIVERSAL STYLES
 ================================================== */
 body {
-  font: 0.9em/1.4 "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", "Helvetica Neue", helvetica, arial, sans-serif;
+  font: 1em/1.4 "Helvetica Neue", helvetica, arial, sans-serif;
   background-color: #fcfcfc;
 }
 a:link {
@@ -77,9 +75,9 @@ h3 {
   margin-bottom: 2em;
 }
 #masthead h1 {
-  font-size: 2em;
-  font-weight: normal;
-  margin-bottom: 0.2em;
+  font-size: 2.5em;
+  margin-bottom: 0.1em;
+  letter-spacing: -0.04em;
 }
 #masthead h1 a {
   text-decoration: none;
@@ -93,11 +91,11 @@ h3 {
 }
 #masthead h2 {
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: normal;
-  text-transform: lowercase;
-  font-variant: small-caps;
-  color: rgba(34, 34, 34, 0.8);
+  font-style: italic;
+  font-family: georgia, "Times New Roman", times, serif;
+  color: rgba(34, 34, 34, 0.7);
 }
 .page-nav ul {
   list-style: none;
@@ -170,9 +168,15 @@ article footer {
 /* FOOTER
 ================================================== */
 #footer {
-  font: italic 1em georgia, "Times New Roman", times, serif;
-  margin: 5em 0 3em;
-  color: #6f6f6f;
+  font-size: 0.9em;
+  padding: 3em 0 4em;
+  margin-top: 2em;
+  color: #e1e1e1;
+  background-color: #444444;
+  box-shadow: inset 0 30px 10px -20px rgba(0, 0, 0, 0.02);
+}
+#footer a {
+  color: #9ad4a3;
 }
 /* HOME
 ================================================== */
@@ -199,7 +203,7 @@ article footer {
   ================================================== */
   /* GLOBAL
   ================================================== */
-  #masthead > *, #wrapper {
+  #masthead > *, #wrapper, #footer > * {
     width: 85%;
     min-width: 240px;
     margin: 0 auto;
@@ -279,7 +283,10 @@ article footer {
   ================================================== */
   /* GLOBAL
   ================================================== */
-  #masthead hgroup *, .page-nav, #wrapper {
+  #masthead hgroup *,
+  .page-nav,
+  #wrapper,
+  #footer > * {
     width: 80%;
     margin: 0 auto;
     max-width: 1000px;

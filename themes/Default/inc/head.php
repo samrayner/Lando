@@ -11,6 +11,8 @@
 	
 	<title><?php if($current->title != "Untitled") echo $current->title." - " ?><?php echo $site_title ?></title>
 	
+	<link rel="alternate" type="application/rss+xml" title="<?php echo $site_title ?>" href="<?php echo $site_root ?>/rss/" />
+
 	<!-- Default styles -->
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/screen.css" media="screen" />
 	<!-- PrettyPhoto styles -->

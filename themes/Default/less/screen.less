@@ -13,7 +13,6 @@
 /* REUSABLE STYLES
 ================================================== */
 
-#masthead,
 .page-nav,
 .page-nav ul,
 .page-nav li,
@@ -33,7 +32,7 @@
 ================================================== */
 
 body {
-	font: 0.9em/1.4 @sansFonts;
+	font: 1em/1.4 @sansFonts;
 	background-color:  @mainBg;
 }
 
@@ -94,9 +93,10 @@ h3 {
 	margin-bottom: 2em;
 	
 	h1 {
-		font-size: 2em;
-		font-weight: normal;
-		margin-bottom: 0.2em;
+		font-size: 2.5em;
+		margin-bottom: 0.1em;
+		letter-spacing: -0.04em;
+		//text-transform: uppercase;
 	}
 	
 	h1 a {
@@ -113,11 +113,11 @@ h3 {
 	
 	h2 {
 		margin: 0;
-		font-size: 1.2em;
+		font-size: 1.1em;
 		font-weight: normal;
-		text-transform: lowercase;
-		font-variant: small-caps;
-		color: fadeout(@textColor, 20);
+		font-style: italic;
+		font-family: @serifFonts;
+		color: fadeout(@textColor, 30);
 	}
 }
 
@@ -220,9 +220,16 @@ article {
 ================================================== */
 
 #footer {
-	font: italic 1em @serifFonts;
-	margin: 5em 0 3em;
-	color: lighten(@textColor, 30);
+	font-size: 0.9em;
+	padding: 3em 0 4em;
+	margin-top: 2em;
+	color: @invertText;
+	background-color: @footerBg;
+	box-shadow: inset 0 30px 10px -20px rgba(0,0,0,0.02);
+
+	a {
+		color: @invertLink;
+	}
 }
 
 
