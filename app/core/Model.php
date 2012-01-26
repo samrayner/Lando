@@ -6,7 +6,7 @@ class Model {
 	private $config;
 	
 	private $recache_count = 0;
-	const MAX_RECACHE = 1;
+	const RECACHE_LIMIT = 1;
 
 	public function __construct() {
 		global $config;
@@ -101,10 +101,10 @@ class Model {
     
 		//Update cached list if:
 		//a) 	Folder has only just been created so may not be not complete OR
-		//b) 	i) Cache is older than max age AND
+		//b) 	i) Cache is older than max age (default 10 mins) AND
 		//		ii)There hasn't been another cache on this page load
 		$should_cache = $age < $same_load || 
-										($age > $max_age && $this->recache_count < self::MAX_RECACHE);
+										($age > $max_age && $this->recache_count < self::RECACHE_LIMIT);
 
     if($should_cache) {
     	$this->Cache->touch($path);
@@ -136,7 +136,7 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $max_age=600) {
+	public function get_single($path, $max_age=1200) {
 		$cache_path = $path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		
@@ -147,14 +147,11 @@ class Model {
 		
 		//Update cache if:
 		//a) 	Item doesn't exist in cache yet OR
-		//b) 	i)	Caching on-the-fly enabled AND
-		//		ii) Cache is older than max age AND
-		//		iii)There hasn't been another cache on this page load
-		$should_cache = !$item || ($this->config["cache_on_load"] && 
-															 $max_age >= 0 && $this->Cache->age($cache_path) > $max_age && 
-															 $this->recache_count < self::MAX_RECACHE);
+		//b) 	i)	Cache is older than max age (default 20 mins) AND
+		//		ii)	Recache limit hasn't been exceeded yet
+		$should_cache = !$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && 
+															 $this->recache_count < self::RECACHE_LIMIT);
 		
-		//if no cache or cache older than max age (default 10 mins), refresh
 		if($should_cache) {
 			$this->connect_host();
 			$item = $this->Host->get_single($path, $item);
@@ -200,10 +197,10 @@ class Model {
 		
 			//Update cache if:
 			//a) 	Thumb doesn't exist in cache yet OR
-			//b) 	i)	Caching on-the-fly enabled AND
-			//		ii) Cache is older than 1 hour
-			$should_cache = !file_exists($full_path) || ($this->config["cache_on_load"] && 
-																									 $this->Cache->age($thumb_path) > 60*60*4);
+			//b) 	i)	Cache is older than 4 hours
+			//		ii) Recache limit hasn't been exceeded yet
+			$should_cache = !file_exists($full_path) || ($this->Cache->age($thumb_path) > 60*60*4 && 
+																									 $this->recache_count < self::RECACHE_LIMIT);
 		
 			if($should_cache) {		
 				$this->connect_host();				

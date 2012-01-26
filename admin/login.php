@@ -58,7 +58,7 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 	
 		<?php
 		if(isset($error))
-				echo '<p class="failure message">'.$error.'</p>';
+				echo '<p class="notify failure" data-icon="!">'.$error.'</p>';
 		?>
 		
 		<div id="pass-field">

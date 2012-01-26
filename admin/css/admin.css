@@ -70,7 +70,8 @@ body {
   box-shadow: 1px 1px 0 white;
   -webkit-box-shadow: 1px 1px 0 white;
 }
-.button:hover, .button:focus {
+.button:hover,
+.button:focus {
   color: #0a2c43;
   background-color: #f0f9ff;
   background-image: -ms-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
@@ -79,7 +80,8 @@ body {
   background-image: -webkit-linear-gradient(bottom, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: linear-gradient(to top, rgba(0, 70, 150, 0.05) 40%, rgba(0, 0, 0, 0) 60%);
 }
-.button:active, .button.active {
+.button:active,
+.button.active {
   border-color: rgba(0, 0, 0, 0.3);
   color: rgba(0, 0, 0, 0.9);
   background-color: #d2ecff;
@@ -137,7 +139,8 @@ header .button {
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3) 40%, rgba(0, 0, 0, 0) 60%);
 }
-header .button:hover, header .button:focus {
+header .button:hover,
+header .button:focus {
   color: rgba(255, 255, 255, 0.8);
   background-color: #222;
 }
@@ -167,7 +170,8 @@ header .button:active {
 #breadcrumbs li.current {
   color: #e3e3e3;
 }
-label, .subtitle {
+label,
+.subtitle {
   margin-right: 0.2em;
   text-transform: uppercase;
   font-size: 0.8em;
@@ -186,10 +190,14 @@ strong {
 a {
   color: #1e82c8;
 }
-a:hover, a:active, a:focus {
+a:hover,
+a:active,
+a:focus {
   color: #11486f;
 }
-section, #login, #last-panel {
+section,
+#login,
+#last-panel {
   overflow: hidden;
   padding: 20px;
   border-top: 1px solid white;
@@ -201,29 +209,41 @@ section, #login, #last-panel {
   background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0) 40px);
 }
-section > *, #login > *, #last-panel > * {
+section > *,
+#login > *,
+#last-panel > * {
   transition: opacity 0.5s linear;
   -webkit-transition: opacity 0.5s linear;
 }
-section h1, #login h1, #last-panel h1 {
+section h1,
+#login h1,
+#last-panel h1 {
   font-size: 1.2em;
   line-height: 1;
   margin-bottom: 0.6em;
 }
-section div, #login div, #last-panel div {
+section div,
+#login div,
+#last-panel div {
   margin-top: 0.5em;
 }
-section.disabled > *, #login.disabled > *, #last-panel.disabled > * {
+section.disabled > *,
+#login.disabled > *,
+#last-panel.disabled > * {
   opacity: 0.5;
 }
-section.disabled a, #login.disabled a, #last-panel.disabled a {
+section.disabled a,
+#login.disabled a,
+#last-panel.disabled a {
   cursor: default;
 }
-input, select {
+input,
+select {
   outline: none;
   color: rgba(0, 0, 0, 0.8);
 }
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password] {
   font: 1em "Helvetica Neue", helvetica, arial, sans-serif;
   position: static;
   -webkit-appearance: none;
@@ -237,13 +257,15 @@ input[type=text], input[type=password] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
-input[type=text].highlight, input[type=password].highlight {
+input[type=text].highlight,
+input[type=password].highlight {
   background-color: #ffd;
 }
 #recache {
   margin-top: 1em;
 }
-.sortable div, .sortable label {
+.sortable div,
+.sortable label {
   cursor: move;
 }
 #page-list {
@@ -283,7 +305,8 @@ input[type=text].highlight, input[type=password].highlight {
 #page-list label {
   margin: 0;
 }
-#page-list input:disabled + label, #page-list input:not(:checked) + label {
+#page-list input:disabled + label,
+#page-list input:not(:checked) + label {
   color: rgba(0, 0, 0, 0.4);
 }
 #admin > div {
@@ -293,12 +316,13 @@ input[type=text].highlight, input[type=password].highlight {
 #admin > div  + div {
   float: right;
 }
-#login, #last-panel {
+#login,
+#last-panel {
   position: relative;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-#login .message {
+#login .notify {
   margin-bottom: 10px;
 }
 #login #pass-field {
@@ -318,7 +342,9 @@ input[type=text].highlight, input[type=password].highlight {
   color: #900;
   opacity: 0.7;
 }
-#cancel:hover, #cancel:active, #cancel:focus {
+#cancel:hover,
+#cancel:active,
+#cancel:focus {
   opacity: 1;
 }
 input + .notify {
@@ -415,7 +441,9 @@ input + .notify {
     width: 100%;
     min-width: 300px;
   }
-  header, #login, #last-panel {
+  header,
+  #login,
+  #last-panel {
     border-radius: 0;
   }
   #breadcrumbs li {

@@ -22,7 +22,6 @@ $config = array(
 	"host" 							=> "dropbox",
 	"host_root"					=> "/Lando",
 	"pretty_urls" 			=> 0,
-	"cache_on_load" 		=> 1,
 	"theme"							=> $default_theme,
 	"smartypants"				=> 1,
 	"page_order" 				=> array()

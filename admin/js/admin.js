@@ -92,9 +92,6 @@ var Tooltips = {
 		$("#pretty_urls").change(function(){
 			Tooltips.toggle("#htaccess");
 		});
-		$("#cache_on_load").change(function(){
-			Tooltips.toggle("#cron-job");
-		});
 	}
 };
 
