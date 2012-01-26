@@ -97,7 +97,7 @@ class Model {
 		//if only current page has just been cached (current done before nav)
     //OR cache older than max age (default 10 mins), refresh
     $age = $this->Cache->age($path);
-    $same_load = 5;
+    $same_load = 2;
     
 		//Update cached list if:
 		//a) 	Folder has only just been created so may not be not complete OR

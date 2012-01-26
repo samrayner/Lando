@@ -31,9 +31,13 @@
 /* UNIVERSAL STYLES
 ================================================== */
 
+html, body {
+	height: 100%;
+}
+
 body {
 	font: 1em/1.4 @sansFonts;
-	background-color:  @mainBg;
+	background-color: @mainBg;
 }
 
 a {
@@ -96,7 +100,6 @@ h3 {
 		font-size: 2.5em;
 		margin-bottom: 0.1em;
 		letter-spacing: -0.04em;
-		//text-transform: uppercase;
 	}
 	
 	h1 a {
@@ -221,14 +224,14 @@ article {
 
 #footer {
 	font-size: 0.9em;
-	padding: 3em 0 4em;
-	margin-top: 2em;
-	color: @invertText;
-	background-color: @footerBg;
+	padding: 2em 0 4em;
+	margin-top: 5em;
+	border-top: 1px solid rgba(0,0,0,0.1);
 	box-shadow: inset 0 30px 10px -20px rgba(0,0,0,0.02);
+	color: fadeout(@textColor, 30);
 
 	a {
-		color: @invertLink;
+		color: fadeout(@linkColor, 30);
 	}
 }
 
