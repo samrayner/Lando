@@ -78,7 +78,7 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=300) {
+	public function get_all($path, $max_age=600) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
@@ -95,24 +95,23 @@ class Model {
 		$names = $this->Cache->dir_contents($path, $pages, $collection_files);
 
 		//if only current page has just been cached (current done before nav)
-    //OR cache older than max age (default 5 mins), refresh
+    //OR cache older than max age (default 10 mins), refresh
     $age = $this->Cache->age($path);
     $same_load = 5;
     
 		//Update cached list if:
-		//a) 	Folder has only just been created by get_single so is not complete OR
-		//b) 	i)	Not updating list of pages (when some exist in cache) AND
-		//		ii) Cache is older than max age AND
-		//		iii)There hasn't been another cache on this page load
+		//a) 	Folder has only just been created so may not be not complete OR
+		//b) 	i) Cache is older than max age AND
+		//		ii)There hasn't been another cache on this page load
 		$should_cache = $age < $same_load || 
-										((!$pages || !$names) && 
-										$age > $max_age && 
-										$this->recache_count < self::MAX_RECACHE);
+										($age > $max_age && $this->recache_count < self::MAX_RECACHE);
 
     if($should_cache) {
     	$this->Cache->touch($path);
     	$this->connect_host();
 			$names = $this->Host->dir_contents($path, $dirs_only);
+
+			$this->recache_count++;
 		}
 		
 		$items = array();
@@ -315,17 +314,3 @@ class Model {
 		return true;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

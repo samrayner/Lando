@@ -11,8 +11,9 @@ var PageNav = {
 		for(var i = 0; i < parents.length; i++) {
 			var parent = parents[i];
 			tree[parent] = PageNav.sortableTree($("#"+parent+" > .sortable").sortable("toArray"));
-			if(!$("#"+parent+" > * > input:checked").length)
+			if(!$("#"+parent+" > * > input:checked").length) {
 				tree[parent]._hidden = true;
+			}
 		}
 		
 		return tree;
@@ -31,10 +32,11 @@ var PageNav = {
 		//for all child checkboxes
 		$(this).closest("li").find("* * input:checkbox").each(function() {
 			//if we're unchecking, disable all children
-			if(!checking)
+			if(!checking) {
 				$(this).attr("disabled", true);
+			}
 			
-			//if checking	
+			//if checking
 			else {
 				//get all grand-parent LIs
 				var $parentLis = $(this).closest("li").parentsUntil($("#page-list"),"li");
@@ -42,8 +44,9 @@ var PageNav = {
 				var parentsUnchecked = $parentLis.children("div").children("input:not([checked])").length;
 				
 				//if we're checking, enable children who's parents are enabled
-				if(!parentsUnchecked)
+				if(!parentsUnchecked) {
 					$(this).removeAttr("disabled");
+				}
 			}
 		});
 		
@@ -54,10 +57,12 @@ var PageNav = {
 		var $checkbox = $("#".$(this).attr("for"));
 		var checked = $checkbox.checked;
 		
-		if(checked)
+		if(checked) {
 			$checkbox.removeAttr("checked");
-		else
+		}
+		else {
 			$checkbox.attr("checked", 1);
+		}
 	},
 	
 	init: function() {
@@ -84,10 +89,10 @@ var Tooltips = {
 	},
 
 	init: function() {
-		$("#pretty_urls").change(function(){ 
-			Tooltips.toggle("#htaccess"); 
+		$("#pretty_urls").change(function(){
+			Tooltips.toggle("#htaccess");
 		});
-		$("#cache_on_load").change(function(){ 
+		$("#cache_on_load").change(function(){
 			Tooltips.toggle("#cron-job");
 		});
 	}
@@ -104,13 +109,15 @@ var Recache = {
 			.attr("data-icon", "2")
 			.html("Caching complete");
 		
-		if($("#cleanup-button").length)
+		if($("#cleanup-button").length) {
 			Recache.nextStep();
+		}
 	},
 	
 	nextStep: function(event) {
-		if(event)
+		if(event) {
 			event.preventDefault();
+		}
 		
 		$("#cache, #cleanup").toggleClass("disabled");
 		CleanUp.init();
@@ -131,18 +138,21 @@ var Recache = {
 	process: function(type) {
 		var pos = Recache.types.indexOf(type);
 	
-		if(pos >= 0)
+		if(pos >= 0) {
 			Recache.updateProgress(type);
+		}
 	
 		var $jqxhr = $.ajax({
 			url: "../admin/update/index.php",
 			data: {"type": type},
-			complete: function() { 
+			complete: function() {
 				if(pos >= 0) {
-					if(pos+1 == Recache.types.length)
+					if(pos+1 === Recache.types.length) {
 						Recache.done();
-					else
+					}
+					else {
 						Recache.process(Recache.types[pos+1]);
+					}
 				}
 			}
 		});
@@ -172,11 +182,11 @@ var Recache = {
 
 var FormCheck = {
 	required: function(event) {
-		var failed = $(this).find("input[required]").filter(function(){ 
-				return ($(this).val().trim() === "");
+		var failed = $(this).find("input[required]").filter(function(){
+			return ($(this).val().trim() === "");
 		});
 		
-		$.each(failed, function(){ 
+		$.each(failed, function(){
 			$(this).addClass("highlight");
 		});
 		
@@ -188,7 +198,7 @@ var FormCheck = {
 	},
 
 	verifyPass: function(event) {
-		if($("#admin_password").val() != $("#confirm_pass").val()) {
+		if($("#admin_password").val() !== $("#confirm_pass").val()) {
 			window.alert("The passwords you entered don't match, please type them again.");
 			$("#admin_password").val("").addClass("highlight").focus();
 			$("#confirm_pass").val("").addClass("highlight");
@@ -207,9 +217,11 @@ $(function() {
 	Tooltips.init();
 	FormCheck.init();
 	
-	if($("#page-list").length)
+	if($("#page-list").length) {
 		PageNav.init();
+	}
 	
-	if($("section:not(.disabled) #recache-button").length)
+	if($("section:not(.disabled) #recache-button").length) {
 		Recache.init();
+	}
 });

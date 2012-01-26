@@ -50,8 +50,9 @@ var Install = {
 	},
 	
 	nextStep: function(event) {
-		if(event)
+		if(event) {
 			event.preventDefault();
+		}
 	
 		$("#install, #cache").toggleClass("disabled");
 		Install.disable();
@@ -64,8 +65,9 @@ var Install = {
 			complete: function(data) {
 				var response = data.responseText;
 			
-				if(!response)
+				if(!response) {
 					return window.setTimeout(Install.updateProgress, 500);
+				}
 			
 				var lines = response.split("\n");
 				var total = lines[2].replace(/\D/g, '');
@@ -73,8 +75,9 @@ var Install = {
 				lines.splice(0,4);
 				var done = lines.length;
 				
-				if(done > total)
+				if(done > total) {
 					return true;
+				}
 				
 				if(done > 0) {
 					$("#install-button").html(lines[done-1].replace(/^\t+/, ''));
