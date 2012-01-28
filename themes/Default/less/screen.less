@@ -45,15 +45,19 @@ a {
 		color: @linkColor;
 	}
 	
-	&:hover,
-	&:focus {
-		color: lighten(desaturate(@linkColor, 10), 10);
-	}
-	
 	&:visited,
 	&:active {
-		color: darken(desaturate(@linkColor, 10), 10);
+		color: desaturate(@linkColor, 30);
 	}
+
+	&:hover,
+	&:focus {
+		color: darken(saturate(@linkColor, 10), 10);
+	}
+}
+
+ul, ol {
+	padding-left: 2.2em;
 }
 
 //must be separate
@@ -70,6 +74,49 @@ embed, object {
 	max-width: 100%;
 	height: auto;
 	margin: 2em 0;
+}
+
+blockquote {
+	margin-left: 0;
+	padding-left: 0.8em;
+	font: italic 1.1em/1.4 @serifFonts;
+	border-left: 0.2em solid rgba(0,0,0,0.15);
+
+	cite {
+		font-size: 0.8em;
+		font-style: normal;
+		color: fadeout(@textColor, 20);
+
+		&::before {
+			content: "\2014\00A0";
+		}
+	}
+}
+
+table {
+	tr {
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+	}
+
+	tbody tr:nth-child(odd) {
+			background-color: rgba(0,0,0,0.03);
+	}
+
+	th {
+		text-align: left;
+	}
+
+	th, td {
+		padding: 0.3em 0.5em;
+
+		&:first-child {
+			padding-left: 0;
+		}
+
+		&:last-child {
+			padding-right: 0;
+		}
+	}
 }
 
 
@@ -189,6 +236,8 @@ article {
 #posts-all,
 #posts-by-date {
 	article {
+		padding-bottom: 0;
+
 		h1, p, footer {
 			margin: 0;
 		}
