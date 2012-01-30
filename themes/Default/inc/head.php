@@ -30,6 +30,8 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 	<script>window.jQuery || document.write('<script src="<?php echo $theme_dir ?>/js/jquery-1.7.1.min.js">\x3C/script>')</script>
+
+	<script src="<?php echo $theme_dir ?>/js/min/global-min.js"></script>
 	
 	<!-- PrettyPhoto for galleries: http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ -->
 	<script src="<?php echo $theme_dir ?>/js/prettyPhoto/jquery.prettyPhoto.js"></script>

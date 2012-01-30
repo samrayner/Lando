@@ -51,7 +51,10 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 <form action="<?php echo $self ?>" method="post" id="login-form">
 	<header>
 		<h1 data-icon="(">Login Required</h1>
-		<a href="<?php echo $config["site_root"] ?>" class="button" data-icon="H">Home</a>
+
+		<div id="buttons">
+			<a href="<?php echo $config["site_root"] ?>" class="button" data-icon="H">Home</a>
+		</div>
 	</header>
 
 	<div id="login">
