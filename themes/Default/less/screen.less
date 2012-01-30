@@ -136,6 +136,37 @@ h3 {
 }
 
 
+/* Admin Links
+-------------------------------------------------- */
+
+#admin-links {
+	position: absolute;
+	right: 0.5em;
+	top: 0.6em;
+
+	a {
+		display: block;
+		float: left;
+		background-color: rgba(0,0,0,0.7);
+		color: white;
+		text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+		font-weight: bold;
+		text-decoration: none;
+		font-size: 0.7em;
+		text-transform: uppercase;
+		border-radius: 2px;
+		padding: 0 0.4em;
+		line-height: 1.5;
+		margin-left: 0.5em;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: black;
+		}
+	}
+}
+
 
 /* Header
 -------------------------------------------------- */
@@ -233,6 +264,7 @@ article {
 	}
 }
 
+#drafts-all,
 #posts-all,
 #posts-by-date {
 	article {
@@ -263,6 +295,23 @@ article {
 					padding: 0;
 				}
 			}
+		}
+	}
+}
+
+#drafts-all article {
+	border: none;
+	footer {
+		h3, p, ul {
+			display: inline;
+		}
+
+		h3::after {
+			content: ":";
+		}
+
+		.tags::before {
+			content: none;
 		}
 	}
 }

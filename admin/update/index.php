@@ -40,4 +40,9 @@ foreach($types as $type) {
 	}
 }
 
+$redirect = isset($_GET["redirect"]) ? trim_slashes($_GET["redirect"]) : "";
+
+if($redirect)
+	header("Location: $site_root/$redirect/");
+
 echo 'Latest content fetched for '.implode(", ", $types).".";

@@ -91,7 +91,11 @@ function nav_widget($pages=null, $path=array()) {
 <form action="save.php" method="post" id="admin-form">
 	<header>
 		<h1>Lando Admin</h1>
-		<a href="login.php?logout=1" class="button" data-icon="Q">Log out</a>
+		
+		<div id="buttons">
+			<a href="<?php echo $site_root ?>" class="button" data-icon="H">Home</a>
+			<a href="login.php?logout=1" class="button" data-icon="Q">Log out</a>
+		</div>
 	</header>
 
 	<section id="details">

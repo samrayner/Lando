@@ -5,8 +5,8 @@ class Model {
 	private $Cache;
 	private $config;
 	
-	private $recache_count = 0;
 	const RECACHE_LIMIT = 1;
+	private $recache_count = 0;
 
 	public function __construct() {
 		global $config;
@@ -78,7 +78,7 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=600) {
+	public function get_all($path, $max_age=3600) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
@@ -136,7 +136,7 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $max_age=1200) {
+	public function get_single($path, $max_age=3600) {
 		$cache_path = $path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		

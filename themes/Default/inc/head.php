@@ -61,3 +61,5 @@
 	
 </head>
 <body id="<?php echo $template ?>">
+
+<? include_once "admin-links.php" ?>
