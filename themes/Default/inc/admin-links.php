@@ -10,7 +10,7 @@
 	<?php endif ?>
 
 	<?php if($template == "draft"): ?>
-		<a href="<?php echo $site_root ?>/admin/publish-draft.php?path=<?php echo $current->path() ?>">Publish</a>
+		<a href="<?php echo $site_root ?>/admin/publish.php?slug=<?php echo $current->slug() ?>">Publish</a>
 	<?php endif ?>
 
 	<?php if(in_array($template, array("posts-all", "posts-by-date", "posts-by-tag", "post", "draft"))): ?>

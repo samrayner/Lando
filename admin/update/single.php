@@ -16,8 +16,10 @@ $Cache = new Cache();
 
 $path = isset($_GET["path"]) ? trim_slashes($_GET["path"]) : false ;
 
-if($path === false)
+if($path === false) {
+	echo 'Must supply a path in GET.';
 	exit;
+}
 
 $cache_path = $path;
 

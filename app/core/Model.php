@@ -310,4 +310,16 @@ class Model {
 		
 		return true;
 	}
+
+	public function publish_draft($slug) {
+		$this->connect_host();
+		$meta = $this->Host->move("drafts/$slug", "posts/$slug", 5);
+
+		if(!$meta)
+			return false;
+
+		$this->Cache->delete("drafts/$slug");
+
+		return basename($meta["path"]);
+	}
 }

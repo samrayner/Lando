@@ -193,5 +193,9 @@ class Controller {
 	public function install_content($local_path, $host_path="", $log_file=false) {
 		$this->Model->install_content($local_path, $host_path, $log_file);
 	}
+
+	public function publish_draft($slug) {
+		return $this->Model->publish_draft($slug);
+	}
 }
 

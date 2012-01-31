@@ -36,6 +36,39 @@ class Dropbox extends Cloud_Host {
 	public function upload($path, $file, $overwrite=true) {
 		return $this->API->upload($path, $file, $overwrite);
 	}
+
+	public function move($old_path, $new_path, $attempt_limit) {
+		$old_path = $this->config["host_root"]."/".trim_slashes($old_path);
+		$new_path = $this->config["host_root"]."/".trim_slashes($new_path);
+
+		$meta = false;
+
+		try {
+			//rename directory
+			$meta = $this->API->move($old_path, $new_path);
+		}
+		//if directory exists
+		catch(Exception $e) {
+			$attempt = 1;
+		
+			//until successful rename
+			while(!$meta) {
+				try {
+					//rename with 1..4 appended
+					$meta = $this->API->move($old_path, $new_path."-$attempt");
+				}
+				catch(Exception $e) {
+					//if still name clash, increase number and retry
+					$attempt++;
+					//if trying for a 5th time, fail
+					if($attempt > $attempt_limit)
+						return false;
+				}
+			}
+		}
+
+		return $meta;
+	}
 	
 	private function get_file_path($meta, $exts=null, $filename="") {
 		if(!$exts)
@@ -97,45 +130,28 @@ class Dropbox extends Cloud_Host {
 		
 		if($Cache)
 			$meta = $Cache->export();
-		
-		$full_path = $this->config["host_root"]."/$path";
+
+		$latest = false;
 		
 		if(in_array($type, array("pages","posts","drafts"))) {
-			$old_path = $full_path;
+			$old_path = $path;
 			$path = $this->sanitize_path($path);
-			$full_path = $this->sanitize_path($full_path);
 			
 			//if slug has changed
-			if($full_path != $old_path) {
-				try {
-					//rename directory
-					$latest = $this->API->move($old_path, $full_path);
-				}
-				//if directory exists
-				catch(Exception $e) {
-					$attempt = 1;
-				
-					//until successful rename
-					while(!isset($latest)) {
-						try {
-							//rename with 1..4 appended
-							$latest = $this->API->move($old_path, $full_path."-$attempt");
-						}
-						catch(Exception $e) {
-							//if still name clash, increase number and retry
-							$attempt++;
-							//if trying for a 5th time, fail
-							if($attempt == 5)
-								return false;
-						}
-					}
-				}
+			if($path != $old_path) {
+				$latest = $this->move($old_path, $path, 5);
+
+				//if failed to rename because of conflicts
+				if(!$latest)
+					return false;
 			}
 		}
 		
+		$full_path = $this->config["host_root"]."/$path";
+
 		try {
-			//if not successfully renamed slug directory
-			if(!isset($latest))
+			//if not renamed slug directory
+			if(!$latest)
 				$latest = $this->API->metadata($full_path);
 		}
 		catch(Exception $e) {
