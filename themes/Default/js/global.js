@@ -1,3 +1,9 @@
+/*
+Title:			Global Theme jQuery
+Author:			Sam Rayner - http://samrayner.com
+Created:		2012-01-31
+*/
+
 var DropdownNav = {
 	listToArray: function(list) {
 		var nestLevel = [];
@@ -23,15 +29,12 @@ var DropdownNav = {
 		$.each($(pages), function(i, page) {
 			var $option = $('<option />');
 			$option.attr("value", page.href);
+			$option.attr("selected", page.current);
 
-			var indent = new Array((4*nestLevel)+1);
-			indent = indent.join("&nbsp;");
+			var indent = new Array(nestLevel+1);
+			indent = indent.join("&rarr; ");
 
 			$option.html(indent+page.title);
-
-			if(page.current) {
-				$option.attr("selected", 1);
-			}
 
 			$select.append($option);
 
@@ -46,12 +49,19 @@ var DropdownNav = {
 		var list = DropdownNav.listToArray($ul.get());
 
 		var $select = $('<select />');
+		
 		DropdownNav.addOptions($select, list, 0);
+
+		$select.change(function(){
+			window.location.href = $select.children("option:selected").val();
+		});
 
 		$ul.replaceWith($select);
 	}
 };
 
 $(function() {
-	DropdownNav.init();
+	if(window.matchMedia('screen and (max-width: 700px)').matches) {
+		DropdownNav.init();
+	}
 });
