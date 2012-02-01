@@ -11,6 +11,8 @@ $config_file = "$doc_root/app/config/config.php";
 if(include_exists($config_file))
 	include_once $config_file;
 
+include "$doc_root/admin/inc/auth.php";
+
 include_once "$doc_root/app/core/Cache.php";
 $Cache = new Cache();
 

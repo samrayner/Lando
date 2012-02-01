@@ -7,6 +7,7 @@ $doc_root = dirname(dirname(dirname(__FILE__)));
 $cache_root = "$doc_root/app/cache";
 
 include "$doc_root/app/core/loader.php";
+include "$doc_root/admin/inc/auth.php";
 
 $valid_types = array("pages", "posts", "drafts", "collections", "snippets", "files");
 

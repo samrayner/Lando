@@ -4,7 +4,8 @@ include "$doc_root/app/core/loader.php";
 
 $config = $Lando->config;
 
-include "inc/auth.php";
+if(!admin_cookie())
+	header("Location: ".$config["site_root"]."/admin/login.php?redirect=admin");
 
 foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 	$hosts[] = basename($dir);

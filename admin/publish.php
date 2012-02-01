@@ -6,6 +6,7 @@ set_time_limit(0);
 $doc_root = dirname(dirname(__FILE__));
 
 include "$doc_root/app/core/loader.php";
+include "$doc_root/admin/inc/auth.php";
 
 if(!isset($_GET["slug"])) {
 	echo 'Must supply a draft slug in GET.';
@@ -15,7 +16,7 @@ if(!isset($_GET["slug"])) {
 $slug = $Lando->publish_draft($_GET["slug"]);
 
 if(!$slug) {
-	echo 'Could not move folder from Drafts to Posts. Either it does not exist in Drafts or there was a naming conflict with Posts.';
+	echo 'Could not move folder from Drafts to Posts. Either it does not exist in Drafts or there were too many naming conflicts to resolve.';
 	exit;
 }
 
