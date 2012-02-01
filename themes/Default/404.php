@@ -11,42 +11,11 @@ if(isset($_SERVER['HTTP_REFERER'])) {
 }
 ?>
 
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>404 (Page Not Found) - <?php echo $site_title ?></title>
-  <style>
-  	body, input {
-  		font: 16px/1.4 "Helvetica Neue", helvetica, arial, sans-serif;
-  		color: #222;
-  	}
-
-  	body {
-  		background-color: #eee;
-  	}
-
-  	#wrapper {
-  		padding: 1px 20px 10px;
-  		width: 600px;
-  		margin: 50px auto;
-  		background-color: white;
-  		box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  	}
-
-  	ul {
-  		list-style: none;
-  		padding: 0;
-  	}
-
-  	input {
-  		padding: 0 0.5ex;
-  	}
-  </style>
-</head>
-<body>
+<?php include "inc/head.php" ?>
+<?php include "inc/header.php" ?>
 <div id="wrapper">
 
+<section id="primary">
 	<h1>404, Page Not Found</h1>
 	<div>
 		<p>Sorry, but the page you were trying to view doesn't exist.</p>
@@ -71,7 +40,8 @@ if(isset($_SERVER['HTTP_REFERER'])) {
 		GOOG_FIXURL_SITE = location.host;
 	</script>
 	<script src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
+</section>
 
 </div><!-- #wrapper -->
-</body>
-</html>
+<?php include "inc/footer.php" ?>
+<?php include "inc/foot.php" ?>

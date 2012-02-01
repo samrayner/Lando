@@ -33,7 +33,7 @@ class Content {
 	//get functions
 	
 	public function title() {
-		return htmlspecialchars($this->title);
+		return htmlspecialchars($this->title, ENT_NOQUOTES);
 	}
 	
 	public function modified($format="U") {
