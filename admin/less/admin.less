@@ -74,8 +74,8 @@ body {
 	position: relative;
 	margin: 30px auto 60px;
 	
-	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+	box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .hidden {
@@ -239,6 +239,7 @@ a {
 
 section,
 #login,
+#system-error,
 #last-panel {
 	overflow: hidden;
 	padding: 20px;
@@ -372,6 +373,7 @@ input[type=password] {
 }
 
 #login,
+#system-error,
 #last-panel {
 	position: relative;
 	border-bottom-left-radius: 3px;
@@ -523,6 +525,14 @@ input + .notify {
 }
 
 
+/* SYSTEM ERROR
+================================================== */
+
+#system-error {
+	font-size: 1.1em;
+}
+
+
 /* SMALL SCREENS
 ================================================== */
 
@@ -535,6 +545,7 @@ input + .notify {
 	
 	header,
 	#login,
+	#system-error,
 	#last-panel {
 		border-radius: 0;
 	}

@@ -74,7 +74,7 @@ if(!include_exists($themeBase.$template.".php")) {
 	if(include_exists("app/templates/$template.php"))
 		$themeBase = "app/templates/"; //fallback for missing optional custom templates
 	else
-		system_error("Missing Theme/Template", "The template file <em>$template.php</em> could not be found in <em>$theme_dir</em>.");
+		system_error("Missing Theme/Template", "The template file <strong>$template.php</strong> could not be found in <strong>$theme_dir</strong>.");
 }
 
 include_once $themeBase.$template.".php";
