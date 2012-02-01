@@ -8,7 +8,7 @@ $current = new Page();
 
 if($url == "/") {
 	$current = $Lando->get_content();
-	$template = "home";
+	$template = $current ? "home" : "404";
 }
 
 if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
@@ -63,10 +63,8 @@ elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 }
 	
 //kick out to login if trying to view drafts
-if(in_array($template, array("draft", "drafts_all"))) {
-	if(!isset($_COOKIE["lando_password"]) || $_COOKIE["lando_password"] != $Lando->config["admin_password"])
-		header("Location: $site_root/admin/login.php?redirect=drafts");
-}
+if(in_array($template, array("draft", "drafts_all")) && !admin_cookie())
+	header("Location: $site_root/admin/login.php?redirect=drafts");
 
 $helper_file = $themeBase."theme_functions.php";
 if(include_exists($helper_file))
@@ -76,7 +74,7 @@ if(!include_exists($themeBase.$template.".php")) {
 	if(include_exists("app/templates/$template.php"))
 		$themeBase = "app/templates/"; //fallback for missing optional custom templates
 	else
-		throw new Exception("Template file $template not found.");
+		system_error("Missing Theme/Template", "The template file <em>$template.php</em> could not be found in <em>$theme_dir</em>.");
 }
 
 include_once $themeBase.$template.".php";

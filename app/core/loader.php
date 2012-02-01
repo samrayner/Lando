@@ -9,11 +9,11 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 //if no config file exists, redirect to install
 if(!file_exists("$doc_root/app/config/config.php")) {
 	if(file_exists("$doc_root/install/index.php")) {
-		$url = preg_replace('~(/index\.php)?/?'.trim_slashes(preg_quote(current_path())).'$~', "", current_url());
-		header("Location: $url/install/");
+		$root = guess_site_root();
+		header("Location: $root/install/");
 	}
 	else
-		throw new Exception("Config file not found. Try re-downloading and installing again.");
+		system_error("Missing Config File", 'Config file not found. Try <a href="http://lando-cms.com">re-downloading Lando</a> and installing again.');
 }
 
 //load config file

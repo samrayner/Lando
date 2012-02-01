@@ -28,7 +28,7 @@ $config = array(
 );
  
 $saved = 0;
- 
+
 if(empty($_POST))
 	header("Location: $base_url/install/");
 
@@ -53,7 +53,7 @@ foreach($config as $key => $val) {
 $config_saved = @file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($config, true).";");
 
 if(!$config_saved)
-	throw new Exception("Error saving config file.");
+	system_error("Config Not Saved", "Could not update config file. Please set permissions for <em>/app/config</em> and the files in it to <strong>777</strong>.");
 
 setcookie("lando_password", $config["admin_password"], 0, "/", ".".$_SERVER['HTTP_HOST']);
 	

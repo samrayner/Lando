@@ -42,3 +42,7 @@ function url_segment($n) {
 	$segs = url_segments();
 	return isset($segs[$n]) ? $segs[$n] : false;
 }
+
+function guess_site_root() {
+	return preg_replace('~(/index\.php)?/?'.trim_slashes(preg_quote(current_path())).'$~', "", current_url());
+}

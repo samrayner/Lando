@@ -11,11 +11,9 @@ ul,ol{padding-left:2.2em;}
 code{font:0.8em/1 menlo,monaco,consolas,"Lucida Console",courier,monospace;}
 img,iframe,embed,object{display:block;max-width:100%;height:auto;margin:2em 0;}
 blockquote{margin-left:0;padding-left:0.8em;font:italic 1.1em/1.4 georgia,"Times New Roman",times,serif;border-left:0.2em solid rgba(0, 0, 0, 0.15);}blockquote cite{font-size:0.8em;font-style:normal;color:rgba(34, 34, 34, 0.8);}blockquote cite::before{content:"\2014\00A0";}
-table tr{border-bottom:1px solid rgba(0, 0, 0, 0.2);}
-table tbody tr:nth-child(odd){background-color:rgba(0, 0, 0, 0.03);}
-table th{text-align:left;}
-table th,table td{padding:0.3em 0.5em;}table th:first-child,table td:first-child{padding-left:0;}
-table th:last-child,table td:last-child{padding-right:0;}
+table tr:nth-child(even){background-color:rgba(0, 0, 0, 0.03);}
+table th{text-align:left;}table th:empty{border:none;}
+table th,table td{border:1px solid #bbb;padding:0.3em 0.5em;}
 h1{font-size:1.4em;}
 h2{font-size:1.2em;}
 h3{font-size:1em;}

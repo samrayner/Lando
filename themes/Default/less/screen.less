@@ -94,28 +94,21 @@ blockquote {
 }
 
 table {
-	tr {
-		border-bottom: 1px solid rgba(0,0,0,0.2);
-	}
-
-	tbody tr:nth-child(odd) {
-			background-color: rgba(0,0,0,0.03);
+	tr:nth-child(even) {
+		background-color: rgba(0,0,0,0.03);
 	}
 
 	th {
 		text-align: left;
+		
+		&:empty {
+			border: none;
+		}
 	}
 
 	th, td {
+		border: 1px solid #bbb;
 		padding: 0.3em 0.5em;
-
-		&:first-child {
-			padding-left: 0;
-		}
-
-		&:last-child {
-			padding-right: 0;
-		}
 	}
 }
 
