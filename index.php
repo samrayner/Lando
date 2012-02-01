@@ -14,10 +14,10 @@ if($url == "/") {
 if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 	switch($matches[1]) {
 		case "posts": 
-			$template = "posts-all";
+			$template = "posts_all";
 			break;
 		case "drafts":
-			$template = "drafts-all";
+			$template = "drafts_all";
 			break;
 		case "rss":
 			$template = "rss";
@@ -35,10 +35,10 @@ if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 }
 
 if(preg_match('~^/posts/from/(\d{4})(?:/(\d{2}))?(?:/(\d{2}))?$~', $url))
-	$template = "posts-by-date";
+	$template = "posts_by_date";
 
 elseif(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
-	$template = "posts-by-tag";
+	$template = "posts_by_tag";
 
 elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 	$current = $Lando->get_content();
@@ -63,7 +63,7 @@ elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 }
 	
 //kick out to login if trying to view drafts
-if(in_array($template, array("draft", "drafts-all"))) {
+if(in_array($template, array("draft", "drafts_all"))) {
 	if(!isset($_COOKIE["lando_password"]) || $_COOKIE["lando_password"] != $Lando->config["admin_password"])
 		header("Location: $site_root/admin/login.php?redirect=drafts");
 }

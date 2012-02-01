@@ -1,1 +1,0 @@
-<?php include "posts-by-date.php" ?>

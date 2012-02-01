@@ -62,6 +62,6 @@
 	</script>
 	
 </head>
-<body id="<?php echo $template ?>">
+<body id="<?php echo str_replace("_", "-", $template) ?>">
 
-<? include_once "admin-links.php" ?>
+<? include_once "admin_links.php" ?>

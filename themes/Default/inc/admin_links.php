@@ -13,7 +13,7 @@
 		<a href="<?php echo $site_root ?>/admin/publish_draft.php?slug=<?php echo $current->slug() ?>">Publish</a>
 	<?php endif ?>
 
-	<?php if(in_array($template, array("posts-all", "posts-by-date", "posts-by-tag", "post", "draft"))): ?>
+	<?php if(in_array($template, array("posts_all", "posts_by_date", "posts_by_tag", "post", "draft"))): ?>
 		<a href="<?php echo $site_root ?>/drafts/">Drafts</a>
 	<?php endif ?>
 
