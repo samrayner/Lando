@@ -9,7 +9,7 @@ $message = isset($_GET["message"]) ? stripslashes(urldecode($_GET["message"])) :
   <meta charset="utf-8" />
   <title>Lando Error</title>
 
-  <link rel="stylesheet" href="admin/css/admin.css" />
+  <link rel="stylesheet" href="../../admin/css/admin.css" />
 </head>
 <body>
 <div id="wrapper">
@@ -18,7 +18,7 @@ $message = isset($_GET["message"]) ? stripslashes(urldecode($_GET["message"])) :
 		<h1><?php echo $title ?></h1>
 
 		<div id="buttons">
-			<a href="./" class="button" data-icon="H">Home</a>
+			<a href="../../" class="button" data-icon="H">Home</a>
 		</div>
 	</header>
 
