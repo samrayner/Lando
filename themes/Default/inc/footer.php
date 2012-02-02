@@ -1,3 +1,7 @@
+</div><!-- .wrapper -->
+
 <footer id="footer">
-	<?php echo snippet("footer.md") ?>
+	<div class="wrapper">
+		<?php echo snippet("footer.md") ?>
+	</div>
 </footer>

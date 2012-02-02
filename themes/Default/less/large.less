@@ -9,10 +9,7 @@
 /* GLOBAL
 ================================================== */
 
-#masthead hgroup *,
-.page-nav,
-#wrapper,
-#footer > * {
+.wrapper {
 	width: @wrapperPercent;
 	max-width: 900px;
 	margin: 0 auto;
@@ -161,16 +158,29 @@ article {
 		position: absolute;
 		top: 0;
 		left: 0;
-		
-		h3 {
-			display: none;
+
+		.previous h3::before {
+			content: "\2190\00A0";
+		}
+
+		.next h3::after {
+			content: "\00A0\2192";
+		}
+
+		.next,
+		.previous {
+			margin-top: 2em;
+
+			> * {
+				margin: 0;
+			}
 		}
 		
 		.pubdate {
 			line-height: 2.2;
 		}
 		
-		.tags {					
+		.tags {		
 			ul {
 				margin: 0;
 				padding: 0;
@@ -188,6 +198,11 @@ article {
 				}
 			}
 		}
+	}
+
+	.pubdate h3,
+	.tags h3 {
+		display: none;
 	}
 }
 

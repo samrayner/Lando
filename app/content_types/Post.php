@@ -1,4 +1,4 @@
 <?php
 
-class Post extends Publishable {
+class Post extends Blog_Item {
 }

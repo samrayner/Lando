@@ -8,9 +8,7 @@
 /* GLOBAL
 ================================================== */
 
-#masthead > *,
-#wrapper,
-#footer > * {
+.wrapper {
 	width: @wrapperPercent;
 	min-width: 240px;
 	margin: 0 auto;
@@ -52,6 +50,8 @@ article footer {
 
 	.pubdate p,
 	.tags ul,
+	.next *,
+	.previous *,
 	h3 {
 		margin: 0;
 	}
@@ -59,7 +59,7 @@ article footer {
 	h3 {
 		font-size: 1em;
 		float: left;
-		width: 4.5em;
+		width: 5em;
 		font-weight: bold;
 		
 		&::after {

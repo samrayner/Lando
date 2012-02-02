@@ -13,6 +13,9 @@
 /* REUSABLE STYLES
 ================================================== */
 
+/* Clearfix
+-------------------------------------------------- */
+
 .page-nav,
 .page-nav ul,
 .page-nav li,
@@ -171,7 +174,7 @@ h3 {
 	
 	h1 {
 		font-size: 2.5em;
-		margin-bottom: 0.1em;
+		margin: 0;
 		letter-spacing: -0.04em;
 	}
 	
@@ -239,8 +242,12 @@ article {
 		margin-top: 0;
 	}
 	
-	footer {
-		color: lighten(@textColor, 20);
+	footer h3 {
+		color: fadeout(@textColor, 65);
+	}
+	
+	.pubdate {
+		color: lighten(@textColor, 30);
 	}
 }
 
@@ -323,6 +330,10 @@ article {
 	box-shadow: inset 0 30px 10px -20px rgba(0,0,0,0.02);
 	color: fadeout(@textColor, 30);
 
+	p {
+		margin: 0.1em 0;
+	}
+
 	a {
 		color: fadeout(@linkColor, 30);
 	}
@@ -332,7 +343,7 @@ article {
 /* HOME
 ================================================== */
 
-#home #primary > h1 {
+#home .main > h1 {
 	display: none;
 }
 
