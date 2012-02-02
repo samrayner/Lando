@@ -210,6 +210,9 @@ class Model {
 					$this->Cache->update($thumb_path, $thumb);
 			}
 			
+			if(!file_exists($full_path))
+				return false;
+
 			$dims = getimagesize($full_path);
 			$item->width = $dims[0];
 			$item->height = $dims[1];
