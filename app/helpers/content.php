@@ -97,8 +97,6 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 	$page_order = $Lando->config["page_order"];
 
 	if(!$pages) { //first run-through
-		global $Lando;
-		//get content top level pages from page_order
 		$html = '<nav class="page-nav">'."\n";
 
 		$pages = pages();
