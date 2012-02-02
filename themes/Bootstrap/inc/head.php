@@ -15,10 +15,6 @@
 
 	<!-- Default styles -->
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/screen.css" media="screen" />
-	<!-- PrettyPhoto styles -->
-	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/prettyPhoto.css" media="screen" />
-	<!-- Flux styles -->
-	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/flux.css" media="screen" />
 	
 	<!--[if lte IE 8]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	
@@ -31,36 +27,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 	<script>window.jQuery || document.write('<script src="'.<?php echo $theme_dir ?>.'/js/jquery-1.7.1.min.js">\x3c/script>')</script>
 
-	<script src="<?php echo $theme_dir ?>/js/min/global-min.js"></script>
-	
-	<!-- PrettyPhoto for galleries: http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ -->
-	<script src="<?php echo $theme_dir ?>/js/prettyPhoto/jquery.prettyPhoto.js"></script>
-	<!-- Flux slider for slideshows: https://github.com/joelambert/Flux-Slider -->
-	<script src="<?php echo $theme_dir ?>/js/flux/flux.min.js"></script>
-	
-	<script>
-		$(function(){
-			window.f = new flux.slider('.slideshow', {
-				/*There are loads of settings you can adjust here to personalise
-					your slideshows. Consult the Flux documentation at 
-					https://github.com/joelambert/Flux-Slider */
-			});
-			
-			//link images in the same gallery together
-			$(".gallery a").each(function(index) {
-				var offset = $(this).parent().offset();
-				var id = offset.top + offset.left;
-		    $(this).attr("rel", "prettyPhoto[" + id + "]")
-		  });
-			
-			$("a[rel^='prettyPhoto']").prettyPhoto({
-				/*There are loads of settings you can adjust here to personalise
-					your galleries. Consult the PrettyPhoto documentation at 
-					http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone */
-			});
-		});
-	</script>
-	
+	<script src="<?php echo $theme_dir ?>/js/min/bootstrap-min.js"></script>
 </head>
 <body id="<?php echo str_replace("_", "-", $template) ?>">
 

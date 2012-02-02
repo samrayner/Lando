@@ -77,4 +77,8 @@ if(!include_exists($themeBase.$template.".php")) {
 		system_error("Missing Theme/Template", "The template file <strong>$template.php</strong> could not be found in <strong>$theme_dir</strong>.");
 }
 
+//for 404 page, serve blank content
+if(!$current)
+	$current = new Page();
+
 include_once $themeBase.$template.".php";
