@@ -43,16 +43,18 @@ body {
 a {
 	&:link {
 		color: @linkColor;
+		text-decoration: none;
 	}
 	
 	&:visited,
 	&:active {
-		color: desaturate(@linkColor, 30);
+		color: @linkColorVisited;
 	}
 
 	&:hover,
 	&:focus {
-		color: darken(saturate(@linkColor, 10), 10);
+		color: @linkColorHover;
+		text-decoration: underline;
 	}
 }
 

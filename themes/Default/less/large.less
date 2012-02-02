@@ -51,10 +51,15 @@
 	
 	> ul > li:hover > a,
 	> ul > li:focus > a,
-	> ul > li.current > a,
-	li ul {
+	> ul > li.current > a {
 		background-color: @mainBg;
-		.gradient(@mainBg, 0%, rgba(255,255,255,1), 100%);
+		.gradient(@mainBg, 0%, white, 100%);
+	}
+
+	> ul > li.parent:hover > a,
+	li ul {
+		background-color: white;
+		.gradient(white);
 	}
 	
 	//parent pages
@@ -68,7 +73,7 @@
 			}
 			
 			> a {
-				line-height: 2.5;
+				line-height: 2.4;
 				display: inline-block;
 				padding: 0 1em;
 				border-right-width: 1px;
@@ -97,7 +102,7 @@
 			text-shadow: 1px 1px 0 rgba(255,255,255,1);
 			
 			&:hover {
-				background-color: rgba(0,0,0,0.05);
+				background-color: fadeout(@linkColor, 95);
 			}
 			
 			a {
