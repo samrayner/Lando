@@ -30,8 +30,9 @@ if($cache_path === "")
 
 //if deleting page cache
 if(!preg_match('~^(pages|posts|drafts)/~', $cache_path))
-	$cache_path = "pages/$cache_path/page";
+	$cache_path = "pages/$cache_path";
 
 $Cache->delete($cache_path);
+$Cache->delete("files/$cache_path");
 
 header("Location: {$config["site_root"]}/$path");

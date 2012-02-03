@@ -162,8 +162,7 @@ var Recache = {
 			.removeClass("done")
 			.addClass("active")
 			.attr("data-icon", "0");
-			
-		Recache.process("files");
+
 		Recache.process(Recache.types[0]);
 	},
 	
