@@ -49,28 +49,28 @@ function nav_widget($pages=null, $path=array()) {
 
 	$html = $tabs.'<ol class="sortable">'."\n";
 
-	foreach($pages as $page) {
-		$path[] = $page->slug;
+	foreach($pages as $Page) {
+		$path[] = $Page->slug;
 		
-		$html .= "$tabs\t".'<li id="'.$page->slug.'">'."\n$tabs\t\t<div>\n$tabs\t\t\t";
-		$html .= '<input id="'.$page->slug.'_visibility" type="checkbox" ';
+		$html .= "$tabs\t".'<li id="'.$Page->slug.'">'."\n$tabs\t\t<div>\n$tabs\t\t\t";
+		$html .= '<input id="'.$Page->slug.'_visibility" type="checkbox" ';
 		
-		$current = $page_order;
+		$active = $page_order;
 		
 		//step through page ordering to current nest level
 		foreach($path as $next_key) {
-			if(isset($current[$next_key]))
-				$current = $current[$next_key];
+			if(isset($active[$next_key]))
+				$active = $active[$next_key];
 		}
 		
-		if(!isset($current["_hidden"]) || $current["_hidden"] == false)
+		if(!isset($active["_hidden"]) || $active["_hidden"] == false)
 			$html .= "checked ";
 		
 		$html .= '/>'."\n$tabs\t\t\t";
-		$html .= '<label for="'.$page->slug.'_visibility">'.$page->title.'</label>'."\n$tabs\t\t";
+		$html .= '<label for="'.$Page->slug.'_visibility">'.$Page->title.'</label>'."\n$tabs\t\t";
 		$html .= "</div>\n";
 
-		$subpages = $page->subpages();
+		$subpages = $Page->subpages();
 
 		if(!empty($subpages))
 			$html .= nav_widget($subpages, $path);

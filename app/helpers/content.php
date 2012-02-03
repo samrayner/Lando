@@ -56,12 +56,12 @@ function gallery($title, $size=0, $limit=0, $offset=0, $filters=array(), $link_i
 			extract($arg1);
 	}
 
-	$collection = collection($title, $limit, $offset, $filters);
+	$Collection = collection($title, $limit, $offset, $filters);
 	
-	if(!$collection)
+	if(!$Collection)
 		return false;
 	
-	return $collection->image_list_html("gallery", $size, $link_images);
+	return $Collection->image_list_html("gallery", $size, $link_images);
 }
 
 function slideshow($title, $size=0, $limit=0, $offset=0, $filters=array(), $link_images=false) {
@@ -72,12 +72,12 @@ function slideshow($title, $size=0, $limit=0, $offset=0, $filters=array(), $link
 			extract($arg1);
 	}
 
-	$collection = collection($title, $limit, $offset, $filters);
+	$Collection = collection($title, $limit, $offset, $filters);
 	
-	if(!$collection)
+	if(!$Collection)
 		return false;
 	
-	return $collection->image_list_html("slideshow", $size, $link_images);
+	return $Collection->image_list_html("slideshow", $size, $link_images);
 }
 
 function snippet($title) {
@@ -112,7 +112,7 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 		return $html;
 	}
 	
-	$current_class = "current";
+	$active_class = "current";
 	$parent_class = "parent";
 	
 	$url = current_path();
@@ -120,30 +120,30 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 
 	$html = "$tabs<ul>\n";
 
-	foreach($pages as $page) {
-		$path[] = $page->slug();
+	foreach($pages as $Page) {
+		$path[] = $Page->slug();
 		
-		$current = $page_order;
+		$active = $page_order;
 		foreach($path as $next_key) {
-			if(isset($current[$next_key]))
-				$current = $current[$next_key];
+			if(isset($active[$next_key]))
+				$active = $active[$next_key];
 		}
 		
-		if(!isset($current["_hidden"]) || $current["_hidden"] == false) {
+		if(!isset($active["_hidden"]) || $active["_hidden"] == false) {
 			$path_str = "/".implode("/", $path)."/";
 			
 			if($url == "/")
 				$url = "/home/";
 			
-			$current = (strpos($url, rtrim($path_str, "/")) === 0);
-			$subpages = $page->subpages();
+			$active = (strpos($url, rtrim($path_str, "/")) === 0);
+			$subpages = $Page->subpages();
 	
 			$html .= "$tabs\t<li";
 			
 			$classes = array();
 			
-			if($current)
-				$classes[] = $current_class;
+			if($active)
+				$classes[] = $active_class;
 				
 			if(!empty($subpages))
 				$classes[] = $parent_class;
@@ -151,7 +151,7 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 			if(!empty($classes)) 
 				$html .= ' class="'.implode(" ", $classes).'"';
 			
-			$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink().'">'.$page->title()."</a>\n";
+			$html .= ">\n$tabs\t\t".'<a href="'.$Page->permalink().'">'.$Page->title()."</a>\n";
 	
 			if(!empty($subpages))
 				$html .= page_nav($blog_text, $subpages, $path);

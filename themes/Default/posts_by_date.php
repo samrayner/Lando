@@ -25,8 +25,8 @@
 	$posts = posts(0, 0, array(), $year, $month, $day);
 	$posts_by_date = array();
 
-	foreach($posts as $post)
-		$posts_by_date[$post->published('Y')][$post->published('m')][$post->published('d')][] = $post;
+	foreach($posts as $Post)
+		$posts_by_date[$Post->published('Y')][$Post->published('m')][$Post->published('d')][] = $Post;
 ?>
 	
 <?php foreach($posts_by_date as $post_year => $posts_by_month): ?>
@@ -51,25 +51,25 @@
 
 			<div class="day-block">
 
-			<?php foreach($posts as $post): ?>
+			<?php foreach($posts as $Post): ?>
 
 				<article>
-					<h1><a href="<?php echo $post->permalink() ?>"><?php echo $post->title() ?></a></h1>
+					<h1><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h1>
 					<footer>
 						<div class="pubdate">
 							<h3>Posted</h3>
 							<p>
-								<time datetime="<?php echo $post->published('c') ?>">
-									<?php echo $post->published('l jS \a\t g:ia') ?>
+								<time datetime="<?php echo $Post->published('c') ?>">
+									<?php echo $Post->published('l jS \a\t g:ia') ?>
 								</time>
 						</p>
 						</div>
 						
-						<?php if($post->metadata("tags")): ?>
+						<?php if($Post->metadata("tags")): ?>
 						<div class="tags">
 							<h3>Tagged</h3>
 							<ul>
-							<?php foreach($post->metadata("tags") as $tag): ?>
+							<?php foreach($Post->metadata("tags") as $tag): ?>
 								<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 							<?php endforeach ?>
 							</ul>

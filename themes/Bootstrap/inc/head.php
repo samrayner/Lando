@@ -9,7 +9,7 @@
 	
 	<?php if(path_segment(1) == "drafts") echo '<meta name="robots" content="noindex, nofollow" />' ?>
 	
-	<title><?php if($current->title() != "Untitled") echo $current->title()." - " ?><?php echo $site_title ?></title>
+	<title><?php if($Current->title() != "Untitled") echo $Current->title()." - " ?><?php echo $site_title ?></title>
 	
 	<link rel="alternate" type="application/rss+xml" title="<?php echo $site_title ?>" href="<?php echo $site_root ?>/rss/" />
 

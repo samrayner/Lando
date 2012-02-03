@@ -5,12 +5,12 @@
 		<a href="<?php echo $Lando->config["site_root"] ?>/admin/update/?type=<?php echo $types[1] ?>&amp;redirect=<?php echo current_path() ?>">Update</a>
 	<?php endif ?>
 
-	<?php if($current->path()): ?>
+	<?php if($Current->path()): ?>
 		<a href="<?php echo $Lando->config["site_root"] ?>/admin/update/single.php?path=<?php echo current_path() ?>">Update</a>
 	<?php endif ?>
 
 	<?php if($template == "draft"): ?>
-		<a href="<?php echo $Lando->config["site_root"] ?>/admin/publish_draft.php?slug=<?php echo $current->slug() ?>">Publish</a>
+		<a href="<?php echo $Lando->config["site_root"] ?>/admin/publish_draft.php?slug=<?php echo $Current->slug() ?>">Publish</a>
 	<?php endif ?>
 
 	<?php if(in_array($template, array("posts_all", "posts_by_date", "posts_by_tag", "post", "draft"))): ?>

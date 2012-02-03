@@ -2,19 +2,19 @@
 <?php include "inc/header.php" ?>
 
 <article>
-	<h1><?php echo $current->title() ?></h1>
-	<?php echo $current->content() ?>
+	<h1><?php echo $Current->title() ?></h1>
+	<?php echo $Current->content() ?>
 	<footer>
 		<div class="pubdate">
 			<h3>Posted</h3>
 			<p>
-				<time datetime="<?php echo $current->published('c') ?>">
-					<?php echo $current->published('F jS Y') ?>
+				<time datetime="<?php echo $Current->published('c') ?>">
+					<?php echo $Current->published('F jS Y') ?>
 				</time>
 		</p>
 		</div>
 		
-		<?php if($tags = $current->metadata("tags")): ?>
+		<?php if($tags = $Current->metadata("tags")): ?>
 		<div class="tags">
 			<h3>Tagged</h3>
 			<ul>
@@ -25,17 +25,17 @@
 		</div>
 		<?php endif ?>
 
-		<?php if($next = $current->next()): ?>
+		<?php if($Next = $Current->next()): ?>
 		<div class="next">
 			<h3>Next</h3>
-			<p><a rel="next" href="<?php echo $next->permalink() ?>"><?php echo $next->title() ?></a></p>
+			<p><a rel="next" href="<?php echo $Next->permalink() ?>"><?php echo $Next->title() ?></a></p>
 		</div>
 		<?php endif ?>
 
-		<?php if($prev = $current->previous()): ?>
+		<?php if($Prev = $Current->previous()): ?>
 		<div class="previous">
 			<h3>Previous</h3>
-			<p><a rel="prev" href="<?php echo $prev->permalink() ?>"><?php echo $prev->title() ?></a></p>
+			<p><a rel="prev" href="<?php echo $Prev->permalink() ?>"><?php echo $Prev->title() ?></a></p>
 		</div>
 		<?php endif ?>
 	</footer>

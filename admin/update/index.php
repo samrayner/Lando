@@ -34,9 +34,9 @@ foreach($types as $type) {
 		$files = $Lando->get_content($type);
 
 		//make sure content includes are cached (only parsed when called)
-		foreach($files as $file) {
-			if(method_exists($file, "content"))
-				$file->content();
+		foreach($files as $File) {
+			if(method_exists($File, "content"))
+				$File->content();
 		}
 	}
 }

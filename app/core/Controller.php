@@ -108,12 +108,12 @@ class Controller {
 		if(is_array($filters) && !empty($filters)) {
 			$filtered = array();
 		
-			foreach($content as $item) {
+			foreach($content as $Item) {
 				$match = true;
 			
 				foreach($filters as $key => $val) {
-					if((!isset($item->$key) || !$this->loose_match($val, $item->$key())) &&
-						 (!isset($item->manual_metadata[$key]) || !$this->loose_match($val, $item->metadata($key)))) {
+					if((!isset($Item->$key) || !$this->loose_match($val, $Item->$key())) &&
+						 (!isset($Item->manual_metadata[$key]) || !$this->loose_match($val, $Item->metadata($key)))) {
 							$match = false;
 							break;
 					}
@@ -142,10 +142,10 @@ class Controller {
 		if($year) {
 			$date_types = array("published", "created");
 			
-			foreach($content as $item) {
+			foreach($content as $Item) {
 				foreach($date_types as $type) {
-					if(isset($item->$type))
-						$date = $item->$type;
+					if(isset($Item->$type))
+						$date = $Item->$type;
 				}
 				
 				if(isset($date))
@@ -176,14 +176,14 @@ class Controller {
 		return array_offset_limit($content, $offset, $limit);
 	}
 	
-	public function filter_collection($collection, $limit=0, $offset=0, $filters=array()) {
-		if(empty($collection->files))
+	public function filter_collection($Collection, $limit=0, $offset=0, $filters=array()) {
+		if(empty($Collection->files))
 			return $collection;
 		
-		$collection->files = $this->filter_by_props($collection->files, $filters);
-		$collection->files = array_offset_limit($collection->files, $offset, $limit);
+		$Collection->files = $this->filter_by_props($Collection->files, $filters);
+		$Collection->files = array_offset_limit($Collection->files, $offset, $limit);
 		
-		return $collection;
+		return $Collection;
 	}
 	
 	public function get_file($path, $thumb=false) {

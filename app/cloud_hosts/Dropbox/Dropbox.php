@@ -168,7 +168,6 @@ class Dropbox extends Cloud_Host {
 		
 		if($type == "collections")
 			$meta["title"] = basename($meta["path"]);
-
 		else {
 			$meta["slug"] = basename($meta["path"]);
 			

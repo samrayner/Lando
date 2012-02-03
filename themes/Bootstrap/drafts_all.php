@@ -5,25 +5,25 @@
 	<h1>Drafts</h1>
 </div>
 
-<?php foreach(drafts() as $draft): ?>
+<?php foreach(drafts() as $Draft): ?>
 
 	<article>
-		<h1><a href="<?php echo $draft->permalink() ?>"><?php echo $draft->title() ?></a></h1>
+		<h1><a href="<?php echo $Draft->permalink() ?>"><?php echo $Draft->title() ?></a></h1>
 		<footer>
 			<div class="pubdate">
 				<h3>Edited</h3>
 				<p>
-					<time datetime="<?php echo $draft->modified('c') ?>">
-					<?php echo $draft->modified('F jS \a\t g:ia') ?>
+					<time datetime="<?php echo $Draft->modified('c') ?>">
+					<?php echo $Draft->modified('F jS \a\t g:ia') ?>
 					</time>
 				</p>
 			</div>
 			
-			<?php if($draft->metadata("tags")): ?>
+			<?php if($Draft->metadata("tags")): ?>
 			<div class="tags">
 				<h3>Tagged</h3>
 				<ul>
-				<?php foreach($draft->metadata("tags") as $tag): ?>
+				<?php foreach($Draft->metadata("tags") as $tag): ?>
 					<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 				<?php endforeach ?>
 				</ul>

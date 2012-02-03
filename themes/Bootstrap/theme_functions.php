@@ -36,7 +36,7 @@ function bootstrap_page_navbar($blog_text="Blog", $pages=null, $path=array()) {
 		return $html;
 	}
 	
-	$current_class = "active";
+	$active_class = "active";
 	$parent_class = "dropdown";
 	$under_depth_limit = count($path) < 1;
 	
@@ -49,30 +49,30 @@ function bootstrap_page_navbar($blog_text="Blog", $pages=null, $path=array()) {
 
 	$html .= '">'."\n";
 
-	foreach($pages as $page) {
-		$path[] = $page->slug();
+	foreach($pages as $Page) {
+		$path[] = $Page->slug();
 		
-		$current = $page_order;
+		$active = $page_order;
 		foreach($path as $next_key) {
-			if(isset($current[$next_key]))
-				$current = $current[$next_key];
+			if(isset($active[$next_key]))
+				$active = $active[$next_key];
 		}
 		
-		if(!isset($current["_hidden"]) || $current["_hidden"] == false) {
+		if(!isset($active["_hidden"]) || $active["_hidden"] == false) {
 			$path_str = "/".implode("/", $path)."/";
 			
 			if($url == "/")
 				$url = "/home/";
 			
-			$current = (strpos($url, rtrim($path_str, "/")) === 0);
-			$subpages = $page->subpages();
+			$active = (strpos($url, rtrim($path_str, "/")) === 0);
+			$subpages = $Page->subpages();
 	
 			$html .= "$tabs\t<li";
 			
 			$li_classes = array();
 			
-			if($current)
-				$li_classes[] = $current_class;
+			if($active)
+				$li_classes[] = $active_class;
 				
 			if(!empty($subpages) && $under_depth_limit)
 				$li_classes[] = $parent_class;
@@ -80,12 +80,12 @@ function bootstrap_page_navbar($blog_text="Blog", $pages=null, $path=array()) {
 			if(!empty($li_classes)) 
 				$html .= ' class="'.implode(" ", $li_classes).'"';
 			
-			$html .= ">\n$tabs\t\t".'<a href="'.$page->permalink().'"';
+			$html .= ">\n$tabs\t\t".'<a href="'.$Page->permalink().'"';
 			
 			if(!empty($subpages) && $under_depth_limit) 
 				$html .= ' class="dropdown-toggle" data-toggle="dropdown"';
 
-			$html .= '>'.$page->title();
+			$html .= '>'.$Page->title();
 
 			if(!empty($subpages) && $under_depth_limit)
 				$html .= ' <b class="caret"></b>';

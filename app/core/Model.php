@@ -95,7 +95,7 @@ class Model {
 		$names = $this->Cache->dir_contents($path, $pages, $collection_files);
 
 		//if only current page has just been cached (current done before nav)
-    //OR cache older than max age (default 10 mins), refresh
+    //OR cache older than max age (default 1 hour), refresh
     $age = $this->Cache->age($path);
     $same_load = 2;
     
@@ -118,12 +118,12 @@ class Model {
 		
 		foreach($names as $name) {
 			if($collection_files)
-				$item = $this->get_file("$path/$name", false, false); //not thumb and don't recache individually before sort
+				$Item = $this->get_file("$path/$name", false, -1); //not thumb and don't recache individually before sort
 			else
-				$item = $this->get_single("$path/$name", -1); //unachievable max-age to stop individual recaches before sort
+				$Item = $this->get_single("$path/$name", -1); //unachievable max-age to stop individual recaches before sort
 			
-			if($item)
-				$items[] = $item;
+			if($Item)
+				$items[] = $Item;
 		}
 		
 		if(!empty($items)) {
@@ -143,64 +143,67 @@ class Model {
 		if($type == "pages")
 			$cache_path .= "/page";
 		
-		$item = $this->Cache->get_single($cache_path);
+		$Item = $this->Cache->get_single($cache_path);
 		
 		//Update cache if:
 		//a) 	Item doesn't exist in cache yet OR
-		//b) 	i)	Cache is older than max age (default 20 mins) AND
+		//b) 	i)	Cache is older than max age (default 1 hour) AND
 		//		ii)	Recache limit hasn't been exceeded yet
-		$should_cache = !$item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && 
+		$should_cache = !$Item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && 
 															 $this->recache_count < self::RECACHE_LIMIT);
 		
 		if($should_cache) {
 			$this->connect_host();
-			$item = $this->Host->get_single($path, $item);
+			$Item = $this->Host->get_single($path, $Item);
 			
-			if($item)
-				$this->Cache->update($cache_path, $item);
+			if($Item)
+				$this->Cache->update($cache_path, $Item);
 			
 			$this->recache_count++;
 		}
 		
-		if(!$item)
+		if(!$Item)
 			return false;
 		
 		if($type == "pages")
-			$item->subpages = $this->get_all($path);
+			$Item->subpages = $this->get_all($path);
 			
 		if($type == "collections")
-			$item->files = $this->get_all($path);
+			$Item->files = $this->get_all($path);
 		
-		return $item;
+		return $Item;
 	}
 	
-	public function get_file($path, $thumb_size, $recache=true) {
+	public function get_file($path, $thumb_size, $max_age=14400) {
 		$path = trim_slashes($path);
 		$cache_path = "files/".$path;
 		
-		$item = $this->Cache->get_single($cache_path);
+		$Item = $this->Cache->get_single($cache_path);
 		
-		//if no cache or cache older than 4 hours (media link expiration) refresh
-		if(!$item || $this->Cache->age($cache_path) > 60*60*4) {		
+		//if no cache OR cache is older than max age (default 4 hours - media link expiration)
+		if(!$Item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age)) {		
 			$this->connect_host();
-			$item = $this->Host->get_file($path, $thumb_size);
+			$Item = $this->Host->get_file($path, $thumb_size);
 			
-			if($item)
-				$this->Cache->update($cache_path, $item);
+			if($Item)
+				$this->Cache->update($cache_path, $Item);
 		}
+
+
 		
 		if($thumb_size) {
-			$item->extension = "jpg";
+			$Item->extension = "jpg";
 		
-			$thumb_path = preg_replace('~\.\w+$~', ".$thumb_size.".$item->extension, $cache_path);
+			$thumb_path = preg_replace('~\.\w+$~', ".$thumb_size.".$Item->extension, $cache_path);
 			$full_path = $this->Cache->full_path($thumb_path);
 		
 			//Update cache if:
 			//a) 	Thumb doesn't exist in cache yet OR
-			//b) 	i)	Cache is older than 4 hours
+			//b) 	i)	Cache is older than max age (default 4 hours - media link expiration) AND
 			//		ii) Recache limit hasn't been exceeded yet
-			$should_cache = !file_exists($full_path) || ($this->Cache->age($thumb_path) > 60*60*4 && 
-																									 $this->recache_count < self::RECACHE_LIMIT);
+			$should_cache = !file_exists($full_path) || 
+											($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && 
+											$this->recache_count < self::RECACHE_LIMIT);
 		
 			if($should_cache) {		
 				$this->connect_host();				
@@ -214,15 +217,15 @@ class Model {
 				return false;
 
 			$dims = getimagesize($full_path);
-			$item->width = $dims[0];
-			$item->height = $dims[1];
-			$item->modified = filemtime($full_path);
+			$Item->width = $dims[0];
+			$Item->height = $dims[1];
+			$Item->modified = filemtime($full_path);
 			
 			$url = str_replace(dirname(dirname(dirname(__FILE__))), "", $full_path);
-			$item->url = $this->config["site_root"].str_replace(array('%2F','~'), array('/','%7E'), rawurlencode($url));
+			$Item->url = $this->config["site_root"].str_replace(array('%2F','~'), array('/','%7E'), rawurlencode($url));
 		}
 		
-		return $item;
+		return $Item;
 	}
 	
 	public function install_content($local_path, $host_path="", $log_file=false) {

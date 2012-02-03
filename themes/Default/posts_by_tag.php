@@ -14,26 +14,26 @@
 <h1>Posts tagged <?php echo '"'.implode(", ", $tags).'"' ?></h1>
 
 <?php $posts = posts(0, 0, array("tags"=>$tags));
-	 		foreach($posts as $post): ?>
+	 		foreach($posts as $Post): ?>
 
 	<article>
-		<h1><a href="<?php echo $post->permalink() ?>"><?php echo $post->title() ?></a></h1>
-		<?php echo truncate_html($post->content(), 200) ?>
+		<h1><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h1>
+		<?php echo truncate_html($Post->content(), 200) ?>
 		<footer>
 			<div class="pubdate">
 				<h3>Posted</h3>
 				<p>
-					<time datetime="<?php echo $post->published('c') ?>">
-						<?php echo $post->published('F jS Y') ?>
+					<time datetime="<?php echo $Post->published('c') ?>">
+						<?php echo $Post->published('F jS Y') ?>
 					</time>
 			</p>
 			</div>
 			
-			<?php if($post->metadata("tags")): ?>
+			<?php if($Post->metadata("tags")): ?>
 			<div class="tags">
 				<h3>Tagged</h3>
 				<ul>
-				<?php foreach($post->metadata("tags") as $tag): ?>
+				<?php foreach($Post->metadata("tags") as $tag): ?>
 					<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 				<?php endforeach ?>
 				</ul>

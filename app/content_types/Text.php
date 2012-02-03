@@ -48,23 +48,30 @@ class Text extends File {
 		return compress_html((string)$include);
 	}
 
-	private function get_file_url($path) {
+	private function get_file_url($path, $thumb=false) {
 		global $Lando;
-		$File = $Lando->get_file(trim_slashes($path));
+		$path = trim_slashes($path);
+		$File = $Lando->get_file($path, $thumb);
 		
-		if(!$File)
-			return false;
+		//on failure
+		if(!$File) {
+			//if thumbnail, try to just get link to original file, if not, fail
+			return $thumb ? $this->get_file_url($path) : false;
+		}
 		
 		return $File->url();
 	}
 	
 	private function resolve_media_srcs($content, $dir) {
-		if(preg_match_all('/<(?:img|audio|video|source)[^>]+src="([^"]*)"[^>]*>/i', $content, $tags)) {
-			foreach($tags[1] as $src) {
+		if(preg_match_all('/<(?<tag>img|audio|video|source)[^>]+src="(?<src>[^"]*)"[^>]*>/i', $content, $elements)) {
+			foreach($elements["src"] as $i => $src) {
+				$is_img = ($elements["tag"][$i] == "img");
+
 				//if relative url
-				if(strpos($src, ":") === false && strpos($src, "/file.php") === false) {
-					if(strpos($src, "/") === 0)
-						$resolved = $this->get_file_url(substr($src, 1)); //resolve relative to site root
+				if(strpos($src, ":") === false) {
+					if(strpos($src, "/") === 0) {
+						$resolved = substr($src, 1); //resolve relative to site root
+					}
 					else {
 						$src_segs = explode("/", trim_slashes($src));
 						$dir_segs = explode("/", trim_slashes($dir));
@@ -75,15 +82,17 @@ class Text extends File {
 						}
 						
 						$dir 			= implode("/", $dir_segs);
+
 						$resolved = implode("/", $src_segs);
-						
 						$resolved = preg_replace('~^./~', '', $resolved);
-						
-						$resolved = $this->get_file_url($dir."/$resolved"); //resolve to current dir
+
+						$resolved = $dir."/$resolved"; //resolve to current dir
 					}
+
+					$new_src = $this->get_file_url($resolved, "xl");
 					
-					if($resolved)
-						$content = str_replace('"'.$src.'"', '"'.$resolved.'"', $content);
+					if($new_src)
+						$content = str_replace('"'.$src.'"', '"'.$new_src.'"', $content);
 				}
 			}
 		}

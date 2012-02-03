@@ -4,11 +4,11 @@ include "app/core/loader.php";
 $themeBase = trim_slashes($theme_dir)."/";
 $template = "404";
 $url = current_path();
-$current = new Page();
+$Current = new Page();
 
 if($url == "/") {
-	$current = $Lando->get_content();
-	$template = $current ? "home" : "404";
+	$Current = $Lando->get_content();
+	$template = $Current ? "home" : "404";
 }
 
 if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
@@ -23,9 +23,9 @@ if(preg_match('~^/([\w-]+)$~', $url, $matches)) {
 			$template = "rss";
 			break;
 		default: 
-			$current = $Lando->get_content();
+			$Current = $Lando->get_content();
 		
-			if(!$current)
+			if(!$Current)
 				$template = "404";
 			elseif(include_exists($themeBase.$matches[1].".php"))
 				$template = $matches[1];
@@ -41,9 +41,9 @@ elseif(preg_match('~^/posts/tagged/([\w\s\+-,]+)$~', $url))
 	$template = "posts_by_tag";
 
 elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
-	$current = $Lando->get_content();
+	$Current = $Lando->get_content();
 
-	if(!$current)
+	if(!$Current)
 		$template = "404";
 	else {
 		switch($matches[1]) {
@@ -78,7 +78,7 @@ if(!include_exists($themeBase.$template.".php")) {
 }
 
 //for 404 page, serve blank content
-if(!$current)
-	$current = new Page();
+if(!$Current)
+	$Current = new Page();
 
 include_once $themeBase.$template.".php";
