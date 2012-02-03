@@ -186,15 +186,20 @@ class Dropbox extends Cloud_Host {
 				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($main_file);
 	
 				$meta["file_path"] = $main_file;
-				$meta["title"] = $this->filename_from_path($main_file);
-				$meta["extension"] = $this->ext_from_path($main_file);
+				$meta["title"] = filename_from_path($main_file);
+				$meta["extension"] = ext_from_path($main_file);
 				$meta["format"] = parent_key($this->config["parsers"], $meta["extension"]);
 				$meta["modified"] = strtotime($file_meta["modified"]);
 				
 				//if no cache or cached content out of date
 				if(!$Cache || $meta["modified"] > $Cache->modified) {
 					//download raw content
-					$meta["raw_content"] = $this->API->download($main_file);
+					try {
+						$meta["raw_content"] = $this->API->download($main_file);
+					}
+					catch(Exception $e) {
+						$meta["raw_content"] = "";
+					}
 					
 					//scrape for manually set metadata and add
 					$meta["manual_metadata"] = $this->manual_meta($meta["raw_content"]);
@@ -225,7 +230,12 @@ class Dropbox extends Cloud_Host {
 		return $File;
 	}
 	
-	public function get_thumb($path, $size) {
+	private function get_thumb_format($path) {
+		$ext = ext_from_path($path);
+		return in_array($ext, array("png", "gif")) ? "PNG" : "JPEG";
+	}
+
+	public function get_image($path, $thumb_size=false) {
 		$thumb_codes = array(
 			"16" 		=> "16x16",
 			"32" 		=> "small",
@@ -239,14 +249,22 @@ class Dropbox extends Cloud_Host {
 			"xl" 		=> "960x640_bestfit",
 			"xxl" 	=> "xl"
 		);
-		
-		if(!isset($thumb_codes[$size]))
-			return false;
-		
+
 		$path = $this->config["host_root"]."/".trim_slashes($path);
 		
+		//if not getting thumbnail
+		if(!isset($thumb_codes[$thumb_size])) {
+			try {
+				return $this->API->download($path);
+			}
+			catch(Exception $e) {
+				return false;
+			}
+		}
+		
+		//if getting thumbnail
 		try {
-			$thumb = $this->API->thumbnail($path, $thumb_codes[$size], "JPEG");
+			$thumb = $this->API->thumbnail($path, $thumb_codes[$thumb_size], $this->get_thumb_format($path));
 		}
 		catch(Exception $e) {
 			return false;
@@ -257,13 +275,13 @@ class Dropbox extends Cloud_Host {
 	
 	private function process_file($file) {
 		$file["modified"] = strtotime($file["modified"]);
-		$file["title"] = $this->filename_from_path($file["path"]);
-		$file["extension"] = $this->ext_from_path($file["path"]);
+		$file["title"] = filename_from_path($file["path"]);
+		$file["extension"] = ext_from_path($file["path"]);
 		$file["order"] = $this->extract_order($file["title"]);
 		
 		try {
 			$media = $this->API->media($file["path"]);
-			$file["url"] = $media["url"];
+			$file["url"] = $file["original_url"] = $media["url"];
 		}
 		catch(Exception $e) {}
 		

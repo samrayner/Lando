@@ -26,3 +26,11 @@ function include_exists($file) {
   	
   return false;
 }
+
+function filename_from_path($path) {
+	return pathinfo(trim_slashes($path), PATHINFO_FILENAME);
+}
+
+function ext_from_path($path) {
+	return strtolower(pathinfo(trim_slashes($path), PATHINFO_EXTENSION));
+}

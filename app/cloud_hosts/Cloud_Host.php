@@ -6,14 +6,6 @@ abstract class Cloud_Host {
 	public function __construct($config) {
 		$this->config = $config;
 	}
-
-	protected function filename_from_path($path) {
-		return pathinfo(trim_slashes($path), PATHINFO_FILENAME);
-	}
-
-	protected function ext_from_path($path) {
-		return pathinfo(trim_slashes($path), PATHINFO_EXTENSION);
-	}
 	
 	protected function sanitize_path($path) {
 		$new_path = explode("/", $path);

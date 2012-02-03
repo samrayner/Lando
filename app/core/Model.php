@@ -173,6 +173,11 @@ class Model {
 		
 		return $Item;
 	}
+
+	private function get_thumb_ext($path) {
+		$ext = ext_from_path($path);
+		return in_array($ext, array("png", "gif")) ? "png" : "jpg";
+	}
 	
 	public function get_file($path, $thumb_size, $max_age=14400) {
 		$path = trim_slashes($path);
@@ -188,14 +193,15 @@ class Model {
 			if($Item)
 				$this->Cache->update($cache_path, $Item);
 		}
-
-
 		
-		if($thumb_size) {
-			$Item->extension = "jpg";
-		
-			$thumb_path = preg_replace('~\.\w+$~', ".$thumb_size.".$Item->extension, $cache_path);
-			$full_path = $this->Cache->full_path($thumb_path);
+		//if image, try to cache the file
+		if(get_class($Item) == "Image") {
+			if($thumb_size) {
+				$Item->extension = $this->get_thumb_ext($path);
+				$cache_path = preg_replace('~\.\w+$~', ".$thumb_size.".$Item->extension, $cache_path);
+			}
+
+			$full_path = $this->Cache->full_path($cache_path);
 		
 			//Update cache if:
 			//a) 	Thumb doesn't exist in cache yet OR
@@ -207,10 +213,10 @@ class Model {
 		
 			if($should_cache) {		
 				$this->connect_host();				
-				$thumb = $this->Host->get_thumb($path, $thumb_size);
+				$image_code = $this->Host->get_image($path, $thumb_size);
 				
-				if($thumb)
-					$this->Cache->update($thumb_path, $thumb);
+				if($image_code)
+					$this->Cache->update($cache_path, $image_code);
 			}
 			
 			if(!file_exists($full_path))
@@ -220,7 +226,7 @@ class Model {
 			$Item->width = $dims[0];
 			$Item->height = $dims[1];
 			$Item->modified = filemtime($full_path);
-			
+
 			$url = str_replace(dirname(dirname(dirname(__FILE__))), "", $full_path);
 			$Item->url = $this->config["site_root"].str_replace(array('%2F','~'), array('/','%7E'), rawurlencode($url));
 		}

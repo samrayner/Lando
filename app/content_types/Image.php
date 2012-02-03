@@ -3,6 +3,7 @@
 class Image extends File {
 	public $width;
 	public $height;
+	public $original_url;
 	
 	public function __toString() {
 		return $this->html();
@@ -59,5 +60,9 @@ class Image extends File {
 
 	public function height() {
 		return $this->height;
+	}
+
+	public function original_url() {
+		return $this->original_url;
 	}
 }

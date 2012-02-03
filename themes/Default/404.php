@@ -13,7 +13,6 @@ if(isset($_SERVER['HTTP_REFERER'])) {
 
 <?php include "inc/head.php" ?>
 <?php include "inc/header.php" ?>
-<div class="wrapper">
 
 	<h1>404, Page Not Found</h1>
 
@@ -39,6 +38,5 @@ if(isset($_SERVER['HTTP_REFERER'])) {
 	</script>
 	<script src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
 
-</div><!-- .wrapper -->
 <?php include "inc/footer.php" ?>
 <?php include "inc/foot.php" ?>

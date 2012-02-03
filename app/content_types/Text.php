@@ -53,11 +53,8 @@ class Text extends File {
 		$path = trim_slashes($path);
 		$File = $Lando->get_file($path, $thumb);
 		
-		//on failure
-		if(!$File) {
-			//if thumbnail, try to just get link to original file, if not, fail
-			return $thumb ? $this->get_file_url($path) : false;
-		}
+		if(!$File)
+			return false;
 		
 		return $File->url();
 	}
@@ -82,14 +79,13 @@ class Text extends File {
 						}
 						
 						$dir 			= implode("/", $dir_segs);
-
 						$resolved = implode("/", $src_segs);
 						$resolved = preg_replace('~^./~', '', $resolved);
 
 						$resolved = $dir."/$resolved"; //resolve to current dir
 					}
 
-					$new_src = $this->get_file_url($resolved, "xl");
+					$new_src = $this->get_file_url($resolved);
 					
 					if($new_src)
 						$content = str_replace('"'.$src.'"', '"'.$new_src.'"', $content);

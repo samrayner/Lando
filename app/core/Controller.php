@@ -178,7 +178,7 @@ class Controller {
 	
 	public function filter_collection($Collection, $limit=0, $offset=0, $filters=array()) {
 		if(empty($Collection->files))
-			return $collection;
+			return $Collection;
 		
 		$Collection->files = $this->filter_by_props($Collection->files, $filters);
 		$Collection->files = array_offset_limit($Collection->files, $offset, $limit);
