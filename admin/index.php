@@ -21,7 +21,7 @@ function set_field_state($key, $attr=null) {
 		if($attr)
 			echo $attr;
 		else
-			echo 'value="'.$val.'"';
+			echo 'value="'.stripslashes($val).'"';
 	}
 }
 
