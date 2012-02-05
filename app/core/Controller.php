@@ -149,7 +149,7 @@ class Controller {
 				}
 				
 				if(isset($date))
-					$by_date[date('Y', $date)][date('n', $date)][date('d', $date)][] = $item;
+					$by_date[date('Y', $date)][date('n', $date)][date('d', $date)][] = $Item;
 			}
 			
 			//flatten down array to filter level

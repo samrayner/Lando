@@ -179,20 +179,33 @@ class Model {
 		return in_array($ext, array("png", "gif")) ? "png" : "jpg";
 	}
 	
-	public function get_file($path, $thumb_size, $max_age=14400) {
+	public function get_file($path, $thumb_size, $max_age=14000) {
 		$path = trim_slashes($path);
 		$cache_path = "files/".$path;
 		
 		$Item = $this->Cache->get_single($cache_path);
+
+		$cached_mod = $Item ? $Item->modified : 0;
 		
-		//if no cache OR cache is older than max age (default 4 hours - media link expiration)
-		if(!$Item || ($max_age >= 0 && $this->Cache->age($cache_path) > $max_age)) {		
+		//Update cache if:
+		//a) 	Thumb doesn't exist in cache yet OR
+		//b) 	i)	Cache is older than max age (default 3.8 hours - media link expiration)
+		//		ii) Recache limit hasn't been exceeded yet
+		$should_cache = !$Item || 
+										(($max_age >= 0 && $this->Cache->age($cache_path) > $max_age) && 
+										$this->recache_count < self::RECACHE_LIMIT);
+
+		if($should_cache) {		
 			$this->connect_host();
 			$Item = $this->Host->get_file($path, $thumb_size);
 			
 			if($Item)
 				$this->Cache->update($cache_path, $Item);
+			
+			$this->recache_count++;
 		}
+
+		$updated_mod = $Item ? $Item->modified : 0;
 		
 		//if image, try to cache the file
 		if(get_class($Item) == "Image") {
@@ -203,20 +216,15 @@ class Model {
 
 			$full_path = $this->Cache->full_path($cache_path);
 		
-			//Update cache if:
-			//a) 	Thumb doesn't exist in cache yet OR
-			//b) 	i)	Cache is older than max age (default 4 hours - media link expiration) AND
-			//		ii) Recache limit hasn't been exceeded yet
-			$should_cache = !file_exists($full_path) || 
-											($max_age >= 0 && $this->Cache->age($cache_path) > $max_age && 
-											$this->recache_count < self::RECACHE_LIMIT);
-		
-			if($should_cache) {		
+			//recache if doesn't exist in cache yet or image metadata has changed
+			if(!file_exists($full_path) || $updated_mod > $cached_mod) {		
 				$this->connect_host();				
 				$image_code = $this->Host->get_image($path, $thumb_size);
 				
 				if($image_code)
 					$this->Cache->update($cache_path, $image_code);
+				
+				$this->recache_count++;
 			}
 			
 			if(!file_exists($full_path))
