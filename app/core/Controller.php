@@ -197,5 +197,9 @@ class Controller {
 	public function publish_draft($slug) {
 		return $this->Model->publish_draft($slug);
 	}
+
+	public function get_all_fresh($type) {
+		return $this->Model->get_all_fresh($type);
+	}
 }
 

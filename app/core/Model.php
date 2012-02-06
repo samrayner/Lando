@@ -101,10 +101,10 @@ class Model {
     
 		//Update cached list if:
 		//a) 	Folder has only just been created so may not be not complete OR
-		//b) 	i) Cache is older than max age (default 10 mins) AND
+		//b) 	i) Cache is older than max age (default 1 hour) AND
 		//		ii)There hasn't been another cache on this page load
-		$should_cache = $age < $same_load || 
-										($age > $max_age && $this->recache_count < self::RECACHE_LIMIT);
+		$should_cache = $age < $same_load || ($max_age >= 0 && $age > $max_age &&
+																					$this->recache_count < self::RECACHE_LIMIT);
 
     if($should_cache) {
     	$this->Cache->touch($path);
@@ -341,5 +341,19 @@ class Model {
 		$this->Cache->delete("drafts/$slug");
 
 		return basename($meta["path"]);
+	}
+
+	public function get_all_fresh($type) {
+		$cached = $this->get_all($type, -1); //use cached dir contents
+		$fresh = $this->get_all($type, 0); //use live dir contents
+
+		$deleted = array_diff($cached, $fresh);
+
+		foreach($deleted as $Item) {
+			$path = str_replace($this->config["host_root"], "", $Item->path());
+			$this->Cache->delete($path);
+		}
+		
+		return $fresh;
 	}
 }
