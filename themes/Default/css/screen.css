@@ -38,8 +38,7 @@ article .pubdate{color:#6f6f6f;}
 #drafts-all article{border:none;}#drafts-all article footer h3,#drafts-all article footer p,#drafts-all article footer ul{display:inline;}
 #drafts-all article footer h3::after{content:":";}
 #drafts-all article footer .tags::before{content:none;}
-#footer{font-size:0.9em;padding:2em 0 4em;margin-top:5em;border-top:1px solid rgba(0, 0, 0, 0.1);box-shadow:inset 0 30px 10px -20px rgba(0, 0, 0, 0.02);color:rgba(34, 34, 34, 0.7);}#footer p{margin:0.1em 0;}
-#footer a{color:rgba(140, 21, 12, 0.7);}
+#footer{font-size:0.9em;padding:1em 0 4em;margin-top:4em;border-top:1px solid rgba(0, 0, 0, 0.1);box-shadow:inset 0 30px 10px -20px rgba(0, 0, 0, 0.02);color:rgba(34, 34, 34, 0.7);}#footer a{color:rgba(140, 21, 12, 0.7);}
 #home .main>h1{display:none;}
 #intro{margin-bottom:1em;font:italic 1.2em/1.4 georgia,"Times New Roman",times,serif;color:#555555;}#intro img{margin:0 0 1em 0;box-shadow:1px 1px 3px rgba(0, 0, 0, 0.5);}
 #goog-fixurl ul{list-style:none;padding:0;}

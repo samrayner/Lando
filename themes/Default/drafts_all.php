@@ -9,7 +9,7 @@
 		<h1><a href="<?php echo $Draft->permalink() ?>"><?php echo $Draft->title() ?></a></h1>
 		<footer>
 			<div class="pubdate">
-				<h3>Edited</h3>
+				<h3>Last Edited</h3>
 				<p>
 					<time datetime="<?php echo $Draft->modified('c') ?>">
 					<?php echo $Draft->modified('F jS \a\t g:ia') ?>
