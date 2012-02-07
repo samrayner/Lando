@@ -109,7 +109,16 @@ class Model {
     if($should_cache) {
     	$this->Cache->touch($path);
     	$this->connect_host();
+
+    	$cached_names = $names;
 			$names = $this->Host->dir_contents($path, $dirs_only);
+
+			$deleted = array_diff($cached_names, $names);
+
+			foreach($deleted as $name) {
+				$this->Cache->delete("$path/$name");
+				$this->Cache->delete("files/$path/$name");
+			}
 
 			$this->recache_count++;
 		}
@@ -341,19 +350,5 @@ class Model {
 		$this->Cache->delete("drafts/$slug");
 
 		return basename($meta["path"]);
-	}
-
-	public function get_all_fresh($type) {
-		$cached = $this->get_all($type, -1); //use cached dir contents
-		$fresh = $this->get_all($type, 0); //use live dir contents
-
-		$deleted = array_diff($cached, $fresh);
-
-		foreach($deleted as $Item) {
-			$path = str_replace($this->config["host_root"], "", $Item->path());
-			$this->Cache->delete($path);
-		}
-		
-		return $fresh;
 	}
 }

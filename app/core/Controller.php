@@ -199,7 +199,7 @@ class Controller {
 	}
 
 	public function get_all_fresh($type) {
-		return $this->Model->get_all_fresh($type);
+		return $this->Model->get_all($type, 0);
 	}
 }
 
