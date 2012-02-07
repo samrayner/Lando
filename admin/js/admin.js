@@ -155,6 +155,18 @@ var Recache = {
 		});
 	},
 
+	block: function(event) {
+		var $button = $("#recache-button");
+
+		$button.parent().addClass("disabled");
+
+		$button
+			.html("Save changes before caching")
+			.attr("data-icon", "d");
+
+		Recache.disable();
+	},
+
 	click: function(event) {
 		event.preventDefault();
 		
@@ -167,6 +179,7 @@ var Recache = {
 	},
 	
 	init: function() {
+		$("#host_root").change(Recache.block);
 		$("#recache-button").click(Recache.click);
 		$("#cache .skip").click(Recache.nextStep);
 	},

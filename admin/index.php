@@ -26,10 +26,12 @@ function set_field_state($key, $attr=null) {
 }
 
 function nav_widget($pages=null, $path=array()) {
+	global $Lando;
+
 	if(!$pages) { //first run-through
 		$html = '<div id="page-list">'."\n";
 
-		$pages = pages();
+		$pages = $Lando->get_all_fresh("pages");
 
 		$pages[] = new Page(array(
 			"slug" => "posts",
@@ -42,8 +44,7 @@ function nav_widget($pages=null, $path=array()) {
 		return $html;
 	}
 
-	global $config;
-	$page_order = $config["page_order"];
+	$page_order = $Lando->config["page_order"];
 	
 	$tabs = str_repeat("\t", sizeof($path)*2);
 
