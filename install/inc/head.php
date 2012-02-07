@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
+	<link rel="dns-prefetch" href="//ajax.googleapis.com">
 	
 	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -9,12 +10,9 @@
 	
 	<title>Install Lando</title>
 
-	<link rel="icon" href="" />
-	<link rel="apple-touch-icon" href="" />
-
 	<link rel="stylesheet" href="../admin/css/admin.css" />
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script src="../admin/js/min/admin-min.js"></script>
 	<script src="js/min/install-min.js"></script>
 	
