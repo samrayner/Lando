@@ -61,7 +61,7 @@ class Model {
 			
 		$sorted = array();
 		
-		foreach($order as $slug => $suborder) {	
+		foreach($order as $slug => $_) {	
 			if($slug != "_hidden") {
 				$search_route = array_search_recursive($slug, $pages, "slug");
 				
@@ -137,8 +137,15 @@ class Model {
 		if(!empty($items)) {
 			usort($items, array($this, "sort_content"));
 		
-			if($pages)
-				$items = $this->sort_pages($items);
+			if($pages) {
+				$page_order = $this->config["page_order"];
+				array_shift($path_segs);
+
+				foreach($path_segs as $page)
+					$page_order = $page_order[$page];
+
+				$items = $this->sort_pages($items, $page_order);
+			}
 		}
 		
 		return $items;
