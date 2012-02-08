@@ -216,7 +216,7 @@ class Model {
 		$updated_mod = $Item ? $Item->modified : 0;
 		
 		//if image, try to cache the file
-		if(get_class($Item) == "Image") {
+		if($Item && get_class($Item) == "Image") {
 			if($thumb_size) {
 				$Item->extension = $this->get_thumb_ext($path);
 				$cache_path = preg_replace('~\.\w+$~', ".$thumb_size.".$Item->extension, $cache_path);
