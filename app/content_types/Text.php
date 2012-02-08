@@ -6,10 +6,15 @@ class Text extends File {
 	
 	private function swap_includes($content) {
 		$regex = '\{\{\s*(\w+)(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+\s*}}';
+
+		$parse 		= "(?<!\\\)$regex";
+		$noparse 	= "\\\($regex)";
 	
-		$content = preg_replace("~$regex~ie",
-														'$this->process_include("\0", "\1")',
+		$content = preg_replace("~$parse~ie",
+														'$this->process_include("$0", "$1")',
 														$content);
+		
+		$content = preg_replace("~$noparse~i", "$1", $content);
 
 		return $content;
 	}

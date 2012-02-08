@@ -9,6 +9,8 @@ class Cache {
 	}
 
 	public function update($path, $content) {
+		$this->touch($path);
+
 		$path = trim_slashes($path);
 		$path_segs = explode("/", $path);		
 		$dir = self::$cache_dir;
@@ -29,7 +31,7 @@ class Cache {
 			$path .= self::CACHE_EXT;
 			$content = htmlspecialchars(serialize($content), ENT_QUOTES);
 		}
-		
+
 		return file_put_contents($path, $content);
 	}
 	

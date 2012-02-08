@@ -105,11 +105,10 @@ class Model {
 		//		ii)There hasn't been another cache on this page load
 		$should_cache = $age < $same_load || ($max_age >= 0 && $age > $max_age &&
 																					$this->recache_count < self::RECACHE_LIMIT);
-
     if($should_cache) {
     	$this->Cache->touch($path);
-    	$this->connect_host();
 
+    	$this->connect_host();
     	$cached_names = $names;
 			$names = $this->Host->dir_contents($path, $dirs_only);
 
@@ -204,7 +203,7 @@ class Model {
 										(($max_age >= 0 && $this->Cache->age($cache_path) > $max_age) && 
 										$this->recache_count < self::RECACHE_LIMIT);
 
-		if($should_cache) {		
+		if($should_cache) {
 			$this->connect_host();
 			$Item = $this->Host->get_file($path, $thumb_size);
 			
@@ -226,7 +225,7 @@ class Model {
 			$full_path = $this->Cache->full_path($cache_path);
 		
 			//recache if doesn't exist in cache yet or image metadata has changed
-			if(!file_exists($full_path) || $updated_mod > $cached_mod) {		
+			if(!file_exists($full_path) || $updated_mod > $cached_mod) {
 				$this->connect_host();				
 				$image_code = $this->Host->get_image($path, $thumb_size);
 				
