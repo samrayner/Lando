@@ -93,7 +93,7 @@
 <?php endforeach; //years ?>
 
 <?php if(empty($posts_by_date)): ?>
-	<p>No posts found <?php echo $date_str ?>.</p>
+	<p>No posts found.</p>
 <?php endif ?>
 	
 <?php include "inc/footer.php" ?>

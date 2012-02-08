@@ -45,7 +45,7 @@
 <?php endforeach ?>
 
 <?php if(empty($posts)): ?>
-	<p>No posts found tagged <?php echo '"'.implode(", ", $tags).'"' ?>.</p>
+	<p>No posts found.</p>
 <?php endif ?>
 	
 <?php include "inc/footer.php" ?>

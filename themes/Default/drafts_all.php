@@ -3,7 +3,10 @@
 
 <h1>Drafts</h1>
 
-<?php foreach(drafts() as $Draft): ?>
+<?php 
+	$drafts = drafts();
+	foreach($drafts as $Draft): 
+?>
 
 	<article>
 		<h1><a href="<?php echo $Draft->permalink() ?>"><?php echo $Draft->title() ?></a></h1>
@@ -31,6 +34,10 @@
 	</article>
 
 <?php endforeach ?>
+
+<?php if(empty($drafts)): ?>
+	<p>No drafts found.</p>
+<?php endif ?>
 
 <?php include "inc/footer.php" ?>
 <?php include "inc/foot.php" ?>

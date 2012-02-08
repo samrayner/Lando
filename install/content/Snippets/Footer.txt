@@ -1,4 +1,4 @@
-Site built on [Lando][l]: _manage your website in The Cloud_.   
+Site powered by [Lando][l]: _manage your website in The Cloud_.   
 Subscribe to the [blog rss feed][rss].
 
 [l]: http://lando-cms.com
