@@ -1,0 +1,5 @@
+You can preview blog posts in Lando by first creating them in the _/Drafts_ folder. Then, when you're happy with a draft, just drag the folder from _/Drafts_ to _/Posts_ to publish! Alternatively, you can click the **Publish** button in the top-right of the page when you're done previewing it.
+
+Drafts can always be accessed at [/drafts][d] but require you to log in with your Lando admin password in order to be seen.
+
+[d]: ../

@@ -1,0 +1,13 @@
+published: 1st January 2012 10:00am
+tags: example, blogging
+
+This is your first blog post! It lives in a sub-folder of _/Posts_ in your Dropbox named with the post URL slug (_first-post_). The filename is used as the post title, and metadata can be added at the top of the file from overriding the publish date, to tags, to [pretty much anything you like][meta].
+
+This post is formatted as [Markdown][md], but you can format your posts in [a number of ways][ff]. If you're logged in as an [admin][], try editing this file, saving, and clicking **Update** in the top right of the page.
+
+Lando makes blogging easy. Enjoy!
+
+[meta]: http://lando-cms.com/docs/metadata/
+[md]: http://daringfireball.net/projects/markdown/
+[ff]: http://lando-cms.com/docs/file-formats/
+[admin]: /admin/

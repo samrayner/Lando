@@ -16,8 +16,8 @@ $base_url = preg_replace('~/install/'.basename($_SERVER['PHP_SELF']).'$~', "", c
 
 $config = array(
 	"admin_password" 		=> "",
-	"site_title" 				=> "",
-	"site_description" 	=> "",
+	"site_title" 				=> "My Website",
+	"site_description" 	=> "Powered by Lando",
 	"site_root" 				=> $base_url,
 	"host" 							=> "dropbox",
 	"host_root"					=> "/Lando",

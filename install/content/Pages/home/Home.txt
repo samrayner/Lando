@@ -1,0 +1,7 @@
+![Lando Calrissian greeting Leia](lando-greeting.jpg)
+
+Welcome to your new website! Included already is some demo content to get you started so have a click around and take a look in your Dropbox to see what's what.
+
+For a full run-down of features and tips on using Lando, visit [the website][l].
+
+[l]: http://lando-cms.com
