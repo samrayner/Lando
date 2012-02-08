@@ -53,7 +53,7 @@ function nav_widget($pages=null, $path=array()) {
 	foreach($pages as $Page) {
 		$path[] = $Page->slug;
 		
-		$html .= "$tabs\t".'<li id="'.$Page->slug.'">'."\n$tabs\t\t<div>\n$tabs\t\t\t";
+		$html .= "$tabs\t".'<li id="page_'.$Page->slug.'">'."\n$tabs\t\t<div>\n$tabs\t\t\t";
 		$html .= '<input id="'.$Page->slug.'_visibility" type="checkbox" ';
 		
 		$active = $page_order;
@@ -185,7 +185,7 @@ function nav_widget($pages=null, $path=array()) {
 		<?php echo nav_widget(); ?>
 	</section><!-- #page-nav -->
 	
-	<section id="admin">
+	<section id="password">
 		<h1>Change Admin/Drafts Password</h1>
 		
 		<div>

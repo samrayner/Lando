@@ -18,11 +18,33 @@ var PageNav = {
 		
 		return tree;
 	},
+
+	removePropPrefix: function(object, prefix) {
+		var newObject = {};
+
+		for(var propName in object) {
+			var regex = new RegExp('^'+prefix,"i");
+			var newPropName = propName.replace(regex, '');
+
+			window.console.log(newPropName);
+
+			if(typeof object[propName] !== "object" || $.isEmptyObject(object[propName])) {
+				newObject[newPropName] = object[propName];
+			}
+			else {
+				newObject[newPropName] = PageNav.removePropPrefix(object[propName], prefix);
+			}
+		}
+
+		return newObject;
+	},
 	
 	updateOrder: function() {
 		var topLevel = $("#page-list > ol").sortable("toArray");
 		var tree =  PageNav.sortableTree(topLevel);
-		$("#page_order").val(JSON.stringify(tree));
+		var pages = PageNav.removePropPrefix(tree, "page_");
+
+		$("#page_order").val(JSON.stringify(pages));
 	},
 	
 	updateVisibility: function(event) {
