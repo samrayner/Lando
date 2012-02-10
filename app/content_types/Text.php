@@ -102,7 +102,10 @@ class Text extends File {
   }
   
   //get functions
-	public function metadata($key) {
+	public function metadata($key=null) {
+		if(!$key)
+			return $this->manual_metadata;
+
 		$key = strtolower($key);
 	
 		if(!isset($this->manual_metadata[$key]))

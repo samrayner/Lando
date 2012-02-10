@@ -57,7 +57,7 @@ class File extends Content {
 		if(!in_array($unit, $units) || $unit == "b")
 			return $this->bytes;
 		
-		$power = array_search($unit, array_keys($a))*10;
+		$power = array_search($unit, array_keys($units))*10;
 		
 		return round($this->bytes/pow(2, $power), 2);
 	}

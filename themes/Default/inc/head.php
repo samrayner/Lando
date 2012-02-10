@@ -35,10 +35,12 @@
 
 	<script src="<?php echo $theme_dir ?>/js/min/global-min.js"></script>
 	
-	<!-- PrettyPhoto for galleries: http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/ -->
+	<!-- PrettyPhoto for galleries: http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone -->
 	<script src="<?php echo $theme_dir ?>/js/prettyPhoto/jquery.prettyPhoto.js"></script>
 	<!-- Flux slider for slideshows: https://github.com/joelambert/Flux-Slider -->
 	<script src="<?php echo $theme_dir ?>/js/flux/flux.min.js"></script>
+	<!-- jQuery wrapper for Google's Prettify: https://github.com/balupton/jquery-syntaxhighlighter -->
+	<script src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
 	
 	<script>
 		$(function(){
@@ -59,6 +61,18 @@
 				/*There are loads of settings you can adjust here to personalise
 					your galleries. Consult the PrettyPhoto documentation at 
 					http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone */
+			});
+
+			$("pre code").each(function() {
+				$(this).addClass("highlight");
+			});
+
+			$.SyntaxHighlighter.init({
+				'themes': ['balupton'],
+				'theme': 'balupton',
+				/*There are lots of options you can adjust here to customise how
+					code blocks are highlighted. Check out the documentation at 
+					http://balupton.github.com/jquery-syntaxhighlighter/demo */
 			});
 		});
 	</script>

@@ -74,10 +74,6 @@ p > img {
 ::-moz-selection { background: rgba(0,125,255,0.6); }
 ::selection { background: rgba(0,125,255,0.6); }
 
-code {
-	font: 0.8em/1 @monoFonts;
-}
-
 img, iframe, 
 embed, object {
 	display: block;
@@ -90,7 +86,7 @@ blockquote {
 	margin-left: 0;
 	padding-left: 0.8em;
 	font: italic 1.1em/1.4 @serifFonts;
-	border-left: 0.2em solid rgba(0,0,0,0.15);
+	border-left: 0.2em solid @lightBorder;
 
 	cite {
 		font-size: 0.8em;
@@ -101,6 +97,11 @@ blockquote {
 			content: "\2014\00A0";
 		}
 	}
+}
+
+dd {
+	margin-top: 0;
+	margin-left: 0;
 }
 
 table {
@@ -122,9 +123,53 @@ table {
 	}
 }
 
+h1, h2, h3, h4, h5, h6 {
+	&:target {
+		border-left: 1.4em solid @yellow;
+		padding-left: 0.6em;
+		margin-left: -2em;
+	}
+}
+
+hr {
+	margin: 2em 0;
+	height: 1px;
+	background-color: @lightBorder;
+	border: none;
+}
+
 
 /* Typography
 -------------------------------------------------- */
+
+//fix browser monospace font resizing
+pre, code, kbd, samp, tt {
+  font-family: monospace,monospace;
+  font-size: 1em;
+}
+
+code {
+	font: 0.8em/1 @monoFonts;
+	border-radius: 2px;
+	padding: 0.1em 0.2em;
+	background-color: fadeout(@blue, 90);
+	box-shadow: inset 0 0 5px fadeout(@blue, 80);
+}
+
+pre code {
+	display: block;
+	line-height: 1.2;
+	border-radius: 5px;
+	padding: 1em;
+	background-color: fadeout(desaturate(@blue, 20), 95);
+	box-shadow: inset 0 0 10px fadeout(@blue, 90);
+
+	&.prettyprint,
+	&.prettyprint ol.linenums li {
+		border: none;
+		padding-left: 0;
+	}
+}
 
 h1 {
 	font-size: 1.4em;
@@ -138,12 +183,20 @@ h3 {
 	font-size: 1em;
 }
 
+h3,h4,h5,h6,dt {
+	margin-bottom: -1em;
+}
+
+dt {
+	font-weight: bold;
+}
+
 
 /* Admin Links
 -------------------------------------------------- */
 
 #admin-links {
-	position: absolute;
+	position: fixed;
 	right: 0.5em;
 	top: 0.6em;
 
@@ -240,7 +293,7 @@ h3 {
 
 article {
 	padding: 1em 0 1.5em;
-	border-top: 1px solid rgba(0,0,0,0.15);
+	border-top: 1px solid @lightBorder;
 	
 	&:first-of-type {
 		border-top: none;
