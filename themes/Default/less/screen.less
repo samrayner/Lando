@@ -124,10 +124,16 @@ table {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	&:target {
-		border-left: 1.4em solid @yellow;
-		padding-left: 0.6em;
-		margin-left: -2em;
+	&:target::before {
+		display: block;
+		position: absolute;
+		content: " ";
+		width: 0;
+		height: 0;
+		margin: 0.3em 0 0 -1em;
+		border: 0.5em solid transparent;
+		border-left-color: @yellow;
+		box-shadow: -0.9em 0 0 @yellow;
 	}
 }
 

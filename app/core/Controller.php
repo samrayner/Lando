@@ -104,14 +104,17 @@ class Controller {
 			return (strcasecmp($a, $b) == 0);
 	}
 	
-	private function filter_by_props($content, $filters=array()) {
-		if(is_array($filters) && !empty($filters)) {
+	private function filter_by_props($content, $filter=array()) {
+		if(is_callable($filter))
+			return array_filter($content, $filter);
+
+		if(is_array($filter) && !empty($filter)) {
 			$filtered = array();
 		
 			foreach($content as $Item) {
 				$match = true;
 			
-				foreach($filters as $key => $val) {
+				foreach($filter as $key => $val) {
 					if((!isset($Item->$key) || !$this->loose_match($val, $Item->$key())) &&
 						 (!isset($Item->manual_metadata[$key]) || !$this->loose_match($val, $Item->metadata($key)))) {
 							$match = false;
@@ -129,11 +132,11 @@ class Controller {
 		return $content;
 	}
 	
-	public function filter_content($content, $limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0) {
+	public function filter_content($content, $limit=0, $offset=0, $filter=array(), $year=0, $month=0, $day=0) {
 		if(!is_array($content) || empty($content))
 			return $content;
 		
-		$content = $this->filter_by_props($content, $filters);
+		$content = $this->filter_by_props($content, $filter);
 
 		$year 	= (int)$year;
 		$month 	= (int)$month;
@@ -176,11 +179,11 @@ class Controller {
 		return array_offset_limit($content, $offset, $limit);
 	}
 	
-	public function filter_collection($Collection, $limit=0, $offset=0, $filters=array()) {
+	public function filter_collection($Collection, $limit=0, $offset=0, $filter=array()) {
 		if(empty($Collection->files))
 			return $Collection;
 		
-		$Collection->files = $this->filter_by_props($Collection->files, $filters);
+		$Collection->files = $this->filter_by_props($Collection->files, $filter);
 		$Collection->files = array_offset_limit($Collection->files, $offset, $limit);
 		
 		return $Collection;

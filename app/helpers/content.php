@@ -1,6 +1,6 @@
 <?php
 
-function pages($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0) {
+function pages($limit=0, $offset=0, $filter=array(), $year=0, $month=0, $day=0) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -9,7 +9,7 @@ function pages($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0)
 	}
 	
 	global $Lando;
-	return $Lando->filter_content($Lando->get_content("pages"), $limit, $offset, $filters, $year, $month, $day);
+	return $Lando->filter_content($Lando->get_content("pages"), $limit, $offset, $filter, $year, $month, $day);
 }
 
 function page($path) {
@@ -17,7 +17,7 @@ function page($path) {
 	return $Lando->get_content("pages", $path);
 }
 
-function posts($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0) {
+function posts($limit=0, $offset=0, $filter=array(), $year=0, $month=0, $day=0) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -26,7 +26,7 @@ function posts($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0)
 	}
 	
 	global $Lando;
-	return $Lando->filter_content($Lando->get_content("posts"), $limit, $offset, $filters, $year, $month, $day);
+	return $Lando->filter_content($Lando->get_content("posts"), $limit, $offset, $filter, $year, $month, $day);
 }
 
 function post($slug) {
@@ -34,7 +34,7 @@ function post($slug) {
 	return $Lando->get_content("posts", $slug);
 }
 
-function drafts($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0) {
+function drafts($limit=0, $offset=0, $filter=array(), $year=0, $month=0, $day=0) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -43,7 +43,7 @@ function drafts($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0
 	}
 	
 	global $Lando;
-	return $Lando->filter_content($Lando->get_content("drafts"), $limit, $offset, $filters, $year, $month, $day);
+	return $Lando->filter_content($Lando->get_content("drafts"), $limit, $offset, $filter, $year, $month, $day);
 }
 
 function draft($slug) {
@@ -51,7 +51,7 @@ function draft($slug) {
 	return $Lando->get_content("drafts", $slug);
 }
 
-function snippets($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0) {
+function snippets($limit=0, $offset=0, $filter=array(), $year=0, $month=0, $day=0) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -60,15 +60,15 @@ function snippets($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day
 	}
 	
 	global $Lando;
-	return $Lando->filter_content($Lando->get_content("snippets"), $limit, $offset, $filters, $year, $month, $day);
+	return $Lando->filter_content($Lando->get_content("snippets"), $limit, $offset, $filter, $year, $month, $day);
 }
 
-function snippet($title) {
+function snippet($filename) {
 	global $Lando;
-	return $Lando->get_content("snippets", $title);
+	return $Lando->get_content("snippets", $filename);
 }
 
-function collections($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $day=0) {
+function collections($limit=0, $offset=0, $filter=array(), $year=0, $month=0, $day=0) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -77,10 +77,10 @@ function collections($limit=0, $offset=0, $filters=array(), $year=0, $month=0, $
 	}
 	
 	global $Lando;
-	return $Lando->filter_content($Lando->get_content("collections"), $limit, $offset, $filters, $year, $month, $day);
+	return $Lando->filter_content($Lando->get_content("collections"), $limit, $offset, $filter, $year, $month, $day);
 }
 
-function collection($title, $limit=0, $offset=0, $filters=array()) {
+function collection($title, $limit=0, $offset=0, $filter=array()) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -89,10 +89,10 @@ function collection($title, $limit=0, $offset=0, $filters=array()) {
 	}
 
 	global $Lando;
-	return $Lando->filter_collection($Lando->get_content("collections", $title), $limit, $offset, $filters);
+	return $Lando->filter_collection($Lando->get_content("collections", $title), $limit, $offset, $filter);
 }
 
-function gallery($title, $size=0, $limit=0, $offset=0, $filters=array(), $link_images=true) {
+function gallery($title, $size=0, $limit=0, $offset=0, $filter=array(), $link_images=true) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -100,7 +100,7 @@ function gallery($title, $size=0, $limit=0, $offset=0, $filters=array(), $link_i
 			extract($arg1);
 	}
 
-	$Collection = collection($title, $limit, $offset, $filters);
+	$Collection = collection($title, $limit, $offset, $filter);
 	
 	if(!$Collection)
 		return false;
@@ -108,7 +108,7 @@ function gallery($title, $size=0, $limit=0, $offset=0, $filters=array(), $link_i
 	return $Collection->image_list_html("gallery", $size, $link_images);
 }
 
-function slideshow($title, $size=0, $limit=0, $offset=0, $filters=array(), $link_images=false) {
+function slideshow($title, $size=0, $limit=0, $offset=0, $filter=array(), $link_images=false) {
 	//extract if array of arguments passed
 	if(func_num_args() == 1) {
 		$arg1 = func_get_arg(0);
@@ -116,12 +116,17 @@ function slideshow($title, $size=0, $limit=0, $offset=0, $filters=array(), $link
 			extract($arg1);
 	}
 
-	$Collection = collection($title, $limit, $offset, $filters);
+	$Collection = collection($title, $limit, $offset, $filter);
 	
 	if(!$Collection)
 		return false;
 	
 	return $Collection->image_list_html("slideshow", $size, $link_images);
+}
+
+function get_file($path, $thumb_size=false) {
+	global $Lando;
+	return $Lando->get_file($path, $thumb_size);
 }
 
 function page_nav($blog_text="Blog", $pages=null, $path=array()) {

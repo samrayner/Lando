@@ -5,10 +5,13 @@ function current_path() {
 	return strtolower("/$path_info");
 }
 
-function path_segments() {
+function path_segments($path=null) {
 	global $Lando;
 
-	$segs = explode("/", current_path());
+	if(!$path)
+		$path = current_path();
+
+	$segs = explode("/", $path);
 	
 	if(!$Lando->config["pretty_urls"])
 		$segs[0] = "index.php";

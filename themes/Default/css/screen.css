@@ -15,7 +15,7 @@ dd{margin-top:0;margin-left:0;}
 table tr:nth-child(even){background-color:rgba(0, 0, 0, 0.03);}
 table th{text-align:left;}table th:empty{border:none;}
 table th,table td{border:1px solid #bbb;padding:0.3em 0.5em;}
-h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{border-left:1.4em solid #dcdc00;padding-left:0.6em;margin-left:-2em;}
+h1:target::before,h2:target::before,h3:target::before,h4:target::before,h5:target::before,h6:target::before{display:block;position:absolute;content:" ";width:0;height:0;margin:0.3em 0 0 -1em;border:0.5em solid transparent;border-left-color:#dcdc00;box-shadow:-0.9em 0 0 #dcdc00;}
 hr{margin:2em 0;height:1px;background-color:rgba(0, 0, 0, 0.15);border:none;}
 pre,code,kbd,samp,tt{font-family:monospace,monospace;font-size:1em;}
 code{font:0.8em/1 menlo,monaco,consolas,"Lucida Console",courier,monospace;border-radius:2px;padding:0.1em 0.2em;background-color:rgba(2, 122, 185, 0.09999999999999998);box-shadow:inset 0 0 5px rgba(2, 122, 185, 0.19999999999999996);}
