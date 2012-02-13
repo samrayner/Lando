@@ -141,8 +141,10 @@ class Model {
 				$page_order = $this->config["page_order"];
 				array_shift($path_segs);
 
-				foreach($path_segs as $page)
-					$page_order = $page_order[$page];
+				foreach($path_segs as $page) {
+					if(isset($page_order[$page]))
+						$page_order = $page_order[$page];
+				}
 
 				$items = $this->sort_pages($items, $page_order);
 			}
