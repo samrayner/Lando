@@ -291,8 +291,8 @@ class Dropbox extends Cloud_Host {
 		catch(Exception $e) {}
 		
 		if(strpos($file["mime_type"], "image") !== false) {
-			$dims = $this->extract_dimensions($file["title"]);
-			$file = array_merge($file, $dims);
+			//$dims = $this->extract_dimensions($file["title"]);
+			//$file = array_merge($file, $dims);
 			
 			$file = new Image($file);
 		}

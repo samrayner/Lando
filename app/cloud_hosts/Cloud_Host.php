@@ -12,18 +12,6 @@ abstract class Cloud_Host {
 		$new_path[sizeof($new_path)-1] = str_to_slug(end($new_path));
 		return implode("/", $new_path);
 	}
-
- 	protected function extract_dimensions(&$title) {
- 		$dims = array();
- 	
-		if(preg_match('~[^0-9a-z](?<w>[1-9]\d{0,4})x(?<h>[1-9]\d{0,4})(?:\W|$)~i', $title, $matches)) {
-			$dims["width"] = $matches["w"];
-			$dims["height"] = $matches["h"];
-			$title = trim(str_replace($matches[0], " ", $title));
-		}
-	
-		return $dims;
-	}
 	
 	protected function extract_order(&$title) {
 		$order = null;
@@ -90,4 +78,18 @@ abstract class Cloud_Host {
 		
 		return $meta;
 	}
+
+	/*
+ 	protected function extract_dimensions(&$title) {
+ 		$dims = array();
+ 	
+		if(preg_match('~[^0-9a-z](?<w>[1-9]\d{0,4})x(?<h>[1-9]\d{0,4})(?:\W|$)~i', $title, $matches)) {
+			$dims["width"] = $matches["w"];
+			$dims["height"] = $matches["h"];
+			$title = trim(str_replace($matches[0], " ", $title));
+		}
+	
+		return $dims;
+	}
+	*/
 }

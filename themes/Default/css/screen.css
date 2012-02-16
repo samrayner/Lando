@@ -19,7 +19,9 @@ h1:target::before,h2:target::before,h3:target::before,h4:target::before,h5:targe
 hr{margin:2em 0;height:1px;background-color:rgba(0, 0, 0, 0.15);border:none;}
 pre,code,kbd,samp,tt{font-family:monospace,monospace;font-size:1em;}
 code{font:0.8em/1 menlo,monaco,consolas,"Lucida Console",courier,monospace;border-radius:2px;padding:0.1em 0.2em;background-color:rgba(2, 122, 185, 0.09999999999999998);box-shadow:inset 0 0 5px rgba(2, 122, 185, 0.19999999999999996);}
-pre code{display:block;line-height:1.2;border-radius:5px;padding:1em;background-color:rgba(21, 116, 166, 0.050000000000000044);box-shadow:inset 0 0 10px rgba(2, 122, 185, 0.09999999999999998);}pre code.prettyprint,pre code.prettyprint ol.linenums li{border:none;padding-left:0;}
+pre{display:block;line-height:1.2;border-radius:5px;font:0.8em/1.2 menlo,monaco,consolas,"Lucida Console",courier,monospace;padding:1em;background-color:rgba(2, 122, 185, 0.07999999999999996);box-shadow:inset 0 0 10px rgba(2, 122, 185, 0.09999999999999998);}pre code{font:inherit;padding:0;background:none;box-shadow:none;margin:0;}
+pre code.prettyprint{display:block;margin:-0.5em -1em;}
+pre code.prettyprint,pre code.prettyprint ol.linenums li{border:none;padding-left:0;}
 h1{font-size:1.4em;}
 h2{font-size:1.2em;}
 h3{font-size:1em;}

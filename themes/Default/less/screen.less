@@ -162,16 +162,30 @@ code {
 	box-shadow: inset 0 0 5px fadeout(@blue, 80);
 }
 
-pre code {
+pre {
 	display: block;
 	line-height: 1.2;
 	border-radius: 5px;
+	font: 0.8em/1.2 @monoFonts;
 	padding: 1em;
-	background-color: fadeout(desaturate(@blue, 20), 95);
+	background-color: fadeout(@blue, 92);
 	box-shadow: inset 0 0 10px fadeout(@blue, 90);
 
-	&.prettyprint,
-	&.prettyprint ol.linenums li {
+	code {
+		font: inherit;
+		padding: 0;
+		background: none;
+		box-shadow: none;
+		margin: 0;
+	}
+
+	code.prettyprint {
+		display: block;
+		margin: -0.5em -1em;
+	}
+
+	code.prettyprint,
+	code.prettyprint ol.linenums li {
 		border: none;
 		padding-left: 0;
 	}
