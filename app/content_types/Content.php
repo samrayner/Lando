@@ -4,6 +4,7 @@ class Content {
 	public $title = "Untitled";
 	public $modified;
 	public $path;
+	public $hash = 0;
 	
 	public function __construct($data=null) {
 		if($data)
@@ -42,5 +43,9 @@ class Content {
 	
 	public function path() {
 		return $this->path;
+	}
+
+	public function hash() {
+		return $this->hash;
 	}
 }

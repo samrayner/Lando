@@ -100,7 +100,7 @@ class Dropbox extends Cloud_Host {
 		$items = array();
 		
 		try {
-			$meta = $this->API->metadata($path);
+			$meta = $this->API->metadata($path, true);
 		}
 		catch(Exception $e) {
 			return $items;
@@ -126,12 +126,12 @@ class Dropbox extends Cloud_Host {
 		if(!class_exists($type_class) || strpos($path, "/_") !== false)
 			return false;
 		
-		$meta = array();
+		$meta = array("hash"=>0);
 		
 		if($Cache)
 			$meta = $Cache->export();
 
-		$latest = false;
+		$latest = array();
 		
 		if(in_array($type, array("pages","posts","drafts"))) {
 			$old_path = $path;
@@ -151,8 +151,13 @@ class Dropbox extends Cloud_Host {
 
 		try {
 			//if not renamed slug directory
-			if(!$latest)
-				$latest = $this->API->metadata($full_path);
+			if(!$latest) {
+				$new_meta = $this->API->metadata($full_path, true, $meta["hash"]);
+
+				//if not "403 - not modified"
+				if($new_meta !== true)
+					$latest = $new_meta;
+			}
 		}
 		catch(Exception $e) {
 			return false;
