@@ -118,7 +118,7 @@ var Tooltips = {
 };
 
 var Recache = {
-	types: ["pages", "posts", "drafts", "collections", "snippets"],
+	types: ["collections", "snippets", "pages", "posts", "drafts"],
 
 	done: function() {
 		$("#recache-button")

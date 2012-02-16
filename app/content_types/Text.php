@@ -20,30 +20,27 @@ class Text extends File {
 	}
 	
 	private function process_include($str, $func) {
-		$args = str_replace($func, "", $str);
+		$args_str = str_replace($func, "", $str);
 		$allowed_funcs = array("snippet", "gallery", "slideshow", "collection");
 		
 		if(!in_array($func, $allowed_funcs) || !function_exists($func))
 			return $str;
 		
-		preg_match_all('~\s+(?:(\w+):)?("[^"]*"|\w+|\d+|true|false)~', $args, $matches, PREG_SET_ORDER);
+		preg_match_all('~\s+(?:(\w+):)?("[^"]*"|\w+|\d+|true|false)~', $args_str, $matches, PREG_SET_ORDER);
 		
-		$args = array(
-			"title" => "",
-			"size" => 0,
-			"limit" => 0,
-			"offset" => 0,
-			"filters" => array(),
-			"link_images" => null
-		);
+		$args = array();
 		
 		foreach($matches as $match) {
 			//if key undefined, default to title (allows simpler {{foo "Title"}} includes)
 			if(!$match[1])
 				$match[1] = "title";
 			
-			$args[$match[1]] = preg_replace('~^"|"$~', "", $match[2]);;
+			$args[$match[1]] = trim($match[2], '"');
 		}
+
+		//if just passing title in an array, pass as a string
+		if(array_keys($args) === array("title"))
+			$args = $args["title"];
 	
 		$include = $func($args);
 		

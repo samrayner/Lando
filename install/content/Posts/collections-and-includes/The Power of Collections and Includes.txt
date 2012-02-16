@@ -5,15 +5,15 @@ You can easily create galleries and slideshows from files in _/Collections_. Jus
 
 {{gallery "Star Wars Posters"}}
 
-You can even pass parameters such as `\{{slideshow title:"Collection 2" speed:400 size:m}}` and order collection files with filename prefixes.
+You can even pass parameters such as `\{{slideshow title:"Star Wars Posters" size:m limit:10}}` and order collection files with filename prefixes.
 
 {{slideshow title:"Star Wars Posters" size:m}}
 
-Listing files without thumbnails? You can output a simple linked list with `\{{collection "Collection 3"}}`:
+Listing files other than images? You can output a simple linked list with `\{{collection "Collection Title"}}`:
 
 {{collection "Star Wars Posters"}}
 
 That's not all! Check out the documentation on [collections][c] and [includes][i] for the full run-down of possibilities.
 
-[c]: http://lando-cms.com/docs/collections
+[c]: http://lando-cms.com/docs/content/#collections
 [i]: http://lando-cms.com/docs/includes

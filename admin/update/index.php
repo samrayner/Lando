@@ -9,7 +9,7 @@ $cache_root = "$doc_root/app/cache";
 include "$doc_root/app/core/loader.php";
 include "$doc_root/admin/inc/auth.php";
 
-$valid_types = array("pages", "posts", "drafts", "collections", "snippets");
+$valid_types = array("collections", "snippets", "pages", "posts", "drafts");
 
 //if no types set, recache all
 $types = isset($_GET["type"]) ? array_map("trim", explode(",", $_GET["type"])) : $valid_types;
