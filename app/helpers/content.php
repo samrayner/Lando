@@ -1,12 +1,12 @@
 <?php
 
 function pages($limit=0, $offset=0, $filter=array(), $year=0, $month=0, $day=0) {
-	//extract if array of arguments passed
-	if(func_num_args() == 1) {
-		$arg1 = func_get_arg(0);
-		if(is_array($arg1))
-			extract($arg1);
-	}
+		//extract if array of arguments passed
+		if(func_num_args() == 1) {
+			$arg1 = func_get_arg(0);
+			if(is_array($arg1))
+				extract($arg1);
+		}
 	
 	global $Lando;
 	return $Lando->filter_content($Lando->get_content("pages"), $limit, $offset, $filter, $year, $month, $day);
@@ -88,6 +88,10 @@ function collection($title, $limit=0, $offset=0, $filter=array()) {
 			extract($arg1);
 	}
 
+	//if args passed as array but no title
+	if(is_array($title))
+		return false;
+
 	global $Lando;
 	return $Lando->filter_collection($Lando->get_content("collections", $title), $limit, $offset, $filter);
 }
@@ -99,6 +103,10 @@ function gallery($title, $size=0, $limit=0, $offset=0, $filter=array(), $link_im
 		if(is_array($arg1))
 			extract($arg1);
 	}
+
+	//if args passed as array but no title
+	if(is_array($title))
+		return false;
 
 	$Collection = collection($title, $limit, $offset, $filter);
 	
@@ -115,6 +123,10 @@ function slideshow($title, $size=0, $limit=0, $offset=0, $filter=array(), $link_
 		if(is_array($arg1))
 			extract($arg1);
 	}
+
+	//if args passed as array but no title
+	if(is_array($title))
+		return false;
 
 	$Collection = collection($title, $limit, $offset, $filter);
 	
