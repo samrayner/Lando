@@ -133,7 +133,7 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="pretty_urls">Remove index.php from URLs</label>
 			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" <?php set_field_state("pretty_urls", "checked"); ?> />
-			<p id="htaccess" class="notify collapsed" data-icon="!">Have you <a href="#">updated your <em>.htaccess</em> file</a>?</p>
+			<p id="htaccess" class="notify collapsed" data-icon="!">Have you <a target="_blank" href="http://lando-cms.com/docs/pretty-urls">updated your <em>.htaccess</em> file</a>?</p>
 		</div>
 	</section>
 	
