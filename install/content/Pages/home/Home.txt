@@ -1,4 +1,4 @@
-![Lando Calrissian greeting Leia](lando-greeting.jpg)
+<img src="lando-greeting.jpg" alt="Lando Calrissian greeting Leia" class="right shadow" />
 
 Welcome to your new website! Included already is some demo content to get you started so have a click around and take a look in your Dropbox to see what's what.
 

@@ -65,11 +65,6 @@ ul, ol {
 	padding-left: 2.2em;
 }
 
-p > img {
-	margin: 0 0 1em 0;
-	box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-}
-
 //must be separate
 ::-moz-selection { background: rgba(0,125,255,0.6); }
 ::selection { background: rgba(0,125,255,0.6); }
@@ -80,6 +75,26 @@ embed, object {
 	max-width: 100%;
 	height: auto;
 	margin: 2em 0;
+
+	&.left, 
+	&.right {
+		max-width: 40%;
+	}
+
+	&.left {
+		float: left;
+		margin: 0 2em 2em 0;
+	}
+
+	&.right {
+		float: right;
+		margin: 0 0 2em 2em;
+	}
+
+	&.shadow {
+		background-color: white;
+		box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+	}
 }
 
 blockquote {

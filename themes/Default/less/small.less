@@ -14,9 +14,18 @@
 	margin: 0 auto;
 }
 
+img {
+	&.right,
+	&.left {
+		float: none;
+		max-width: 100%;
+		margin: 0;
+	}
 
-/* Code
--------------------------------------------------- */
+	&.hide-on-small {
+		display: none;
+	}
+}
 
 pre {
 	overflow: auto;
