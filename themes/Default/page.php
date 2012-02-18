@@ -1,7 +1,7 @@
 <?php include "inc/head.php" ?>
 <?php include "inc/header.php" ?>
 
-<?php if($Current->parent()) echo page_breadcrumbs() ?>
+<?php //if($Current->parent()) echo page_breadcrumbs() ?>
 
 <h1><?php echo $Current->title() ?></h1>
 <?php echo $Current->content() ?>

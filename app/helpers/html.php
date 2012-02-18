@@ -1,5 +1,106 @@
 <?php
 
+function page_nav($blog_text="Blog", $pages=null, $path=array()) {
+	global $Lando;
+	$page_order = $Lando->config["page_order"];
+
+	if(!$pages) { //first run-through
+		$html = '<nav class="page-nav">'."\n";
+
+		$pages = pages();
+
+		$pages[] = new Page(array(
+			"slug" => "posts",
+			"title" => $blog_text,
+			"permalink" => "/posts/"
+		));
+
+		$html .= page_nav($blog_text, $pages);
+		$html .= '</nav>';
+		return $html;
+	}
+	
+	$active_class = "current";
+	$parent_class = "parent";
+	
+	$url = current_path();
+	$tabs = str_repeat("\t", sizeof($path)*2);
+
+	$html = "$tabs<ul>\n";
+
+	foreach($pages as $Page) {
+		$path[] = $Page->slug();
+		
+		$active = $page_order;
+		foreach($path as $next_key) {
+			if(isset($active[$next_key]))
+				$active = $active[$next_key];
+		}
+		
+		if(!isset($active["_hidden"]) || $active["_hidden"] == false) {
+			$path_str = "/".implode("/", $path)."/";
+			
+			if($url == "/")
+				$url = "/home/";
+			
+			$active = (strpos($url, rtrim($path_str, "/")) === 0);
+			$subpages = $Page->subpages();
+	
+			$html .= "$tabs\t<li";
+			
+			$classes = array();
+			
+			if($active)
+				$classes[] = $active_class;
+				
+			if(!empty($subpages))
+				$classes[] = $parent_class;
+			
+			if(!empty($classes)) 
+				$html .= ' class="'.implode(" ", $classes).'"';
+			
+			$html .= ">\n$tabs\t\t".'<a href="'.$Page->permalink().'">'.$Page->title()."</a>\n";
+	
+			if(!empty($subpages))
+				$html .= page_nav($blog_text, $subpages, $path);
+	
+			$html .= "$tabs\t</li>\n";
+		}
+		
+		array_pop($path);
+	}
+
+	$html .= "$tabs</ul>\n";
+	
+	return $html;
+}
+
+function page_breadcrumbs($path=null) {
+	if(!$path)
+		$path = current_path();
+
+	$Page = page($path);
+
+	if(!$Page)
+		return false;
+
+	$html = '<nav class="page-breadcrumbs">'."\n\t<ul>";
+
+	$parents = array_reverse($Page->parents());
+
+	foreach($parents as $Parent) {
+		$html .= "\n\t\t<li>";
+		$html .= '<a href="'.$Parent->permalink().'">'.$Parent->title().'</a>';
+		$html .= "</li>";
+	}
+
+	$html .= "\n\t\t<li>".$Page->title()."</li>";
+
+	$html .= "\n\t</ul>\n</nav>";
+
+	return $html;
+}
+
 //http://www.roscripts.com/snippets/show/32
 function ascii_to_entities($str) {
 	$count	= 1;

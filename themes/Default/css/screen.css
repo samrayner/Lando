@@ -1,5 +1,5 @@
 @import "boilerplate.css";
-.page-nav,.page-nav ul,.page-nav li,.page-breadcrumbs ul,#intro{zoom:1;}.page-nav:after,.page-nav ul:after,.page-nav li:after,.page-breadcrumbs ul:after,#intro:after{display:block;visibility:hidden;height:0;clear:both;content:".";}
+.wrapper,.page-nav,.page-nav ul,.page-nav li,.page-breadcrumbs ul,#intro{zoom:1;}.wrapper:after,.page-nav:after,.page-nav ul:after,.page-nav li:after,.page-breadcrumbs ul:after,#intro:after{display:block;visibility:hidden;height:0;clear:both;content:".";}
 html,body{height:100%;}
 body{font:1em/1.4 "Helvetica Neue",helvetica,arial,sans-serif;background-color:#fcfcfc;}
 a:link{color:#8c150c;text-decoration:none;}
