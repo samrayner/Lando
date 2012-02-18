@@ -1,5 +1,5 @@
 @import "boilerplate.css";
-.page-nav,.page-nav ul,.page-nav li,#intro{zoom:1;}.page-nav:after,.page-nav ul:after,.page-nav li:after,#intro:after{display:block;visibility:hidden;height:0;clear:both;content:".";}
+.page-nav,.page-nav ul,.page-nav li,.page-breadcrumbs ul,#intro{zoom:1;}.page-nav:after,.page-nav ul:after,.page-nav li:after,.page-breadcrumbs ul:after,#intro:after{display:block;visibility:hidden;height:0;clear:both;content:".";}
 html,body{height:100%;}
 body{font:1em/1.4 "Helvetica Neue",helvetica,arial,sans-serif;background-color:#fcfcfc;}
 a:link{color:#8c150c;text-decoration:none;}
@@ -35,6 +35,9 @@ dt{font-weight:bold;}
 #masthead h2{margin:0;font-size:1.1em;font-weight:normal;font-style:italic;font-family:georgia,"Times New Roman",times,serif;color:rgba(34, 34, 34, 0.7);}
 .page-nav ul{list-style:none;margin-bottom:0;}
 .page-nav .current>a{color:#222222;}
+.page-breadcrumbs{margin-bottom:2em;}.page-breadcrumbs ul{list-style:none;font-size:0.8em;background-image:-ms-linear-gradient(bottom, rgba(0, 0, 0, 0.04) 0, rgba(0, 0, 0, 0) 100%);background-image:-o-linear-gradient(bottom, rgba(0, 0, 0, 0.04) 0, rgba(0, 0, 0, 0) 100%);background-image:-moz-linear-gradient(bottom, rgba(0, 0, 0, 0.04) 0, rgba(0, 0, 0, 0) 100%);background-image:-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.04) 0, rgba(0, 0, 0, 0) 100%);background-image:linear-gradient(to top, rgba(0, 0, 0, 0.04) 0, rgba(0, 0, 0, 0) 100%);border-radius:3px;border:1px solid rgba(0, 0, 0, 0.1);text-shadow:1px 1px 0 white;}
+.page-breadcrumbs li{float:left;position:relative;padding:0 1em;line-height:2.5em;}.page-breadcrumbs li::after{position:absolute;margin-left:1em;height:100%;display:inline-block;border-right:1px solid rgba(0, 0, 0, 0.15);box-shadow:2px 0 0 white;content:"";-ms-transform:rotate(15deg);-o-transform:rotate(15deg);-moz-transform:rotate(15deg);-webkit-transform:rotate(15deg);transform:rotate(15deg);}
+.page-breadcrumbs li:last-child::after{content:none;}
 .gallery{margin:1em 0 1.5em;}
 .slideshow{margin:2em 0;}
 .gallery img{display:inline-block;margin:10px 10px 0 0;border:1px solid #666;}

@@ -46,3 +46,11 @@
 	background-image: -webkit-linear-gradient(bottom, @startColor @stop1, @endColor @stop2);
 	background-image: linear-gradient(				to top, @startColor @stop1, @endColor @stop2);
 }
+
+.rotate(@degs: 90deg) {
+	-ms-transform: rotate(@degs);
+	-o-transform: rotate(@degs);
+	-moz-transform: rotate(@degs);
+	-webkit-transform: rotate(@degs);
+	transform: rotate(@degs);
+}

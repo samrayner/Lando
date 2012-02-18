@@ -215,3 +215,30 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 	
 	return $html;
 }
+
+function page_breadcrumbs($path=null) {
+	if(!$path)
+		$path = current_path();
+
+	global $Lando;
+	$Page = $Lando->get_content("pages", $path);
+
+	if(!$Page)
+		return false;
+
+	$html = '<nav class="page-breadcrumbs">'."\n\t<ul>";
+
+	$parents = array_reverse($Page->parents());
+
+	foreach($parents as $Parent) {
+		$html .= "\n\t\t<li>";
+		$html .= '<a href="'.$Parent->permalink().'">'.$Parent->title().'</a>';
+		$html .= "</li>";
+	}
+
+	$html .= "\n\t\t<li>".$Page->title()."</li>";
+
+	$html .= "\n\t</ul>\n</nav>";
+
+	return $html;
+}

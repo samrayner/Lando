@@ -20,7 +20,7 @@ class Text extends File {
 	}
 	
 	private function process_include($str, $func) {
-		$args_str = str_replace($func, "", $str);
+		$args_str = str_ireplace($func, "", $str);
 		$allowed_funcs = array("snippet", "gallery", "slideshow", "collection");
 		
 		if(!in_array($func, $allowed_funcs) || !function_exists($func))
@@ -121,7 +121,7 @@ class Text extends File {
 		$content = $this->to_html($content);
 		
 		//make path relative to content root
-		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
+		$rel_path = str_ireplace($Lando->config["host_root"], "", $this->path);
 		
 		$content = $this->resolve_media_srcs($content, $rel_path);
 		

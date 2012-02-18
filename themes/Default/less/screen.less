@@ -19,6 +19,7 @@
 .page-nav,
 .page-nav ul,
 .page-nav li,
+.page-breadcrumbs ul,
 #intro {
   zoom: 1;
 	&:after {
@@ -230,8 +231,8 @@ dt {
 }
 
 
-/* Admin Links
--------------------------------------------------- */
+/* ADMIN LINKS
+================================================== */
 
 #admin-links {
 	position: fixed;
@@ -262,8 +263,8 @@ dt {
 }
 
 
-/* Header
--------------------------------------------------- */
+/* HEADER
+================================================== */
 
 #masthead {
 	margin-bottom: 2em;
@@ -308,8 +309,47 @@ dt {
 }
 
 
-/* Includes
--------------------------------------------------- */
+/* BREADCRUMBS
+================================================== */
+
+.page-breadcrumbs {
+	margin-bottom: 2em;
+
+	ul {
+		list-style: none;
+		font-size: 0.8em;
+		.gradient(rgba(0,0,0,0.04), 0, rgba(0,0,0,0), 100%);
+		border-radius: 3px;
+		border: 1px solid rgba(0,0,0,0.1);
+		text-shadow: 1px 1px 0 white;
+	}
+
+	li {
+		float: left;
+		position: relative;
+		padding: 0 1em;
+		line-height: 2.5em;
+
+		&::after {
+			position: absolute;
+			margin-left: 1em;
+			height: 100%;
+			display: inline-block;
+			border-right: 1px solid @lightBorder;
+			box-shadow: 2px 0 0 white;
+			content: "";
+			.rotate(15deg);
+		}
+
+		&:last-child::after {
+			content: none;
+		}
+	}
+}
+
+
+/* INCLUDES
+================================================== */
 
 .gallery {
 	margin: 1em 0 1.5em;
@@ -326,8 +366,8 @@ dt {
 }
 
 
-/* Blog Posts
--------------------------------------------------- */
+/* BLOG POSTS
+================================================== */
 
 article {
 	padding: 1em 0 1.5em;

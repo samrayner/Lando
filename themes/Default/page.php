@@ -1,6 +1,8 @@
 <?php include "inc/head.php" ?>
 <?php include "inc/header.php" ?>
 
+<?php echo page_breadcrumbs() ?>
+
 <h1><?php echo $Current->title() ?></h1>
 <?php echo $Current->content() ?>
 
