@@ -12,8 +12,8 @@ $posts = posts(10);
 		<language>en</language>
 		<copyright>Copyright <?php echo date("Y") ?>, <?php echo $site_title ?></copyright>
 		<docs>http://blogs.law.harvard.edu/tech/rss</docs>
-		<pubDate><?php echo $posts[0]->published('r') ?></pubDate>
-		<lastBuildDate><?php echo $posts[0]->modified('r') ?></lastBuildDate>
+		<pubDate><?php if(isset($posts[0])) echo $posts[0]->published('r') ?></pubDate>
+		<lastBuildDate><?php if(isset($posts[0])) echo $posts[0]->modified('r') ?></lastBuildDate>
 		
 		<?php foreach($posts as $post): ?>
 		<item>

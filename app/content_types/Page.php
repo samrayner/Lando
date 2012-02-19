@@ -35,8 +35,8 @@ class Page extends Publishable {
 		return $parents;
 	}
 
-	public function parent($n=0) {
+	public function parent($n=1) {
 		$parents = array_reverse($this->parents());
-		return isset($parents[$n]) ? $parents[$n] : false;
+		return isset($parents[$n-1]) ? $parents[$n-1] : false;
 	}
 }

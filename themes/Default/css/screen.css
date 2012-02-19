@@ -8,10 +8,10 @@ a:hover,a:focus{color:#811f17;text-decoration:underline;}
 ul,ol{padding-left:2.2em;}
 ::-moz-selection{background:rgba(0, 125, 255, 0.6);}
 ::selection{background:rgba(0, 125, 255, 0.6);}
-img,iframe,embed,object{display:block;max-width:100%;height:auto;margin:2em 0;}img.left,iframe.left,embed.left,object.left,img.right,iframe.right,embed.right,object.right{max-width:40%;}
-img.left,iframe.left,embed.left,object.left{float:left;margin:0 2em 2em 0;}
-img.right,iframe.right,embed.right,object.right{float:right;margin:0 0 2em 2em;}
-img.shadow,iframe.shadow,embed.shadow,object.shadow{background-color:white;box-shadow:1px 1px 3px rgba(0, 0, 0, 0.5);}
+img,embed,object{display:block;max-width:100%;height:auto;margin:2em 0;}img.left,embed.left,object.left,img.right,embed.right,object.right{max-width:40%;}
+img.left,embed.left,object.left{float:left;margin:0 2em 2em 0;}
+img.right,embed.right,object.right{float:right;margin:0 0 2em 2em;}
+img.shadow,embed.shadow,object.shadow{background-color:white;box-shadow:1px 1px 3px rgba(0, 0, 0, 0.5);}
 blockquote{margin-left:0;padding-left:0.8em;font:italic 1.1em/1.4 georgia,"Times New Roman",times,serif;border-left:0.2em solid rgba(0, 0, 0, 0.15);}blockquote cite{font-size:0.8em;font-style:normal;color:rgba(34, 34, 34, 0.8);}blockquote cite::before{content:"\2014\00A0";}
 dd{margin-top:0;margin-left:0;}
 table tr:nth-child(even){background-color:rgba(0, 0, 0, 0.03);}
