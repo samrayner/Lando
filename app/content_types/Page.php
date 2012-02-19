@@ -9,24 +9,34 @@ class Page extends Publishable {
 	}
 
 	public function parents() {
+		$slugs = explode("/", trim_slashes($this->permalink));
+		$trunk_slug = array_shift($slugs);
+
 		global $Lando;
-		$path = trim_slashes($this->permalink);
-		$slugs = explode("/", $path);
-		array_pop($slugs);
+		$Trunk = $Lando->get_content("pages", $trunk_slug);
 
-		$path = "";
-		$parents = array();
+		$search_root = array_search_recursive($this->path, $Trunk->subpages, "path");
 
-		foreach($slugs as $slug) {
-			$path = "$path/$slug";
-			$parents[] = $Lando->get_content("pages", $path);
+		if(!$search_root)
+			return array();
+
+		array_pop($search_root);
+
+		$parents = array($Trunk);
+
+		foreach($search_root as $index) {
+			$Parent = end($parents);
+			$parents[] = $Parent->subpages[$index];
 		}
 
-		return array_reverse($parents);
+		//don't include self as a parent
+		array_pop($parents);
+
+		return $parents;
 	}
 
 	public function parent($n=0) {
-		$parents = $this->parents();
+		$parents = array_reverse($this->parents());
 		return isset($parents[$n]) ? $parents[$n] : false;
 	}
 }

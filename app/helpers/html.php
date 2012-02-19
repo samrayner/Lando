@@ -86,7 +86,7 @@ function page_breadcrumbs($path=null) {
 
 	$html = '<nav class="page-breadcrumbs">'."\n\t<ul>";
 
-	$parents = array_reverse($Page->parents());
+	$parents = $Page->parents();
 
 	foreach($parents as $Parent) {
 		$html .= "\n\t\t<li>";
