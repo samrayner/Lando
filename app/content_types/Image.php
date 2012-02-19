@@ -23,7 +23,7 @@ class Image extends File {
 		return $html;
 	}
 	
-	public function thumb_html($size="150", $link=true) {
+	public function thumb_html($size="128", $link=true) {
 		global $Lando;
 		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
 		$Thumb = $Lando->get_file($rel_path, $size);

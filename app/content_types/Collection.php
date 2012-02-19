@@ -29,7 +29,7 @@ class Collection extends Content {
 		else {
 			$type = "gallery";
 			if(!$size)
-				$size = "75";
+				$size = "128";
 			if($link_images === null)
 				$link_images = true;
 		}
