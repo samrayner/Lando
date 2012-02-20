@@ -4,7 +4,26 @@ class Text extends File {
 	public $raw_content;
 	public $manual_metadata = array();
 	
-	private function swap_includes($content) {
+	private function swap_vars($content) {
+		$global_vars = array(
+			"site_title",
+			"site_description",
+			"site_root",
+			"theme_dir"
+		);
+
+		$regex = '\{\{\s*('.implode("|", $global_vars).')\s*}}';
+
+		$parse 		= "(?<!\\\)$regex";
+		$noparse 	= "\\\($regex)";
+
+		$content = preg_replace("~$parse~e", '$GLOBALS["$1"]', $content);
+		$content = preg_replace("~$noparse~", "$1", $content);
+
+		return $content;
+	}
+
+	private function swap_funcs($content) {
 		$regex = '\{\{\s*(\w+)(\s+(\w+:)?("[^"]*"|\w+|\d+|true|false))+\s*}}';
 
 		$parse 		= "(?<!\\\)$regex";
@@ -16,6 +35,12 @@ class Text extends File {
 		
 		$content = preg_replace("~$noparse~i", "$1", $content);
 
+		return $content;
+	}
+
+	private function swap_includes($content) {
+		$content = $this->swap_vars($content);
+		$content = $this->swap_funcs($content);
 		return $content;
 	}
 	
