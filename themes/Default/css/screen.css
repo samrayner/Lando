@@ -19,6 +19,7 @@ table th{text-align:left;}table th:empty{border:none;}
 table th,table td{border:1px solid #bbb;padding:0.3em 0.5em;}
 h1:target::before,h2:target::before,h3:target::before,h4:target::before,h5:target::before,h6:target::before{display:block;position:absolute;content:" ";width:0;height:0;margin:0.3em 0 0 -1em;border:0.5em solid transparent;border-left-color:#dcdc00;box-shadow:-0.9em 0 0 #dcdc00;}
 hr{margin:2em 0;height:1px;background-color:rgba(0, 0, 0, 0.15);border:none;}
+.footnotes{font-size:0.9em;color:rgba(34, 34, 34, 0.8);}
 pre,code,kbd,samp,tt{font-family:monospace,monospace;font-size:1em;}
 code{font:0.8em/1 menlo,monaco,consolas,"Lucida Console",courier,monospace;border-radius:2px;padding:0.1em 0.2em;background-color:rgba(2, 122, 185, 0.09999999999999998);box-shadow:inset 0 0 5px rgba(2, 122, 185, 0.19999999999999996);}
 pre{display:block;line-height:1.2;border-radius:5px;font:0.8em/1.2 menlo,monaco,consolas,"Lucida Console",courier,monospace;padding:1em;background-color:rgba(2, 122, 185, 0.07999999999999996);box-shadow:inset 0 0 10px rgba(2, 122, 185, 0.09999999999999998);}pre code{font:inherit;padding:0;background:none;box-shadow:none;margin:0;}
