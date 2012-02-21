@@ -43,7 +43,6 @@ var Install = {
 			.removeClass("active")
 			.removeAttr("style")
 			.addClass("done")
-			.attr("data-icon", "/")
 			.html("Content added to Dropbox");
 		
 		Install.nextStep();
@@ -104,12 +103,15 @@ var Install = {
 
 	click: function(event) {
 		event.preventDefault();
+		$(this).off('click');
 		
 		$(this)
 			.removeClass("done")
 			.addClass("active")
-			.attr("data-icon", "0")
 			.html("Preparing files...");
+		
+		var spinner = new Spinner(this);
+		spinner.init();
 		
 		Install.run();
 	},

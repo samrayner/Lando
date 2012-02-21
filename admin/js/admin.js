@@ -26,8 +26,6 @@ var PageNav = {
 			var regex = new RegExp('^'+prefix,"i");
 			var newPropName = propName.replace(regex, '');
 
-			window.console.log(newPropName);
-
 			if(typeof object[propName] !== "object" || $.isEmptyObject(object[propName])) {
 				newObject[newPropName] = object[propName];
 			}
@@ -117,6 +115,28 @@ var Tooltips = {
 	}
 };
 
+function Spinner(elm) {
+	this.$elm = $(elm);
+	this.interval = null;
+	this.progress = 0;
+
+	this.advance = function(Spinner) {
+		if(Spinner.$elm.hasClass("done")) {
+			window.clearInterval(Spinner.interval);
+			Spinner.$elm.attr("data-icon", "/");
+			return false;
+		}
+
+		Spinner.progress = (Spinner.progress < 7) ? Spinner.progress + 1 : 0;
+		Spinner.$elm.attr("data-icon", Spinner.progress);
+	};
+
+	this.init = function() {
+		var that = this;
+		that.interval = window.setInterval(function(){ that.advance(that); }, 143);
+	};
+}
+
 var Recache = {
 	types: ["collections", "snippets", "pages", "posts", "drafts"],
 
@@ -125,7 +145,6 @@ var Recache = {
 			.removeClass("active")
 			.removeAttr("style")
 			.addClass("done")
-			.attr("data-icon", "/")
 			.html("Caching complete");
 		
 		if($("#cleanup-button").length) {
@@ -191,11 +210,14 @@ var Recache = {
 
 	click: function(event) {
 		event.preventDefault();
+		$(this).off('click');
 		
 		$(this)
 			.removeClass("done")
-			.addClass("active")
-			.attr("data-icon", "0");
+			.addClass("active");
+		
+		var spinner = new Spinner(this);
+		spinner.init();
 
 		Recache.process(Recache.types[0]);
 	},
