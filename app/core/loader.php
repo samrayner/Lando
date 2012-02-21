@@ -13,7 +13,7 @@ if(!file_exists("$doc_root/app/config/config.php")) {
 		header("Location: $root/install/");
 	}
 	else
-		system_error("Missing Config File", 'Config file not found. Try <a href="http://lando-cms.com">re-downloading Lando</a> and installing again.');
+		system_error("Missing Config File", 'Config file not found. Try <a href="http://landocms.com">re-downloading Lando</a> and installing again.');
 }
 
 //load config file

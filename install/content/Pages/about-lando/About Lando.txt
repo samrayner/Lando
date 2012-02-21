@@ -9,7 +9,7 @@ For a full run-down of features and tips on using Lando, visit [the website][l].
 Lando was created by [Sam Rayner][sr]. For updates, follow [@landocms on Twitter][tw]
 
 [db]: http://dropbox.com
-[l]: http://lando-cms.com
+[l]: http://landocms.com
 [md]: http://daringfireball.net/projects/markdown/
 [sr]: http://samrayner.com
 [tw]: http://twitter.com/landocms

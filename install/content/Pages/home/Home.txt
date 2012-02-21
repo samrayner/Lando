@@ -4,4 +4,4 @@ Welcome to your new website! Included already is some demo content to get you st
 
 For a full run-down of features and tips on using Lando, visit [the website][l].
 
-[l]: http://lando-cms.com
+[l]: http://landocms.com

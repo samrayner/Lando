@@ -7,7 +7,7 @@ This post is formatted as [Markdown][md], but you can format your posts in [a nu
 
 Lando makes blogging easy. Enjoy!
 
-[meta]: http://lando-cms.com/docs/metadata/
+[meta]: http://landocms.com/docs/metadata/
 [md]: http://daringfireball.net/projects/markdown/
-[ff]: http://lando-cms.com/docs/file-formats/
+[ff]: http://landocms.com/docs/file-formats/
 [admin]: /admin/

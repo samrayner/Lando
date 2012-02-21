@@ -15,5 +15,5 @@ Listing files other than images? You can output a simple linked list with `\{{co
 
 That's not all! Check out the documentation on [collections][c] and [includes][i] for the full run-down of possibilities.
 
-[c]: http://lando-cms.com/docs/content/#collections
-[i]: http://lando-cms.com/docs/includes
+[c]: http://landocms.com/docs/content/#collections
+[i]: http://landocms.com/docs/includes
