@@ -47,5 +47,5 @@ function url_segment($n) {
 }
 
 function guess_site_root() {
-	return preg_replace('~(/index\.php)?/?'.trim_slashes(preg_quote(current_path())).'$~', "", current_url());
+	return preg_replace('~(/admin|/install)?/?(.*\.php)?(/index\.php)?/?'.trim_slashes(preg_quote(current_path())).'$~', "", current_url());
 }

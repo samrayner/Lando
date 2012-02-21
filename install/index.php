@@ -28,12 +28,12 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		
 		<div>
 			<label for="site_title" class="field-label">Title</label>
-			<input type="text" id="site_title" name="site_title" value="Bespin Daily" />
+			<input type="text" id="site_title" name="site_title" value="My Website" />
 		</div>
 		
 		<div>
 			<label for="site_description" class="field-label">Description</label>
-			<input type="text" id="site_description" name="site_description" value="All the latest from the cloud city." />
+			<input type="text" id="site_description" name="site_description" value="Powered by Lando" />
 		</div>
 		
 		<div>
