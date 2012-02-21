@@ -125,7 +125,7 @@ var Recache = {
 			.removeClass("active")
 			.removeAttr("style")
 			.addClass("done")
-			.attr("data-icon", "2")
+			.attr("data-icon", "/")
 			.html("Caching complete");
 		
 		if($("#cleanup-button").length) {
@@ -184,7 +184,7 @@ var Recache = {
 
 		$button
 			.html("Save changes before caching")
-			.attr("data-icon", "d");
+			.attr("data-icon", "-");
 
 		Recache.disable();
 	},

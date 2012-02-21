@@ -47,7 +47,7 @@ if(isset($_GET["uid"])) {
 		<?php if(!is_dir("$doc_root/install/content")): ?>
 		No content found in install folder.
 		<?php else: ?>
-		<a id="install-button" class="button" href="#" data-icon="c">Install content in <?php echo $config["host_root"] ?></a>
+		<a id="install-button" class="button" href="#" data-icon="F">Install content in <?php echo $config["host_root"] ?></a>
 		<p class="skip"><a href="#">I've installed my own content</a></p>
 		<?php endif ?>
 	</div>
@@ -58,7 +58,7 @@ if(isset($_GET["uid"])) {
 	<p class="subtitle">Prepare webpages from your cloud files</p>
 
 	<div>
-		<a id="recache-button" class="button" href="#" data-icon="9">Perform initial cache</a>
+		<a id="recache-button" class="button" href="#" data-icon=")">Perform initial cache</a>
 		<p class="skip"><a href="#">I'll cache later, thanks</a></p>
 	</div>
 </section>
@@ -68,7 +68,7 @@ if(isset($_GET["uid"])) {
 	<p class="subtitle">Highly recommended for security reasons</p>
 
 	<div>
-		<a id="cleanup-button" class="button" href="#" data-icon="#">Delete install files</a> 
+		<a id="cleanup-button" class="button" href="#" data-icon="'">Delete install files</a> 
 	</div>
 </section>
 

@@ -7,19 +7,29 @@
 /* PICTOS FONT
 ================================================== */
 
-@import url("../pictos/pictos_base64.css");
+@import url("../fonts/websymbols.css");
 
 [data-icon]::before {
-	font-family: "Pictos";
-	font-size: 1.1em;
+	font-family: "WebSymbolsRegular";
 	font-weight: normal;
 	line-height: 0;
 	content: attr(data-icon);
 	margin: 0 0.6ex 0 -0.1ex;
-	position: relative;
-	top: -1px;
 	opacity: 0.7;
 	speak: none;
+}
+
+[data-icon=h],
+[data-icon=F],
+[data-icon=C],
+[data-icon="."],
+[data-icon="'"] {
+	::before {
+		font-size: 0.8em;
+		position: relative;
+		top: -0.3ex;
+		margin-right: 0.9ex;
+	}
 }
 
 

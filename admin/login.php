@@ -50,10 +50,10 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 
 <form action="<?php echo $self ?>" method="post" id="login-form">
 	<header>
-		<h1 data-icon="(">Login Required</h1>
+		<h1 data-icon="x">Login Required</h1>
 
 		<div id="buttons">
-			<a href="<?php echo $config["site_root"] ?>" class="button" data-icon="H">Home</a>
+			<a href="<?php echo $config["site_root"] ?>" class="button" data-icon="h">Home</a>
 		</div>
 	</header>
 
@@ -61,7 +61,7 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 	
 		<?php
 		if(isset($error))
-				echo '<p class="notify failure" data-icon="!">'.$error.'</p>';
+				echo '<p class="notify failure" data-icon="W">'.$error.'</p>';
 		?>
 		
 		<div id="pass-field">
@@ -75,7 +75,7 @@ if(isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'])
 		</div>
 		
 		<div id="login-button">
-			<button class="button" data-icon="K">Log In</button>
+			<button class="button" data-icon="w">Log In</button>
 		</div>
 		
 	</div>

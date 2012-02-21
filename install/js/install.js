@@ -9,7 +9,7 @@ var CleanUp = {
 		$("#cleanup-button")
 			.removeClass("active")
 			.addClass("done")
-			.attr("data-icon", "2")
+			.attr("data-icon", "/")
 			.html("Files deleted");
 		
 		$("#cleanup, #last-panel").toggleClass("disabled");
@@ -43,7 +43,7 @@ var Install = {
 			.removeClass("active")
 			.removeAttr("style")
 			.addClass("done")
-			.attr("data-icon", "2")
+			.attr("data-icon", "/")
 			.html("Content added to Dropbox");
 		
 		Install.nextStep();
