@@ -106,7 +106,7 @@ function nav_widget($pages=null, $path=array()) {
 		
 		if(isset($_GET["saved"])) {
 			if($_GET["saved"])
-				echo '<p class="notify success" data-icon="2">Settings saved. <a href="'.$site_root.'">All done?</a></p>';
+				echo '<p class="notify success" data-icon="/">Settings saved. <a href="'.$site_root.'">All done?</a></p>';
 			else
 				echo '<p class="notify failure" data-icon="W">Error saving. Please check permissions on <em>app/config</em> and its files are <strong>0777</strong> and try again.</p>';
 		}

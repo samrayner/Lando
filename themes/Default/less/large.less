@@ -65,15 +65,15 @@
 			position: relative;
 			float: left;
 			
-			&:first-child > a {
-				border-left-width: 1px;
+			&:last-child > a {
+				border-right-width: 1px;
 			}
 			
 			> a {
 				line-height: 2.4;
 				display: inline-block;
 				padding: 0 1em;
-				border-right-width: 1px;
+				border-left-width: 1px;
 			}
 			
 			&:hover > a,
@@ -122,7 +122,7 @@
 			display: none;
 			position: absolute;
 			z-index: 2;
-			margin: -1px 0 0 -1px;
+			margin: -1px 0 0 0;
 			border-width: 1px;
 			box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 			

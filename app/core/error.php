@@ -18,12 +18,12 @@ $message = isset($_GET["message"]) ? stripslashes(urldecode($_GET["message"])) :
 		<h1><?php echo $title ?></h1>
 
 		<div id="buttons">
-			<a href="../../" class="button" data-icon="H">Home</a>
+			<a href="../../" class="button" data-icon="h">Home</a>
 		</div>
 	</header>
 
 	<div id="system-error">
-		<p class="notify failure" data-icon="!"><?php echo $message ?></p>
+		<p class="notify failure" data-icon="W"><?php echo $message ?></p>
 	</div>
 
 </div><!-- #wrapper -->
