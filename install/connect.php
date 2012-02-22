@@ -47,8 +47,7 @@ foreach($config as $key => $val) {
 	}
 }
 
-if(!is_dir("$doc_root/app/config"))
-	$config_folder = @mkdir("$doc_root/app/config");
+$config_folder = @mkdir("$doc_root/app/config");
 
 if(!$config_folder)
 	system_error("Config Not Saved", "Could not create config folder. Please create <em>/app/config</em> and set its permission to <strong>755</strong> and try to install again.");

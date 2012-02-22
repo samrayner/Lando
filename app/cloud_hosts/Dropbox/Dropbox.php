@@ -11,7 +11,7 @@ class Dropbox extends Cloud_Host {
 		$params = array( 
 			'consumerKey' 		=> 'trnjsiw5jeym92c', 
 			'consumerSecret' 	=> 'sszl42e3d135d1t', 
-			'sslCheck' 				=> false //while developing locally
+			'sslCheck' 				=> true //while developing locally
 		);
 		
 		$config_file = "app/config/dropbox.php";

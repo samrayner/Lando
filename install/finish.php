@@ -17,11 +17,15 @@ $Host = new $host_class($config);
 
 //only save access token if redirected from Dropbox oAuth page
 if(isset($_GET["uid"])) {
-	//save UID in case we want it in a future build
-	$oauth = array(
-		"uid" => $_GET["uid"], 
-		"token" => $Host->access_token()
-	);
+	try {
+		$oauth = array(
+			"uid" => $_GET["uid"], //save UID in case we want it in a future build
+			"token" => $Host->access_token()
+		);
+	}
+	catch(DropLibException_OAuth $e) {
+		system_error("Access Token Not Retrieved", "Could not retrieve an access token from the host.");
+	}
 	
 	$token_saved = @file_put_contents("$doc_root/app/config/{$config["host"]}.php", "<?php\n\n".'$oauth = '.var_export($oauth, true).";");
 
