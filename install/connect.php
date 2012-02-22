@@ -47,10 +47,13 @@ foreach($config as $key => $val) {
 	}
 }
 
+if(is_dir("$doc_root/app/config"))
+	rrmdir("$doc_root/app/config");
+
 $config_folder = @mkdir("$doc_root/app/config");
 
 if(!$config_folder)
-	system_error("Config Not Saved", "Could not create config folder. Please create <em>/app/config</em> and set its permission to <strong>755</strong> and try to install again.");
+	system_error("Config Not Saved", "Could not create config folder. Please create <em>/app/config</em>, set its permission to <strong>755</strong> and try to install again.");
 
 $config_file = @file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($config, true).";");
 
@@ -65,7 +68,12 @@ include "$doc_root/app/cloud_hosts/{$config["host"]}/{$config["host"]}.php";
 $host_class = str_replace(" ", "_", ucwords($config["host"]));
 $Host = new $host_class($config);
 
-$oauth = array("token" => $Host->request_token());
+try {
+	$oauth = array("token" => $Host->request_token());
+}
+catch(DropLibException_OAuth $e) {
+	system_error("Request Token Not Retrieved", "Could not retrieve a request token from the host.");
+}
 
 $token_file = @file_put_contents("$doc_root/app/config/{$config["host"]}.php", "<?php\n\n".'$oauth = '.var_export($oauth, true).";");
 
