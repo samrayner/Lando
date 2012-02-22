@@ -10,7 +10,7 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 foreach(glob("$doc_root/themes/*", GLOB_ONLYDIR) as $dir)
 	$themes[] = strtolower(basename($dir));
 
-$default_theme = isset($themes[0]) ? $themes[0] : "default";
+$default_theme = isset($themes[0]) ? $themes[0] : "Default";
 
 $base_url = preg_replace('~/install/'.basename($_SERVER['PHP_SELF']).'$~', "", current_url());
 
@@ -35,9 +35,6 @@ if(empty($_POST))
 foreach($config as $key => $val) {
 	if(isset($_POST[$key]) && trim($_POST[$key]) !== "") {
 		switch($key) {
-			case "host":
-				$config[$key] = strtolower($_POST[$key]);
-				break;
 			case "site_root":
 				$config[$key] = trim_slashes($_POST[$key]);
 				break;
