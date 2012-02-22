@@ -74,9 +74,18 @@ if(sizeof($_POST) > 0) {
 		}
 	}
 	
+	if(!is_dir("$doc_root/app/config"))
+		$config_folder = @mkdir("$doc_root/app/config");
+
+	if(!$config_folder)
+		system_error("Config Not Saved", "Could not create config folder. Please create <em>/app/config/</em> and set its permission to <strong>755</strong> and try to install again.");
+
 	$saved = @file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($new_config, true).";");
+
+	if(!$saved)
+		system_error("Config Not Saved", "Could not update config file. Please set permissions for <em>/app/config</em> and the files in it to <strong>755</strong> and try again.");
 	
-	if($saved && $new_config["admin_password"] != $config["admin_password"])
+	if($new_config["admin_password"] != $config["admin_password"])
 		setcookie("lando_password", $new_config["admin_password"], 0, "/", ".".$_SERVER['HTTP_HOST']);
 }
  
