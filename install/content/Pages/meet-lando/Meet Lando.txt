@@ -1,4 +1,4 @@
-![Lando Calrissian](lando.jpg)
+<img src="lando.jpg" alt="Lando Calrissian" class="right shadow" width="615" height="435" />
 
 [Lando][l] is a new kind of CMS that lets you manage your website in The Cloud! Just save files in your [Dropbox][db] and they'll appear on your site. It has support for pages, posts, drafts, text snippets, and file collections that you can turn into cool things like galleries and slideshows.
 
