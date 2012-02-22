@@ -11,10 +11,11 @@ class Dropbox extends Cloud_Host {
 		$params = array( 
 			'consumerKey' 		=> 'trnjsiw5jeym92c', 
 			'consumerSecret' 	=> 'sszl42e3d135d1t', 
-			'sslCheck' 				=> true //while developing locally
 		);
+
+		$params["sslCheck"] = ($_SERVER["REMOTE_ADDR"] !== $_SERVER["SERVER_ADDR"]);
 		
-		$config_file = "app/config/dropbox.php";
+		$config_file = "app/config/Dropbox.php";
 		
 		if(include_exists($config_file)) {
 			//use saved token
