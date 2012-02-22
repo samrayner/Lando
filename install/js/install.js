@@ -9,7 +9,6 @@ var CleanUp = {
 		$("#cleanup-button")
 			.removeClass("active")
 			.addClass("done")
-			.attr("data-icon", "/")
 			.html("Files deleted");
 		
 		$("#cleanup, #last-panel").toggleClass("disabled");
@@ -22,8 +21,10 @@ var CleanUp = {
 		$(this)
 			.removeClass("done")
 			.addClass("active")
-			.attr("data-icon", "0")
 			.html("Deleting install files");
+
+		var spinner = new Spinner(this);
+		spinner.init();
 			
 		var $jqxhr = $.get("cleanup.php", CleanUp.done);
 	},

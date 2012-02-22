@@ -1,7 +1,7 @@
 @import url("reset.css");
 @import url("../fonts/websymbols.css");
 [data-icon]::before{font-family:"WebSymbolsRegular";font-weight:normal;line-height:0;content:attr(data-icon);margin:0 0.6ex 0 -0.1ex;opacity:0.7;speak:none;}
-[data-icon=h]::before,[data-icon=F]::before,[data-icon=C]::before,[data-icon="."]::before,[data-icon="'"]::before{font-size:0.8em;position:relative;top:-0.3ex;margin-right:0.9ex;}
+[data-icon=h]::before,[data-icon=F]::before,[data-icon=C]::before,[data-icon=X]::before,[data-icon="."]::before,[data-icon="'"]::before{font-size:0.8em;position:relative;top:-0.3ex;margin-right:0.9ex;}
 header{zoom:1;}header:after{display:block;visibility:hidden;height:0;clear:both;content:".";}
 html{-webkit-font-smoothing:antialiased;}
 body{font:14px/1.6 "Helvetica Neue",helvetica,arial,sans-serif;color:rgba(0, 0, 0, 0.7);text-shadow:1px 1px 0 #ffffff;background:#464646 url(../images/pixels.gif);}

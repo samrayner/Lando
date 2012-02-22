@@ -96,7 +96,7 @@ function nav_widget($pages=null, $path=array()) {
 		
 		<div id="buttons">
 			<a href="<?php echo $site_root ?>" class="button" data-icon="h">Home</a>
-			<a href="login.php?logout=1" class="button" data-icon="x">Log out</a>
+			<a href="login.php?logout=1" class="button" data-icon="X">Log out</a>
 		</div>
 	</header>
 
