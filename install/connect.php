@@ -8,7 +8,7 @@ foreach(glob("$doc_root/app/helpers/*.php") as $file)
 
 //get themes list
 foreach(glob("$doc_root/themes/*", GLOB_ONLYDIR) as $dir)
-	$themes[] = strtolower(basename($dir));
+	$themes[] = basename($dir);
 
 $default_theme = isset($themes[0]) ? $themes[0] : "Default";
 
