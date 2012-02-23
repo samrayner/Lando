@@ -16,6 +16,9 @@
 	
 	<link rel="alternate" type="application/rss+xml" title="<?php echo $site_title ?>" href="<?php echo $site_root ?>/rss/" />
 
+	<!-- You can override the Lando favicon for your theme here -->
+	<!-- <link rel="icon" href="" /> -->
+
 	<!-- Default styles -->
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/screen.css" media="screen" />
 	<!-- PrettyPhoto styles -->
