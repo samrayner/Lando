@@ -1,9 +1,7 @@
 <header id="masthead">
 	<hgroup>
-		<div class="wrapper">
-			<h1><a href="<?php echo $site_root ?>"><?php echo $site_title ?></a></h1>
-			<h2><?php echo $site_description ?></h2>
-		</div>
+		<h1><a href="<?php echo $site_root ?>"><?php echo $site_title ?></a></h1>
+		<h2><?php echo $site_description ?></h2>
 	</hgroup>
 	
 	<div class="wrapper">
