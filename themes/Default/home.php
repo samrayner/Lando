@@ -27,7 +27,7 @@
 				<h3>Tagged</h3>
 				<ul>
 				<?php foreach($Post->metadata("tags") as $tag): ?>
-					<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
+					<li><a rel="tag" href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
 				<?php endforeach ?>
 				</ul>
 			</div>
