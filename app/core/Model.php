@@ -153,7 +153,7 @@ class Model {
 		return $items;
 	}
 	
-	public function get_single($path, $max_age=3600) {
+	public function get_single($path, $max_age=86400) {
 		$cache_path = $path = trim_slashes($path);
 		$type = array_shift(explode("/", $path));
 		
