@@ -1,6 +1,3 @@
-Lando
-=====
-
 Lando is a new kind of CMS that lets you manage your website in The Cloud. Just save files in your Dropbox and they'll appear on your site!
 
 Find out more at <http://landocms.com> or check out the [documentation][docs].
