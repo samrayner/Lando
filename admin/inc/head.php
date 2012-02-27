@@ -29,6 +29,19 @@ switch(end($segs)) {
 
 	<link rel="stylesheet" href="css/admin.css" />
 
+	<script>
+		(function () {
+			var filename;
+			if (navigator.platform === 'iPad') {
+				filename = window.orientation === 90 || window.orientation === -90 ? 'splash-1024x748.png' : 'splash-768x1004.png';
+			} 
+			else {
+				filename = window.devicePixelRatio === 2 ? 'splash-640x920.png' : 'splash-320x460.png';
+			}
+			document.write('<link rel="apple-touch-startup-image" href="images/' + filename + '"/>' );
+		})();
+	</script>
+
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 	<script src="js/min/admin-min.js"></script>
