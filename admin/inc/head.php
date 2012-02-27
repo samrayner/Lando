@@ -32,7 +32,7 @@ switch(end($segs)) {
 	<script>
 		(function () {
 			var filename;
-			if (navigator.platform === 'iPad') {
+			if(navigator.platform === 'iPad') {
 				filename = window.orientation === 90 || window.orientation === -90 ? 'splash-1024x748.png' : 'splash-768x1004.png';
 			} 
 			else {
