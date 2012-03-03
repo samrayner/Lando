@@ -1,5 +1,5 @@
 published: 2 Feb 2012
-tags: star wars, posters
+tags: star wars, photos, food
 
 You can easily create galleries and slideshows from files in _/Collections_. Just drop an include into a page, post, draft or snippet with code like `\{{gallery "Collection Title"}}`.
 

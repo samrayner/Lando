@@ -2,4 +2,4 @@ You can preview blog posts in Lando by first creating them in the _/Drafts_ fold
 
 Drafts can always be accessed at [/drafts][d] but require you to log in with your Lando admin password in order to be seen.
 
-[d]: ../
+[d]: {{site_root}}/drafts/

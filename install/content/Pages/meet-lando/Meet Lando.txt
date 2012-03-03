@@ -6,10 +6,11 @@ This page exists as a [Markdown][md]-formatted text file in the _/Pages_ folder 
 
 For a full run-down of features and tips on using Lando, visit [the website][l].
 
-Lando was created by [Sam Rayner][sr]. For updates, follow [@landocms on Twitter][tw]
+Lando was created by [Sam Rayner][sr]. For updates, visit [the dev blog][blog] or follow [@landocms on Twitter][tw].
 
-[db]: http://dropbox.com
-[l]: http://landocms.com
+[db]: http://dropbox.com/
+[l]: http://landocms.com/
 [md]: http://daringfireball.net/projects/markdown/
-[sr]: http://samrayner.com
+[sr]: http://samrayner.com/
 [tw]: http://twitter.com/landocms
+[blog]: http://landocms.com/posts/

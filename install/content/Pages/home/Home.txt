@@ -1,4 +1,4 @@
-<img src="lando-greeting.jpg" alt="Lando Calrissian greeting Leia" class="right shadow" width="600" height="387" />
+<img src="lando-icon.png" alt="Lando Icon" class="right" width="600" height="461" />
 
 Welcome to your new website! Included already is some demo content to get you started so have a click around and take a look in your Dropbox to see what's what.
 
