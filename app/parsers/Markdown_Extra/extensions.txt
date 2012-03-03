@@ -2,7 +2,9 @@ txt
 m
 md
 mdd
+mmd
 mdml
 mkdn
+mark
 markd
 markdown
