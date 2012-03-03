@@ -146,20 +146,6 @@ var Recache = {
 			.removeAttr("style")
 			.addClass("done")
 			.html("Caching complete");
-		
-		if($("#cleanup-button").length) {
-			Recache.nextStep();
-		}
-	},
-	
-	nextStep: function(event) {
-		if(event) {
-			event.preventDefault();
-		}
-		
-		$("#cache, #cleanup").toggleClass("disabled");
-		CleanUp.init();
-		Recache.disable();
 	},
 
 	updateProgress: function(type) {
@@ -203,9 +189,8 @@ var Recache = {
 
 		$button
 			.html("Save changes before caching")
-			.attr("data-icon", "-");
-
-		Recache.disable();
+			.attr("data-icon", "-")
+			.off("click");
 	},
 
 	click: function(event) {
@@ -225,12 +210,7 @@ var Recache = {
 	init: function() {
 		$("#host_root").change(Recache.block);
 		$("#recache-button").click(Recache.click);
-		$("#cache .skip").click(Recache.nextStep);
 	},
-	
-	disable: function() {
-		$("#recache-button, #cache .skip").off('click');
-	}
 };
 
 var FormCheck = {
@@ -274,7 +254,5 @@ $(function() {
 		PageNav.init();
 	}
 	
-	if($("section:not(.disabled) #recache-button").length) {
-		Recache.init();
-	}
+	Recache.init();
 });

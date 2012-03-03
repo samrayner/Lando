@@ -3,12 +3,24 @@ Lando
 
 Lando is a new kind of CMS that lets you manage your website in The Cloud. Just save files in your Dropbox and they'll appear on your site!
 
-Find out more at <http://landocms.com> or check out the [documentation][docs].
 
-If you find a bug or have a feature request, please [file an issue][issues].
+---
 
-Fork away! [Pull requests][pulls] very welcome.
 
-[docs]: http://landocms.com/docs/install-update
-[issues]: https://github.com/samrayner/Lando/issues
-[pulls]: https://github.com/samrayner/Lando/pulls
+Installation
+------------
+
+1. Download the Lando ZIP archive.
+2. Extract the contents of the ZIP and upload to your server.
+3. Visit your website (at the path where you installed Lando).
+4. Follow the installation wizard!
+
+
+---
+
+
+Read the full documentation at <http://landocms.com/docs/>
+
+If you find a bug or have a feature request, please [file an issue][1].
+
+[1]: https://github.com/samrayner/Lando/issues

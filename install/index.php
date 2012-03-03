@@ -17,9 +17,8 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		<h1>Install Lando</h1>
 		
 		<ol id="breadcrumbs">
-			<li class="current">Site Info</li>
 			<li>Connect</li>
-			<li>Install</li>
+			<li>Done!</li>
 		</ol>
 	</header>
 
@@ -27,13 +26,13 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		<h1>Website Details</h1>
 		
 		<div>
-			<label for="site_title" class="field-label">Title</label>
-			<input type="text" id="site_title" name="site_title" value="My Website" />
+			<label for="site_title" class="field-label">Give Your Site a Title</label>
+			<input type="text" id="site_title" name="site_title" value="Han's Space Journal" autofocus />
 		</div>
 		
 		<div>
-			<label for="site_description" class="field-label">Description</label>
-			<input type="text" id="site_description" name="site_description" value="Powered by Lando" />
+			<label for="site_description" class="field-label">Describe Your Site</label>
+			<input type="text" id="site_description" name="site_description" value="Diary of a scruffy-looking Nerf-herder" />
 		</div>
 		
 		<div>
@@ -54,13 +53,13 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 		</div>
 	
 		<div>
-			<label for="host_root" class="field-label">Dropbox Content Path</label>
-			<input type="text" id="host_root" name="host_root" value="/Apps/Lando" />
+			<label for="host_root" class="field-label">Where content will live in your Dropbox</label>
+			<input type="text" id="host_root" name="host_root" value="/Lando" />
 		</div>
 	</section>
 	
 	<section id="admin">
-		<h1>Admin/Drafts Password</h1>
+		<h1>Password for Admin &amp; Drafts</h1>
 		
 		<div>
 			<label for="admin_password">Password</label>

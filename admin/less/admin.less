@@ -23,6 +23,7 @@
 [data-icon=F],
 [data-icon=C],
 [data-icon=X],
+[data-icon=R],
 [data-icon="."],
 [data-icon="'"] {
 	::before {
@@ -145,6 +146,10 @@ body {
 		-webkit-box-shadow: 0 0 0 1px @doneGreen;
 												
 		color: darken(saturate(@doneGreen, 10), 32);
+	}
+
+	&.big {
+		font-size: 1.2em;
 	}
 }
 
@@ -523,11 +528,6 @@ input + .notify {
 	}
 }
 
-.skip {
-	font-size: 0.85em;
-	margin: 1em 0 0;
-}
-
 #install-button.active {
 	width: 90%;
 	max-width: 200px;
@@ -537,6 +537,11 @@ input + .notify {
 	
 	transition: background-position-x 1s linear;
 	-webkit-transition: background-position-x 1s linear;
+}
+
+#homepage-button {
+	text-align: center;
+	margin-bottom: 2em;
 }
 
 

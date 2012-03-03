@@ -40,38 +40,35 @@ if(isset($_GET["uid"])) {
 	<h1>Install Lando</h1>
 	
 	<ol id="breadcrumbs">
-		<li class="done">Site Info</li>
 		<li class="done">Connect</li>
-		<li class="current">Install</li>
+		<li class="current">Done!</li>
 	</ol>
 </header>
 
 <section id="install">
-	<h1>1. Install Content</h1>
-	<p class="subtitle">Add content to your Dropbox</p>
+	<h1>Add Example Content</h1>
+	<p class="subtitle">Helps getting to grips with Lando</p>
 
 	<div>
 		<?php if(!is_dir("$doc_root/install/content")): ?>
 		No content found in install folder.
 		<?php else: ?>
-		<a id="install-button" class="button" href="#" data-icon="F">Install content in <?php echo $config["host_root"] ?></a>
-		<p class="skip"><a href="#">I've installed my own content</a></p>
+		<a id="install-button" class="button" href="#" data-icon="F">Put content in <?php echo $config["host_root"] ?></a>
 		<?php endif ?>
 	</div>
 </section>
 
-<section id="cache" class="disabled">
-	<h1>2. Cache Content</h1>
+<section id="cache">
+	<h1>Cache Content</h1>
 	<p class="subtitle">Prepare webpages from your cloud files</p>
 
 	<div>
 		<a id="recache-button" class="button" href="#" data-icon=")">Perform initial cache</a>
-		<p class="skip"><a href="#">I'll cache later, thanks</a></p>
 	</div>
 </section>
 
-<section id="cleanup" class="disabled">
-	<h1>3. Clean-up Installation</h1>
+<section id="cleanup">
+	<h1>Clean Up Installation</h1>
 	<p class="subtitle">Highly recommended for security reasons</p>
 
 	<div>
@@ -79,10 +76,14 @@ if(isset($_GET["uid"])) {
 	</div>
 </section>
 
-<div id="last-panel" class="disabled">
-	<p class="finished">Then you’re done!</p>
-	<p>To check settings, visit the <a href="<?php echo $config["site_root"]."/admin/" ?>">admin panel</a> 
-	or check out your new <a href="<?php echo $config["site_root"]."/" ?>">home page</a>!</p>
+<div id="last-panel">
+	<p class="finished">&hellip;and you're done!</p>
+
+	<div id="homepage-button">
+		<a class="big done button" href="<?php echo $config["site_root"]."/" ?>">Go to your new homepage</a>
+	</div>
+
+	<p>Or to check your settings, visit the <a href="<?php echo $config["site_root"]."/admin/" ?>">admin panel</a>.</p>
 </div>
 
 <?php include "inc/foot.php" ?>
