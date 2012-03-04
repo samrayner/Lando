@@ -149,7 +149,7 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 		
 		<div>
-			<label for="host_root" class="field-label">Path to Content</label>
+			<label for="host_root" class="field-label">Content folder in your Dropbox</label>
 			<input type="text" id="host_root" name="host_root" <?php set_field_state("host_root"); ?> />
 		</div>
 		
@@ -163,7 +163,7 @@ function nav_widget($pages=null, $path=array()) {
 		<!-- <p class="subtitle">Download more themes from <a href="#">GitHub</a>.</p> -->
 		
 		<div>
-			<label for="theme">Theme</label>
+			<label for="theme">Select Theme</label>
 			<?php 
 				$selected = isset($config["theme"]) ? $config["theme"] : null;
 				echo dropdown($themes, $selected, array("id"=>"theme", "name"=>"theme")); 

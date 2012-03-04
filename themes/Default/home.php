@@ -7,7 +7,11 @@
 <?php echo $Current->content() ?>
 </div>
 
-<?php foreach(posts(5) as $Post): ?>
+<section id="blog-preview">
+
+<h1>Latest Blog Posts</h1>
+
+<?php foreach(posts(3) as $Post): ?>
 
 	<article>
 		<h1><a href="<?php echo $Post->permalink() ?>"><?php echo $Post->title() ?></a></h1>
@@ -36,6 +40,8 @@
 	</article>
 
 <?php endforeach ?>
+
+</section>
 
 <?php include "inc/footer.php" ?>
 <?php include "inc/foot.php" ?>
