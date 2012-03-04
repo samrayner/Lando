@@ -145,7 +145,8 @@ var Recache = {
 			.removeClass("active")
 			.removeAttr("style")
 			.addClass("done")
-			.html("Caching complete");
+			.html("Caching complete")
+			.click(Recache.click);
 	},
 
 	updateProgress: function(type) {
@@ -185,9 +186,8 @@ var Recache = {
 	block: function(event) {
 		var $button = $("#recache-button");
 
-		$button.parent().addClass("disabled");
-
 		$button
+			.addClass("disabled")
 			.html("Save changes before caching")
 			.attr("data-icon", "-")
 			.off("click");
@@ -195,11 +195,11 @@ var Recache = {
 
 	click: function(event) {
 		event.preventDefault();
-		$(this).off('click');
 		
 		$(this)
 			.removeClass("done")
-			.addClass("active");
+			.addClass("active")
+			.off("click");
 		
 		var spinner = new Spinner(this);
 		spinner.init();

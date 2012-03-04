@@ -10,7 +10,7 @@ var CleanUp = {
 			.removeClass("active")
 			.addClass("done")
 			.html("Files deleted")
-			.off("click");
+			.click(CleanUp.click);
 	},
 
 	click: function(event) {
@@ -19,12 +19,17 @@ var CleanUp = {
 		$(this)
 			.removeClass("done")
 			.addClass("active")
-			.html("Deleting install files");
+			.html("Deleting install files")
+			.off("click");
 
 		var spinner = new Spinner(this);
 		spinner.init();
-			
-		var $jqxhr = $.get("cleanup.php", CleanUp.done);
+		
+		$("#install-button")
+			.addClass("disabled")
+			.off("click");
+
+		$.get("cleanup.php", CleanUp.done);
 	},
 	
 	init: function() {
@@ -39,7 +44,7 @@ var Install = {
 			.removeAttr("style")
 			.addClass("done")
 			.html("Content added to Dropbox")
-			.off("click");
+			.click(Install.click);
 	},
 
 	updateProgress: function() {

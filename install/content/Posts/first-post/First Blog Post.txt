@@ -1,4 +1,4 @@
-published: 1st January 2012 10:00am
+published: 1st March 2012 10:00am
 tags: example, blogging
 
 This is your first blog post! It lives in a sub-folder of _/Posts_ in your Dropbox named with the post URL slug (_first-post_). The filename is used as the post title, and metadata can be added at the top of the file from overriding the publish date, to tags, to [pretty much anything you like][meta].

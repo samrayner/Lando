@@ -1,0 +1,56 @@
+published: 2nd March 2012 at 9am
+tags: markdown, formatting, tips
+
+
+[Markdown][md] is a lightweight markup language that lets you format your Lando content without any complicated tags like HTML. Created by [John Gruber][jg], it is intended to be "as easy-to-read and easy-to-write as is feasible".
+
+Here's a rundown of what you can do with Markdown. Open the text file for this post in your Dropbox to see how it's formatted.
+
+---
+
+To create a paragraph, just use double line breaks.
+
+You can _emphasise_ text with single `*asterisks*` or `_underscores_` or make text **bold** by using `**two**`.
+
+There are two ways to create [hyperlinks](#): `[link text](http://the-url.com)` or with a `[reference][1]` and then the URL at the bottom of the document: `[1]: http://landocms.com`.
+
+Footnotes[^1] are done with references too, using `[^1]` and `[^1]: The footnote.`
+
+
+Headings
+========
+
+Above is a level 1 heading underlined with `===`. Underline with `---` for a level 2 heading:
+
+Smaller Heading
+---------------
+You can create even smaller headings (up to level 6) using `### Heading 3 ###` (number of `#`s corresponds to heading level).
+
+Blockquotes are prefixed with `>` like in an email:
+
+> A long time ago in a galaxy far, far away...
+
+You can make a bulletted list with `*`, `-` or `+`:
+
+* This
+* List
+- Has
++ Bullets
+
+Or a numbered list:
+
+1. A New Hope
+2. The Empire Strikes Back
+3. Return Of The Jedi
+
+And you can break up sections with a horizontal rule using `---` or `***`:
+
+---
+
+That's a really quick tour of Markdown. Check out the full [syntax guide][sg] for a more detailed explanation.
+
+[^1]: This is a footnote.
+
+[jg]: http://daringfireball.net/
+[md]: http://daringfireball.net/projects/markdown/
+[sg]: http://daringfireball.net/projects/markdown/syntax

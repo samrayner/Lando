@@ -117,30 +117,6 @@ body {
 	box-shadow: 1px 1px 0 white;
 	-webkit-box-shadow: 1px 1px 0 white;
 	
-	&:hover,
-	&:focus {
-		color: darken(@linkBlue, 30%);
-		background-color: lighten(saturate(@linkBlue, 60%), 52%);
-		.gradient(rgba(0,70,150,0.05), 40%, rgba(0,0,0,0), 60%);
-	}
-	
-	&:active,
-	&.active {
-		border-color: rgba(0,0,0,0.3);
-		color: rgba(0,0,0,0.9);
-		background-color: lighten(saturate(@linkBlue, 60%), 46%);
-		.gradient(rgba(255,255,255,0.15), 60%, rgba(0,0,0,0), 40%);
-	}
-	
-	&.active {
-		background-image: url(../images/progress-bg.png);
-		background-repeat: no-repeat;
-		background-position: 0 50%; 
-
-		transition: background-position-x 10s ease-out;
-		-webkit-transition: background-position-x 10s ease-out;	
-	}
-	
 	&.done {
 		box-shadow: 0 0 0 1px @doneGreen;
 		-webkit-box-shadow: 0 0 0 1px @doneGreen;
@@ -150,6 +126,53 @@ body {
 
 	&.big {
 		font-size: 1.2em;
+	}
+
+	&.disabled {
+		&:hover,
+		&:focus {
+			color: rgba(0,0,0,0.8);
+		}
+	}
+
+	&:not(.disabled) {
+		&:hover,
+		&:focus {
+			color: darken(@linkBlue, 30%);
+			background-color: lighten(saturate(@linkBlue, 60%), 52%);
+			.gradient(rgba(0,70,150,0.05), 40%, rgba(0,0,0,0), 60%);
+		}
+		
+		&:active,
+		&.active {
+			border-color: rgba(0,0,0,0.3);
+			color: rgba(0,0,0,0.9);
+			background-color: lighten(saturate(@linkBlue, 60%), 46%);
+			.gradient(rgba(255,255,255,0.15), 60%, rgba(0,0,0,0), 40%);
+		}
+		
+		&.active {
+			background-image: url(../images/progress-bg.png);
+			background-repeat: no-repeat;
+			background-position: 0 50%; 
+
+			transition: background-position-x 10s ease-out;
+			-webkit-transition: background-position-x 10s ease-out;	
+		}
+
+		&.done {
+			&:hover,
+			&:focus {
+				color: darken(@doneGreen, 32%);
+				background-color: lighten(saturate(@doneGreen, 30%), 44%);
+				.gradient(rgba(0,70,50,0.08), 40%, rgba(0,0,0,0), 60%);
+			}
+
+			&:active {
+			background-color: lighten(desaturate(@doneGreen, 10), 35%);
+			.gradient(rgba(255,255,255,0.2), 60%, rgba(0,0,0,0), 40%);
+		}
+		}
 	}
 }
 
@@ -265,13 +288,7 @@ section,
 	padding: 20px;
 	border-top: 1px solid white;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
-	background-color: @panelGrey;
-	
-	> * {
-		transition: opacity 0.5s linear;
-		-webkit-transition: opacity 0.5s linear;
-	}
-	
+	background-color: @panelGrey;	
 	.gradient(rgba(0,0,0,0.02), 10px, rgba(0,0,0,0), 40px);
 	
 	h1 {
@@ -286,13 +303,8 @@ section,
 }
 
 .disabled {
-	> * {
-		opacity: 0.5;
-	}
-	
-	a {
-		cursor: default;
-	}
+	opacity: 0.5;
+	cursor: default;
 }
 
 input,

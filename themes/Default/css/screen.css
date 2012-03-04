@@ -30,7 +30,7 @@ h2{font-size:1.2em;}
 h3{font-size:1em;}
 h3+p,h4+p,h5+p,h6+p,dt+p,h3+dd,h4+dd,h5+dd,h6+dd,dt+dd{margin-top:-1em;}
 dt{font-weight:bold;}
-#admin-links{position:fixed;right:0.5em;top:0.6em;}#admin-links a{display:block;float:left;background-color:rgba(0, 0, 0, 0.7);color:white;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.2);font-weight:bold;text-decoration:none;font-size:0.7em;text-transform:uppercase;border-radius:2px;padding:0 0.4em;line-height:1.5;margin-left:0.5em;}#admin-links a:hover,#admin-links a:focus,#admin-links a:active{background-color:black;}
+#admin-links{position:fixed;z-index:999;right:0.5em;top:0.6em;}#admin-links a{display:block;float:left;background-color:rgba(0, 0, 0, 0.7);color:white;text-shadow:1px 1px 0 rgba(0, 0, 0, 0.2);font-weight:bold;text-decoration:none;font-size:0.7em;text-transform:uppercase;border-radius:2px;padding:0 0.4em;line-height:1.5;margin-left:0.5em;}#admin-links a:hover,#admin-links a:focus,#admin-links a:active{background-color:black;}
 #masthead{margin-bottom:2em;}#masthead h1{font-size:2.5em;margin:0;letter-spacing:-0.04em;}
 #masthead h1 a{text-decoration:none;}#masthead h1 a:link,#masthead h1 a:hover,#masthead h1 a:focus,#masthead h1 a:visited,#masthead h1 a:active{color:rgba(34, 34, 34, 0.9);}
 #masthead h2{margin:0;font-size:1.1em;font-weight:normal;font-style:italic;font-family:georgia,"Times New Roman",times,serif;color:rgba(34, 34, 34, 0.7);}
