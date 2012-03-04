@@ -18,7 +18,7 @@ class Controller {
 	private function define_theme_vars() {
 		$vars["site_title"] 			= stripslashes(htmlspecialchars($this->config["site_title"], ENT_NOQUOTES));
 		$vars["site_description"] = stripslashes(htmlspecialchars($this->config["site_description"], ENT_NOQUOTES));
-		$vars["theme_dir"] 				= "/themes/".$this->config["theme"];
+		$vars["theme_dir"] 				= $this->config["site_root"]."/themes/".$this->config["theme"];
 		
 		$vars["site_root"] = $this->config["site_root"];
 		if(!$this->config["pretty_urls"])

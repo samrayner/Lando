@@ -1,7 +1,7 @@
 <?php
 include "app/core/loader.php";
 
-$themeBase = trim_slashes($theme_dir)."/";
+$themeBase = "themes/".$Lando->config["theme"]."/";
 $template = "404";
 $url = current_path();
 $Current = new Page();
