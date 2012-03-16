@@ -31,14 +31,26 @@ switch(end($segs)) {
 
 	<script>
 		(function () {
-			var filename;
+			var width = 320; //default to non-retina iPhone
+			var height = 460;
+
 			if(navigator.platform === 'iPad') {
-				filename = window.orientation === 90 || window.orientation === -90 ? 'splash-1024x748.png' : 'splash-768x1004.png';
-			} 
-			else {
-				filename = window.devicePixelRatio === 2 ? 'splash-640x920.png' : 'splash-320x460.png';
+				if(window.orientation === 90 || window.orientation === -90) {
+					width = 1024; //landscape
+					height = 748;
+				}
+				else {
+					width = 768; //portrait
+					height = 1004;
+				}
 			}
-			document.write('<link rel="apple-touch-startup-image" href="images/' + filename + '"/>' );
+
+			if(window.devicePixelRatio === 2) {
+				width *= 2;
+				height *= 2;
+			}
+
+			document.write('<link rel="apple-touch-startup-image" href="images/splash-'+width+'x'+height+'.png"/>' );
 		})();
 	</script>
 
