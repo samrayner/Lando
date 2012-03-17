@@ -21,9 +21,6 @@ var CleanUp = {
 			.addClass("active")
 			.html("Deleting install files")
 			.off("click");
-
-		var spinner = new Spinner(this);
-		spinner.init();
 		
 		$("#install-button")
 			.addClass("disabled")
@@ -39,10 +36,14 @@ var CleanUp = {
 
 var Install = {
 	done: function() {
-		$("#install-button")
-			.removeClass("active")
+		var $btn = $("#install-button");
+
+		Icons.removeAll($btn);
+
+		$btn
 			.removeAttr("style")
-			.addClass("done")
+			.removeClass("active")
+			.addClass("done icon-ok-sign")
 			.html("Content added to Dropbox")
 			.click(Install.click);
 	},
@@ -92,15 +93,17 @@ var Install = {
 
 	click: function(event) {
 		event.preventDefault();
-		$(this).off('click');
+
+		var $this = $(this);
+
+		$this.off('click');
+
+		Icons.removeAll($this);
 		
-		$(this)
+		$this
 			.removeClass("done")
-			.addClass("active")
+			.addClass("active icon-refresh")
 			.html("Preparing files...");
-		
-		var spinner = new Spinner(this);
-		spinner.init();
 		
 		Install.run();
 	},

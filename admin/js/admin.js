@@ -4,6 +4,14 @@ Author:				Sam Rayner - http://samrayner.com
 Created:			2011-09-16
 */
 
+var Icons = {
+	removeAll: function($elm) {
+		$elm.removeClass(function(index, css) {
+			return(css.match(/\bicon-\S+/g) || []).join(' ');
+		});
+	}
+};
+
 var PageNav = {
 	sortableTree: function(parents) {
 		var tree = {};
@@ -104,8 +112,7 @@ var PageNav = {
 
 var Tooltips = {
 	toggle: function(selector) {
-		var $message = $(selector);
-		$message.toggleClass("collapsed");
+		$(selector).toggleClass("collapsed");
 	},
 
 	init: function() {
@@ -115,36 +122,18 @@ var Tooltips = {
 	}
 };
 
-function Spinner(elm) {
-	this.$elm = $(elm);
-	this.interval = null;
-	this.progress = 0;
-
-	this.advance = function(Spinner) {
-		if(Spinner.$elm.hasClass("done")) {
-			window.clearInterval(Spinner.interval);
-			Spinner.$elm.attr("data-icon", "/");
-			return false;
-		}
-
-		Spinner.progress = (Spinner.progress < 7) ? Spinner.progress + 1 : 0;
-		Spinner.$elm.attr("data-icon", Spinner.progress);
-	};
-
-	this.init = function() {
-		var that = this;
-		that.interval = window.setInterval(function(){ that.advance(that); }, 143);
-	};
-}
-
 var Recache = {
 	types: ["collections", "snippets", "pages", "posts", "drafts"],
 
 	done: function() {
-		$("#recache-button")
+		var $btn = $("#recache-button");
+
+		Icons.removeAll($btn);
+
+		$btn
 			.removeClass("active")
 			.removeAttr("style")
-			.addClass("done")
+			.addClass("done icon-ok-sign")
 			.html("Caching complete")
 			.click(Recache.click);
 	},
@@ -187,22 +176,22 @@ var Recache = {
 		var $button = $("#recache-button");
 
 		$button
-			.addClass("disabled")
+			.addClass("disabled icon-ban-circle")
 			.html("Save changes before caching")
-			.attr("data-icon", "-")
 			.off("click");
 	},
 
 	click: function(event) {
 		event.preventDefault();
+
+		var $this = $(this);
 		
-		$(this)
+		Icons.removeAll($this);
+
+		$this
 			.removeClass("done")
-			.addClass("active")
+			.addClass("active icon-refresh")
 			.off("click");
-		
-		var spinner = new Spinner(this);
-		spinner.init();
 
 		Recache.process(Recache.types[0]);
 	},
@@ -210,7 +199,7 @@ var Recache = {
 	init: function() {
 		$("#host_root").change(Recache.block);
 		$("#recache-button").click(Recache.click);
-	},
+	}
 };
 
 var FormCheck = {

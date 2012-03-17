@@ -74,7 +74,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 	
 	<div id="last-panel">
 		<label for="next-connect">Next</label>
-		<button id="next-connect" class="button" data-icon="C">Connect to Dropbox</button>
+		<button id="next-connect" class="button icon-external-link">Connect to Dropbox</button>
 	</div>
 </form>
 

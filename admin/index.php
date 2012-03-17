@@ -95,8 +95,8 @@ function nav_widget($pages=null, $path=array()) {
 		<h1>Lando Admin</h1>
 		
 		<div id="buttons">
-			<a href="<?php echo $site_root ?>" class="button" data-icon="h">Home</a>
-			<a href="login.php?logout=1" class="button" data-icon="X">Log out</a>
+			<a href="<?php echo $site_root ?>" class="button icon-home">Home</a>
+			<a href="login.php?logout=1" class="button icon-off">Log out</a>
 		</div>
 	</header>
 
@@ -106,9 +106,9 @@ function nav_widget($pages=null, $path=array()) {
 		
 		if(isset($_GET["saved"])) {
 			if($_GET["saved"])
-				echo '<p class="notify success" data-icon="/">Settings saved. <a href="'.$site_root.'">All done?</a></p>';
+				echo '<p class="notify success icon-ok-sign">Settings saved. <a href="'.$site_root.'">All done?</a></p>';
 			else
-				echo '<p class="notify failure" data-icon="W">Error saving. Please check permissions on <em>app/config</em> and its files are <strong>0777</strong> and try again.</p>';
+				echo '<p class="notify failure icon-warning-sign">Error saving. Please check permissions on <em>app/config</em> and its files are <strong>0777</strong> and try again.</p>';
 		}
 		
 		?>
@@ -133,7 +133,7 @@ function nav_widget($pages=null, $path=array()) {
 		<div>
 			<label for="pretty_urls">Remove index.php from URLs</label>
 			<input id="pretty_urls" name="pretty_urls" type="checkbox" value="1" <?php set_field_state("pretty_urls", "checked"); ?> />
-			<p id="htaccess" class="notify collapsed" data-icon="W">Have you <a target="_blank" href="http://landocms.com/docs/pretty-urls">updated your <em>.htaccess</em> file</a>?</p>
+			<p id="htaccess" class="notify collapsed icon-question-sign">Have you <a target="_blank" href="http://landocms.com/docs/pretty-urls">updated your <em>.htaccess</em> file</a>?</p>
 		</div>
 	</section>
 	
@@ -154,7 +154,7 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 		
 		<div id="recache">
-			<a id="recache-button" class="button" href="#" data-icon="V">Recreate content caches</a>
+			<a id="recache-button" class="button icon-repeat" href="#">Recreate content caches</a>
 		</div>
 	</section>
 	
@@ -200,7 +200,7 @@ function nav_widget($pages=null, $path=array()) {
 	</section>
 	
 	<div id="last-panel">
-		<button class="button" data-icon=".">Save Settings</button>
+		<button class="button icon-ok">Save Settings</button>
 		<a id="cancel" href="<?php echo $site_root ?>">Cancel</a>
 	</div>
 </form>

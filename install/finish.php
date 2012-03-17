@@ -53,7 +53,7 @@ if(isset($_GET["uid"])) {
 		<?php if(!is_dir("$doc_root/install/content")): ?>
 		No content found in install folder.
 		<?php else: ?>
-		<a id="install-button" class="button" href="#" data-icon="F">Put content in <?php echo $config["host_root"] ?></a>
+		<a id="install-button" class="button icon-download-alt" href="#">Put content in <?php echo $config["host_root"] ?></a>
 		<?php endif ?>
 	</div>
 </section>
@@ -63,7 +63,7 @@ if(isset($_GET["uid"])) {
 	<p class="subtitle">Prepare webpages from your cloud files</p>
 
 	<div>
-		<a id="recache-button" class="button" href="#" data-icon=")">Perform initial cache</a>
+		<a id="recache-button" class="button icon-play" href="#">Perform initial cache</a>
 	</div>
 </section>
 
@@ -72,7 +72,7 @@ if(isset($_GET["uid"])) {
 	<p class="subtitle">Highly recommended for security reasons</p>
 
 	<div>
-		<a id="cleanup-button" class="button" href="#" data-icon="'">Delete install files</a> 
+		<a id="cleanup-button" class="button icon-trash" href="#">Delete install files</a> 
 	</div>
 </section>
 
@@ -80,7 +80,7 @@ if(isset($_GET["uid"])) {
 	<p class="finished">&hellip;and you're done!</p>
 
 	<div id="homepage-button">
-		<a class="big done button" href="<?php echo $config["site_root"]."/" ?>">Go to your new homepage</a>
+		<a class="big done button icon-home" href="<?php echo $config["site_root"]."/" ?>">Go to your new homepage</a>
 	</div>
 
 	<p>Or to check your settings, visit the <a href="<?php echo $config["site_root"]."/admin/" ?>">admin panel</a>.</p>

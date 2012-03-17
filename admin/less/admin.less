@@ -4,34 +4,14 @@
 @import url("reset.css");
 
 
-/* PICTOS FONT
+/* ICON FONT
 ================================================== */
 
-@import url("../fonts/websymbols.css");
+@import url("font-awesome.css");
 
-[data-icon]::before {
-	font-family: "WebSymbolsRegular";
-	font-weight: normal;
-	line-height: 0;
-	content: attr(data-icon);
-	margin: 0 0.6ex 0 -0.1ex;
-	opacity: 0.7;
-	speak: none;
-}
-
-[data-icon=h],
-[data-icon=F],
-[data-icon=C],
-[data-icon=X],
-[data-icon=R],
-[data-icon="."],
-[data-icon="'"] {
-	::before {
-		font-size: 0.8em;
-		position: relative;
-		top: -0.3ex;
-		margin-right: 0.9ex;
-	}
+[class^="icon-"]:before, 
+[class*=" icon-"]:before {
+	margin-right: 1ex;
 }
 
 
@@ -106,7 +86,7 @@ body {
 	border-radius: 3px;
 	border: 1px solid rgba(0,0,0,0.3);
 	text-decoration: none;
-	padding: 0 0.8em;
+	padding: 0 0.7em;
 	line-height: 1.9;
 	background-color: white;
 	text-shadow: 1px 1px 0 white;
@@ -196,33 +176,33 @@ header {
 		position: absolute;
 		right: 18px;
 		top: 7px;
-	}
-	
-	.button {
-		padding: 0 0.6em;
-		line-height: 1.8;
-		float: left;
-		margin-left: 0.4em;
-		border: 1px solid rgba(255,255,255,0.1);
-		background-color: #191919;
-		color: rgba(255,255,255,0.7);
-		text-shadow: none;
+
+		.button {
+			padding: 0 0.6em;
+			line-height: 1.8;
+			float: left;
+			margin-left: 0.4em;
+			border: 1px solid rgba(255,255,255,0.1);
+			background-color: #191919;
+			color: rgba(255,255,255,0.7);
+			text-shadow: none;
+			
+			box-shadow: none;
+			-webkit-box-shadow: none;
+			
+			.gradient(rgba(0,0,0,0.3), 40%, rgba(0,0,0,0), 60%);
 		
-		box-shadow: none;
-		-webkit-box-shadow: none;
-		
-		.gradient(rgba(0,0,0,0.3), 40%, rgba(0,0,0,0), 60%);
-	
-		&:hover,
-		&:focus {
-			color: rgba(255,255,255,0.8);
-			background-color: #222;
-		}
-		
-		&:active {
-			border: 1px solid rgba(255,255,255,0.2);
-			background-color: black;
-			.gradient(black, 0, black, 0);
+			&:hover,
+			&:focus {
+				color: rgba(255,255,255,0.8);
+				background-color: #222;
+			}
+			
+			&:active {
+				border: 1px solid rgba(255,255,255,0.2);
+				background-color: black;
+				.gradient(black, 0, black, 0);
+			}
 		}
 	}
 }
@@ -449,6 +429,8 @@ input + .notify {
 }
 
 .notify {
+	clear: both;
+	display: block;
 	height: auto;
 	opacity: 1;
 	padding: 0.5em 0.8em;
