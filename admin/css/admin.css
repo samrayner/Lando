@@ -1,6 +1,6 @@
 @import url("reset.css");
 @import url("font-awesome.css");
-[class^="icon-"]:before,[class*=" icon-"]:before{margin-right:1ex;}
+[class^="icon-"]::before,[class*=" icon-"]::before{margin-right:0.5em;}
 header{zoom:1;}header:after{display:block;visibility:hidden;height:0;clear:both;content:".";}
 html{-webkit-font-smoothing:antialiased;}
 body{font:14px/1.6 "Helvetica Neue",helvetica,arial,sans-serif;color:rgba(0, 0, 0, 0.7);text-shadow:1px 1px 0 #ffffff;background:#464646 url(../images/pixels.gif);}
