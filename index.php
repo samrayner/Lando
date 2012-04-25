@@ -64,7 +64,7 @@ elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 	
 //kick out to login if trying to view drafts
 if(in_array($template, array("draft", "drafts_all")) && !admin_cookie())
-	header("Location: $site_root/admin/login.php?redirect=drafts");
+	header("Location: ".$Lando->config["site_root"]."/admin/login.php?redirect=drafts");
 
 $helper_file = $themeBase."theme_functions.php";
 if(include_exists($helper_file))

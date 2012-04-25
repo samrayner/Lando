@@ -34,7 +34,7 @@
 	<?php if(!$year): ?>
 		<div class="year-block">
 		<h2>
-			<a href="<?php echo "$site_root/posts/from/$post_year/" ?>/" title="Year permalink"><?php echo $post_year ?></a>
+			<a href="<?php echo "$site_root/posts/from/$post_year/" ?>" title="Year permalink"><?php echo $post_year ?></a>
 		</h2>
 	<?php endif ?>
 
@@ -43,7 +43,7 @@
 		<?php if(!$month): ?>
 			<div class="month-block">
 			<h3>
-				<a href="<?php echo "$site_root/posts/from/$post_year/$post_month" ?>/" title="Month permalink"><?php echo date("F", mktime(0, 0, 0, $post_month)) ?></a>
+				<a href="<?php echo "$site_root/posts/from/$post_year/$post_month/" ?>" title="Month permalink"><?php echo date("F", mktime(0, 0, 0, $post_month)) ?></a>
 			</h3>
 		<?php endif ?>
 
@@ -70,7 +70,7 @@
 							<h3>Tagged</h3>
 							<ul>
 							<?php foreach($Post->metadata("tags") as $tag): ?>
-								<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>"><?php echo $tag ?></a></li>
+								<li><a href="<?php echo $site_root ?>/posts/tagged/<?php echo urlencode($tag) ?>/"><?php echo $tag ?></a></li>
 							<?php endforeach ?>
 							</ul>
 						</div>

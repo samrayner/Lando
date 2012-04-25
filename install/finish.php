@@ -46,8 +46,8 @@ if(isset($_GET["uid"])) {
 </header>
 
 <section id="install">
-	<h1>Add Example Content</h1>
-	<p class="subtitle">Helps getting to grips with Lando</p>
+	<h1>1. Add Example Content</h1>
+	<p class="subtitle">This will help you get to grips with Lando</p>
 
 	<div>
 		<?php if(!is_dir("$doc_root/install/content")): ?>
@@ -59,7 +59,7 @@ if(isset($_GET["uid"])) {
 </section>
 
 <section id="cache">
-	<h1>Cache Content</h1>
+	<h1>2. Cache Content</h1>
 	<p class="subtitle">Prepare webpages from your cloud files</p>
 
 	<div>
@@ -68,7 +68,7 @@ if(isset($_GET["uid"])) {
 </section>
 
 <section id="cleanup">
-	<h1>Clean Up Installation</h1>
+	<h1>3. Clean Up Installation</h1>
 	<p class="subtitle">Highly recommended for security reasons</p>
 
 	<div>

@@ -38,6 +38,10 @@ foreach($types as $type) {
 	}
 }
 
+//always refresh pages cache
+if(!in_array("pages", $types))
+	$Lando->get_all_fresh("pages");
+
 $redirect = isset($_GET["redirect"]) ? trim_slashes($_GET["redirect"]) : "";
 
 if($redirect)
