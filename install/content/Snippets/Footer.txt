@@ -2,4 +2,4 @@ Site powered by [Lando][l]: _manage your website in The Cloud_.
 Subscribe to the [blog RSS feed][rss].
 
 [l]: http://landocms.com
-[rss]: {{site_root}}/index.php/rss/
+[rss]: {{site_root}}/rss/
