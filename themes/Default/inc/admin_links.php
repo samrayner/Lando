@@ -2,7 +2,7 @@
 
 <div id="admin-links">
 	<?php if(preg_match('~^(posts|drafts)~', $template, $types)): ?>
-		<a href="<?php echo $Lando->config["site_root"] ?>/admin/update/?type=<?php echo $types[1] ?>&amp;redirect=<?php echo current_path() ?>&amp;delete=0">Update</a>
+		<a href="<?php echo $Lando->config["site_root"] ?>/admin/update/?type=<?php echo $types[1] ?>&amp;redirect=<?php echo current_path() ?>&amp;delete=0">Update Page</a>
 	<?php endif ?>
 
 	<?php if($Current->path()): ?>

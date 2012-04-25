@@ -14,6 +14,8 @@ You can _emphasise_ text with single `*asterisks*` or `_underscores_` or make te
 
 There are two ways to create [hyperlinks](#): `[link text](http://the-url.com)` or with a `[reference][1]` and then the URL at the bottom of the document: `[1]: http://landocms.com`.
 
+Images can be inserted in similar ways but prefixed with an exclamation mark: `![Alt Text](image.jpg)` or `![Alt Text][1]` with the reference further down the document: `[1]: image.jpg`.
+
 Footnotes[^1] are done with references too, using `[^1]` and `[^1]: The footnote.`
 
 

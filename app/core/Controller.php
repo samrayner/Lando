@@ -97,7 +97,7 @@ class Controller {
 		
 		//if comparing arrays, B must contain A but any order
 		elseif(is_array($a) && is_array($b))
-			return (sizeof(array_diff($a, $b)) == 0);
+			return (sizeof(array_udiff($a, $b, 'strcasecmp')) == 0);
 		
 		//otherwise convert to string and do case-insensitive comparison
 		else
