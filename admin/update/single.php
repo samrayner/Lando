@@ -1,23 +1,16 @@
 <?php
 
+//stop page load timing out on big recaches
+set_time_limit(0);
+
 $doc_root = dirname(dirname(dirname(__FILE__)));
 
-//load all helper functions
-foreach(glob("$doc_root/app/helpers/*.php") as $file)
-	include_once $file;
-
-//load existing config
-$config_file = "$doc_root/app/config/config.php";
-if(include_exists($config_file))
-	include_once $config_file;
-
-$site_root = $config["site_root"];
-if(!$config["pretty_urls"])
-	$site_root .= "/index.php";
-
+include "$doc_root/app/core/loader.php";
 include "$doc_root/admin/inc/auth.php";
 
-include_once "$doc_root/app/core/Cache.php";
+//always refresh pages cache
+$Lando->get_all_fresh("pages");
+
 $Cache = new Cache();
 
 $path = isset($_GET["path"]) ? trim_slashes($_GET["path"]) : false ;

@@ -25,6 +25,8 @@
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/prettyPhoto.css" media="screen" />
 	<!-- Flux styles -->
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/flux.css" media="screen" />
+	<!-- Highlight styles -->
+	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/highlight.css" media="screen" />
 	
 	<!--[if lte IE 8]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	
@@ -34,7 +36,7 @@
 	
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="'.<?php echo $theme_dir ?>.'js/jquery-1.7.1.min.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="<?php echo $theme_dir ?>js/jquery-1.7.1.min.js"><\/script>');</script>
 
 	<script src="<?php echo $theme_dir ?>/js/min/global-min.js"></script>
 	
@@ -42,8 +44,8 @@
 	<script src="<?php echo $theme_dir ?>/js/prettyPhoto/jquery.prettyPhoto.js"></script>
 	<!-- Flux slider for slideshows: https://github.com/joelambert/Flux-Slider -->
 	<script src="<?php echo $theme_dir ?>/js/flux/flux.min.js"></script>
-	<!-- jQuery wrapper for Google's Prettify: https://github.com/balupton/jquery-syntaxhighlighter -->
-	<script src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+	<!-- Highlight for code highlighting: http://softwaremaniacs.org/soft/highlight/en/ -->
+	<script src="<?php echo $theme_dir ?>/js/highlight/highlight.pack.js"></script>
 	
 	<script>
 		$(function(){
@@ -66,17 +68,12 @@
 					http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone */
 			});
 
-			$("pre code").each(function() {
-				$(this).addClass("highlight");
-			});
-
-			$.SyntaxHighlighter.init({
-				'themes': ['balupton'],
-				'theme': 'balupton',
-				/*There are lots of options you can adjust here to customise how
-					code blocks are highlighted. Check out the documentation at 
-					http://balupton.github.com/jquery-syntaxhighlighter/demo */
-			});
+			//syntax highlight code blocks
+			$('pre code').each(
+				function(i, e){ 
+					hljs.highlightBlock(e, '  ');
+				}
+			);
 		});
 	</script>
 	

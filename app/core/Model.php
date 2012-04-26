@@ -105,6 +105,7 @@ class Model {
 		//		ii)There hasn't been another cache on this page load
 		$should_cache = $age < $same_load || ($max_age >= 0 && $age > $max_age &&
 																					$this->recache_count < self::RECACHE_LIMIT);
+
     if($should_cache) {
     	$this->Cache->touch($path);
 
