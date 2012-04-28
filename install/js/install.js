@@ -8,9 +8,8 @@ var CleanUp = {
 	done: function() {
 		$("#cleanup-button")
 			.removeClass("active")
-			.addClass("done")
-			.html("Files deleted")
-			.click(CleanUp.click);
+			.addClass("done disabled")
+			.html("Files deleted");
 	},
 
 	click: function(event) {
