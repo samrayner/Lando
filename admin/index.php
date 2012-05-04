@@ -178,7 +178,7 @@ function nav_widget($pages=null, $path=array()) {
 
 	<section id="page-nav">
 		<h1>Page Navigation</h1>
-		<p class="subtitle">Uncheck to hide in nav, drag to reorder</p>
+		<p class="subtitle">Uncheck to hide in nav</p>
 		
 		<input id="page_order" name="page_order" type="hidden" />
 	

@@ -6,7 +6,11 @@
 	<?php endif ?>
 
 	<?php if($Current->path()): ?>
-		<a href="<?php echo $Lando->config["site_root"] ?>/admin/update/single.php?path=<?php echo current_path() ?>">Update page</a>
+		<?php 
+			$seg = path_segment(1);
+			$content_type = ($seg == "posts" || $seg == "drafts") ? substr($seg, 0, -1) : "page";
+		?>
+		<a href="<?php echo $Lando->config["site_root"] ?>/admin/update/single.php?path=<?php echo current_path() ?>">Update <?php echo $content_type ?></a>
 	<?php endif ?>
 
 	<?php if($template == "draft"): ?>

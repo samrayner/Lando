@@ -269,12 +269,7 @@ class Model {
 		$log = "Installation started ".date("F jS, Y \a\t G:i:s")."";
 		
 		//count all files and folders
-		$file_count = 0;
-		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($local_path), RecursiveIteratorIterator::SELF_FIRST);
-		foreach($files as $name => $_) {
-			if(substr(basename($name), 0, 1) != ".")
-				$file_count++;
-		}
+		$file_count = dir_file_count($local_path);
 		
 		$host_segs = explode("/", trim_slashes($host_path));
 		$path = "";

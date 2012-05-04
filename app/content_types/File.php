@@ -51,15 +51,7 @@ class File extends Content {
 	}
 
 	public function size($unit="kb") {
-		$unit = strtolower($unit);
-		$units = array("b","kb","mb","gb","tb");
-	
-		if(!in_array($unit, $units) || $unit == "b")
-			return $this->bytes;
-		
-		$power = array_search($unit, array_keys($units))*10;
-		
-		return round($this->bytes/pow(2, $power), 2);
+		return format_bytes($this->bytes, $unit);
 	}
 
 	public function url() {

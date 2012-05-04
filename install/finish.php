@@ -53,7 +53,7 @@ if(isset($_GET["uid"])) {
 		<?php if(!is_dir("$doc_root/install/content")): ?>
 		No content found in install folder.
 		<?php else: ?>
-		<a id="install-button" class="button icon-download-alt" href="#">Put content in <?php echo $config["host_root"] ?></a>
+		<a id="install-button" class="button icon-download-alt" href="#">Put content in <?php echo $config["host_root"] ?> (<?php echo format_bytes(dir_size("$doc_root/install/content"), "mb") ?>MB)</a>
 		<?php endif ?>
 	</div>
 </section>

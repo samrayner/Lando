@@ -107,6 +107,10 @@ var PageNav = {
 		
 		//fire change on every checkbox
 		$(".sortable input:checkbox").change();
+
+		if(!('ontouchstart' in document.documentElement)) {
+			$("#page-nav .subtitle").append(", drag to reorder");
+		}
 	}
 };
 
