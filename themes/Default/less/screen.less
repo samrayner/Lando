@@ -117,11 +117,6 @@ blockquote {
 	}
 }
 
-dd {
-	margin-top: 0;
-	margin-left: 0;
-}
-
 table {
 	tr:nth-child(even) {
 		background-color: rgba(0,0,0,0.03);
@@ -214,15 +209,19 @@ h3 {
 	font-size: 1em;
 }
 
-h3,h4,h5,h6,dt {
-	+ p,
-	+ dd {
+h3, h4, h5, h6 {
+	+ p {
 		margin-top: -1em;
 	}
 }
 
 dt {
 	font-weight: bold;
+}
+
+dd {
+	margin-left: 0;
+	margin-bottom: 1em;
 }
 
 

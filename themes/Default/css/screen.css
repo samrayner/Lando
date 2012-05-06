@@ -111,10 +111,6 @@ blockquote cite {
 blockquote cite::before {
   content: "\2014\00A0";
 }
-dd {
-  margin-top: 0;
-  margin-left: 0;
-}
 table tr:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.03);
 }
@@ -199,17 +195,15 @@ h3 {
 h3 + p,
 h4 + p,
 h5 + p,
-h6 + p,
-dt + p,
-h3 + dd,
-h4 + dd,
-h5 + dd,
-h6 + dd,
-dt + dd {
+h6 + p {
   margin-top: -1em;
 }
 dt {
   font-weight: bold;
+}
+dd {
+  margin-left: 0;
+  margin-bottom: 1em;
 }
 /* ADMIN LINKS
 ================================================== */
