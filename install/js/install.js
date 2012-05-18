@@ -50,6 +50,7 @@ var Install = {
 	updateProgress: function() {
 		var $jqxhr = $.ajax({
 			url: "install_log.txt",
+			cache: false,
 			complete: function(data) {
 				var response = data.responseText;
 			
@@ -81,13 +82,13 @@ var Install = {
 	},
 	
 	run: function(type) {
+		window.setTimeout(Install.updateProgress, 1000);
+
 		var $jqxhr = $.ajax({
 			url: "install_content.php",
 			data: {"host_root": $("host_root").val()},
 			complete: Install.done
 		});
-		
-		window.setTimeout(Install.updateProgress, 1000);
 	},
 
 	click: function(event) {

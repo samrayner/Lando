@@ -266,7 +266,7 @@ class Model {
 		if($log_file && file_exists($log_file))
 			unlink($log_file);
 		
-		$log = "Installation started ".date("F jS, Y \a\t G:i:s")."";
+		$log = "Installation started ".date("F jS, Y \a\\t G:i:s");
 		
 		//count all files and folders
 		$file_count = dir_file_count($local_path);
