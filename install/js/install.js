@@ -73,7 +73,7 @@ var Install = {
 					var width = $("#install-button").outerWidth();
 					
 					var percent = done/total*100;
-					$("#install-button").css("background-position-x", Math.round(width*percent/100)+"px");
+					$("#install-button").css("background-position", Math.round(width*percent/100)+"px, 50%");
 				}
 				
 				window.setTimeout(Install.updateProgress, 500);

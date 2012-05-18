@@ -26,7 +26,9 @@ class Page extends Publishable {
 
 		foreach($search_root as $index) {
 			$Parent = end($parents);
-			$parents[] = $Parent->subpages[$index];
+
+			if(is_numeric($index))
+				$parents[] = $Parent->subpages[$index];
 		}
 
 		//don't include self as a parent
@@ -37,6 +39,7 @@ class Page extends Publishable {
 
 	public function parent($n=1) {
 		$parents = array_reverse($this->parents());
+
 		return isset($parents[$n-1]) ? $parents[$n-1] : false;
 	}
 }

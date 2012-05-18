@@ -150,7 +150,7 @@ var Recache = {
 		
 		var width = $("#recache-button").outerWidth();
 		
-		$("#recache-button").css("background-position-x", Math.round(width*percent/100)+"px");
+		$("#recache-button").css("background-position", Math.round(width*percent/100)+"px, 50%");
 	},
 	
 	process: function(type) {
