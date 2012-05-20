@@ -60,6 +60,7 @@ foreach(glob("$doc_root/app/cloud_hosts/*", GLOB_ONLYDIR) as $dir)
 	
 	<section id="admin">
 		<h1>Password for Admin &amp; Drafts</h1>
+		<p class="subtitle">(Doesn't need to be your Dropbox password)</p>
 		
 		<div>
 			<label for="admin_password">Password</label>
