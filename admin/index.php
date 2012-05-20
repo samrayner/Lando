@@ -159,7 +159,7 @@ function nav_widget($pages=null, $path=array()) {
 		</div>
 		
 		<div id="recache">
-			<a id="recache-button" class="button icon-repeat" href="#">Recreate content caches</a>
+			<a id="recache-button" class="button icon-repeat" href="#">Recreate content from files</a>
 		</div>
 	</section>
 	

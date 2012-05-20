@@ -59,11 +59,11 @@ if(isset($_GET["uid"])) {
 </section>
 
 <section id="cache">
-	<h1>2. Cache Content</h1>
-	<p class="subtitle">Prepare webpages from your cloud files</p>
+	<h1>2. Prepare Content</h1>
+	<p class="subtitle">Generate webpages from your cloud files</p>
 
 	<div>
-		<a id="recache-button" class="button icon-play" href="#">Perform initial cache</a>
+		<a id="recache-button" class="button icon-file" href="#">Prepare website content</a>
 	</div>
 </section>
 
