@@ -112,6 +112,11 @@ function nav_widget($pages=null, $path=array()) {
 		}
 		
 		?>
+
+		<div id="top-buttons">
+			<button class="button icon-ok">Save</button>
+			<a class="button icon-book" target="_blank" href="http://landocms.com/docs">Help</a>
+		</div>
 	
 		<h1>Site Details</h1>
 		
