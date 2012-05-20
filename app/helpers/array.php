@@ -17,7 +17,7 @@ function array_search_recursive($needle_val, $haystack, $needle_key=null, $regex
 		$key_match = $needle_key ? strtolower((string)$key) === strtolower((string)$needle_key) : true;
 
   	//if value is an array, drill down
-		if(is_array($val) and $sub_path = array_search_recursive($needle_val, $val, $needle_key, $regex, $path)) {
+		if(is_array($val) && $sub_path = array_search_recursive($needle_val, $val, $needle_key, $regex, $path)) {
 			$path = array_merge($path, array($key), $sub_path);
 			return $path;
 		}

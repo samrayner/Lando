@@ -72,6 +72,10 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	private function get_file_path($meta, $exts=null, $filename="") {
+		//if getting file from cache not API response
+		if(isset($meta["file_path"]) && $meta["file_path"])
+			return $meta["file_path"];
+
 		if(!$exts)
 			$exts = array_flatten($this->config["parsers"]);
 		
@@ -154,6 +158,7 @@ class Dropbox extends Cloud_Host {
 			//if not renamed slug directory
 			if(!$latest) {
 				$new_meta = $this->API->metadata($full_path, true, $meta["hash"]);
+				$new_meta["modified"] = strtotime($meta["modified"]);
 
 				//if not "403 - not modified"
 				if($new_meta !== true)
@@ -170,7 +175,8 @@ class Dropbox extends Cloud_Host {
 		//update cache with latest metadata if exists
 		$meta = array_merge($meta, $latest);
 		
-		$meta["published"] = $meta["created"] = $meta["modified"] = strtotime($meta["modified"]);
+		$meta["published"] = $meta["modified"];
+		$meta["created"] = $meta["modified"];
 		
 		if($type == "collections")
 			$meta["title"] = basename($meta["path"]);
