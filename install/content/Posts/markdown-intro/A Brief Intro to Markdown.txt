@@ -4,48 +4,75 @@ tags: markdown, formatting, tips
 
 [Markdown][md] is a lightweight markup language that lets you format your Lando content without any complicated tags like HTML. Created by [John Gruber][jg], it is intended to be "as easy-to-read and easy-to-write as is feasible".
 
-Here's a rundown of what you can do with Markdown. Open the text file for this post in your Dropbox to see how it's formatted.
-
----
-
+Basic Formatting
+----------------
 To create a paragraph, just use double line breaks.
 
 You can _emphasise_ text with single `*asterisks*` or `_underscores_` or make text **bold** by using `**two**`.
 
-There are two ways to create [hyperlinks](#): `[link text](http://the-url.com)` or with a `[reference][1]` and then the URL at the bottom of the document: `[1]: http://landocms.com`.
-
-Images can be inserted in similar ways but prefixed with an exclamation mark: `![Alt Text](image.jpg)` or `![Alt Text][1]` with the reference further down the document: `[1]: image.jpg`.
-
-Footnotes[^1] are done with references too, using `[^1]` and `[^1]: The footnote.`
-
-
 Headings
-========
+--------
+Level 1 and 2 headings are done by underlining with `===` or `---` respectively:
 
-Above is a level 1 heading underlined with `===`. Underline with `---` for a level 2 heading:
+    Heading 1
+    =========
 
-Smaller Heading
----------------
-You can create even smaller headings (up to level 6) using `### Heading 3 ###` (number of `#`s corresponds to heading level).
+    Heading 2
+    ---------
 
-Blockquotes are prefixed with `>` like in an email:
+You can create smaller headings (up to level 6) using `### Heading 3` (number of `#`s corresponds to heading level).
 
-> A long time ago in a galaxy far, far away...
+Links
+-----
+There are two ways to create [hyperlinks](#): `[link text](http://the-url.com)` or with a `[reference][1]` and then the URL later in the document: `[1]: http://landocms.com`.
 
-You can make a bulletted list with `*`, `-` or `+`:
+Images
+------
+Similar to links but prefixed with an exclamation mark: `![Alt Text](image.jpg)` or `![Alt Text][1]` with the reference further down the document: `[1]: image.jpg`.
+
+Footnotes
+---------
+Footnotes[^1] are done with references too, using `[^1]` and `[^1]: The footnote.` at the bottom of the document.
+
+Lists
+-----
+You can make a bulletted list by starting each line with `*`, `-` or `+`:
 
 * This
-* List
 - Has
 + Bullets
 
-Or a numbered list:
+Or a numbered list by starting with `1.`, `2.` etc:
 
 1. A New Hope
 2. The Empire Strikes Back
 3. Return Of The Jedi
 
-And you can break up sections with a horizontal rule using `---` or `***`:
+Quotes
+------
+Blockquotes are prefixed with `>` like in an email:
+
+> A long time ago in a galaxy far, far away...
+
+Tables
+------
+You can even use pipes and dashes to create tables, so:
+
+    Column 1      | Column 2
+    ------------- | -------------
+    Cell data     | Cell data
+    Cell data     | Cell data
+
+Becomes:
+
+Column 1      | Column 2
+------------- | -------------
+Cell data     | Cell data
+Cell data     | Cell data
+
+Section breaks
+--------------
+You can break up sections with a horizontal rule using `---` or `***`:
 
 ---
 

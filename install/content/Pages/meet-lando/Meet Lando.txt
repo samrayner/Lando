@@ -10,7 +10,7 @@ Lando was created by [Sam Rayner][sr]. For updates, visit [the dev blog][blog] o
 
 [db]: http://dropbox.com/
 [l]: http://landocms.com/
-[md]: http://daringfireball.net/projects/markdown/
+[md]: http://landocms.com/docs/markdown/
 [sr]: http://samrayner.com/
 [tw]: http://twitter.com/landocms
 [blog]: http://landocms.com/posts/

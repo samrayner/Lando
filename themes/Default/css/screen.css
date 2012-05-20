@@ -111,8 +111,11 @@ blockquote cite {
 blockquote cite::before {
   content: "\2014\00A0";
 }
-table tr:nth-child(even) {
+table tr:nth-child(odd) {
   background-color: rgba(0, 0, 0, 0.03);
+}
+table thead tr:nth-child(n) {
+  background: none;
 }
 table th {
   text-align: left;

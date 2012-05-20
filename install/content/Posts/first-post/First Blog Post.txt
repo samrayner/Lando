@@ -8,6 +8,6 @@ This post is formatted as [Markdown][md], but you can format your posts in [a nu
 Lando makes blogging easy. Enjoy!
 
 [meta]: landocms.com/docs/content/#pub-metadata
-[md]: http://daringfireball.net/projects/markdown/
+[md]: http://landocms.com/docs/markdown/
 [ff]: http://landocms.com/docs/content/#pub-parsing
 [admin]: /admin/
