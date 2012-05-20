@@ -420,6 +420,9 @@ input + .notify {
 .notify.collapsed a {
   visibility: hidden;
 }
+.notify:last-child {
+  margin-bottom: 0;
+}
 #top-buttons {
   position: absolute;
   right: 18px;
