@@ -158,11 +158,12 @@ class Dropbox extends Cloud_Host {
 			//if not renamed slug directory
 			if(!$latest) {
 				$new_meta = $this->API->metadata($full_path, true, $meta["hash"]);
-				$new_meta["modified"] = strtotime($meta["modified"]);
 
 				//if not "403 - not modified"
-				if($new_meta !== true)
+				if($new_meta !== true) {
+					$new_meta["modified"] = strtotime($new_meta["modified"]);
 					$latest = $new_meta;
+				}
 			}
 		}
 		catch(Exception $e) {
