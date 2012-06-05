@@ -105,9 +105,9 @@ class DropLib_Http extends DropLib_Base{
 	}
 	
 	/**
-	 * 
+	 * EDIT BY SAM RAYNER TO OPTIONALLY GET HEADERS
 	 */
-	public function fetch($url, $params = array(), $useToken = true, $file = null){
+	public function fetch($url, $params = array(), $useToken = true, $file = null, $getHeaders = false){
 		
 		$defaultParams = array(
 			'locale' => $this->locale	
@@ -154,15 +154,51 @@ class DropLib_Http extends DropLib_Base{
 		/**
 		 * Execute request and get response status code
 		 */
+
+		if($getHeaders)
+			curl_setopt($ch, CURLOPT_HEADER, true);
+
+		$fetched = array();
 		$response = curl_exec($ch);
-		$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+		if($getHeaders) {
+			list($header_text, $response) = explode("\r\n\r\n", $response, 2);
+			$headers = $this->list_headers($header_text);
+
+			$http_code = explode(" ", $headers["http_code"]);
+			$status = intval($http_code[1]);
+
+			$fetched['headers'] = $headers;
+		}
+		else {
+			$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		}
+
 		curl_close($ch);
-		
-		return array(
-			'response' => $response,
-			'status' => $status
-		);
+
+		$fetched['response'] = $response;
+		$fetched['status'] = $status;
+
+		return $fetched;
 	
+	}
+
+	/**
+	 * ADDED BY SAM RAYNER TO PARSE RESPONSE HEADERS TO ARRAY
+	 */
+	private function list_headers($header_text) {
+    $headers = array();
+
+    foreach (explode("\r\n", trim($header_text)) as $i => $line) {
+    	if ($i === 0)
+				$headers['http_code'] = trim($line);
+			else {
+				list($key, $value) = explode(': ', $line, 2);
+				$headers[$key] = trim($value);
+      }
+		}
+
+		return $headers;
 	}
 	
 }

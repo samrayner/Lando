@@ -301,6 +301,46 @@ class DropLib extends DropLib_Base{
 		return $this->decodeResponse($response);
 		
 	}
+
+	/**
+	 * ADDED BY SAM RAYNER
+	 * Get contents for specified file along with metadata
+	 *
+	 * @param String $path The path to the file you want to retrieve.
+	 * @param String $revision The revision of the file to retrieve. Defaults to the most recent revision.
+	 * @return Array Raw file contents and metadata
+	 * @throws DropLibException
+	 */
+	public function getFile($path, $revision = null){
+		
+		if(!$this->strParamSet($path)){
+			throw new DropLibException_InvalidArgument('Invalid or missing argument.');
+		}
+		
+		$params = array();
+		if($this->strParamSet($revision)){
+			$params['rev'] = $revision;
+		}
+		
+		$response = $this->Http->fetch(self::API_CONTENT_BASE . 'files/' . $this->root . '/' . $this->encodePath($path), $params, true);
+
+		$fetched = array(
+			"content" => $this->decodeResponse($response),
+			"metadata" => array()
+		);
+
+		if(isset($reponse["headers"]["x-dropbox-metadata"])) {
+			$metadata = array(
+				"response" => $reponse["headers"]["x-dropbox-metadata"],
+				"status" => $reponse["status"]
+			);
+
+			$fetched["metadata"] = $this->decodeResponse($metadata);
+		}
+
+		return $fetched;
+		
+	}
 	
 	/**
 	 * Upload a file to DropBox (max. 300MB)

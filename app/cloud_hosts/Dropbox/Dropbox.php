@@ -196,28 +196,20 @@ class Dropbox extends Cloud_Host {
 			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
 			
 			if($main_file) {
-				$file_meta = ($type == "snippet") ? $meta : $this->API->metadata($main_file);
+				$fetched = $this->API->getFile($main_file);
+				$file_meta = ($type == "snippet") ? $meta : $fetched["metadata"];
 	
 				$meta["file_path"] = $main_file;
 				$meta["title"] = filename_from_path($main_file);
 				$meta["extension"] = ext_from_path($main_file);
 				$meta["format"] = parent_key($this->config["parsers"], $meta["extension"]);
-				$meta["modified"] = strtotime($file_meta["modified"]);
-				
-				//if no cache or cached content out of date
-				if(!$Cache || $meta["modified"] > $Cache->modified) {
-					//download raw content
-					try {
-						$meta["raw_content"] = $this->API->download($main_file);
-					}
-					catch(Exception $e) {
-						$meta["raw_content"] = "";
-					}
-					
-					//scrape for manually set metadata and add
-					$meta["manual_metadata"] = $this->manual_meta($meta["raw_content"]);
-				}
-				
+
+				if(isset($file_meta["modified"]))
+					$meta["modified"] = strtotime($file_meta["modified"]);
+
+				$meta["raw_content"] = $fetched["content"];
+				//scrape for manually set metadata and add
+				$meta["manual_metadata"] = $this->manual_meta($meta["raw_content"]);
 				//apply manual metadata overrides
 				$meta = array_merge($meta, $meta["manual_metadata"]);
 			}
