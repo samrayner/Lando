@@ -50,7 +50,7 @@ switch(end($segs)) {
 				height *= 2;
 			}
 
-			document.write('<link rel="apple-touch-startup-image" href="images/splash-'+width+'x'+height+'.png"/>' );
+			document.write('<link rel="apple-touch-startup-image" href="img/splash-'+width+'x'+height+'.png"/>' );
 		})();
 	</script>
 
