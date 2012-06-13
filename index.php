@@ -57,7 +57,7 @@ elseif(preg_match('~^/([\w-]+)(?:/([\w-]+))+$~', $url, $matches)) {
 				if(include_exists($themeBase.$matches[2].".php"))
 					$template = $matches[2];
 				else
-					$template = "page";
+					$template = inheritedTemplate(path_segments(), $themeBase);
 		}
 	}
 }

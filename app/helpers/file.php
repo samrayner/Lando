@@ -70,3 +70,12 @@ function format_bytes($bytes, $unit="b") {
 	
 	return round($bytes/pow(2, $power), 2);
 }
+
+function inheritedTemplate($path_segs, $themeBase) {
+	for($i = sizeof($path_segs)-1; $i > 0; $i--) {
+		if(include_exists($themeBase.$path_segs[$i]."+.php"))
+			return $path_segs[$i]."+";
+	}
+	
+	return "page";
+}
