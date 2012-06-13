@@ -265,12 +265,21 @@ dd {
   font-family: georgia, "Times New Roman", times, serif;
   color: rgba(34, 34, 34, 0.7);
 }
+.page-nav {
+  clear: both;
+}
 .page-nav ul {
   list-style: none;
   margin-bottom: 0;
 }
 .page-nav .current > a {
   color: #222222;
+}
+.page-nav ul ul {
+  margin-left: 2em;
+}
+.page-nav li {
+  line-height: 1.5;
 }
 /* BREADCRUMBS
 ================================================== */
@@ -500,12 +509,6 @@ article .pubdate {
   #masthead .page-nav select {
     max-width: 100%;
   }
-  #masthead .page-nav ul ul {
-    margin-left: 2em;
-  }
-  #masthead .page-nav li {
-    line-height: 1.5;
-  }
   /* BLOG POSTS
   ================================================== */
   article footer {
@@ -589,17 +592,17 @@ article .pubdate {
     border-bottom-width: 1px;
     box-shadow: 10px 0 15px rgba(0, 0, 0, 0.1);
   }
-  .page-nav a,
-  .page-nav li ul ul::before {
+  #masthead .page-nav a,
+  #masthead .page-nav li ul ul::before {
     line-height: 2;
   }
-  .page-nav a {
+  #masthead .page-nav a {
     text-decoration: none;
     color: #8c150c;
   }
-  .page-nav > ul > li:hover > a,
-  .page-nav > ul > li:focus > a,
-  .page-nav > ul > li.current > a {
+  #masthead .page-nav > ul > li:hover > a,
+  #masthead .page-nav > ul > li:focus > a,
+  #masthead .page-nav > ul > li.current > a {
     background-color: #fcfcfc;
     background-image: -ms-linear-gradient(bottom, #fcfcfc 0%, #ffffff 100%);
     background-image: -o-linear-gradient(bottom, #fcfcfc 0%, #ffffff 100%);
@@ -607,8 +610,8 @@ article .pubdate {
     background-image: -webkit-linear-gradient(bottom, #fcfcfc 0%, #ffffff 100%);
     background-image: linear-gradient(to top, #fcfcfc 0%, #ffffff 100%);
   }
-  .page-nav > ul > li.parent:hover > a,
-  .page-nav li ul {
+  #masthead .page-nav > ul > li.parent:hover > a,
+  #masthead .page-nav li ul {
     background-color: white;
     background-image: -ms-linear-gradient(bottom, #ffffff 0%, #ffffff 100%);
     background-image: -o-linear-gradient(bottom, #ffffff 0%, #ffffff 100%);
@@ -616,50 +619,50 @@ article .pubdate {
     background-image: -webkit-linear-gradient(bottom, #ffffff 0%, #ffffff 100%);
     background-image: linear-gradient(to top, #ffffff 0%, #ffffff 100%);
   }
-  .page-nav > ul > li {
+  #masthead .page-nav > ul > li {
     position: relative;
     float: left;
   }
-  .page-nav > ul > li:last-child > a {
+  #masthead .page-nav > ul > li:last-child > a {
     border-right-width: 1px;
   }
-  .page-nav > ul > li > a {
+  #masthead .page-nav > ul > li > a {
     line-height: 2.4;
     display: inline-block;
     padding: 0 1em;
     border-left-width: 1px;
   }
-  .page-nav > ul > li:hover > a,
-  .page-nav > ul > li:focus > a {
+  #masthead .page-nav > ul > li:hover > a,
+  #masthead .page-nav > ul > li:focus > a {
     position: relative;
     z-index: 3;
   }
-  .page-nav > ul > li:hover > a,
-  .page-nav > ul > li:focus > a,
-  .page-nav > ul > li.current > a {
+  #masthead .page-nav > ul > li:hover > a,
+  #masthead .page-nav > ul > li:focus > a,
+  #masthead .page-nav > ul > li.current > a {
     box-shadow: 10px -2px 10px -2px rgba(0, 0, 0, 0.03), -10px -2px 10px -2px rgba(0, 0, 0, 0.03);
   }
-  .page-nav li li {
+  #masthead .page-nav li li {
     position: relative;
     white-space: nowrap;
     text-shadow: 1px 1px 0 #ffffff;
   }
-  .page-nav li li:hover {
+  #masthead .page-nav li li:hover {
     background-color: rgba(140, 21, 12, 0.050000000000000044);
   }
-  .page-nav li li a {
+  #masthead .page-nav li li a {
     display: block;
     position: relative;
     z-index: 1;
     padding: 0 2em 0 1em;
   }
-  .page-nav li li.parent > a::after {
+  #masthead .page-nav li li.parent > a::after {
     position: absolute;
     right: 0.5em;
     content: "\25B8";
     color: rgba(0, 0, 0, 0.3);
   }
-  .page-nav li ul {
+  #masthead .page-nav li ul {
     display: none;
     position: absolute;
     z-index: 2;
@@ -667,14 +670,14 @@ article .pubdate {
     border-width: 1px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
   }
-  .page-nav li ul ul {
+  #masthead .page-nav li ul ul {
     top: 0;
     left: 100%;
   }
-  .page-nav li:hover > ul {
+  #masthead .page-nav li:hover > ul {
     display: block;
   }
-  .page-nav select {
+  #masthead .page-nav select {
     margin-top: 1.5em;
   }
   /* BLOG POSTS

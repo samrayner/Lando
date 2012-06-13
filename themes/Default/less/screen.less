@@ -298,6 +298,8 @@ dd {
 }
 
 .page-nav {
+	clear: both;
+	
 	ul {
 		list-style: none;
 		margin-bottom: 0;
@@ -305,6 +307,14 @@ dd {
 
 	.current > a {
 		color: @textColor;
+	}
+	
+	ul ul {
+		margin-left: 2em;
+	}
+	
+	li {
+		line-height: 1.5;
 	}
 }
 
