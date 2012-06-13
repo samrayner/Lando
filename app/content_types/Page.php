@@ -7,6 +7,10 @@ class Page extends Publishable {
 	public function subpages() {
 		return $this->subpages;
 	}
+	
+	public function subpage($n=1) {
+		return isset($this->subpages[$n-1]) ? $this->subpages[$n-1] : false;
+	}
 
 	public function parents() {
 		$slugs = explode("/", trim_slashes($this->permalink));
@@ -41,5 +45,27 @@ class Page extends Publishable {
 		$parents = array_reverse($this->parents());
 
 		return isset($parents[$n-1]) ? $parents[$n-1] : false;
+	}
+	
+	public function siblings() {
+		$Parent = $this->parent();
+	
+		if(!$Parent) {
+			global $Lando;
+			return $Lando->get_content("pages");
+		}
+	
+		return $Parent->subpages();
+	}
+	
+	public function sibling($offset) {
+		$all = $this->siblings();
+
+		$index = array_search($this, $all);
+
+		if(!isset($all[$index+$offset]))
+			return false;
+		
+		return $all[$index+$offset];
 	}
 }

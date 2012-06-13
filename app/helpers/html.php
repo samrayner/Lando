@@ -23,7 +23,7 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 	$active_class = "current";
 	$parent_class = "parent";
 	
-	$url = current_path();
+	$current = current_path();
 	$tabs = str_repeat("\t", sizeof($path)*2);
 
 	$html = "$tabs<ul>\n";
@@ -40,10 +40,10 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 		if(!isset($active["_hidden"]) || $active["_hidden"] == false) {
 			$path_str = "/".implode("/", $path)."/";
 			
-			if($url == "/")
-				$url = "/home/";
+			if($current == "/")
+				$current = "/home/";
 			
-			$active = (strpos($url, rtrim($path_str, "/")) === 0);
+			$active = (strpos($current, rtrim($path_str, "/")) === 0);
 			$subpages = $Page->subpages();
 	
 			$html .= "$tabs\t<li";
@@ -71,6 +71,25 @@ function page_nav($blog_text="Blog", $pages=null, $path=array()) {
 	}
 
 	$html .= "$tabs</ul>\n";
+	
+	return $html;
+}
+
+function relative_page_nav($path=null) {
+	if(!$path)
+		$path = current_path();
+
+	$Page = page($path);
+
+	if(!$Page)
+		return false;
+	
+	$parents = explode("/", trim_slashes($Page->permalink));
+	array_pop($parents);
+	
+	$html = '<nav class="page-nav">'."\n";
+	$html .= page_nav("", $Page->siblings(), $parents);
+	$html .= '</nav>';
 	
 	return $html;
 }

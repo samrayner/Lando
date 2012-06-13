@@ -1,7 +1,7 @@
 <?php
 
 class Blog_Item extends Publishable {
-	private function sibling($offset) {
+	public function sibling($offset) {
 		global $Lando;
 
 		$root = strtolower(get_called_class())."s";
@@ -13,13 +13,5 @@ class Blog_Item extends Publishable {
 			return false;
 		
 		return $all[$index+$offset];
-	}
-
-	public function next() {
-		return $this->sibling(-1);
-	}
-
-	public function previous() {
-		return $this->sibling(+1);
 	}
 }

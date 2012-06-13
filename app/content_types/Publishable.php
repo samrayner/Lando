@@ -30,4 +30,12 @@ class Publishable extends Text {
 	public function published($format="U") {
 		return date($format, $this->published);
 	}
+	
+	public function next() {
+		return $this->sibling(-1);
+	}
+
+	public function previous() {
+		return $this->sibling(+1);
+	}
 }
