@@ -143,7 +143,7 @@ class Dropbox extends Cloud_Host {
 			$path = $this->sanitize_path($path);
 			
 			//if slug has changed
-			if($path != $old_path) {
+			if(strcasecmp($path, $old_path) != 0) {
 				$latest = $this->move($old_path, $path, 5);
 
 				//if failed to rename because of conflicts

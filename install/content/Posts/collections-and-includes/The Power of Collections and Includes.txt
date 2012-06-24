@@ -1,7 +1,7 @@
 published: 3 March 2012 3pm
 tags: star wars, photos, food
 
-You can easily create galleries and slideshows from files in _/Collections_. Just drop an include into a page, post, draft or snippet with code like `\{{gallery "Collection Title"}}`.
+You can easily create galleries and slideshows from files in _/Collections_. Just drop an _include_ into a page, post, draft or snippet with code like `\{{gallery "Collection Title"}}`.
 
 {{gallery "Star Wars Treats"}}
 

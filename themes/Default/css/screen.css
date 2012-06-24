@@ -40,9 +40,11 @@ body {
   font: 1em/1.4 "Helvetica Neue", helvetica, arial, sans-serif;
   background-color: #fcfcfc;
 }
+a {
+  text-decoration: underline;
+}
 a:link {
   color: #8c150c;
-  text-decoration: none;
 }
 a:visited,
 a:active {
@@ -50,7 +52,7 @@ a:active {
 }
 a:hover,
 a:focus {
-  color: #811f17;
+  color: #b1251a;
   text-decoration: underline;
 }
 ul,
