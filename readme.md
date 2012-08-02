@@ -7,9 +7,15 @@ Lando is a new kind of CMS that lets you manage your website in The Cloud. Just 
 ---
 
 
+Requirements
+------------
+1. A server running PHP 5.3+
+2. The [cURL PHP library][curl] installed
+3. A [Dropbox][db] account
+
+
 Installation
 ------------
-
 1. Download the Lando ZIP archive.
 2. Extract the contents of the ZIP and upload to your server.
 3. Visit your website (at the path where you installed Lando).
@@ -18,7 +24,6 @@ Installation
 
 To update from a previous version
 ---------------------------------
-
 1. Backup your /app/config/ folder, and any custom theme folders from /themes/.
 2. Also backup any custom parsers from /app/parsers/ and your .htaccess file if necessary.
 3. Download the latest version of Lando.
@@ -35,3 +40,5 @@ Read the full documentation at <http://landocms.com/docs/>
 If you find a bug or have a feature request, please [file an issue][1].
 
 [1]: https://github.com/samrayner/Lando/issues
+[curl]: http://uk3.php.net/curl
+[db]: http://dropbox.com
