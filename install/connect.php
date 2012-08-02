@@ -29,8 +29,10 @@ $config = array(
  
 $saved = 0;
 
-if(empty($_POST))
+if(empty($_POST)) {
 	header("Location: $base_url/install/");
+	exit;
+}
 
 foreach($config as $key => $val) {
 	if(isset($_POST[$key]) && trim($_POST[$key]) !== "") {

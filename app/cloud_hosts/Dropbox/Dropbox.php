@@ -124,7 +124,8 @@ class Dropbox extends Cloud_Host {
 	
 	public function get_single($path, $Cache=null) {
 		$path = trim_slashes($path);
-		$type = array_shift(explode("/", $path));
+		$exploded_path = explode("/", $path);
+		$type = array_shift($exploded_path);
 		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
 		
 		//prevent access to misc and hidden folders

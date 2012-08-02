@@ -156,7 +156,8 @@ class Model {
 	
 	public function get_single($path, $max_age=86400) {
 		$cache_path = $path = trim_slashes($path);
-		$type = array_shift(explode("/", $path));
+		$exploded_path = explode("/", $path);
+		$type = array_shift($exploded_path);
 		
 		if($type == "pages")
 			$cache_path .= "/page";
