@@ -55,7 +55,7 @@ if(is_dir("$doc_root/app/config"))
 $config_folder = @mkdir("$doc_root/app/config");
 
 if(!$config_folder)
-	system_error("Config Not Saved", "Could not create config folder. Please create <em>/app/config</em>, set its permission to <strong>755</strong> and try to install again.");
+	system_error("Config Not Saved", "Could not create config folder. Please set permissions for <em>/app</em> to <strong>777</strong> and try to install again.");
 
 $config_file = @file_put_contents("$doc_root/app/config/config.php", "<?php\n\n".'$config = '.var_export($config, true).";");
 
