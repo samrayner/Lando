@@ -18,8 +18,10 @@ Installation
 ------------
 1. Download the Lando ZIP archive.
 2. Extract the contents of the ZIP and upload to your server.
-3. Visit your website (at the path where you installed Lando).
-4. Follow the installation wizard!
+3. Set the permissions of /app (as well as /app/config & /app/cache if they exist) to 777.
+4. Set the permissions of /install and everything in it to 777.
+5. Visit your website (at the path where you installed Lando).
+6. Follow the installation wizard.
 
 
 To update from a previous version
