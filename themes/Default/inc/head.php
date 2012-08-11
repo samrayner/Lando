@@ -36,7 +36,7 @@
 	
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="<?php echo $theme_dir ?>js/jquery-1.7.1.min.js"><\/script>');</script>
+  <script>window.jQuery || document.write('<script src="<?php echo $theme_dir ?>/js/jquery-1.7.1.min.js"><\/script>');</script>
 
 	<script src="<?php echo $theme_dir ?>/js/min/global-min.js"></script>
 	
@@ -80,4 +80,4 @@
 </head>
 <body id="<?php echo str_replace("_", "-", $template) ?>">
 
-<? include_once "admin_links.php" ?>
+<?php include "admin_links.php" ?>

@@ -1,4 +1,4 @@
-<? if(admin_cookie()): ?>
+<?php if(admin_cookie()): ?>
 
 <div id="admin-links">
 	<?php if(preg_match('~^(posts|drafts)~', $template, $types)): ?>
