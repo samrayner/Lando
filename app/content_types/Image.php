@@ -25,8 +25,7 @@ class Image extends File {
 	
 	public function thumb_html($size="128", $link=true) {
 		global $Lando;
-		$rel_path = str_replace($Lando->config["host_root"], "", $this->path);
-		$Thumb = $Lando->get_file($rel_path, $size);
+		$Thumb = $Lando->get_file($this->path, $size);
 		
 		if(!$Thumb)
 			return false;

@@ -97,7 +97,9 @@ class Dropbox extends Cloud_Host {
 		if(!$match)
 			return false;
 		
-		return end($match);
+		$file_path = end($match);
+		
+		return $this->strip_root($file_path);
 	}
 	
 	public function dir_contents($path, $dirs_only=true) {
@@ -152,23 +154,21 @@ class Dropbox extends Cloud_Host {
 					return false;
 			}
 		}
-		
-		$full_path = $this->config["host_root"]."/$path";
 
-		try {
-			//if not renamed slug directory
-			if(!$latest) {
-				$new_meta = $this->API->metadata($full_path, true, $meta["hash"]);
-
+		//if not renamed slug directory
+		if(!$latest) {
+			try {
+				$new_meta = $this->API->metadata($this->config["host_root"]."/$path", true, $meta["hash"]);
+	
 				//if not "403 - not modified"
 				if($new_meta !== true) {
 					$new_meta["modified"] = strtotime($new_meta["modified"]);
 					$latest = $new_meta;
 				}
 			}
-		}
-		catch(Exception $e) {
-			return false;
+			catch(Exception $e) {
+				return false;
+			}
 		}
 		
 		if(isset($latest["is_deleted"]) && $latest["is_deleted"])
@@ -176,6 +176,9 @@ class Dropbox extends Cloud_Host {
 		
 		//update cache with latest metadata if exists
 		$meta = array_merge($meta, $latest);
+		
+		//strip host root prefix if present
+		$meta["path"] = $this->strip_root($meta["path"]);
 		
 		$meta["published"] = $meta["modified"];
 		$meta["created"] = $meta["modified"];
@@ -194,10 +197,10 @@ class Dropbox extends Cloud_Host {
 			
 			$meta["permalink"] = $permalink;
 		
-			$main_file = ($type == "snippet") ? $full_path : $this->get_file_path($meta);
+			$main_file = ($type == "snippet") ? $path : $this->get_file_path($meta);
 			
 			if($main_file) {
-				$fetched = $this->API->getFile($main_file);
+				$fetched = $this->API->getFile($this->config["host_root"]."/$main_file");
 				$file_meta = ($type == "snippet") ? $meta : $fetched["metadata"];
 	
 				$meta["file_path"] = $main_file;
@@ -278,13 +281,16 @@ class Dropbox extends Cloud_Host {
 	}
 	
 	private function process_file($file) {
+		$full_path = $file["path"];
+	
+		$file["path"] = $this->strip_root($full_path);
 		$file["modified"] = strtotime($file["modified"]);
 		$file["title"] = filename_from_path($file["path"]);
 		$file["extension"] = ext_from_path($file["path"]);
 		$file["order"] = $this->extract_order($file["title"]);
 		
 		try {
-			$media = $this->API->media($file["path"]);
+			$media = $this->API->media($full_path);
 			$file["url"] = $file["original_url"] = $media["url"];
 		}
 		catch(Exception $e) {}

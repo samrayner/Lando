@@ -145,10 +145,7 @@ class Text extends File {
 		//parse to HTML using appropriate parser
 		$content = $this->to_html($content);
 		
-		//make path relative to content root
-		$rel_path = str_ireplace($Lando->config["host_root"], "", $this->path);
-		
-		$content = $this->resolve_media_srcs($content, $rel_path);
+		$content = $this->resolve_media_srcs($content, $this->path);
 		
 		if($Lando->config["smartypants"] && function_exists("SmartyPants"))
 			$content = SmartyPants($content);

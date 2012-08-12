@@ -7,6 +7,10 @@ abstract class Cloud_Host {
 		$this->config = $config;
 	}
 	
+	protected function strip_root($path) {
+		return preg_replace('~^'.$this->config["host_root"].'/~i', "", $path);
+	}
+	
 	protected function sanitize_path($path) {
 		$new_path = explode("/", $path);
 		$new_path[sizeof($new_path)-1] = str_to_slug(end($new_path));
