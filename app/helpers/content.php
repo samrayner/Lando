@@ -140,3 +140,20 @@ function get_file($path, $thumb_size=false) {
 	global $Lando;
 	return $Lando->get_file($path, $thumb_size);
 }
+
+function tags($items = null) {
+	if(!$items)
+		$items = posts();
+
+	$all_tags = array();
+	
+	foreach($items as $Item) {
+		if($item_tags = $Item->metadata("tags"))
+			$all_tags = array_merge($all_tags, $item_tags);
+	}
+	
+	$tag_counts = array_count_values(array_map("strtolower", $all_tags));
+	ksort($tag_counts);
+	
+	return $tag_counts;
+}
