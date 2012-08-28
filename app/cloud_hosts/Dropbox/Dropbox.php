@@ -130,6 +130,8 @@ class Dropbox extends Cloud_Host {
 		$type = array_shift($exploded_path);
 		$type_class = ucfirst(substr($type, 0, -1)); //from lowercase plural
 		
+		$publishable = in_array($type, array("pages","posts","drafts"));
+		
 		//prevent access to misc and hidden folders
 		if(!class_exists($type_class) || strpos($path, "/_") !== false)
 			return false;
@@ -141,7 +143,7 @@ class Dropbox extends Cloud_Host {
 
 		$latest = array();
 		
-		if(in_array($type, array("pages","posts","drafts"))) {
+		if($publishable) {
 			$old_path = $path;
 			$path = $this->sanitize_path($path);
 			
@@ -196,6 +198,16 @@ class Dropbox extends Cloud_Host {
 			}
 			
 			$meta["permalink"] = $permalink;
+			
+			if($publishable) {
+				try {
+					$custom_css = $this->API->getFile($this->config["host_root"]."/$path/style.css");
+					$meta["css"] = $custom_css["content"];
+				}
+				catch(Exception $e) {
+					//no custom CSS file, move along
+				}
+			}
 		
 			$main_file = ($type == "snippet") ? $path : $this->get_file_path($meta);
 			

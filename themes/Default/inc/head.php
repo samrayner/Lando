@@ -28,6 +28,9 @@
 	<!-- Highlight styles -->
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/highlight.css" media="screen" />
 	
+	<!-- Custom styles if style.css file exists alongside current content -->
+	<?php if($Current->css()) echo '<style>'.$Current->css().'</style>' ?>
+	
 	<!--[if lte IE 8]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
