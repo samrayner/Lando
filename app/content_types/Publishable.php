@@ -5,6 +5,7 @@ class Publishable extends Text {
 	public $file_path;
 	public $permalink;
 	public $published;
+	public $css;
 	
 	//get functions
 	
@@ -37,5 +38,9 @@ class Publishable extends Text {
 
 	public function previous() {
 		return $this->sibling(+1);
+	}
+	
+	public function css() {
+		return $this->css;
 	}
 }
