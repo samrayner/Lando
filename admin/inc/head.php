@@ -29,6 +29,9 @@ switch(end($segs)) {
 
 	<link rel="stylesheet" href="css/admin.css" />
 
+	<link rel="icon" href="img/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png">
+
 	<script>
 		(function () {
 			var width = 320; //default to non-retina iPhone
