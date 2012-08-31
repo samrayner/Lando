@@ -48,6 +48,10 @@ class Text extends File {
 		$args_str = str_ireplace($func, "", $str);
 		$allowed_funcs = array("snippet", "gallery", "slideshow", "collection");
 		
+		global $Lando;
+		if(isset($Lando->config["custom_include_functions"]))
+			$allowed_funcs = array_merge($allowed_funcs, $Lando->config["custom_include_functions"]);
+		
 		if(!in_array($func, $allowed_funcs) || !function_exists($func))
 			return $str;
 		

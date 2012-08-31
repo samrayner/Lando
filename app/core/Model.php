@@ -78,7 +78,7 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=14000) {
+	public function get_all($path, $max_age=14400) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
@@ -198,7 +198,7 @@ class Model {
 		return in_array($ext, array("png", "gif")) ? "png" : "jpg";
 	}
 	
-	public function get_file($path, $thumb_size, $max_age=14000) {
+	public function get_file($path, $thumb_size, $max_age=14400) {
 		$path = trim_slashes($path);
 		$cache_path = "files/".$path;
 		

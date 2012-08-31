@@ -204,5 +204,18 @@ class Controller {
 	public function get_all_fresh($type) {
 		return $this->Model->get_all($type, 0);
 	}
+		
+	public function register_include_functions($functions) {
+		if(!is_array($functions))
+			$functions = array($functions);
+		
+		if(!isset($this->config["custom_include_functions"]))
+			$this->config["custom_include_functions"] = array();
+		
+		foreach($functions as $function) {
+			if(gettype($function) == "string")
+				$this->config["custom_include_functions"][] = $function;
+		}
+	}
 }
 
