@@ -12,9 +12,9 @@ include "$doc_root/admin/inc/auth.php";
 $valid_types = array("collections", "snippets", "pages", "posts", "drafts");
 
 //if no types set, recache all
-$types = isset($_GET["type"]) ? array_map("trim", explode(",", $_GET["type"])) : $valid_types;
+$types = isset($_REQUEST["type"]) ? array_map("trim", explode(",", $_REQUEST["type"])) : $valid_types;
 
-$delete_first = isset($_GET["delete"]) ? $_GET["delete"] : true;
+$delete_first = isset($_REQUEST["delete"]) ? $_REQUEST["delete"] : true;
 
 foreach($types as $type) {
 	if(in_array($type, $valid_types)) {
