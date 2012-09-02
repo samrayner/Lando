@@ -78,7 +78,7 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=14400) {
+	public function get_all($path, $max_age=15000) {
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];

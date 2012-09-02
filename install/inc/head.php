@@ -10,6 +10,9 @@
 	
 	<title>Install Lando</title>
 
+	<link rel="icon" href="../admin/img/favicon.png" />
+	<link rel="apple-touch-icon-precomposed" href="../admin/img/apple-touch-icon-precomposed.png">
+
 	<link rel="stylesheet" href="../admin/css/admin.css" />
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
