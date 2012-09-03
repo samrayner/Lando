@@ -78,8 +78,8 @@ class Model {
 		return array_merge($sorted, $pages);
 	}
 	
-	public function get_all($path, $max_age=15000) {
-		if(!$this->config["auto_update"])
+	public function get_all($path, $max_age=3600) {
+		if($max_age > 0 && !$this->config["auto_update"])
 			$max_age = -1;
 	
 		$path = trim_slashes($path);
@@ -103,7 +103,7 @@ class Model {
     $same_load = 2;
     
 		//Update cached list if:
-		//a) 	Folder has only just been created so may not be not complete OR
+		//a) 	Folder has only just been created so may not be complete OR
 		//b) 	i) Cache is older than max age (default 1 hour) AND
 		//		ii)There hasn't been another cache on this page load
 		$should_cache = $age < $same_load || ($max_age >= 0 && $age > $max_age &&

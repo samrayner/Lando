@@ -30,7 +30,7 @@ if(isset($_GET["uid"])) {
 	$token_saved = @file_put_contents("$doc_root/app/config/{$config["host"]}.php", "<?php\n\n".'$oauth = '.var_export($oauth, true).";");
 
 	if(!$token_saved)
-		system_error("oAuth Token Not Saved", "Could not save oAuth token. Please set permissions for <em>/app/config</em> and the files in it to <strong>755</strong> and try to install again.");
+		system_error("oAuth Token Not Saved", "Could not save oAuth token. Please set permissions for <em>/app/config</em> and the files in it to <strong>777</strong> and try to install again.");
 }
 ?>
 
