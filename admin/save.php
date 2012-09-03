@@ -20,6 +20,7 @@ $fields = array(
 	"pretty_urls",
 	"host",
 	"host_root",
+	"auto_update",
 	"theme",
 	"smartypants",
 	"page_order"
@@ -40,6 +41,7 @@ if(sizeof($_POST) > 0) {
 					break;
 				case "pretty_urls":
 				case "smartypants":
+				case "auto_update":
 					$new_config[$field] = 0;
 					break;
 				case "host_root":

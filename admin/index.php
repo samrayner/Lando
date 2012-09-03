@@ -158,6 +158,11 @@ function nav_widget($pages=null, $path=array()) {
 			<input type="text" id="host_root" name="host_root" <?php set_field_state("host_root"); ?> />
 		</div>
 		
+		<div>
+			<label for="auto_update">Auto-update content periodically (slows page load times)</label>
+			<input id="auto_update" name="auto_update" type="checkbox" value="1" <?php set_field_state("auto_update", "checked"); ?> />
+		</div>
+		
 		<div id="recache">
 			<a id="recache-button" class="button icon-repeat" href="#">Recreate content from files</a>
 		</div>

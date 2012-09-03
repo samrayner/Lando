@@ -301,20 +301,20 @@ class Dropbox extends Cloud_Host {
 		$file["extension"] = ext_from_path($file["path"]);
 		$file["order"] = $this->extract_order($file["title"]);
 		
-		try {
-			$media = $this->API->media($full_path);
-			$file["url"] = $file["original_url"] = $media["url"];
-		}
-		catch(Exception $e) {}
-		
 		if(strpos($file["mime_type"], "image") !== false) {
 			//$dims = $this->extract_dimensions($file["title"]);
 			//$file = array_merge($file, $dims);
-			
 			$file = new Image($file);
 		}
-		else
+		else {
+			try {
+				$media = $this->API->media($full_path);
+				$file["url"] = $media["url"];
+			}
+			catch(Exception $e) {}
+		
 			$file = new File($file);
+		}
 			
 		return $file;
 	}

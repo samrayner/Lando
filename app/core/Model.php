@@ -79,6 +79,9 @@ class Model {
 	}
 	
 	public function get_all($path, $max_age=15000) {
+		if(!$this->config["auto_update"])
+			$max_age = -1;
+	
 		$path = trim_slashes($path);
 		$path_segs = explode("/", trim_slashes($path));
 		$type = $path_segs[0];
@@ -155,6 +158,9 @@ class Model {
 	}
 	
 	public function get_single($path, $max_age=86400) {
+		if(!$this->config["auto_update"])
+			$max_age = -1;
+	
 		$cache_path = $path = trim_slashes($path);
 		$exploded_path = explode("/", $path);
 		$type = array_shift($exploded_path);
@@ -203,12 +209,19 @@ class Model {
 		$cache_path = "files/".$path;
 		
 		$Item = $this->Cache->get_single($cache_path);
+		
+		$is_image = ($Item && get_class($Item) == "Image");
+		
+		//respect auto-update setting for image but not files
+		//due to media link expiration (images are cached, files aren't)
+		if($is_image && !$this->config["auto_update"])
+			$max_age = -1;
 
 		$cached_mod = $Item ? $Item->modified : 0;
 		
 		//Update cache if:
 		//a) 	Thumb doesn't exist in cache yet OR
-		//b) 	i)	Cache is older than max age (default 3.8 hours - media link expiration)
+		//b) 	i)	Cache is older than max age
 		//		ii) Recache limit hasn't been exceeded yet
 		$should_cache = !$Item || 
 										(($max_age >= 0 && $this->Cache->age($cache_path) > $max_age) && 
@@ -227,7 +240,7 @@ class Model {
 		$updated_mod = $Item ? $Item->modified : 0;
 		
 		//if image, try to cache the file
-		if($Item && get_class($Item) == "Image") {
+		if($is_image) {
 			if($thumb_size) {
 				$Item->extension = $this->get_thumb_ext($path);
 				$cache_path = preg_replace('~\.\w+$~', ".$thumb_size.".$Item->extension, $cache_path);

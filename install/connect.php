@@ -21,6 +21,7 @@ $config = array(
 	"site_root" 				=> $base_url,
 	"host" 							=> "Dropbox",
 	"host_root"					=> "/Lando",
+	"auto_update"				=> 0,
 	"pretty_urls" 			=> 0,
 	"theme"							=> $default_theme,
 	"smartypants"				=> 1,
