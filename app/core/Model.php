@@ -204,17 +204,19 @@ class Model {
 		return in_array($ext, array("png", "gif")) ? "png" : "jpg";
 	}
 	
+	private function is_image(&$Item) {
+		return ($Item && get_class($Item) == "Image");
+	}
+	
 	public function get_file($path, $thumb_size, $max_age=14400) {
 		$path = trim_slashes($path);
 		$cache_path = "files/".$path;
 		
 		$Item = $this->Cache->get_single($cache_path);
 		
-		$is_image = ($Item && get_class($Item) == "Image");
-		
 		//respect auto-update setting for image but not files
 		//due to media link expiration (images are cached, files aren't)
-		if($is_image && !$this->config["auto_update"])
+		if($this->is_image($Item) && !$this->config["auto_update"])
 			$max_age = -1;
 
 		$cached_mod = $Item ? $Item->modified : 0;
@@ -240,7 +242,7 @@ class Model {
 		$updated_mod = $Item ? $Item->modified : 0;
 		
 		//if image, try to cache the file
-		if($is_image) {
+		if($this->is_image($Item)) {
 			if($thumb_size) {
 				$Item->extension = $this->get_thumb_ext($path);
 				$cache_path = preg_replace('~\.\w+$~', ".$thumb_size.".$Item->extension, $cache_path);
