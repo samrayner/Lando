@@ -12,12 +12,12 @@
 	
 	<?php if(path_segment(1) == "drafts") echo '<meta name="robots" content="noindex, nofollow" />' ?>
 	
-	<title><?php if($Current->title() != "Untitled") echo $Current->title()." - " ?><?php echo $site_title ?></title>
+	<title><?php if(preg_match('~^(Home|Untitled)$~', $Current->title()) == 0) echo $Current->title()." - " ?><?php echo $site_title ?></title>
 	
 	<link rel="alternate" type="application/rss+xml" title="<?php echo $site_title ?>" href="<?php echo $site_root ?>/rss/" />
 
 	<!-- You can override the Lando favicon for your theme here -->
-	<!-- <link rel="icon" href="" /> -->
+	<!-- <link rel="icon" href="favicon.png" /> -->
 
 	<!-- Default styles -->
 	<link rel="stylesheet" href="<?php echo $theme_dir ?>/css/screen.css" media="screen" />
