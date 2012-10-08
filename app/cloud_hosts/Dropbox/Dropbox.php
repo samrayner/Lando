@@ -216,7 +216,7 @@ class Dropbox extends Cloud_Host {
 				$file_meta = ($type == "snippet") ? $meta : $fetched["metadata"];
 	
 				$meta["file_path"] = $main_file;
-				$meta["title"] = filename_from_path($main_file);
+				$meta["title"] = preg_replace('~^!~', "", filename_from_path($main_file));
 				$meta["extension"] = ext_from_path($main_file);
 				$meta["format"] = parent_key($this->config["parsers"], $meta["extension"]);
 
