@@ -37,6 +37,18 @@ class Dropbox extends Cloud_Host {
 	public function upload($path, $file, $overwrite=true) {
 		return $this->API->upload($path, $file, $overwrite);
 	}
+	
+	public function get_share_url($path, $short_url=false) {
+		$path = $this->config["host_root"]."/".trim_slashes($path);
+		
+		try {
+			$response = $this->API->share($path, $short_url);
+			return $response["url"];
+		}
+		catch(Exception $e) {
+			return false;
+		}
+	}
 
 	public function move($old_path, $new_path, $attempt_limit) {
 		$old_path = $this->config["host_root"]."/".trim_slashes($old_path);

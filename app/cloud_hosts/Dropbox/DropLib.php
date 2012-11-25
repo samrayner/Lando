@@ -493,13 +493,17 @@ class DropLib extends DropLib_Base{
 	 * @return Array Associative Array. See documentation for examples.
 	 * @throws DropLibException
 	 */	
-	public function share($path){
+	public function share($path, $short_url=true){
 		
 		if(!$this->strParamSet($path)){
 			throw new DropLibException_InvalidArgument('Invalid or missing argument.');
 		}
 		
-		$response = $this->Http->fetch(self::API_BASE . 'shares/' . $this->root . '/' . $this->encodePath($path));
+		$params = array(
+			'short_url' => (int)$short_url
+		);
+		
+		$response = $this->Http->fetch(self::API_BASE . 'shares/' . $this->root . '/' . $this->encodePath($path), $params);
 		return $this->decodeResponse($response);
 		
 	}

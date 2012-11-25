@@ -371,4 +371,9 @@ class Model {
 
 		return basename($meta["path"]);
 	}
+	
+	public function get_share_url($path, $short_url=false) {
+		$this->connect_host();
+		return $this->Host->get_share_url($path, $short_url);
+	}
 }

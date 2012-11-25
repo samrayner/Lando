@@ -46,7 +46,7 @@ class Text extends File {
 	
 	private function process_include($str, $func) {
 		$args_str = str_ireplace($func, "", $str);
-		$allowed_funcs = array("snippet", "gallery", "slideshow", "collection");
+		$allowed_funcs = array("snippet", "gallery", "slideshow", "collection", "share", "url");
 		
 		global $Lando;
 		if(isset($Lando->config["custom_include_functions"]))
@@ -97,24 +97,7 @@ class Text extends File {
 
 				//if relative url
 				if(strpos($src, ":") === false) {
-					if(strpos($src, "/") === 0) {
-						$resolved = substr($src, 1); //resolve relative to site root
-					}
-					else {
-						$src_segs = explode("/", trim_slashes($src));
-						$dir_segs = explode("/", trim_slashes($dir));
-						
-						while(isset($src_segs[0]) && $src_segs[0] == "..") {
-							array_pop($dir_segs); //go up one dir
-							array_shift($src_segs); //move on to next segment
-						}
-						
-						$dir 			= implode("/", $dir_segs);
-						$resolved = implode("/", $src_segs);
-						$resolved = preg_replace('~^./~', '', $resolved);
-
-						$resolved = $dir."/$resolved"; //resolve to current dir
-					}
+					$resolved = resolve_path($src, $dir);
 
 					$new_src = $this->get_file_url($resolved);
 					

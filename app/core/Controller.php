@@ -204,6 +204,15 @@ class Controller {
 	public function get_all_fresh($type) {
 		return $this->Model->get_all($type, 0);
 	}
+	
+	public function get_share_url($path, $short_url=false) {
+		$path = resolve_path($path, $this->get_content_path());
+		return $this->Model->get_share_url($path, $short_url);
+	}
+	
+	public function get_download_url($path) {
+		return preg_replace('~://www.~', "://dl.", $this->get_share_url($path, false));
+	}
 		
 	public function register_include_functions($functions) {
 		if(!is_array($functions))

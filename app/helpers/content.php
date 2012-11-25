@@ -141,6 +141,27 @@ function get_file($path, $thumb_size=false) {
 	return $Lando->get_file($path, $thumb_size);
 }
 
+function share($file, $short=false) {
+	//extract if array of arguments passed
+	if(func_num_args() == 1) {
+		$arg1 = func_get_arg(0);
+		if(is_array($arg1))
+			extract($arg1);
+	}
+
+	//if args passed as array but no path
+	if(is_array($file))
+		return false;
+
+	global $Lando;
+	return $Lando->get_share_url($file, $short);
+}
+
+function url($path) {
+	global $Lando;
+	return $Lando->get_download_url($path);
+}
+
 function tags($items = null) {
 	if(!$items)
 		$items = posts();
