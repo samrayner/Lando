@@ -486,21 +486,20 @@ class DropLib extends DropLib_Base{
 
 	/**
 	 * Creates and returns a shareable link to files or folders.
-	 *
-	 * Note: Links created by the share() API call expire after thirty days.
 	 * 
 	 * @param String $path The path to the file you want a sharable link to.
+	 * @param Bool $short_url Shorten the share URL for the file with db.tt
 	 * @return Array Associative Array. See documentation for examples.
 	 * @throws DropLibException
 	 */	
-	public function share($path, $short_url=true){
+	public function share($path, $shortUrl=true){
 		
 		if(!$this->strParamSet($path)){
 			throw new DropLibException_InvalidArgument('Invalid or missing argument.');
 		}
 		
 		$params = array(
-			'short_url' => (int)$short_url
+			'short_url' => (int)$shortUrl
 		);
 		
 		$response = $this->Http->fetch(self::API_BASE . 'shares/' . $this->root . '/' . $this->encodePath($path), $params);
