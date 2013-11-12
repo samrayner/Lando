@@ -58,18 +58,20 @@
 					https://github.com/joelambert/Flux-Slider */
 			});
 			
-			//link images in the same gallery together
-			$(".gallery a").each(function(index) {
-				var offset = $(this).parent().offset();
-				var id = offset.top + offset.left;
-		    $(this).attr("rel", "prettyPhoto[" + id + "]")
-		  });
-			
-			$("a[rel^='prettyPhoto']").prettyPhoto({
-				/*There are loads of settings you can adjust here to personalise
-					your galleries. Consult the PrettyPhoto documentation at 
-					http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone */
-			});
+			if(window.matchMedia('screen and (max-width: 700px)').matches) {
+  			//link images in the same gallery together
+  			$(".gallery a").each(function(index) {
+  				var offset = $(this).parent().offset();
+  				var id = offset.top + offset.left;
+  		    $(this).attr("rel", "prettyPhoto[" + id + "]")
+  		  });
+  			
+  			$("a[rel^='prettyPhoto']").prettyPhoto({
+  				/*There are loads of settings you can adjust here to personalise
+  					your galleries. Consult the PrettyPhoto documentation at 
+  					http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone */
+  			});
+			}
 
 			//syntax highlight code blocks
 			$('pre code').each(
