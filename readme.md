@@ -1,6 +1,11 @@
 Lando
 =====
 
+**Sorry, Lando is no longer being actively developed. [Read more here.](http://landocms.com/posts/retiring-lando/)**
+
+---
+
+
 Lando is a new kind of CMS that lets you manage your website in The Cloud. Just save files in your Dropbox and they'll appear on your site!
 
 
